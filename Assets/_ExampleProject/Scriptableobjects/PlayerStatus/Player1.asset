@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd7ecb7829692344bd1f8c11cfd65fe, type: 3}
+  m_Name: Player1
+  m_EditorClassIdentifier: 
+  m_currentResources:
+    Health: 600
+    Meter: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+    Resource4: 0
+    Resource5: 0
+    Resource6: 0
+    Resource7: 0
+  m_stateTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_stopTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_currentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
+  m_currentFacing: -1
+  m_currentPosition:
+    x:
+      m_rawValue: -558684672
+    y:
+      m_rawValue: -17179869184
+  m_currentVelocity:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
+  m_calcVelocity:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
+  m_currentGravity:
+    m_rawValue: 4294967296
+  m_currentProration:
+    m_rawValue: 0
+  m_comboCount: 0
+  _inputRecorder:
+    _controllerState:
+      Input: 0
+      Flags: 0
+      HoldDuration: 0
+      LenientBuffer: 0
+    _previousControllerState:
+      Input: 0
+      Flags: 0
+      HoldDuration: 0
+      LenientBuffer: 0
+    _recordedChanges:
+    - Input: 0
+      Flags: 0
+      HoldDuration: 242
+      LenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 92
+      LenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 62
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 54
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 96
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 5
+      HoldDuration: 98
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 76
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 5
+      HoldDuration: 48
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 64
+      LenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 38
+      LenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 66
+      LenientBuffer: 0
+    - Input: 8
+      Flags: 5
+      HoldDuration: 54
+      LenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 36
+      LenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 48
+      LenientBuffer: 0
+    - Input: 64
+      Flags: 6
+      HoldDuration: 34
+      LenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 44
+      LenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 1232
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 12
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 474
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 5
+      HoldDuration: 188
+      LenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 1202
+      LenientBuffer: 0
+  m_checkState: 0

@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9567d0122b99c224cbf02ade5fac0263, type: 3}
+  m_Name: Hibiki
+  m_EditorClassIdentifier: 
+  _maxHp: 600
+  _mass:
+    m_rawValue: 4294967296
+  _friction:
+    m_rawValue: 4294967296
+  _walkAccel:
+    m_rawValue: 429496729600
+  _walkMaxSpd:
+    m_rawValue: 429496729600
+  _runAccel:
+    m_rawValue: 429496729600
+  _runMaxSpd:
+    m_rawValue: 429496729600
+  _fallMaxSpd:
+    m_rawValue: 429496729600
+  _stateList:
+  - {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
+  - {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
+  - {fileID: 11400000, guid: f35299342e97d984fb11155d0908426d, type: 2}
+  _moveList:
+  - _targetState: {fileID: 11400000, guid: f35299342e97d984fb11155d0908426d, type: 2}
+    _requiredInputs:
+    - Input: 256
+      Flags: 1
+      HoldDuration: 0
+      LenientBuffer: 0
+    - Input: 224
+      Flags: 1
+      HoldDuration: 0
+      LenientBuffer: 0
+    - Input: 7
+      Flags: 1
+      HoldDuration: 30
+      LenientBuffer: 0
+    _transitionEvents: 0
+    _requiredTransitionFlags: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
