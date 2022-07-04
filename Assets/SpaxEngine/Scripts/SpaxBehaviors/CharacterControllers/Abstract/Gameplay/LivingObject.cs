@@ -55,13 +55,21 @@ namespace FightingGameEngine.Gameplay
             //tick the state timer before anything else
             bool stateComplete = !this.status.StateTimer.TickTimer();
 
+            if (stateComplete)
+            {
+                //if the state is done, timer wise
+                //  add the state completed transition flag
+                this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.STATE_END;
+            }
+
+            if (this.status.CheckState)
+            {
+                //try to transition to a new state
+                this.TryTransitionState();
+            }
             //get the frame at this frame count, based on the timer's ticks + 1
             //the +1 is there so that we can have both at frame 0 to indicate an invalid item and for easy nomenclature for the designer
             int framesTicked = this.status.StateTimer.TimeElapsed + 1;
-
-            //process our current state's state conditions
-            StateConditions curCond = this.status.CurrentState.StateConditions;
-            this.ProcessStateConditions(curCond);
 
             //the frame at the number or frames ticked
             FrameData frameAt = this.status.CurrentState.GetFrameAt(framesTicked);
@@ -75,12 +83,19 @@ namespace FightingGameEngine.Gameplay
 
         }
 
+        //prep the rigidbody to be updated, make sure it's got the right velocity etc.
         protected override void SpaxUpdate()
         {
             //if we're in hitstop, we con't want to assign velocity
             if (this.status.InHitstop) { return; }
 
+            //process our current state's state conditions
+            StateConditions curCond = this.status.CurrentState.StateConditions;
+            this.ProcessStateConditions(curCond);
+
             //correct the direction of CalcVelocity
+            //we do this before assigning velocity to the rigidbody so we have more control over
+            //  which velocity(ies) get their direction changed
             this.CorrectVelocityDirection();
 
             //apply the total velocity to the rigidbody
@@ -97,8 +112,27 @@ namespace FightingGameEngine.Gameplay
             this.status.CurrentPosition = this._rb.Body.Position;
             //record the current frame's velocity, to be used for the next frame
             this.status.CurrentVelocity = this._rb.Body.LinearVelocity;
+
+            //simple check for grounded or not
+            if (this.status.CurrentPosition.y <= -3)
+            {
+                this.status.TransitionFlags = (~TransitionFlags.AIRBORNE) & (this.status.TransitionFlags | TransitionFlags.GROUNDED);
+            }
+            else
+            {
+                this.status.TransitionFlags = (~TransitionFlags.GROUNDED) & (this.status.TransitionFlags | TransitionFlags.AIRBORNE);
+
+            }
         }
 
+        //call to process transition data 
+        protected virtual void ProcessTransitionData(TransitionData trans)
+        {
+            //set the new state
+            this.SetState(trans.TargetState);
+            //process any transition events
+            this.ProcessTransitionEvent(trans.TransitionEvents);
+        }
 
         //call to process transition event enums
         protected virtual void ProcessTransitionEvent(TransitionEvents te)
@@ -197,8 +231,34 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to process try to transition the state
-        protected virtual void TryTransitionState()
+        protected void TryTransitionState()
         {
+            var trnFlags = this.status.TransitionFlags;
+            var curCan = this.status.CancelFlags;
+            var curRsrc = this.status.CurrentResources;
+            var curInpt = this.status.Inputs;
+            var trans = this.status.CurrentState.CheckTransitions(trnFlags, curCan, curRsrc, curInpt);
+
+
+            //don't check the state for transitions anymore
+            this.status.CheckState = false;
+            //if it's null, no transition to process
+            if (trans == null)
+            {
+                //check the move list in the data instead
+                trans = this._data.CheckMoveList(trnFlags, curCan, curRsrc, curInpt);
+
+                //if (trans == null)
+                //{
+                //Debug.Log(curInpt[1].Input + " " + curInpt[1].Flags + " " + (curInpt[1].HoldDuration < Spax.SpaxManager.Instance.StaticValues.InputLeniency));
+                //}
+                //if trans is still null, we end the check
+                if (trans == null) { return; }
+                Debug.Log("found transition in movelist - " + trans.TargetState.name);
+            }
+            //Debug.Log("found transition");
+
+            this.ProcessTransitionData(trans);
 
         }
 
@@ -223,6 +283,10 @@ namespace FightingGameEngine.Gameplay
             //start the new state timer
             int stateDuration = this.status.CurrentState.Duration;
             this.status.StateTimer = new FrameTimer(stateDuration);
+            //assign the current cancel conditions
+            this.status.CancelFlags = newState.CancelConditions;
+            //remove the state end transition flag
+            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~TransitionFlags.STATE_END);
         }
     }
 }

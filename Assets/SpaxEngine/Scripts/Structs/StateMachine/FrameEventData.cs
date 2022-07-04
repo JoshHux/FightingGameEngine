@@ -5,7 +5,7 @@ namespace FightingGameEngine.Data
     [System.Serializable]
     public struct FrameEventData
     {
-        public StateType ToggleCancels;
+        public CancelConditions ToggleCancels;
         public StateConditions ToggleStateConditions;
         public int Duration;
         public bool IsValid()

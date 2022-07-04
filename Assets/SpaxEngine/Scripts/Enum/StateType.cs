@@ -2,7 +2,7 @@ using System;
 namespace FightingGameEngine.Enum
 {
     [Flags]
-    public enum StateType : int
+    public enum CancelConditions : uint
     {
 
         NEUTRAL = 1 << 0,

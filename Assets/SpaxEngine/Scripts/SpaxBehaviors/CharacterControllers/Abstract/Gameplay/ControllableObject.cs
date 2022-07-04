@@ -21,20 +21,20 @@ namespace FightingGameEngine.Gameplay
             //using the input system to do a little mapping, replace as soon as possible
             //pressed events
             actions["Direction"].performed += ctx => ApplyInput(ctx.ReadValue<UnityEngine.Vector2>(), 0b0000000000000000, false);
-            actions["Punch"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000000001000000, false);
-            actions["Kick"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000000010000000, false);
-            actions["Slash"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000000100000000, false);
-            actions["Dust"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000001000000000, false);
-            actions["Jump"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000010000000000, false);
-            actions["Block"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000100000000000, false);
+            actions["Punch"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.A, false);
+            actions["Kick"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.B, false);
+            actions["Slash"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.C, false);
+            actions["Dust"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.D, false);
+            actions["Jump"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.W, false);
+            actions["Block"].performed += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.X, false);
             //released events
             actions["Direction"].canceled += ctx => ApplyInput(ctx.ReadValue<UnityEngine.Vector2>(), 0b0000000000000000, true);
-            actions["Punch"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000000001000000, true);
-            actions["Kick"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000000010000000, true);
-            actions["Slash"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000000100000000, true);
-            actions["Dust"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000001000000000, true);
-            actions["Jump"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000010000000000, true);
-            actions["Block"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), 0b0000100000000000, true);
+            actions["Punch"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.A, true);
+            actions["Kick"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.B, true);
+            actions["Slash"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.C, true);
+            actions["Dust"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.D, true);
+            actions["Jump"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.W, true);
+            actions["Block"].canceled += ctx => ApplyInput(new UnityEngine.Vector2(), InputEnum.X, true);
 
             actions["Direction"].Enable();
             actions["Punch"].Enable();
@@ -53,7 +53,7 @@ namespace FightingGameEngine.Gameplay
             this.BufferInput();
         }
 
-        private void ApplyInput(UnityEngine.Vector2 dir, short input, bool released)
+        private void ApplyInput(UnityEngine.Vector2 dir, InputEnum input, bool released)
         {
             //check the direction
             //"current" controller state, for easy reference
@@ -72,12 +72,14 @@ namespace FightingGameEngine.Gameplay
             if (dir.y > 0) { yDir = InputEnum.Y_POSITIVE; }
             else if (dir.y < 0) { yDir = InputEnum.Y_NEGATIVE; }
 
-
+            //buttons 
+            curInputBtn |= (InputEnum)input;
+            if (released) { curInputBtn &= (InputEnum)(~input); }
             //AND the xDir and yDir so that we get the final direction to be assigned to the CurrentControllerState in the InputRecorder object
             var finalDir = xDir & yDir;
 
             //final new InputEnum
-            var finalInput = finalDir | 0;
+            var finalInput = finalDir | curInputBtn;
 
             //new InputItem we assign as the CurrentControllerState
             var newCurState = new InputItem(finalInput);

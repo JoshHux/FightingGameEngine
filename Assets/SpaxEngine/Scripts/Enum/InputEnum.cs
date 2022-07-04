@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace FightingGameEngine.Enum
 {
+    [System.Flags]
     public enum InputEnum : int
     {
         _1 = 1 << 0,

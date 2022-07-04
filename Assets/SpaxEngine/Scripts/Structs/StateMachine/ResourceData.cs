@@ -40,7 +40,7 @@ namespace FightingGameEngine.Data
             var r4Check = r3Check && (this.Resource4 <= other.Resource4);
             var r5Check = r4Check && (this.Resource5 <= other.Resource5);
             var r6Check = r5Check && (this.Resource6 <= other.Resource6);
-            var r7Check = r6Check && (this.Resource7 <= other.Resource6);
+            var r7Check = r6Check && (this.Resource7 <= other.Resource7);
 
             bool ret = r7Check;
 

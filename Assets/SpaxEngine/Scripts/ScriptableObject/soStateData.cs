@@ -9,18 +9,16 @@ namespace FightingGameEngine.Data
 
     public class soStateData : ScriptableObject
     {
-        [SerializeField] private StateType _type;
         [SerializeField] private soStateData _parentState;
         [SerializeField] private int _duration;
         [SerializeField] private StateConditions _stateConditions;
-        [SerializeField] private StateType _cancels;
+        [SerializeField] private CancelConditions _cancels;
         [SerializeField] private TransitionEvents _enterEvents;
         [SerializeField] private TransitionEvents _exitEvents;
         [SerializeField] private List<TransitionData> _transitions;
         [SerializeField] private List<FrameData> _frames;
         [SerializeField] private List<AnimationFrameData> _animation;
 
-        public StateType Type { get { return this._type; } }
         public TransitionEvents EnterEvents { get { return this._enterEvents; } }
         public TransitionEvents ExitEvents { get { return this._exitEvents; } }
         public soStateData ParentState { get { return this._parentState; } }
@@ -46,7 +44,7 @@ namespace FightingGameEngine.Data
             }
         }
 
-        public StateType CancelConditions
+        public CancelConditions CancelConditions
         {
             get
             {
@@ -89,7 +87,7 @@ namespace FightingGameEngine.Data
             return ret;
         }
 
-        public TransitionData CheckTransitions(TransitionFlags curFlags, StateType curCan, ResourceData curResources, InputItem[] playerInputs)
+        public TransitionData CheckTransitions(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs)
         {
             TransitionData ret = null;
 
@@ -107,11 +105,16 @@ namespace FightingGameEngine.Data
                 bool checkResources = checkFlags && transRsrc.Check(curResources);
                 bool checkInputs = checkResources && hold.CheckInputs(playerInputs);
 
+                //if (EnumHelper.HasEnum((uint)transFlags, (uint)TransitionFlags.GROUNDED, true))
+                //    Debug.Log(i + " " + checkCancels + " " + checkFlags + " " + checkResources + " " + checkInputs);
+
                 bool check = checkInputs;
 
                 if (check)
                 {
                     ret = hold;
+                    return ret;
+
                 }
 
                 i++;

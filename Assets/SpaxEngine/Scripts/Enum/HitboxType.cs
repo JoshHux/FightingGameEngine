@@ -1,7 +1,7 @@
 using System;
 namespace FightingGameEngine.Enum
 {
-    //[Flags]
+    [Flags]
     public enum HitboxType : uint
     {
         STRIKE_MID = 1 << 0,

@@ -18,7 +18,7 @@
  *  3. This notice may not be removed or altered from any source distribution.
 */
 using System;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 namespace FixMath.NET
 {
     [Serializable]
@@ -37,7 +37,7 @@ namespace FixMath.NET
 
         public Fix64 x;
         public Fix64 y;
-        [JsonIgnore]
+        //[JsonIgnore]
         public Fix64 sqrMagnitude
         {
             get
@@ -46,7 +46,7 @@ namespace FixMath.NET
             }
         }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public Fix64 magnitude
         {
             get
@@ -55,7 +55,7 @@ namespace FixMath.NET
             }
         }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public FVector2 normalized
         {
             get

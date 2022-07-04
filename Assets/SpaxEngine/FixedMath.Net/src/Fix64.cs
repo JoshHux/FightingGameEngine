@@ -1054,7 +1054,7 @@ namespace FixMath.NET
 
         public static bool IsInfinity(Fix64 value)
         {
-            return IsPositiveInfinity(value)||IsNegativeInfinity(value);
+            return IsPositiveInfinity(value) || IsNegativeInfinity(value);
         }
 
         public static implicit operator Fix64(int value)
@@ -1204,7 +1204,7 @@ namespace FixMath.NET
         /// <summary>
         /// The underlying integer representation
         /// </summary>
-        [Newtonsoft.Json.JsonIgnore]
+        //[Newtonsoft.Json.JsonIgnore]
         public long RawValue => m_rawValue;
 
         /// <summary>

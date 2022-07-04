@@ -22,8 +22,8 @@ MonoBehaviour:
   _transitions:
   - _targetState: {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
     _requiredInputs: []
-    _transitionEvents: 0
     _requiredTransitionFlags: 2
+    _transitionEvents: 0
     _requiredResources:
       Health: 0
       Meter: 0

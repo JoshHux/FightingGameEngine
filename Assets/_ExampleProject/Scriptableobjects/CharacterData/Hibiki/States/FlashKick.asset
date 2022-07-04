@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 0
   _parentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
-  _duration: 0
+  _duration: 30000
   _stateConditions: 0
   _cancels: 0
   _enterEvents: 0
@@ -28,7 +28,8 @@ MonoBehaviour:
         m_rawValue: 0
       y:
         m_rawValue: 0
-    _setGravity:
+    _setGravity: 0
+    _appliedGravity:
       m_rawValue: 0
     _resourceChange:
       Health: 0
@@ -58,6 +59,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -75,6 +77,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
@@ -114,6 +117,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -131,6 +135,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
@@ -170,6 +175,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -187,6 +193,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
@@ -226,6 +233,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -243,6 +251,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
@@ -282,6 +291,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -299,6 +309,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
@@ -338,6 +349,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -355,6 +367,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
@@ -394,6 +407,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -411,6 +425,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
@@ -450,6 +465,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -467,6 +483,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
@@ -506,6 +523,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -523,6 +541,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
@@ -562,6 +581,7 @@ MonoBehaviour:
         Damage: 0
         ChipDamage: 0
         Hitstun: 0
+        MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
@@ -579,6 +599,7 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
+        changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
         GroundBounces: 0
