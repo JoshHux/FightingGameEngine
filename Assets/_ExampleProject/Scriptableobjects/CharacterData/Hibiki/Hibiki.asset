@@ -41,11 +41,11 @@ MonoBehaviour:
       HoldDuration: 0
       LenientBuffer: 0
     - Input: 224
-      Flags: 1
+      Flags: 9
       HoldDuration: 0
       LenientBuffer: 0
     - Input: 7
-      Flags: 2
+      Flags: 10
       HoldDuration: 30
       LenientBuffer: 0
     _requiredTransitionFlags: 0

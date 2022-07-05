@@ -52,7 +52,15 @@ namespace FightingGameEngine.Gameplay
             if (inHitstop) { return; }
             //Debug.Log("state updating - living object");
 
-            //tick the state timer before anything else
+
+
+            if (this.status.CheckState)
+            {
+                //try to transition to a new state
+                this.TryTransitionState();
+            }
+
+            //tick the state timer after possible new state assignment anything else
             bool stateComplete = !this.status.StateTimer.TickTimer();
 
             if (stateComplete)
@@ -62,14 +70,8 @@ namespace FightingGameEngine.Gameplay
                 this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.STATE_END;
             }
 
-            if (this.status.CheckState)
-            {
-                //try to transition to a new state
-                this.TryTransitionState();
-            }
-            //get the frame at this frame count, based on the timer's ticks + 1
-            //the +1 is there so that we can have both at frame 0 to indicate an invalid item and for easy nomenclature for the designer
-            int framesTicked = this.status.StateTimer.TimeElapsed + 1;
+            //get the frame at this frame count, based on the timer's ticks
+            int framesTicked = this.status.StateTimer.TimeElapsed;
 
             //the frame at the number or frames ticked
             FrameData frameAt = this.status.CurrentState.GetFrameAt(framesTicked);
@@ -254,7 +256,7 @@ namespace FightingGameEngine.Gameplay
                 //}
                 //if trans is still null, we end the check
                 if (trans == null) { return; }
-                Debug.Log("found transition in movelist - " + trans.TargetState.name);
+                //Debug.Log("found transition in movelist - " + trans.TargetState.name);
             }
             //Debug.Log("found transition");
 

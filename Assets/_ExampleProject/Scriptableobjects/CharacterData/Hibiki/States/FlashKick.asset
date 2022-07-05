@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
   m_Name: FlashKick
   m_EditorClassIdentifier: 
-  _type: 0
   _parentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
   _duration: 30000
   _stateConditions: 0
