@@ -31,6 +31,13 @@ namespace FightingGameEngine.Gameplay
             {
                 this.ProcessAnimationData(frame);
             }
+
+            var rendererTransform = this._animator.transform;
+            var rendererScale = rendererTransform.localScale;
+            var facingDir = this._status.CurrentFacingDirection;
+
+            var newScale = new Vector3(facingDir, rendererScale.y, rendererScale.z);
+            this.transform.localScale = newScale;
         }
         protected override void PostRenderUpdate() { }
 

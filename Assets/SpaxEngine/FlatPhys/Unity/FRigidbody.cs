@@ -83,6 +83,9 @@ namespace FlatPhysics.Unity
                 var offset = this._rb.Position - hold.Body.Position;
                 this._rb.LocalPosition = offset;
             }
+
+            this._rb.Awake = true;
+
             SpaxManager.Instance.AddBody(this);
         }
 

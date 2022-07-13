@@ -44,7 +44,12 @@ namespace FightingGameEngine.Gameplay
         protected void CommonActivateBox(FVector2 pos, FVector2 dim)
         {
             this._trigger.Awake = true;
-            this._trigger.LocalPosition = pos;
+
+            var ownerFacing = this._owner.Facing;
+            //make new position based on the owner's facing direction
+            var newPos = new FVector2(pos.x * ownerFacing, pos.y);
+
+            this._trigger.LocalPosition = newPos;
             this._trigger.SetDimensions(dim);
         }
 

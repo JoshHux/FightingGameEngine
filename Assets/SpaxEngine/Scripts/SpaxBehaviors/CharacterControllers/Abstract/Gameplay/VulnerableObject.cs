@@ -14,6 +14,9 @@ namespace FightingGameEngine.Gameplay
 
         //delgate that is called to activate hit/hurtboxes, we pass the hitbox triggers the frame data to know whether or not to activate
         public BoxActivator OnFrameReached;
+
+        public int Facing { get { return this.status.CurrentFacingDirection; } }
+
         protected override void OnStart()
         {
             base.OnStart();
@@ -32,6 +35,9 @@ namespace FightingGameEngine.Gameplay
                 //we don't need to hook the delegate, since the boxes do it themselves on start
             }
         }
+
+        protected override void HurtboxQueryUpdate() { }
+
 
         //call to process the frame data
         protected override void ProcessFrameData(FrameData frame)

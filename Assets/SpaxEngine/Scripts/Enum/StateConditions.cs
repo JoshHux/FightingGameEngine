@@ -2,7 +2,7 @@ using System;
 namespace FightingGameEngine.Enum
 {
     [Flags]
-    public enum StateConditions : int
+    public enum StateConditions : uint
     {
         GROUNDED = 1 << 0,
         AIRBORNE = 1 << 1,
@@ -11,10 +11,14 @@ namespace FightingGameEngine.Enum
         GUARD_POINT_HIGH = 1 << 4,
         APPLY_GRAVITY = 1 << 5,
         STALL_GRAVITY = 1 << 6,
+        APPLY_FRICTION = 1 << 7,
+        CAN_MOVE = 1 << 8,
+        AUTO_TURN = 1 << 8,
+        //DONT_TRANS_TO_SELF = 1 << 26,
         BUFFER_INPUT = 1 << 27,
         NO_PARENT_CANCEL = 1 << 28,
         NO_PARENT_TRANS = 1 << 29,
-        NO_PARENT_COND = 1 << 30,
+        NO_PARENT_COND = (uint)(1 << 30),
 
     }
 }

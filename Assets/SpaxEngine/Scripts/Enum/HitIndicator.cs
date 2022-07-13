@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace FightingGameEngine.Enum
 {
-    public enum HitIndicator : int
+    public enum HitIndicator : uint
     {
         WHIFF = 0,
         COUNTER_HIT = 1,

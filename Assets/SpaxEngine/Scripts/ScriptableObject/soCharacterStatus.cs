@@ -88,6 +88,7 @@ namespace FightingGameEngine.Data
 
         //only really here to initialize the InputRecorder, at least for now
         public void Initialize() { this._inputRecorder = new InputRecorder(); }
+        public void ResetLeniency() { this._inputRecorder.ResetLeniency(); }
 
         public void BufferInput(bool bufferLeniency)
         {

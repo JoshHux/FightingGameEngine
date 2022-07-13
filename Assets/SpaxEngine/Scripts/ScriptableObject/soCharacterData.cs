@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using FixMath.NET;
 using FightingGameEngine.Enum;
@@ -17,7 +18,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private Fix64 _runMaxSpd;
         [SerializeField] private Fix64 _fallMaxSpd;
         [SerializeField] private soStateData[] _stateList;
-        [SerializeField] private TransitionData[] _moveList;
+        [SerializeField] private List<TransitionData> _moveList;
         public int MaxHP { get { return this._maxHp; } }
         public Fix64 Mass { get { return this._mass; } }
         public Fix64 Friction { get { return this._friction; } }
@@ -27,41 +28,36 @@ namespace FightingGameEngine.Data
         public Fix64 RunMaxSpd { get { return this._runMaxSpd; } }
         public Fix64 FallMaxSpd { get { return this._fallMaxSpd; } }
         public soStateData[] StateList { get { return this._stateList; } }
-        public TransitionData[] MoveList { get { return this._moveList; } }
+        public TransitionData[] MoveList { get { return this._moveList.ToArray(); } }
 
-        public TransitionData CheckMoveList(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs)
+        public TransitionData CheckMoveList(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir)
         {
             TransitionData ret = null;
             //Debug.Log("checking movelist");
-            int i = 0;
-            int len = this._moveList.Length;
-            while (i < len)
-            {
-                var hold = this._moveList[i];
-                var transCancels = hold.RequiredCancels;
-                var transFlags = hold.RequiredTransitionFlags;
-                var transRsrc = hold.RequiredResources;
+            /* int i = 0;
+             int len = this._moveList.Length;
+             while (i < len)
+             {
+                 var hold = this._moveList[i];
 
-                bool checkCancels = EnumHelper.HasEnum((uint)curCan, (uint)transCancels, true);
-                bool checkFlags = checkCancels && EnumHelper.HasEnum((uint)curFlags, (uint)transFlags, true);
-                bool checkResources = checkFlags && transRsrc.Check(curResources);
-                bool checkInputs = checkResources && hold.CheckInputs(playerInputs);
+                 bool check = hold.CheckTransition(curFlags, curCan, curResources, playerInputs);
 
-                bool check = checkInputs;
+                 //if (i == 1)
+                 //{
+                 //Debug.Log(i + " " + checkCancels + " " + checkFlags + " " + checkResources + " " + checkInputs);
+                 //}
 
-                if (i == 1)
-                {
-                    //Debug.Log(i + " " + checkCancels + " " + checkFlags + " " + checkResources + " " + checkInputs);
-                }
+                 if (check)
+                 {
+                     ret = hold;
+                     //Debug.Log("passed transition to " + hold.TargetState.name);
+                     break;
+                 }
 
-                if (check)
-                {
-                    ret = hold;
-                    break;
-                }
+                 i++;
+             }*/
+            ret = this._moveList.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir));
 
-                i++;
-            }
 
             return ret;
         }

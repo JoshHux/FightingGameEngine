@@ -18,9 +18,9 @@ MonoBehaviour:
   _friction:
     m_rawValue: 4294967296
   _walkAccel:
-    m_rawValue: 429496729600
+    m_rawValue: 42949672960
   _walkMaxSpd:
-    m_rawValue: 429496729600
+    m_rawValue: 42949672960
   _runAccel:
     m_rawValue: 429496729600
   _runMaxSpd:
@@ -28,7 +28,6 @@ MonoBehaviour:
   _fallMaxSpd:
     m_rawValue: 429496729600
   _stateList:
-  - {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
   - {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
   - {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
   - {fileID: 11400000, guid: f35299342e97d984fb11155d0908426d, type: 2}
@@ -60,7 +59,7 @@ MonoBehaviour:
       Resource5: 0
       Resource6: 0
       Resource7: 0
-  - _targetState: {fileID: 11400000, guid: ee5a285aef9236e4e98f19362c03abf4, type: 2}
+  - _targetState: {fileID: 11400000, guid: 5f9b7d7fee279bf4699b608f21869253, type: 2}
     _cancelConditions: 33554432
     _requiredInputs:
     - Input: 512
@@ -77,6 +76,44 @@ MonoBehaviour:
       LenientBuffer: 0
     - Input: 2
       Flags: 2
+      HoldDuration: 0
+      LenientBuffer: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: ee5a285aef9236e4e98f19362c03abf4, type: 2}
+    _cancelConditions: 33554432
+    _requiredInputs:
+    - Input: 512
+      Flags: 1
+      HoldDuration: 0
+      LenientBuffer: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: 7644e2bb656dda24c9e77be374861d70, type: 2}
+    _cancelConditions: 2
+    _requiredInputs:
+    - Input: 4096
+      Flags: 1
       HoldDuration: 0
       LenientBuffer: 0
     _requiredTransitionFlags: 0

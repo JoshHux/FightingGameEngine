@@ -21,6 +21,7 @@ namespace FightingGameEngine.Gameplay
                     manager.HitQueryUpdate += (() => HitboxQueryUpdate());
                     manager.HurtQueryUpdate += (() => HurtboxQueryUpdate());
                     manager.PostUpdate += (() => PostUpdate());
+                   // Debug.Log("adding to the thing");
                 }
             }
         }

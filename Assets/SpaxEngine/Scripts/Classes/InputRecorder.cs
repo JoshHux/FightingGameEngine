@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FightingGameEngine.Enum;
@@ -14,6 +13,8 @@ namespace FightingGameEngine.Data
         [SerializeField] private InputItem _previousControllerState;
         [SerializeField] private List<InputItem> _recordedChanges;
 
+        private int _lenLimit = 200;
+
         public InputItem CurrentControllerState { get { return this._controllerState; } set { this._controllerState = value; } }
 
         public InputRecorder()
@@ -23,6 +24,16 @@ namespace FightingGameEngine.Data
             this._recordedChanges = new List<InputItem>();
             //add default value to list, needs at least 1 element to make buffer behave
             this._recordedChanges.Add(new InputItem());
+        }
+
+        public void ResetLeniency()
+        {
+            int lastInd = this._recordedChanges.Count - 1;
+            var toReplace = this._recordedChanges[lastInd];
+
+            var newThing = new InputItem(toReplace.Input, toReplace.Flags, false, toReplace.HoldDuration);
+
+            this._recordedChanges[lastInd] = newThing;
         }
 
         //returns true if new element is added to vector or if the framesHeld on that element is <=leniencey
@@ -54,6 +65,12 @@ namespace FightingGameEngine.Data
                 //the InputItem to add
                 var toAdd = new InputItem(releasedInputs, totalFlags, bufferLeniency);
 
+                //if too meany inputs remove oldest item
+                //if no input was in last enum, remove last enum
+
+                if ((this._recordedChanges.Count >= this._lenLimit) || (lastEnum == 0)) { this._recordedChanges.RemoveAt(0); lastInd -= 1; }
+
+
                 //add the new changes to the end of the list
                 this._recordedChanges.Add(toAdd);
 
@@ -80,6 +97,9 @@ namespace FightingGameEngine.Data
 
                 //the InputItem to add
                 var toAdd = new InputItem(pressedInputs, totalFlags, bufferLeniency);
+
+                if ((this._recordedChanges.Count >= this._lenLimit) || (lastEnum == 0)) { this._recordedChanges.RemoveAt(0); lastInd -= 1; }
+
 
                 //add the new changes to the end of the list
                 this._recordedChanges.Add(toAdd);
@@ -120,8 +140,33 @@ namespace FightingGameEngine.Data
             //controller state should only have the CHECK_CONTROLLER flag
             controllerState.Flags = InputFlags.CHECK_CONTROLLER;
 
-            //copy the list into a seperate list, this so we can add the controller state to the end, flip it and turn it into an array
-            var hold = new List<InputItem>(this._recordedChanges);
+
+            //check if we should return the rest of the inputs
+            bool sendInputs = true;
+            int lastInd = this._recordedChanges.Count - 1;
+            int secondLastInd = lastInd - 1;
+
+            if (lastInd > 0)
+            {
+                var firstItem = this._recordedChanges[lastInd];
+                var secondItem = this._recordedChanges[secondLastInd];
+
+                int inputBufferLeniency = Spax.SpaxManager.Instance.StaticValues.InputBuffer;
+
+                sendInputs = (firstItem.HoldDuration <= inputBufferLeniency) || (firstItem.LenientBuffer && (secondItem.HoldDuration <= inputBufferLeniency));
+            }
+
+            //list to return
+            var hold = new List<InputItem>();
+
+            //if we want to send inputs
+            if (sendInputs)
+            {
+                //copy the list into a seperate list, this so we can add the controller state to the end, flip it and turn it into an array
+                hold = new List<InputItem>(this._recordedChanges);
+            }
+
+            //Debug.Log(hold.Count);
 
             //add the controller state to the end
             hold.Add(controllerState);
@@ -131,6 +176,7 @@ namespace FightingGameEngine.Data
 
             //now, turn it into an array and return
             var ret = hold.ToArray();
+
 
             return ret;
         }

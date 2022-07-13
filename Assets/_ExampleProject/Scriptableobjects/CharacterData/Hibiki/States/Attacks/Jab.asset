@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Idle
+  m_Name: Jab
   m_EditorClassIdentifier: 
-  _type: 1
   _parentState: {fileID: 0}
-  _duration: 0
-  _stateConditions: 33
-  _cancels: -1
+  _duration: 200
+  _stateConditions: 0
+  _cancels: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
+  - _targetState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
+    _cancelConditions: 0
     _requiredInputs: []
-    _requiredTransitionFlags: 2
+    _requiredTransitionFlags: 1073741824
     _transitionEvents: 0
     _requiredResources:
       Health: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames:
-  - _atFrame: 1
+  - _atFrame: 8
     _setVelocity: 0
     _appliedVelocity:
       x:
@@ -57,18 +57,18 @@ MonoBehaviour:
       Resource7: 0
     _hitboxes:
       Hitbox0:
-        Duration: 0
-        Type: 0
+        Duration: 6
+        Type: 1
         Position:
           x:
-            m_rawValue: 0
+            m_rawValue: 4294967296
           y:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 0
+            m_rawValue: 8589934592
           y:
-            m_rawValue: 0
+            m_rawValue: 4294967296
         Priority: 0
         Damage: 0
         ChipDamage: 0
@@ -642,12 +642,12 @@ MonoBehaviour:
           x:
             m_rawValue: 0
           y:
-            m_rawValue: 4294967296
+            m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 4294967296
+            m_rawValue: 0
           y:
-            m_rawValue: 4294967296
+            m_rawValue: 0
       Hurtbox1:
         Position:
           x:
@@ -750,9 +750,9 @@ MonoBehaviour:
     _timerEvents: []
     _projectiles: []
   _animation:
-  - _atFrame: 0
-    _animationName: Idle
-    _skipIfSameName: 1
+  - _atFrame: 1
+    _animationName: AttackB
+    _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 
     _vfx: 

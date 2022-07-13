@@ -12,7 +12,7 @@ namespace FightingGameEngine.Gameplay
         //rigidbody of the character
         private FBox _rb;
         //data of our character
-        [SerializeField] private soCharacterData _data;
+        [SerializeField] protected soCharacterData data;
         //current status of this character
         [SerializeField] protected soCharacterStatus status;
 
@@ -26,9 +26,14 @@ namespace FightingGameEngine.Gameplay
             this.status.StateTimer = new FrameTimer();
             this.status.StopTimer = new FrameTimer();
 
+            //set default data for the status
+            this.status.CalcVelocity = new FVector2();
+            this.status.CurrentVelocity = new FVector2();
+
+
             //assign default values from character's data
-            this.status.CurrentHP = this._data.MaxHP;
-            this.status.CurrentGravity = this._data.Mass;
+            this.status.CurrentHP = this.data.MaxHP;
+            this.status.CurrentGravity = this.data.Mass;
             this.status.CurrentFacingDirection = -1;
         }
 
@@ -39,7 +44,7 @@ namespace FightingGameEngine.Gameplay
             this._rb = this.GetComponent<FBox>();
 
             //get the default state
-            var defaultState = this._data.StateList[0];
+            var defaultState = this.data.StateList[0];
             //set the default state
             this.SetState(defaultState);
         }
@@ -54,11 +59,10 @@ namespace FightingGameEngine.Gameplay
 
 
 
-            if (this.status.CheckState)
-            {
-                //try to transition to a new state
-                this.TryTransitionState();
-            }
+
+            //try to transition to a new state
+            this.TryTransitionState();
+
 
             //tick the state timer after possible new state assignment anything else
             bool stateComplete = !this.status.StateTimer.TickTimer();
@@ -85,6 +89,7 @@ namespace FightingGameEngine.Gameplay
 
         }
 
+        //int i = 0;
         //prep the rigidbody to be updated, make sure it's got the right velocity etc.
         protected override void SpaxUpdate()
         {
@@ -99,13 +104,16 @@ namespace FightingGameEngine.Gameplay
             //we do this before assigning velocity to the rigidbody so we have more control over
             //  which velocity(ies) get their direction changed
             this.CorrectVelocityDirection();
+            //Debug.Log("spaxupdate - " +this.status.TotalVelocity.x+" | calc - "+this.status.CalcVelocity.x+" | cur - "+this.status.CurrentVelocity.x);
 
             //apply the total velocity to the rigidbody
-            this._rb.Velocity = this.status.CurrentVelocity + this.status.CalcVelocity;
+            this._rb.Velocity = this.status.TotalVelocity;
             //set CalcVelocity to 0 to prevent any extra changes to velocity on the next frame
             this.status.CalcVelocity = new FVector2();
 
-            //Debug.Log("SpaxUpdate, _rb velcoity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
+            //i++;
+            //Debug.Log("SpaxUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
+            //Debug.Log("spaxupdate - " + this.name + " - " + i);
         }
 
         protected override void PostUpdate()
@@ -114,26 +122,57 @@ namespace FightingGameEngine.Gameplay
             this.status.CurrentPosition = this._rb.Body.Position;
             //record the current frame's velocity, to be used for the next frame
             this.status.CurrentVelocity = this._rb.Body.LinearVelocity;
+            //Debug.Log("-PostUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
 
             //simple check for grounded or not
-            if (this.status.CurrentPosition.y <= -3)
+            if ((this.status.CurrentPosition.y >= -3) || (this.status.CurrentVelocity.y > 0))
             {
-                this.status.TransitionFlags = (~TransitionFlags.AIRBORNE) & (this.status.TransitionFlags | TransitionFlags.GROUNDED);
+                //make status think it's airborne
+                //Debug.Log("becoming airborne " + (this.status.CurrentPosition.y < -3) + " " + (this.status.CurrentVelocity.y > 0));
+                this.status.TransitionFlags = (~TransitionFlags.GROUNDED) & (this.status.TransitionFlags | TransitionFlags.AIRBORNE);
             }
             else
             {
-                this.status.TransitionFlags = (~TransitionFlags.GROUNDED) & (this.status.TransitionFlags | TransitionFlags.AIRBORNE);
+                //make character think it's grounded
+                //Debug.Log("becoming grounded ");
+                this.status.TransitionFlags = (~TransitionFlags.AIRBORNE) & (this.status.TransitionFlags | TransitionFlags.GROUNDED);
 
             }
+            //Debug.Log("postupdate - " + this.name + " - " + i);
+
         }
 
         //call to process transition data 
         protected virtual void ProcessTransitionData(TransitionData trans)
         {
+            //state to transition to
+            var targetState = trans.TargetState;
+
+            //if it's null, go to default state
+            if (targetState == null)
+            {
+                //are we airborne right now?
+                bool airborne = EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)TransitionFlags.AIRBORNE);
+
+                //index of default state 0 for grounded, 1 for airborne
+                int ind = (airborne) ? 1 : 0;
+
+                //Debug.Log(ind);
+
+                //set the state we want to transtion to
+                targetState = this.data.StateList[ind];
+            }
             //set the new state
-            this.SetState(trans.TargetState);
+            this.SetState(targetState);
             //process any transition events
             this.ProcessTransitionEvent(trans.TransitionEvents);
+
+            //check if it's a nodestate, if it is, try to transition out of it
+            if (targetState.Duration < 0)
+            {
+                this.TryTransitionState();
+            }
+
         }
 
         //call to process transition event enums
@@ -163,6 +202,8 @@ namespace FightingGameEngine.Gameplay
             //reassign the mew velocity
             this.status.CurrentVelocity = newVel;
 
+            this.status.ResetLeniency();
+
         }
 
         //call to process the frame data
@@ -182,6 +223,8 @@ namespace FightingGameEngine.Gameplay
                 this.status.CurrentVelocity = new FVector2();
             }
 
+            //if (appliedVel.magnitude > 0) { Debug.Log("applying velocity"); }
+
             //hold the CalcVelocity here for easy reference
             var holdVel = this.status.CalcVelocity;
 
@@ -193,6 +236,8 @@ namespace FightingGameEngine.Gameplay
             bool changeGrav = frame.SetGravity;
             //we want to change gravity
             if (changeGrav) { this.status.CurrentGravity = frame.AppliedGravity; }
+
+            //if (this.status.CalcVelocity.magnitude > 0) { Debug.Log(this.status.CurrentState.name + " - " + this.status.StateTimer.TimeElapsed + " - " + frame.AtFrame + " - (" + this.status.CalcVelocity.x + ", " + this.status.CalcVelocity.y + ")"); }
 
 
             /*----- PROCESSING RESOURCE CHANGE -----*/
@@ -221,14 +266,61 @@ namespace FightingGameEngine.Gameplay
                 //grab the current gravity for easy reference
                 var grav = this.status.CurrentGravity;
 
-                //apply the change in velocity straight to the CurrentVelocity, directly effects rigidbody anyway
-                //get easy access to the velocity to manipulate
-                var gravVel = this.status.CurrentVelocity;
-                //changed velcity to set back to Current Velocity
-                var applyingVel = new FVector2(gravVel.x, gravVel.y - grav);
+                var applyingVel = new FVector2(0, -grav);
 
                 //set to CurrentVelocity
-                this.status.CurrentVelocity = applyingVel;
+                this.status.CalcVelocity += applyingVel;
+            }
+
+
+
+            /*----- PROCESSING FRICTION APPLICATION -----*/
+            //current velocity values
+            var totalVel = this.status.TotalVelocity;
+            var xVel = totalVel.x;
+            var yVel = totalVel.y;
+
+            //we want to apply friction?
+            bool wantApplyFric = EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.APPLY_FRICTION);
+            //can we move?
+            bool canMove = EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.CAN_MOVE);
+            //want to move?
+            bool wantToMove = canMove && this.status.CurrentControllerState.WantsToMove();
+            //wanting to move will override friction application, BUT if the current velocity along the x-axis is larger
+            //      than the assign max move speed, then we will still apply fricion
+            //      the want to move thing applied later only is applied IF velocity along the x-axis is lower than the top move speed
+            //      if the friction applied brings it below that top move speed, then the player wanting to move will do math to bring x velocity up to that max movement speed
+            bool fasterThanMax = Fix64.FastAbs(this.status.TotalVelocity.x) > this.data.WalkMaxSpd;
+
+            //is the x velocity non-zero?
+            bool xVelCheck = wantApplyFric && (xVel != 0);
+            //only apply gravity ONLY if WE ALSO grounded, AND we DON'T want to move
+            bool applyFriction = xVelCheck && ((!wantToMove) || fasterThanMax) && EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)StateConditions.GROUNDED);
+
+            if (applyFriction)
+            {
+                var friction = this.data.Friction;
+
+
+                //get the sign of the x velocity
+                var absXVel = Fix64.FastAbs(xVel);
+                var signXVel = xVel / absXVel;
+
+                //amount of friction to apply
+                var frictAmt = friction;
+
+                //if we would apply too much friction, just have the amount of friction applies be equal to our velocity
+                if (friction > absXVel) { frictAmt = absXVel; }
+
+                //friction w/ direction 
+                var appliedFrict = frictAmt * signXVel * this.status.CurrentFacingDirection * -1;
+
+                var applyingFriction = new FVector2(appliedFrict, 0);
+
+                this.status.CalcVelocity += applyingFriction;
+
+                //Debug.Log("applying friction - " + appliedFrict + " - " + this.status.CalcVelocity.x + " - " + this.status.TotalVelocity.x);
+
             }
         }
 
@@ -239,7 +331,8 @@ namespace FightingGameEngine.Gameplay
             var curCan = this.status.CancelFlags;
             var curRsrc = this.status.CurrentResources;
             var curInpt = this.status.Inputs;
-            var trans = this.status.CurrentState.CheckTransitions(trnFlags, curCan, curRsrc, curInpt);
+            var curFacing = this.status.CurrentFacingDirection;
+            var trans = this.status.CurrentState.CheckTransitions(trnFlags, curCan, curRsrc, curInpt, curFacing);
 
 
             //don't check the state for transitions anymore
@@ -248,17 +341,17 @@ namespace FightingGameEngine.Gameplay
             if (trans == null)
             {
                 //check the move list in the data instead
-                trans = this._data.CheckMoveList(trnFlags, curCan, curRsrc, curInpt);
+                trans = this.data.CheckMoveList(trnFlags, curCan, curRsrc, curInpt, curFacing);
 
                 //if (trans == null)
                 //{
                 //Debug.Log(curInpt[1].Input + " " + curInpt[1].Flags + " " + (curInpt[1].HoldDuration < Spax.SpaxManager.Instance.StaticValues.InputLeniency));
                 //}
                 //if trans is still null, we end the check
-                if (trans == null) { return; }
+                if (trans == null) { /*Debug.Log("failed to find transition");*/ return; }
                 //Debug.Log("found transition in movelist - " + trans.TargetState.name);
             }
-            //Debug.Log("found transition");
+            //Debug.Log("found transition to - " + trans.TargetState.name);
 
             this.ProcessTransitionData(trans);
 

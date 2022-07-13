@@ -1,15 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using FixMath.NET;
+using FlatPhysics.Unity;
+using FightingGameEngine.Enum;
 namespace FightingGameEngine.Gameplay
 {
     public class FightingCharacterController : ControllableObject
     {
+        [SerializeField] private FRigidbody _other;
         protected override void StateCleanUpdate() { }
         protected override void PreUpdate() { }
-        protected override void PostPhysUpdate() { }
-        protected override void HitboxQueryUpdate() { }
-        protected override void HurtboxQueryUpdate() { }
+        protected override void PostPhysUpdate()
+        {
+
+        }
+        //call to process the state conditions of our current state
+        protected override void ProcessStateConditions(StateConditions stateConditions)
+        {
+            /*----- PROCESSING AUTOMATIC TURNING -----*/
+
+            //can we rotate?
+            bool canRotate = EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.AUTO_TURN);
+
+            //TODO: When transporting this to 3d, replace this calculation with a 3d math
+
+            //what is the difference between our x position and their x position?
+            var diffPos = this._other.Body.Position.x - this.status.CurrentPosition.x;
+
+            //if our facing direction and the difference in position are different, then we should turn
+            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) < 0);
+
+            if (shouldTurn)
+            {
+                var newFacing = Fix64.Sign(diffPos);
+                this.status.CurrentFacingDirection = newFacing;
+            }
+
+
+            base.ProcessStateConditions(stateConditions);
+
+            /*----- PROCESSING IF PLAYER MOVES -----*/
+
+            //current controller state
+            var curConStt = this.status.CurrentControllerState;
+            //x-axis input
+            var xInput = curConStt.X();
+            //max movement speed
+            var maxMoveSpeed = this.data.WalkMaxSpd;
+            //current x speed
+            var curXvel = this.status.TotalVelocity.x;
+            //difference between current x-velocity and max velocity in the direction we want to move
+            var velDiff = (maxMoveSpeed * xInput) - curXvel;
+
+            //can we move?
+            bool canMove = EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.CAN_MOVE);
+            //so we want to move?
+            bool wantToMove = canMove && (xInput != 0);
+            //can we even apply any acceleration? 
+            //  if we're not moving as fast as max speed OR they're pointing in the opposite directions
+            bool shouldMove = wantToMove && (velDiff != 0) && ((Fix64.FastAbs(curXvel) < maxMoveSpeed) || ((curXvel * maxMoveSpeed * xInput) <= 0));
+
+            if (shouldMove)
+            {
+                //we only reach here if we need to apply acceleration
+                //acceleration is the min between the abs of the difference between max speed and current x speed AND applies movement velocity
+                var absDiff = Fix64.FastAbs(velDiff);
+                var appliedAccel = Fix64.Min(this.data.WalkAccel, absDiff) * xInput;
+                //Debug.Log("x input - " + xInput + " | appliedAccel " + appliedAccel + " | absDiff - " + absDiff + " | mms*x - " + (maxMoveSpeed * xInput) + " | cur xvel " + (curXvel));
+
+                //we multiply by -1 so that we negate the facing direction, we're not factoring in facing direction in this application
+                this.status.CalcVelocity += new FVector2(appliedAccel, 0) * this.status.CurrentFacingDirection;
+                //Debug.Log("calc - " + this.status.CalcVelocity.x);
+            }
+
+
+
+        }
     }
 }

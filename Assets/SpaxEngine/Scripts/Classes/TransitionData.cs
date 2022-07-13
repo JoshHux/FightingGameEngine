@@ -20,7 +20,23 @@ namespace FightingGameEngine.Data
         public TransitionFlags RequiredTransitionFlags { get { return this._requiredTransitionFlags; } }
         public ResourceData RequiredResources { get { return this._requiredResources; } }
 
-        public bool CheckInputs(InputItem[] playerInputs)
+
+        public bool CheckTransition(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir)
+        {
+            var transCancels = this._cancelConditions;
+            var transFlags = this._requiredTransitionFlags;
+            var transRsrc = this._requiredResources;
+
+
+            bool checkCancels = EnumHelper.HasEnum((uint)curCan, (uint)transCancels, true);
+            bool checkFlags = checkCancels && EnumHelper.HasEnum((uint)curFlags, (uint)transFlags, true);
+            bool checkResources = checkFlags && transRsrc.Check(curResources);
+            bool checkInputs = checkResources && this.CheckInputs(playerInputs, facingDir);
+
+            return checkInputs;
+        }
+
+        private bool CheckInputs(InputItem[] playerInputs, int facingDir)
         {
 
             int playerInputLen = playerInputs.Length;
@@ -29,8 +45,8 @@ namespace FightingGameEngine.Data
             //if no required inputs, just return a true
             if (requiredInputLen == 0) { return true; }
             //if no player inputs, no pass the check
-            else if (playerInputLen == 2) { return false; }
-            //Debug.Log("checking inputs in transition");
+            else if (playerInputLen == 0) { return false; }
+
 
             //index for the player's inputs
             int i = 0;
@@ -43,11 +59,29 @@ namespace FightingGameEngine.Data
             //how many frames it's been since the last valid input
             int sinceLastMatch = 0;
 
+
+            /*-----PREPPING REQUIRED INPUT INFO-----*/
+
+            //required hold duration
+            var reqHoldDur = reqItem.HoldDuration;
+            //prepping req input data for easy use
+            var reqInput = reqItem.Input;
+            //required input flags, removed flags that cannot be applied to player inputs
+            uint reqFlagsRaw = (uint)reqItem.Flags;
+            //required input flags, removed flags that cannot be applied to player inputs
+            uint reqFlags = (reqFlagsRaw & (~(uint)InputFlags.BACKEND_FLAGS));
+            //get the solo button and direction input
+            uint reqBtn = (uint)(reqInput & InputEnum.BUTTONS);
+            uint reqDir = (uint)(reqInput & InputEnum.DIRECTIONS);
+
+            //amount of input leniency allowed
+            int inputLeniency = Spax.SpaxManager.Instance.StaticValues.InputLeniency;
+
             //check against the list of player inputs
             while (i < playerInputLen)
             {
                 //current player input item we're looking at
-                var curPlayerItem = playerInputs[i];
+                var curPlayerItem = playerInputs[i].GetDirection(facingDir);
 
                 //current result of the overall check of the input
                 bool overallCheck = false;
@@ -59,7 +93,7 @@ namespace FightingGameEngine.Data
                 //if we ignore the time elapsed, don't add the hold duration
                 if (!skipIncrement)
                 {
-                    //Debug.Log("adding this input's duration");
+                    //Debug.Log("adding this input's duration - " + curPlayerItem.HoldDuration + " | i - " + i);
                     //add the amount of frames the player lingered on this input
                     sinceLastMatch += curPlayerItem.HoldDuration;
                 }
@@ -68,42 +102,62 @@ namespace FightingGameEngine.Data
                 //    Debug.Log("skipping this input's duration");
                 //}
 
+                //     check if there's a hold durations
+                bool reqHold = (reqHoldDur > 0);
+
                 //if the number of frames passed since the last valid input is more than the input leniency, then break
-                bool tooLongSinceLastInput = /*(j > 0) &&*/ (sinceLastMatch > Spax.SpaxManager.Instance.StaticValues.InputLeniency);
-                if (tooLongSinceLastInput) { break; }
+                bool tooLongSinceLastInput = /*(j > 0) &&*/(!reqHold) && (sinceLastMatch > inputLeniency);
+
+                if (tooLongSinceLastInput)
+                {
+                    //Debug.Log("too long since last valid input - " + i);
+                    return false;
+                }
 
 
                 //player's buttons
-                var playerItemBtn = curPlayerItem.Input & InputEnum.BUTTONS;
+                uint playerItemBtn = (uint)(curPlayerItem.Input & InputEnum.BUTTONS);
                 //player's direction
-                var playerItemDir = curPlayerItem.Input & InputEnum.DIRECTIONS;
+                uint playerItemDir = (uint)(curPlayerItem.Input & InputEnum.DIRECTIONS);
+                //player's flags
+                uint playerItemFlags = (uint)curPlayerItem.Flags;
 
                 //check the items
                 //  check if the flags match
-                bool checkHasFlags = EnumHelper.HasEnum((uint)curPlayerItem.Flags, (uint)(reqItem.Flags & (~InputFlags.DIR_4WAY)), true);
-                //      check if there's a hold durations
-                bool reqHold = (reqItem.HoldDuration > 0);
+                bool checkHasFlags = EnumHelper.HasEnum(playerItemFlags, reqFlags, true);
+
                 //      this makes it so that we still set it to true if we don't require a hold
                 //          but if we do, we force a fail
                 var checkHasFlags2 = (!reqHold) && checkHasFlags;
 
                 //      check for the 4way direction flag
-                bool reqHas4wayFlag = EnumHelper.HasEnum((uint)reqItem.Flags, (uint)InputFlags.DIR_4WAY, true);
+                bool reqHas4wayFlag = EnumHelper.HasEnum(reqFlagsRaw, (uint)InputFlags.DIR_4WAY, true);
+
+                //      check for the controller state doesn't have these inputs
+                bool reqHasUpFlag = EnumHelper.HasEnum(reqFlagsRaw, (uint)InputFlags.CHECK_IS_UP, true);
+
+
+                //are we checking if these inputs are currently up?
+                //      we only check if we're looking at the first item in the player's input (the controller state)
+                bool checkUp = (i == 0) && reqHasUpFlag;
 
 
                 //  we check if the inputs match
                 //      check the buttons
-                bool checkInputBtn = EnumHelper.HasEnum((uint)playerItemBtn, (uint)(reqItem.Input & InputEnum.BUTTONS), true);
+                //      we're so a lenient check if we're checking for if this input is not being pressed
+                //          this is because if ANY of the inputs are registered, then we gotta fail it
+                //          so we gotta turn the check into a fail flag if checkUp is true
+                bool checkInputBtn = EnumHelper.HasEnum(playerItemBtn, reqBtn, !checkUp) != checkUp;
                 //      check the directions, we do a lenient check if the required flags DOES NOT INCLUDE the 4way flag
-                bool checkInput = checkInputBtn && EnumHelper.HasEnum((uint)playerItemDir, (uint)(reqItem.Input & InputEnum.DIRECTIONS), !reqHas4wayFlag);
+                bool checkInput = checkInputBtn && (EnumHelper.HasEnum(playerItemDir, reqDir, (!(reqHas4wayFlag || checkUp))) != checkUp);
 
                 //for now, just set the overall check to the flag and overall input check
                 overallCheck = checkHasFlags2 && checkInput;
 
-                //if (this._targetState.name == "Jab")
+                //if (this._targetState.name == "FlashKick")
                 //{
-                //Debug.Log("required flags :: " + reqItem.Flags);
-                //Debug.Log("passed input leniency check | flag check :: " + checkHasFlags + " | direction check :: " + EnumHelper.HasEnum((uint)(reqItem.Input & InputEnum.DIRECTIONS), (uint)playerItemDir, !reqHas4wayFlag));
+                //    Debug.Log("required flags :: " + reqFlags + " | required buttons :: " + reqBtn + " | required direction :: " + reqDir);
+                //    Debug.Log("passed input leniency check | flag check :: " + checkHasFlags + " | input check :: " + checkInput + " | direction check :: " + (EnumHelper.HasEnum((uint)playerItemDir, (uint)reqDir, (!(reqHas4wayFlag || checkUp))) != checkUp));
                 //}
 
                 //  extra checks
@@ -112,10 +166,10 @@ namespace FightingGameEngine.Data
                 //          the hold duration of the input is > 0
                 //          AND the current item has the correct buttons and directions we're looking for
                 //          AND the current check failed
-                bool checkHold = checkHasFlags && checkInput && reqHold && !overallCheck;
+                bool checkHold = !overallCheck && checkHasFlags && checkInput && reqHold;
                 if (checkHold)
                 {
-                    Debug.Log("checking hold");
+                    //Debug.Log("checking hold | player input len - " + playerInputLen + " | i - " + i);
                     //we need to fast forward throught the rest of the inputs, we're looking for a press/release of the required item
                     //we start at i+1 since we already checked the item at i
                     int k = i + 1;
@@ -126,13 +180,14 @@ namespace FightingGameEngine.Data
                     int kHeldFrames = 0;
 
                     //-1 is so we dodge the first neutral item
-                    while (k < (playerInputLen - 1))
+                    while ((k < (playerInputLen)) && !(kHeldFrames >= reqHoldDur))
                     {
                         //current player input item we're looking at
                         var kCurPlayerItem = playerInputs[k];
 
                         //add the amount of frames held
                         kHeldFrames += kCurPlayerItem.HoldDuration;
+
                         //player's buttons
                         var kPlayerItemBtn = kCurPlayerItem.Input & InputEnum.BUTTONS;
                         //player's direction
@@ -142,9 +197,9 @@ namespace FightingGameEngine.Data
                         bool kCheckHasFlags = EnumHelper.HasEnum((uint)kCurPlayerItem.Flags, (uint)lookForFlag, true);
 
                         //      check the buttons
-                        bool kCheckInputBtn = EnumHelper.HasEnum((uint)kPlayerItemBtn, (uint)(reqItem.Input & InputEnum.BUTTONS), true);
+                        bool kCheckInputBtn = EnumHelper.HasEnum((uint)kPlayerItemBtn, reqBtn, true);
                         //      check the directions, we do a lenient check if the required flags DOES INCLUDE the 4way flag
-                        bool kCheckInput = kCheckHasFlags && kCheckInputBtn && EnumHelper.HasEnum((uint)kPlayerItemDir, (uint)(reqItem.Input & InputEnum.DIRECTIONS), !reqHas4wayFlag);
+                        bool kCheckInput = kCheckHasFlags && kCheckInputBtn && EnumHelper.HasEnum((uint)kPlayerItemDir, reqDir, !reqHas4wayFlag);
 
                         //Debug.Log("hold check loop - " + k + " | adding : " + kCurPlayerItem.HoldDuration);
                         //Debug.Log("button check :: " + kCheckInputBtn + " | flag check :: " + kCheckHasFlags + " | direction check :: " + EnumHelper.HasEnum((uint)kPlayerItemDir, (uint)(reqItem.Input & InputEnum.DIRECTIONS), !reqHas4wayFlag) + " | 4way? :: " + reqHas4wayFlag);
@@ -163,6 +218,14 @@ namespace FightingGameEngine.Data
                             //      but for now, we just count up the frames and end the loop if that happens
                             if (reqHas4wayFlag && (k < playerInputLen - 2))
                             {
+                                //new player input stuff
+                                //current player input item we're looking at
+                                var k2CurPlayerItem = playerInputs[k + 1];
+                                //player's flags
+                                var k2PlayerItemFlg = k2CurPlayerItem.Flags;
+                                //player's direction
+                                var k2PlayerItemDir = kCurPlayerItem.Input & InputEnum.DIRECTIONS;
+
                                 //Debug.Log("potential break");
                                 //TODO: god, this is a mess, try to make this less of a mess
 
@@ -176,7 +239,7 @@ namespace FightingGameEngine.Data
                                 bool stickGoesTo5 = kCurPlayerItem.HoldDuration > 0;
                                 //    2) charge is NOT being partitioned
                                 //          indicated by the current input being a press, but the released input IS part of the 4-way (if has tag)
-                                bool prevHasPressed = !(EnumHelper.HasEnum((uint)playerInputs[k + 1].Flags, (uint)InputFlags.RELEASED) && EnumHelper.HasEnum((uint)(playerInputs[k + 1].Input & InputEnum.DIRECTIONS), (uint)(reqItem.Input & InputEnum.DIRECTIONS), !reqHas4wayFlag));
+                                bool prevHasPressed = !(EnumHelper.HasEnum((uint)k2PlayerItemFlg, (uint)InputFlags.RELEASED) && EnumHelper.HasEnum((uint)k2PlayerItemDir, reqDir, !reqHas4wayFlag));
 
                                 bool breakCharge = stickGoesTo5 || prevHasPressed;
 
@@ -185,7 +248,7 @@ namespace FightingGameEngine.Data
                                 {
                                     //Debug.Log("broken charge");
                                     //the overall check is judged by whether or not the charge duration is met
-                                    overallCheck = kHeldFrames >= reqItem.HoldDuration;
+                                    overallCheck = kHeldFrames >= reqHoldDur;
                                     //end the loop
                                     break;
                                 }
@@ -196,7 +259,7 @@ namespace FightingGameEngine.Data
                             {
                                 //Debug.Log("check made it this far");
                                 //the overall check is judged by whether or not the charge duration is met
-                                overallCheck = kHeldFrames >= reqItem.HoldDuration;
+                                overallCheck = kHeldFrames >= reqHoldDur;
                                 //end the loop
                                 break;
                             }
@@ -205,7 +268,7 @@ namespace FightingGameEngine.Data
                     }
                     //Debug.Log("ending loop - " + kHeldFrames + "/" + reqItem.HoldDuration);
 
-                    overallCheck = kHeldFrames >= reqItem.HoldDuration;
+                    overallCheck = kHeldFrames >= reqHoldDur;
                 }
 
 
@@ -213,7 +276,7 @@ namespace FightingGameEngine.Data
                 //did the input match what we're looking for?
                 if (overallCheck)
                 {
-                    //Debug.Log("found a matching input - " + j);
+                    //Debug.Log("found a matching input - " + j + " in " + this._targetState.name);
                     //found a matched input
 
                     //increment the index of the required input
@@ -223,6 +286,7 @@ namespace FightingGameEngine.Data
 
                     if (completed)
                     {
+                        //Debug.Log("found transition to - " + this._targetState.name);
                         //we did, return true
                         return true;
                     }
@@ -230,8 +294,19 @@ namespace FightingGameEngine.Data
                     //we reach this only if we haven't yet matched every input, set new required input item to check against
                     reqItem = this._requiredInputs[j];
 
+                    //required hold duration
+                    reqHoldDur = reqItem.HoldDuration;
+                    //prepping req input data for easy use
+                    reqInput = reqItem.Input;
+                    //required input flags, removed flags that cannot be applied to player inputs
+                    reqFlags = (uint)(reqItem.Flags & (~InputFlags.BACKEND_FLAGS));
+                    //get the solo button and direction input
+                    reqBtn = (uint)(reqInput & InputEnum.BUTTONS);
+                    reqDir = (uint)(reqInput & InputEnum.DIRECTIONS);
+
                     //reset the time passed so far
                     sinceLastMatch = 0;
+
                     //deincrement i so that when we increment i later, it's a net swing of 0
                     //  this is so that we don't move the player input index if we got a matching input
                     //  so that one item can contribute as much as it can

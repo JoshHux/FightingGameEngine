@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Jab
+  m_Name: GroundedHitstun
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 200
+  _duration: 0
   _stateConditions: 0
   _cancels: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
+  - _targetState: {fileID: 0}
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -35,10 +35,4 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames: []
-  _animation:
-  - _atFrame: 1
-    _animationName: AttackB
-    _skipIfSameName: 0
-    _startFrame: 0
-    _soundFx: 
-    _vfx: 
+  _animation: []

@@ -1,7 +1,7 @@
 namespace FightingGameEngine.Enum
 {
     [System.Flags]
-    public enum InputEnum : int
+    public enum InputEnum : uint
     {
         _1 = 1 << 0,
         _2 = 1 << 1,
@@ -27,6 +27,9 @@ namespace FightingGameEngine.Enum
         Y_NEGATIVE = _1 | _2 | _3,
         X_ZERO = _2 | _8,
         Y_ZERO = _4 | _6,
+        X_NONZERO_LOW = _1 | _3,
+        X_NONZERO_MID = _4 | _6,
+        X_NONZERO_UP = _7 | _9,
         DIRECTIONS = _1 | _2 | _3 | _4 | _6 | _7 | _8 | _9,
         BUTTONS = A | B | C | D | W | X | Y | Z,
     }

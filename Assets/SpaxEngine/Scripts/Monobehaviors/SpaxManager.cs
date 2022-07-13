@@ -5,6 +5,7 @@ using FlatPhysics;
 using FlatPhysics.Unity;
 using FlatPhysics.Filter;
 using FightingGameEngine;
+using FightingGameEngine.Data;
 
 
 namespace Spax
@@ -42,12 +43,13 @@ namespace Spax
 
         //static values for stuff like input buffer and leniency
         [SerializeField] private soStaticValues _staticValues;
-
+        [SerializeField] private soUniversalStateHolder _universalStates;
         private FlatWorld _world;
         private Fix64 _timeStep;
         private CollisionLayer[] _collisionMatrix;
 
         public soStaticValues StaticValues { get { return this._staticValues; } }
+        public soUniversalStateHolder UniversalStates { get { return this._universalStates; } }
 
         //for initializing the physics and filtering collisions
         //private CollisionGroup[] groups;
@@ -85,12 +87,12 @@ namespace Spax
             for (int i = 0; i < len; i++)
             {
                 var hold = s[i];
-                hold.SpaxAwake();
+                //hold.SpaxAwake();
             }
             for (int i = 0; i < len; i++)
             {
                 var hold = s[i];
-                hold.SpaxStart();
+                //hold.SpaxStart();
             }
         }
 

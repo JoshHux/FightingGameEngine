@@ -87,39 +87,32 @@ namespace FightingGameEngine.Data
             return ret;
         }
 
-        public TransitionData CheckTransitions(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs)
+        public TransitionData CheckTransitions(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir)
         {
             TransitionData ret = null;
+            /*
+                        int i = 0;
+                        int len = this._transitions.Count;
+                        while (i < len)
+                        {
+                            var hold = this._transitions[i];
+                            bool check = hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir);
 
-            int i = 0;
-            int len = this._transitions.Count;
-            while (i < len)
-            {
-                var hold = this._transitions[i];
-                var transCancels = hold.RequiredCancels;
-                var transFlags = hold.RequiredTransitionFlags;
-                var transRsrc = hold.RequiredResources;
 
-                bool checkCancels = EnumHelper.HasEnum((uint)curCan, (uint)transCancels, true);
-                bool checkFlags = checkCancels && EnumHelper.HasEnum((uint)curFlags, (uint)transFlags, true);
-                bool checkResources = checkFlags && transRsrc.Check(curResources);
-                bool checkInputs = checkResources && hold.CheckInputs(playerInputs);
+                            //if (EnumHelper.HasEnum((uint)transFlags, (uint)TransitionFlags.GROUNDED, true))
+                            //    Debug.Log(i + " " + checkCancels + " " + checkFlags + " " + checkResources + " " + checkInputs);
 
-                //if (EnumHelper.HasEnum((uint)transFlags, (uint)TransitionFlags.GROUNDED, true))
-                //    Debug.Log(i + " " + checkCancels + " " + checkFlags + " " + checkResources + " " + checkInputs);
+                            if (check)
+                            {
+                                ret = hold;
+                                return ret;
 
-                bool check = checkInputs;
+                            }
 
-                if (check)
-                {
-                    ret = hold;
-                    return ret;
-
-                }
-
-                i++;
-            }
-
+                            i++;
+                        }
+            */
+            ret = this._transitions.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir));
             return ret;
         }
 

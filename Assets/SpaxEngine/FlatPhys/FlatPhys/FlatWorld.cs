@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FixMath.NET;
 using FlatPhysics.Contact;
 
@@ -8,7 +9,7 @@ namespace FlatPhysics
     {
 
         public static readonly int MinIterations = 1;
-        public static readonly int MaxIterations = 128;
+        public static readonly int MaxIterations = 16;
 
         private FVector2 gravity;
         private List<FlatBody> bodyList;
@@ -67,13 +68,17 @@ namespace FlatPhysics
         {
             iterations = UnityEngine.Mathf.Clamp(iterations, FlatWorld.MinIterations, FlatWorld.MaxIterations);
 
+            int bodyCount = this.bodyList.Count;
+            int bodyCounti = this.bodyList.Count - 1;
+
+            var broadPhaseList = new List<BroadPhasePairs>();
+
             for (int it = 0; it < iterations; it++)
             {
                 // Movement step
-                for (int i = 0; i < this.bodyList.Count; i++)
-                {
-                    this.bodyList[i].Step(time, this.gravity, iterations);
-                }
+
+                this.bodyList.ForEach(o => o.Step(time, this.gravity, iterations));
+
                 //TODO: Remove this loop, maybe update childeren from the parent in the Step, childeren should not have linear velocity afterall
                 // Parent update step
                 //we update the positions again to resolve the local positions
@@ -85,25 +90,25 @@ namespace FlatPhysics
                         hold.StepParent();
                 }*/
 
-                // collision step
-                for (int i = 0; i < this.bodyList.Count - 1; i++)
+                // broad phase, find pairs of bodies what MIGHT collide
+
+                for (int i = 0; i < bodyCounti; i++)
                 {
                     FlatBody bodyA = this.bodyList[i];
 
-                    for (int j = i + 1; j < this.bodyList.Count; j++)
+                    bool skipA = (!bodyA.Awake);// || bodyA.IsStatic;
+                                                //UnityEngine.Debug.Log(skipA + " A");
+                    if (skipA) { continue; }
+
+                    for (int j = i + 1; j < bodyCount; j++)
                     {
                         FlatBody bodyB = this.bodyList[j];
 
-                        bool bothAwake = bodyA.Awake && bodyB.Awake;
-
-                        bool bothStatic = bodyA.IsStatic && bodyB.IsStatic;
                         //we want to skip if both are static OR either is NOT awake
-                        bool skip = bothStatic && (!bothAwake);
+                        bool skipB = (!bodyB.Awake) || (bodyA.IsStatic && bodyB.IsStatic);
+                        //UnityEngine.Debug.Log((!bodyB.Awake) + " || " + (bodyA.IsStatic && bodyB.IsStatic));
 
-                        if (skip)
-                        {
-                            continue;
-                        }
+                        if (skipB) { continue; }
 
                         //the following 2 variables can only be 0 or 1
                         //this is be cause Layer is guarenteed to be nonzero, so norisk of dividing by zero
@@ -131,96 +136,121 @@ namespace FlatPhysics
                         //either body can collide with the other
                         bool canCollide = abCol || baCol;
 
-                        //whether or not we can and do collide
-                        FVector2 normal = new FVector2();
-                        Fix64 depth = 0;
+                        var toAdd = new BroadPhasePairs(bodyA, bodyB, bColA, aColB);
 
                         //AABB check
                         var AABBa = bodyA.GetAABB();
                         var AABBb = bodyB.GetAABB();
                         bool checkAABB = canCollide && Collisions.CheckAABB(AABBa, AABBb);
+                        bool add = checkAABB && (broadPhaseList.Find(o => toAdd.EqualCheck(o)) == null);
+
+                        //UnityEngine.Debug.Log(checkAABB + " " + add);
 
                         //the && prevents Collide from running if the bodies can't collide in the first place
-                        bool collide = checkAABB && this.Collide(bodyA, bodyB, out normal, out depth);
+                        if (add) { broadPhaseList.Add(toAdd); }
+                    }
+                }
 
-                        //if we do collide
-                        if (collide)
+                //cull duplicates
+                //broadPhaseList = broadPhaseList.Distinct().ToList();
+
+
+                //Narrow Phase
+                int nLen = broadPhaseList.Count;
+
+                for (int i = 0; i < nLen; i++)
+                {
+                    var hold = broadPhaseList[i];
+
+                    //whether or not we can and do collide
+                    FVector2 normal = new FVector2();
+                    Fix64 depth = 0;
+
+                    var bodyA = hold.BodyA;
+                    var bodyB = hold.BodyB;
+
+                    var bCola = hold.BColA;
+                    var aColb = hold.AColB;
+
+                    bool collide = this.Collide(bodyA, bodyB, out normal, out depth);
+
+                    //if we do collide
+                    if (collide)
+                    {
+                        //hopefully, moving the boolean operations outside of the if statement directly helps a bit with performance
+                        var eitherIsTrigger = bodyA.IsTrigger || bodyB.IsTrigger;
+                        var neitherIsTrigger = !eitherIsTrigger;
+                        //neither body is a trigger, resolve collision
+                        if (neitherIsTrigger)
                         {
-                            //hopefully, moving the boolean operations outside of the if statement directly helps a bit with performance
-                            var eitherIsTrigger = bodyA.IsTrigger || bodyB.IsTrigger;
-                            var neitherIsTrigger = !eitherIsTrigger;
-                            //neither body is a trigger, resolve collision
-                            if (neitherIsTrigger)
+
+                            //TODO: Make the pushboxes check if each are cornered or not, likely use a boolean or int (-1,1) to determine what direction to push
+                            //current solution is a little duct-tape-y
+
+                            //pushbox unique collision stuff only needs to happen when both boxes are pushboxes
+                            var bothPushBoxes = bodyB.IsPushbox && bodyA.IsPushbox;
+                            //if they're both pushboxes, then we re-calculate the normal to only consider the x-axis
+                            if (bothPushBoxes)
                             {
-
-                                //TODO: Make the pushboxes check if each are cornered or not, likely use a boolean or int (-1,1) to determine what direction to push
-                                //current solution is a little duct-tape-y
-
-                                //pushbox unique collision stuff only needs to happen when both boxes are pushboxes
-                                var bothPushBoxes = bodyB.IsPushbox && bodyA.IsPushbox;
-                                //if they're both pushboxes, then we re-calculate the normal to only consider the x-axis
-                                if (bothPushBoxes)
+                                //get the difference in x position 
+                                var xOffset = bodyB.Position.x - bodyA.Position.x;
+                                //if the boxes are directly on top of each other, set it to -1
+                                if (xOffset == 0)
                                 {
-                                    //get the difference in x position 
-                                    var xOffset = bodyB.Position.x - bodyA.Position.x;
-                                    //if the boxes are directly on top of each other, set it to -1
-                                    if (xOffset == 0)
-                                    {
-                                        xOffset = -1;
-                                    }
-                                    normal = new FVector2(xOffset, 0).normalized;
-
-                                    //UnityEngine.Debug.Log("reached" +
-                                    //"\nA true offset: (" + trueOffsetA.x + ", " + trueOffsetA.y + ")" +
-                                    //"\nB true offset: (" + trueOffsetB.x + ", " + trueOffsetB.y + ")" +
-                                    //"\noffset: (" + offset.x + ", " + offset.y + ")");
-                                    //UnityEngine.Debug.Log("reached" + "\noffset: (" + normal.x + ", " + normal.y + ")");
+                                    xOffset = -1;
                                 }
+                                normal = new FVector2(xOffset, 0);
 
-                                var offset = normal * depth;
-                                //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
-                                var trueOffsetB = offset * bColA;
-                                //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
-                                var trueOffsetA = -offset * aColB;
-                                //if A is static, only move B
-                                if (bodyA.IsStatic)
-                                {
-                                    bodyB.Move(trueOffsetB);
-                                }
-                                //if B is static, only move A
-                                else if (bodyB.IsStatic)
-                                {
-                                    bodyA.Move(trueOffsetA);
-                                }
-                                //neither is static, move both
-                                else
-                                {
-                                    //cleaned up math op's a bit
-                                    //var offsetA = trueOffsetA / 2;
-                                    //var offsetB = trueOffsetB / 2;
-                                    var offsetA = trueOffsetA * FixedMath.C0p5;
-                                    var offsetB = trueOffsetB * FixedMath.C0p5;
-
-                                    bodyA.Move(offsetA);
-                                    bodyB.Move(offsetB);
-                                }
-
-                                this.ResolveCollision(bodyA, bodyB, normal, depth, aColB, bColA);
+                                //UnityEngine.Debug.Log("reached" +
+                                //"\nA true offset: (" + trueOffsetA.x + ", " + trueOffsetA.y + ")" +
+                                //"\nB true offset: (" + trueOffsetB.x + ", " + trueOffsetB.y + ")" +
+                                //"\noffset: (" + offset.x + ", " + offset.y + ")");
+                                //UnityEngine.Debug.Log("reached" + "\noffset: (" + normal.x + ", " + normal.y + ")");
                             }
 
-                            //if we are anle to collide, call the respective callback
-                            if (abCol)
+                            var offset = normal * depth;
+                            //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
+                            var trueOffsetB = offset * bCola;
+                            //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
+                            var trueOffsetA = -offset * aColb;
+                            //if A is static, only move B
+                            if (bodyA.IsStatic)
                             {
-                                var c = new ContactData(FVector2.zero, bodyB.GameObject);
-                                bodyA.OnColOverlap(c);
+                                bodyB.Move(trueOffsetB);
                             }
-                            if (baCol)
+                            //if B is static, only move A
+                            else if (bodyB.IsStatic)
                             {
-                                var c = new ContactData(FVector2.zero, bodyA.GameObject);
-                                bodyB.OnColOverlap(c);
+                                bodyA.Move(trueOffsetA);
+                            }
+                            //neither is static, move both
+                            else if(bothPushBoxes)
+                            {
+                                //cleaned up math op's a bit
+                                //var offsetA = trueOffsetA / 2;
+                                //var offsetB = trueOffsetB / 2;
+                                var offsetA = trueOffsetA * FixedMath.C0p5;
+                                var offsetB = trueOffsetB * FixedMath.C0p5;
+
+                                bodyA.Move(offsetA);
+                                bodyB.Move(offsetB);
                             }
 
+                            this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola);
                         }
+
+                        //if we are able to collide, call the respective callback
+                        if (aColb > 0)
+                        {
+                            var c = new ContactData(FVector2.zero, bodyB.GameObject);
+                            bodyA.OnColOverlap(c);
+                        }
+                        if (bCola > 0)
+                        {
+                            var c = new ContactData(FVector2.zero, bodyA.GameObject);
+                            bodyB.OnColOverlap(c);
+                        }
+
                     }
                 }
             }
@@ -249,6 +279,8 @@ namespace FlatPhysics
             bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA;
         }
 
+
+
         public bool Collide(FlatBody bodyA, FlatBody bodyB, out FVector2 normal, out Fix64 depth)
         {
             normal = FVector2.zero;
@@ -257,16 +289,16 @@ namespace FlatPhysics
             ShapeType shapeTypeA = bodyA.ShapeType;
             ShapeType shapeTypeB = bodyB.ShapeType;
 
-            if (shapeTypeA is ShapeType.Box)
+            if (shapeTypeA == ShapeType.Box)
             {
-                if (shapeTypeB is ShapeType.Box)
+                if (shapeTypeB == ShapeType.Box)
                 {
                     return Collisions.IntersectPolygons(
                         bodyA.Position, bodyA.GetTransformedVertices(),
                         bodyB.Position, bodyB.GetTransformedVertices(),
                         out normal, out depth);
                 }
-                else if (shapeTypeB is ShapeType.Circle)
+                else if (shapeTypeB == ShapeType.Circle)
                 {
                     bool result = Collisions.IntersectCirclePolygon(
                         bodyB.Position, bodyB.Radius,
@@ -277,16 +309,16 @@ namespace FlatPhysics
                     return result;
                 }
             }
-            else if (shapeTypeA is ShapeType.Circle)
+            else if (shapeTypeA == ShapeType.Circle)
             {
-                if (shapeTypeB is ShapeType.Box)
+                if (shapeTypeB == ShapeType.Box)
                 {
                     return Collisions.IntersectCirclePolygon(
                         bodyA.Position, bodyA.Radius,
                         bodyB.Position, bodyB.GetTransformedVertices(),
                         out normal, out depth);
                 }
-                else if (shapeTypeB is ShapeType.Circle)
+                else if (shapeTypeB == ShapeType.Circle)
                 {
                     return Collisions.IntersectCircles(
                         bodyA.Position, bodyA.Radius,
@@ -296,6 +328,40 @@ namespace FlatPhysics
             }
 
             return false;
+        }
+    }
+    public sealed class BroadPhasePairs
+    {
+        private FlatBody _a;
+        private FlatBody _b;
+
+        private int _aColb;
+        private int _bCola;
+
+        public FlatBody BodyA { get { return this._a; } }
+        public FlatBody BodyB { get { return this._b; } }
+        public int AColB { get { return this._aColb; } }
+        public int BColA { get { return this._bCola; } }
+
+
+        public BroadPhasePairs(FlatBody A, FlatBody B, int ab, int ba)
+        {
+            this._a = A;
+            this._b = B;
+            this._aColb = ab;
+            this._bCola = ba;
+        }
+
+        public bool EqualCheck(BroadPhasePairs other)
+        {
+            bool ret1 = this._a == other.BodyA;
+            bool ret2 = ret1 && (this._b == other.BodyB);
+            bool ret3 = this._b == other.BodyA;
+            bool ret4 = ret3 && (this._a == other.BodyB);
+
+            bool ret = ret2 || ret4;
+
+            return ret;
         }
     }
 }

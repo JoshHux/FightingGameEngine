@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using FightingGameEngine.Data;
 
 namespace FightingGameEngine.Gameplay
 {
@@ -25,5 +23,10 @@ namespace FightingGameEngine.Gameplay
                 //we don't need to hook the delegate, since the boxes do it themselves on start
             }
         }
+
+        protected override void HitboxQueryUpdate() { }
+
+        
+
     }
 }
