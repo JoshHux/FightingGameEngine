@@ -22,6 +22,15 @@ namespace FightingGameEngine.Gameplay
         protected override void PreRenderUpdate() { }
         protected override void RenderUpdate()
         {
+            //if we're in hitstop, don't continue the animation
+            bool inHitstop = this._status.InHitstop;
+            if (inHitstop) { this._animator.speed = 0; }
+            else
+            {
+                this._animator.speed = 1;
+
+
+            }
             //get the animation frame at the current state timer count
             int timeInState = this._status.StateTimer.TimeElapsed;
             AnimationFrameData frame = this._status.CurrentState.GetAnimationAt(timeInState);
@@ -29,9 +38,9 @@ namespace FightingGameEngine.Gameplay
             //checking if there is data to process
             if (frame != null)
             {
+                //Debug.Log("found frame - " + timeInState);
                 this.ProcessAnimationData(frame);
             }
-
             var rendererTransform = this._animator.transform;
             var rendererScale = rendererTransform.localScale;
             var facingDir = this._status.CurrentFacingDirection;
@@ -60,6 +69,7 @@ namespace FightingGameEngine.Gameplay
 
                 if (!skipAnimChange)
                 {
+                    //Debug.Log(this.name + " transitioning animation to " + afd.AnimationName);
                     //we want to change the animation
 
                     //fixed delta time

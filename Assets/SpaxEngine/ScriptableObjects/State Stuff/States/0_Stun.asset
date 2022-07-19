@@ -19,7 +19,8 @@ MonoBehaviour:
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 11400000, guid: e70b3547e62619247912ad34cbb5072c, type: 2}
+  - _targetState: {fileID: 0}
+    _targetStateIndex: 2
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1
@@ -34,7 +35,8 @@ MonoBehaviour:
       Resource5: 0
       Resource6: 0
       Resource7: 0
-  - _targetState: {fileID: 11400000, guid: 7a4a0859ab64abf43a20134df3b2af7e, type: 2}
+  - _targetState: {fileID: 0}
+    _targetStateIndex: 3
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 2

@@ -11,11 +11,10 @@ namespace FightingGameEngine.Gameplay
         private VulnerableObject _owner;
         private FBox _trigger;
         //int that tells us what "side" we're on
-        protected int allegiance;
+        [ReadOnly, UnityEngine.SerializeField] protected int allegiance;
         //index in either the hurt or hitbox list that tells up what hit/hurtbox to look for
-        protected int triggerIndex;
+        [ReadOnly, UnityEngine.SerializeField] protected int triggerIndex;
 
-        public bool IsActive { get { return this._trigger.Awake; } }
         public int Allegiance { get { return this.allegiance; } }
         public VulnerableObject Owner { get { return this._owner; } }
         public FBox Trigger { get { return this._trigger; } }
@@ -70,6 +69,7 @@ namespace FightingGameEngine.Gameplay
             this.allegiance = newA;
         }
 
+        public virtual bool IsActive() { return this._trigger.Awake; }
 
         protected abstract void CheckDataFromFrame(object sender, FrameData data);
         public abstract void DeactivateBox();

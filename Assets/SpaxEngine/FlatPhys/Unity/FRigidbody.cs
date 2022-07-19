@@ -55,6 +55,7 @@ namespace FlatPhysics.Unity
         {
             //CollisionLayer layer = FlatWorldMono.instance.GetCollisions(this.gameObject.layer);
             CollisionLayer layer = SpaxManager.Instance.GetCollisions(this.gameObject.layer);
+            //Debug.Log(this.gameObject.layer);
             this.InstantiateBody(layer);
 
             this.ResolveStart();

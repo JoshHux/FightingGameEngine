@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd7ecb7829692344bd1f8c11cfd65fe, type: 3}
   m_Name: Player2
   m_EditorClassIdentifier: 
+  _allegiance: 1
   m_currentResources:
     Health: 600
     Meter: 0
@@ -26,15 +27,15 @@ MonoBehaviour:
     _timeElapsed: 0
     _endTime: 0
   m_stopTimer:
-    _timeElapsed: 0
-    _endTime: 0
+    _timeElapsed: 100
+    _endTime: 100
   m_currentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
-  m_transitionFlags: 1073741825
+  m_transitionFlags: 1073741841
   m_cancelFlags: 4294967295
   m_currentFacing: 1
   m_currentPosition:
     x:
-      m_rawValue: -52541768542
+      m_rawValue: -19327352832
     y:
       m_rawValue: -17179869184
   m_currentVelocity:
@@ -66,6 +67,6 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 0
       Flags: 0
-      HoldDuration: 1307
+      HoldDuration: 709
       LenientBuffer: 0
   m_checkState: 1

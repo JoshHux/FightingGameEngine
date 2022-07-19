@@ -51,10 +51,6 @@ namespace FightingGameEngine.Gameplay
 
         protected override void StateUpdate()
         {
-            //tick the stop timer
-            bool inHitstop = this.status.StopTimer.TickTimer();
-            //if we're in hitstop, don't tick timer
-            if (inHitstop) { return; }
             //Debug.Log("state updating - living object");
 
 
@@ -63,6 +59,11 @@ namespace FightingGameEngine.Gameplay
             //try to transition to a new state
             this.TryTransitionState();
 
+
+            //tick the stop timer
+            bool inHitstop = this.status.StopTimer.TickTimer();
+            //if we're in hitstop, don't tick timer
+            if (inHitstop) { return; }
 
             //tick the state timer after possible new state assignment anything else
             bool stateComplete = !this.status.StateTimer.TickTimer();
@@ -120,6 +121,11 @@ namespace FightingGameEngine.Gameplay
         {
             //record the current frame's position, to be used for the next frame
             this.status.CurrentPosition = this._rb.Body.Position;
+
+
+            //if we're in hitstop, we con't want to assign velocity
+            if (this.status.InHitstop) { return; }
+
             //record the current frame's velocity, to be used for the next frame
             this.status.CurrentVelocity = this._rb.Body.LinearVelocity;
             //Debug.Log("-PostUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
@@ -156,11 +162,18 @@ namespace FightingGameEngine.Gameplay
 
                 //index of default state 0 for grounded, 1 for airborne
                 int ind = (airborne) ? 1 : 0;
+                //do we have a valid index to transition to?
+                bool validIndex = trans.TargetStateIndex > 1;
+                if (validIndex)
+                {
+                    ind = trans.TargetStateIndex;
+                }
 
                 //Debug.Log(ind);
 
                 //set the state we want to transtion to
                 targetState = this.data.StateList[ind];
+
             }
             //set the new state
             this.SetState(targetState);
@@ -347,14 +360,34 @@ namespace FightingGameEngine.Gameplay
                 //{
                 //Debug.Log(curInpt[1].Input + " " + curInpt[1].Flags + " " + (curInpt[1].HoldDuration < Spax.SpaxManager.Instance.StaticValues.InputLeniency));
                 //}
+
                 //if trans is still null, we end the check
                 if (trans == null) { /*Debug.Log("failed to find transition");*/ return; }
+
                 //Debug.Log("found transition in movelist - " + trans.TargetState.name);
             }
             //Debug.Log("found transition to - " + trans.TargetState.name);
 
             this.ProcessTransitionData(trans);
 
+        }
+
+        protected void TryTransitionUniversalState(int universalStateInd = -1)
+        {
+
+            var trnFlags = this.status.TransitionFlags;
+            var curCan = this.status.CancelFlags;
+            var curRsrc = this.status.CurrentResources;
+            var curInpt = this.status.Inputs;
+            var curFacing = this.status.CurrentFacingDirection;
+
+            var universalStateList = Spax.SpaxManager.Instance.UniversalStates;
+
+            var trans = universalStateList.CheckTransition(universalStateInd, trnFlags, curCan, curRsrc, curInpt, curFacing);
+
+            if (trans == null) { return; }
+
+            this.ProcessTransitionData(trans);
         }
 
         //call to correct CalcVelocity's direction
@@ -382,6 +415,30 @@ namespace FightingGameEngine.Gameplay
             this.status.CancelFlags = newState.CancelConditions;
             //remove the state end transition flag
             this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~TransitionFlags.STATE_END);
+        }
+
+        protected void SetStopTimer(int newDur)
+        {
+
+            int potenHitstop = newDur;
+
+            //is the hitstop timer currently ticking?
+            bool hitstopTicking = !this.status.StopTimer.IsDone();
+            //if the timer is still ticking, go with the higher hitstop value
+            bool newHitstopIsLarger = hitstopTicking && (potenHitstop > this.status.StopTimer.EndTime);
+            //restart the timer with new hitstop
+            bool restartStopTimer = (!hitstopTicking) || newHitstopIsLarger;
+
+            if (restartStopTimer)
+            {
+                //Debug.Log("starting stop timer in - " + this.name + " for " + potenHitstop + " frames long");
+                this.status.StopTimer = new FrameTimer(potenHitstop);
+
+                //should freeze the rigidbody's velocity
+                this._rb.Body.LinearVelocity = new FVector2();
+            }
+
+
         }
     }
 }

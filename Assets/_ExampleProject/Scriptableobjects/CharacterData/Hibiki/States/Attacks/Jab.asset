@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Jab
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 200
+  _duration: 24
   _stateConditions: 0
   _cancels: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -35,7 +36,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames:
-  - _atFrame: 8
+  - _atFrame: 5
     _setVelocity: 0
     _appliedVelocity:
       x:
@@ -58,6 +59,7 @@ MonoBehaviour:
     _hitboxes:
       Hitbox0:
         Duration: 6
+        UniversalStateCause: 0
         Type: 1
         Position:
           x:
@@ -72,10 +74,10 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
-        Hitstun: 0
+        Hitstun: 100
         MinHitstun: 0
         BlockStun: 0
-        Hitstop: 0
+        Hitstop: 100
         BlockStop: 0
         MinDamage: 0
         UntechTime: 0
@@ -116,6 +118,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox1:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -174,6 +177,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox2:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -232,6 +236,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox3:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -290,6 +295,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox4:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -348,6 +354,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox5:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -406,6 +413,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox6:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -464,6 +472,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox7:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -522,6 +531,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox8:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -580,6 +590,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox9:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:

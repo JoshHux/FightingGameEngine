@@ -46,7 +46,7 @@ namespace Spax
         [SerializeField] private soUniversalStateHolder _universalStates;
         private FlatWorld _world;
         private Fix64 _timeStep;
-        private CollisionLayer[] _collisionMatrix;
+        [SerializeField] private CollisionLayer[] _collisionMatrix;
 
         public soStaticValues StaticValues { get { return this._staticValues; } }
         public soUniversalStateHolder UniversalStates { get { return this._universalStates; } }
@@ -61,7 +61,7 @@ namespace Spax
             //initialize physics world stuff
             //collision layer stuff
             this._collisionMatrix = new CollisionLayer[16];
-            int len = 16;
+            int len = 9;
             for (int i = 0; i < len; i++)
             {
                 for (int j = 0; j < len; j++)
@@ -71,8 +71,10 @@ namespace Spax
                     if (collides)
                     {
                         this._collisionMatrix[i] |= (CollisionLayer)(1 << j);
+                        //Debug.Log((CollisionLayer)(1 << j) + " | " + i + ", " + j);
                     }
                 }
+                //Debug.Log(i + " :: " + this._collisionMatrix[i]);
             }
             //asssign world
             this._world = new FlatWorld();

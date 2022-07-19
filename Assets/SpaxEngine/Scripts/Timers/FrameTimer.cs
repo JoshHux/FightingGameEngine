@@ -7,6 +7,7 @@ namespace FightingGameEngine
         [UnityEngine.SerializeField] private int _endTime;
 
         public int TimeElapsed { get { return this._timeElapsed; } }
+        public int EndTime { get { return this._endTime; } }
 
         public FrameTimer()
         {
@@ -41,7 +42,7 @@ namespace FightingGameEngine
             return ret;
         }
 
-        //are we done ticking? true if <0
+        //are we done ticking? true if 
         public bool IsDone()
         {
             var ret = this._timeElapsed >= this._endTime;

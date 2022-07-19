@@ -20,6 +20,7 @@ MonoBehaviour:
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 2
@@ -35,6 +36,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: 2ae2af20a94a28c42b8847d0c5cc11aa, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs:
     - Input: 16
@@ -54,6 +56,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: ce03797e588230b4cb160a994392f9ed, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs:
     - Input: 8
@@ -73,7 +76,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames:
-  - _atFrame: 1
+  - _atFrame: 0
     _setVelocity: 0
     _appliedVelocity:
       x:
@@ -96,6 +99,7 @@ MonoBehaviour:
     _hitboxes:
       Hitbox0:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -154,6 +158,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox1:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -212,6 +217,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox2:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -270,6 +276,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox3:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -328,6 +335,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox4:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -386,6 +394,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox5:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -444,6 +453,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox6:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -502,6 +512,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox7:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -560,6 +571,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox8:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -618,6 +630,7 @@ MonoBehaviour:
           Resource7: 0
       Hitbox9:
         Duration: 0
+        UniversalStateCause: 0
         Type: 0
         Position:
           x:
@@ -683,9 +696,9 @@ MonoBehaviour:
             m_rawValue: 4294967296
         Dimensions:
           x:
-            m_rawValue: 4294967296
+            m_rawValue: 8589934592
           y:
-            m_rawValue: 4294967296
+            m_rawValue: 8589934592
       Hurtbox1:
         Position:
           x:

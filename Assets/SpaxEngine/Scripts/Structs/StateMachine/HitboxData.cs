@@ -6,6 +6,7 @@ namespace FightingGameEngine.Data
     public struct HitboxData
     {
         public int Duration;
+        public int UniversalStateCause;
         public HitboxType Type;
         public FVector2 Position;
         public FVector2 Dimensions;

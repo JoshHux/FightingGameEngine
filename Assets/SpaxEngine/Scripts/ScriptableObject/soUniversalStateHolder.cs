@@ -9,9 +9,11 @@ namespace FightingGameEngine.Data
     {
         [SerializeField] private List<TransitionData> _stateList;
 
-        public TransitionData CheckMoveList(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir)
+        //check the transition to specific state
+        public TransitionData CheckTransition(int targetStateIndex, TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir)
         {
             TransitionData ret = null;
+            TransitionData potenTrans = this._stateList[targetStateIndex];
             //Debug.Log("checking movelist");
             /*int i = 0;
             int len = this._stateList.Length;
@@ -35,7 +37,13 @@ namespace FightingGameEngine.Data
                 i++;
             }
 */
-            ret = this._stateList.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir));
+            bool gotTransition = potenTrans.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir);
+
+            if (gotTransition)
+            {
+                ret = potenTrans;
+            }
+
             return ret;
         }
 

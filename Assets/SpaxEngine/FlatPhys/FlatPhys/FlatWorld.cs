@@ -144,6 +144,8 @@ namespace FlatPhysics
                         bool checkAABB = canCollide && Collisions.CheckAABB(AABBa, AABBb);
                         bool add = checkAABB && (broadPhaseList.Find(o => toAdd.EqualCheck(o)) == null);
 
+                        //if ((aLayer == Filter.CollisionLayer.LAYER_6 && bLayer == Filter.CollisionLayer.LAYER_3) || (bLayer == Filter.CollisionLayer.LAYER_6 && aLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("colliding i hope"); }
+
                         //UnityEngine.Debug.Log(checkAABB + " " + add);
 
                         //the && prevents Collide from running if the bodies can't collide in the first place
@@ -207,6 +209,8 @@ namespace FlatPhysics
                                 //"\noffset: (" + offset.x + ", " + offset.y + ")");
                                 //UnityEngine.Debug.Log("reached" + "\noffset: (" + normal.x + ", " + normal.y + ")");
                             }
+                            //if ((bodyA.Layer == Filter.CollisionLayer.LAYER_6 && bodyB.Layer == Filter.CollisionLayer.LAYER_3) || (bodyB.Layer == Filter.CollisionLayer.LAYER_6 && bodyA.Layer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("colliding i hope"); }
+
 
                             var offset = normal * depth;
                             //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
@@ -224,7 +228,7 @@ namespace FlatPhysics
                                 bodyA.Move(trueOffsetA);
                             }
                             //neither is static, move both
-                            else if(bothPushBoxes)
+                            else if (!bothPushBoxes)
                             {
                                 //cleaned up math op's a bit
                                 //var offsetA = trueOffsetA / 2;

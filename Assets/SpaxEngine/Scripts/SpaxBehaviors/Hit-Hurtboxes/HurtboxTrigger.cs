@@ -40,7 +40,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //called by hitboxes interacting with this to hit the owner
-        public HitIndicator HurtThisBox(HitboxData boxData)
+        public HitIndicator HurtThisBox(HitInfo boxData)
         {
             var ret = this.Owner.AddHitboxToQuery(boxData);
             return ret;

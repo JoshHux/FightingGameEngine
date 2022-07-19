@@ -1,6 +1,6 @@
 namespace FlatPhysics.Filter
 {
-    public enum CollisionLayer
+    public enum CollisionLayer:int
     {
         LAYER_0 = 1 << 0,
         LAYER_1 = 1 << 1,

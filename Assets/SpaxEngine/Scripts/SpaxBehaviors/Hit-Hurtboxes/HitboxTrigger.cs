@@ -8,15 +8,28 @@ namespace FightingGameEngine.Gameplay
 {
     public class HitboxTrigger : BoxTrigger
     {
-
+        [ReadOnly, UnityEngine.SerializeField] private FrameTimer _activeTimer;
         private HitboxData m_data;
-        private List<BoxTrigger> m_wasColliding;
-        private List<BoxTrigger> _curColliding;
+        [ReadOnly, UnityEngine.SerializeField] private List<BoxTrigger> m_wasColliding;
+        [ReadOnly, UnityEngine.SerializeField] private List<BoxTrigger> _curColliding;
 
         void Awake()
         {
+            this._activeTimer = new FrameTimer();
             this.m_wasColliding = new List<BoxTrigger>();
             this._curColliding = new List<BoxTrigger>();
+        }
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            this.Trigger.Body.OnOverlap += (ctx) => this.OnFlatOverlap(ctx);
+        }
+
+        void OnDestroy()
+        {
+            this.Trigger.Body.OnOverlap -= (ctx) => this.OnFlatOverlap(ctx);
+
         }
 
         private void ActivateBox(HitboxData newData)
@@ -25,6 +38,12 @@ namespace FightingGameEngine.Gameplay
 
             var newPos = this.m_data.Position;
             var newDim = this.m_data.Dimensions;
+
+            this._activeTimer = new FrameTimer(this.m_data.Duration);
+
+            //reset collision list
+            this._curColliding.Clear();
+            this.m_wasColliding.Clear();
 
             this.CommonActivateBox(newPos, newDim);
         }
@@ -60,7 +79,7 @@ namespace FightingGameEngine.Gameplay
         private void OnFlatOverlap(ContactData c)
         {
             //only continue if we are active
-            bool dontContinue = !this.IsActive;
+            bool dontContinue = !this.IsActive();
             if (dontContinue) { return; }
 
             //the frigidbody we might add to the currently colliding list
@@ -68,14 +87,18 @@ namespace FightingGameEngine.Gameplay
             //get the FRigidbody
             var frb = c.other;
 
+            //if (frb == null) { return; }
+
             //get the box we want to check against
             var possibleAddition = frb.GetComponent<BoxTrigger>();
+
+            //UnityEngine.Debug.Log(frb.name);
 
             //the other box's owner
             var otherOwner = possibleAddition.Owner;
 
             //is the box we are trying to hit active?
-            var otherIsActive = possibleAddition.IsActive;
+            var otherIsActive = possibleAddition.IsActive();
 
             //check to make sure that the allegiance is mismatched
             var checkAllegiance = possibleAddition.Allegiance != this.allegiance;
@@ -114,6 +137,7 @@ namespace FightingGameEngine.Gameplay
                 {
                     //add new object to curColliding
                     this._curColliding.Add(possibleAddition);
+                    //UnityEngine.Debug.Log("okay to add");
                 }
 
             }
@@ -163,71 +187,94 @@ namespace FightingGameEngine.Gameplay
         //ONLY CALL IF BOX IS ACTIVE
         public HitInfo[] QueryHitbox()
         {
+            bool active = this.IsActive();
 
             //init object to return
             var ret = new List<HitInfo>();
-
-            //the new boxes we are colliding with
-            //these are the PORTION of boxes WE ARE CURRENTLY COLLIDING WITH
-            //THAT have owners that we HAVEN'T interacted with
-            var diffColliders = this.GetDiff();
-
-
-
-            int i = 0;
-            int len = diffColliders.Count;
-            while (i < len)
+            if (active)
             {
-                //the box we want tp [rpcess]
-                var box = diffColliders[i];
-                //owner of the box
-                var boxOwner = box.Owner;
+
+                //the new boxes we are colliding with
+                //these are the PORTION of boxes WE ARE CURRENTLY COLLIDING WITH
+                //THAT have owners that we HAVEN'T interacted with
+                var diffColliders = this.GetDiff();
 
 
-                //the lerp position for vfx
-                var ourPos = this.transform.position;
-                var theirPos = boxOwner.transform.position;
-                var lerpPos = (ourPos * 0.5f) + (theirPos * 0.5f);
 
-                //indicator for the HitInfo to add to the list
-                //will be given a non-zero value below
-                HitIndicator indicator = 0;
-
-                //switch case based on box type
-                switch (box)
+                int i = 0;
+                int len = diffColliders.Count;
+                while (i < len)
                 {
-                    //if we're querying a hitbox
-                    case HitboxTrigger hitbox:
-                        //remove the box from curColliding
-                        //this is to prevent a scenario where a clash would occur and then immediately
-                        //afterwards,a hurtbox would activate and SHOULD trigger a hit, IE clashing DP's
-                        //guarentees that wasColliding ONLY consists of HurtboxTrigger objects
-                        //this._curColliding.Remove(box);
-                        break;
-                    //if we're querying a hurtbox
-                    case HurtboxTrigger hurtbox:
-                        //TODO: conduct experiments in Xrd regarding to what happens to opponent who stops blocking a still active hitbox
-                        //  if the character gets hit, remove box from curColliding if hitIndicator has the BLOCKED flag, makes it so that we can hit them on the next frame
-                        indicator = hurtbox.HurtThisBox(this.m_data);
-                        break;
-                    default:
-                        UnityEngine.Debug.LogError("Hitbox has detected invalid box class");
-                        break;
+                    //the box we want tp [rpcess]
+                    var box = diffColliders[i];
+                    //owner of the box
+                    var boxOwner = box.Owner;
+
+
+                    //the lerp position for vfx
+                    var ourPos = this.transform.position;
+                    var theirPos = boxOwner.transform.position;
+                    var lerpPos = (ourPos * 0.5f) + (theirPos * 0.5f);
+
+                    //indicator for the HitInfo to add to the list
+                    //will be given a non-zero value below
+                    HitIndicator indicator = 0;
+
+                    //the hitInfo object to add to the return list
+                    //replace indicator and object parameter later, put like this for now for stuff in the hit object
+                    var toAdd = new HitInfo(this.m_data, indicator, lerpPos, this.Owner);
+
+                    //switch case based on box type
+                    switch (box)
+                    {
+                        //if we're querying a hitbox
+                        case HitboxTrigger hitbox:
+                            //remove the box from curColliding
+                            //this is to prevent a scenario where a clash would occur and then immediately
+                            //afterwards,a hurtbox would activate and SHOULD trigger a hit, IE clashing DP's
+                            //guarentees that wasColliding ONLY consists of HurtboxTrigger objects
+                            //this._curColliding.Remove(box);
+                            break;
+                        //if we're querying a hurtbox
+                        case HurtboxTrigger hurtbox:
+                            //TODO: conduct experiments in Xrd regarding to what happens to opponent who stops blocking a still active hitbox
+                            //  if the character gets hit, remove box from curColliding if hitIndicator has the BLOCKED flag, makes it so that we can hit them on the next frame
+                            indicator = hurtbox.HurtThisBox(toAdd);
+                            break;
+                        default:
+                            UnityEngine.Debug.LogError("Hitbox has detected invalid box class");
+                            break;
+                    }
+
+                    //add the hitInfo to the list
+                    ret.Add(toAdd);
+
+                    //replace indicator value with the right value
+                    toAdd.Indicator = indicator;
+                    //replace with correct vulnerableObject
+                    toAdd.OtherOwner = boxOwner;
+
+                    i++;
                 }
 
-                //the hitInfo object to add to the return list
-                var toAdd = new HitInfo(this.m_data, indicator, lerpPos, boxOwner);
-                //add the hitInfo to the list
-                ret.Add(toAdd);
+                //the list of objects in curColliding are now the list of wasColliding
+                this.m_wasColliding = new List<BoxTrigger>(this._curColliding);
+                //clear the list of boxes we are currently colliding with
+                this._curColliding.Clear();
             }
 
-            //the list of objects in curColliding are now the list of wasColliding
-            this.m_wasColliding = new List<BoxTrigger>(this._curColliding);
-            //clear the list of boxes we are currently colliding with
-            this._curColliding.Clear();
+            //tick active timer
+            this._activeTimer.TickTimer();
 
             return ret.ToArray();
 
+        }
+
+        public override bool IsActive()
+        {
+            var ret = !this._activeTimer.IsDone();
+
+            return ret;
         }
 
 

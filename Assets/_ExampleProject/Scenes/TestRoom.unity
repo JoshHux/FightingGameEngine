@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 150163352}
   - component: {fileID: 150163354}
   - component: {fileID: 150163353}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,6 +243,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &150163354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +282,7 @@ GameObject:
   - component: {fileID: 177538942}
   - component: {fileID: 177538944}
   - component: {fileID: 177538943}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,6 +336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &338181341
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +349,7 @@ GameObject:
   - component: {fileID: 338181342}
   - component: {fileID: 338181344}
   - component: {fileID: 338181343}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,6 +382,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &338181344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +421,7 @@ GameObject:
   - component: {fileID: 451562198}
   - component: {fileID: 451562200}
   - component: {fileID: 451562199}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,6 +454,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &451562200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +493,7 @@ GameObject:
   - component: {fileID: 452154155}
   - component: {fileID: 452154157}
   - component: {fileID: 452154156}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,6 +547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +776,7 @@ GameObject:
   - component: {fileID: 658519351}
   - component: {fileID: 658519353}
   - component: {fileID: 658519352}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -784,6 +809,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &658519353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,7 +848,7 @@ GameObject:
   - component: {fileID: 687107984}
   - component: {fileID: 687107986}
   - component: {fileID: 687107985}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -849,6 +881,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &687107986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,7 +920,7 @@ GameObject:
   - component: {fileID: 766337890}
   - component: {fileID: 766337892}
   - component: {fileID: 766337891}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -914,6 +953,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &766337892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,7 +992,7 @@ GameObject:
   - component: {fileID: 785658823}
   - component: {fileID: 785658825}
   - component: {fileID: 785658824}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1000,6 +1046,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &888866643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,7 +1264,7 @@ GameObject:
   - component: {fileID: 940334151}
   - component: {fileID: 940334153}
   - component: {fileID: 940334152}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1270,6 +1318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &976261692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,7 +1369,7 @@ GameObject:
   - component: {fileID: 991664497}
   - component: {fileID: 991664499}
   - component: {fileID: 991664498}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1373,6 +1423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &1034427973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,7 +1436,7 @@ GameObject:
   - component: {fileID: 1034427974}
   - component: {fileID: 1034427976}
   - component: {fileID: 1034427975}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1438,6 +1490,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &1062712993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,7 +1503,7 @@ GameObject:
   - component: {fileID: 1062712994}
   - component: {fileID: 1062712996}
   - component: {fileID: 1062712995}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1482,6 +1536,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &1062712996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1515,7 +1576,7 @@ GameObject:
   - component: {fileID: 1109899114}
   - component: {fileID: 1109899115}
   - component: {fileID: 1109899116}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1537,7 +1598,7 @@ Transform:
   - {fileID: 1325415287}
   - {fileID: 136157102}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1109899114
 MonoBehaviour:
@@ -1603,7 +1664,7 @@ GameObject:
   - component: {fileID: 1129726888}
   - component: {fileID: 1129726887}
   - component: {fileID: 1129726886}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestPlayer (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1677,7 +1738,7 @@ Transform:
   - {fileID: 976261693}
   - {fileID: 112831158}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1161846077
 GameObject:
@@ -1793,7 +1854,7 @@ GameObject:
   - component: {fileID: 1167533753}
   - component: {fileID: 1167533755}
   - component: {fileID: 1167533754}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1847,6 +1908,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &1279664723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,7 +1952,7 @@ GameObject:
   - component: {fileID: 1323506795}
   - component: {fileID: 1323506797}
   - component: {fileID: 1323506796}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1943,6 +2006,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &1325415286
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,7 +2090,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _staticValues: {fileID: 11400000, guid: 277c623cd07f2824d9068635e055e9b5, type: 2}
-  _universalStates: {fileID: 0}
+  _universalStates: {fileID: 11400000, guid: 6e45f051812751f48adf8ed3bca68333, type: 2}
+  _collisionMatrix: 
 --- !u!1 &1441019180
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,7 +2103,7 @@ GameObject:
   - component: {fileID: 1441019181}
   - component: {fileID: 1441019183}
   - component: {fileID: 1441019182}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2070,6 +2136,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &1441019183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2102,7 +2175,7 @@ GameObject:
   - component: {fileID: 1537949188}
   - component: {fileID: 1537949190}
   - component: {fileID: 1537949189}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2135,6 +2208,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &1537949190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2167,7 +2247,7 @@ GameObject:
   - component: {fileID: 1556923830}
   - component: {fileID: 1556923832}
   - component: {fileID: 1556923831}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2221,6 +2301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &1614171382
 GameObject:
   m_ObjectHideFlags: 0
@@ -2232,7 +2314,7 @@ GameObject:
   - component: {fileID: 1614171383}
   - component: {fileID: 1614171385}
   - component: {fileID: 1614171384}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2286,6 +2368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &1655816889
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,7 +2381,7 @@ GameObject:
   - component: {fileID: 1655816890}
   - component: {fileID: 1655816892}
   - component: {fileID: 1655816891}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2351,6 +2435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &1706308684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2362,7 +2448,7 @@ GameObject:
   - component: {fileID: 1706308685}
   - component: {fileID: 1706308687}
   - component: {fileID: 1706308686}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2416,6 +2502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &1715200473
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,7 +2515,7 @@ GameObject:
   - component: {fileID: 1715200474}
   - component: {fileID: 1715200476}
   - component: {fileID: 1715200475}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2460,6 +2548,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &1715200476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2492,7 +2587,7 @@ GameObject:
   - component: {fileID: 1845527119}
   - component: {fileID: 1845527121}
   - component: {fileID: 1845527120}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2546,6 +2641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &1850034357
 GameObject:
   m_ObjectHideFlags: 0
@@ -2557,7 +2654,7 @@ GameObject:
   - component: {fileID: 1850034358}
   - component: {fileID: 1850034360}
   - component: {fileID: 1850034359}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2590,6 +2687,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &1850034360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2622,7 +2726,7 @@ GameObject:
   - component: {fileID: 1859261248}
   - component: {fileID: 1859261250}
   - component: {fileID: 1859261249}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2655,6 +2759,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &1859261250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2777,7 +2888,7 @@ Transform:
   m_LocalScale: {x: 100, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1935661082
 GameObject:
@@ -2790,7 +2901,7 @@ GameObject:
   - component: {fileID: 1935661083}
   - component: {fileID: 1935661085}
   - component: {fileID: 1935661084}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2844,6 +2955,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &2027447686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,7 +2968,7 @@ GameObject:
   - component: {fileID: 2027447687}
   - component: {fileID: 2027447689}
   - component: {fileID: 2027447688}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2888,6 +3001,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &2027447689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2920,7 +3040,7 @@ GameObject:
   - component: {fileID: 2078512962}
   - component: {fileID: 2078512964}
   - component: {fileID: 2078512963}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2974,6 +3094,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &2107599832
 GameObject:
   m_ObjectHideFlags: 0
@@ -2985,7 +3107,7 @@ GameObject:
   - component: {fileID: 2107599833}
   - component: {fileID: 2107599835}
   - component: {fileID: 2107599834}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hurtbox (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3039,6 +3161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ba4cd61651eb245b44735bfa3e60a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
 --- !u!1 &2124922673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3050,7 +3174,7 @@ GameObject:
   - component: {fileID: 2124922674}
   - component: {fileID: 2124922676}
   - component: {fileID: 2124922675}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3083,6 +3207,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &2124922676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3115,7 +3246,7 @@ GameObject:
   - component: {fileID: 2125850102}
   - component: {fileID: 2125850104}
   - component: {fileID: 2125850103}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3148,6 +3279,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &2125850104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3180,7 +3318,7 @@ GameObject:
   - component: {fileID: 2129419237}
   - component: {fileID: 2129419239}
   - component: {fileID: 2129419238}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Hitbox (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3213,6 +3351,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7fa67b83d624b4cbc875cd553579af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 0
+  triggerIndex: 0
+  _activeTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_wasColliding: []
+  _curColliding: []
 --- !u!114 &2129419239
 MonoBehaviour:
   m_ObjectHideFlags: 0

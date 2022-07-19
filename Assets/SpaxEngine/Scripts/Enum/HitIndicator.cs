@@ -6,11 +6,12 @@ namespace FightingGameEngine.Enum
     public enum HitIndicator : uint
     {
         WHIFF = 0,
-        COUNTER_HIT = 1,
-        BLOCKED = 1 << 1,
-        GRABBED = 1 << 2,
-        SUPER = 1 << 3,
-        CLASH = 1 << 4,
+        HIT = 1,
+        COUNTER_HIT = 1 << 1,
+        BLOCKED = 1 << 2,
+        GRABBED = 1 << 3,
+        SUPER = 1 << 4,
+        CLASH = 1 << 5,
 
 
     }

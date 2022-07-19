@@ -30,9 +30,11 @@ MonoBehaviour:
   _stateList:
   - {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
   - {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
-  - {fileID: 11400000, guid: f35299342e97d984fb11155d0908426d, type: 2}
+  - {fileID: 11400000, guid: 398ccdbf91e2da640a08f18def63a744, type: 2}
+  - {fileID: 11400000, guid: 75081ba64281fd94ba3bc95d3a789d7b, type: 2}
   _moveList:
   - _targetState: {fileID: 11400000, guid: f35299342e97d984fb11155d0908426d, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 8192
     _requiredInputs:
     - Input: 512
@@ -60,6 +62,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: 5f9b7d7fee279bf4699b608f21869253, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 33554432
     _requiredInputs:
     - Input: 512
@@ -91,6 +94,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: ee5a285aef9236e4e98f19362c03abf4, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 33554432
     _requiredInputs:
     - Input: 512
@@ -110,6 +114,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: 7644e2bb656dda24c9e77be374861d70, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 2
     _requiredInputs:
     - Input: 4096
