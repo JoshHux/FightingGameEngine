@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 417
+  _stateConditions: 929
   _cancels: 4294967295
   _enterEvents: 0
   _exitEvents: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
     _cancelConditions: 0
     _requiredInputs:
     - Input: 16
-      Flags: 3
+      Flags: 536870912
       HoldDuration: 0
       LenientBuffer: 0
     _requiredTransitionFlags: 1
@@ -60,7 +60,7 @@ MonoBehaviour:
     _cancelConditions: 0
     _requiredInputs:
     - Input: 8
-      Flags: 3
+      Flags: 536870912
       HoldDuration: 0
       LenientBuffer: 0
     _requiredTransitionFlags: 1

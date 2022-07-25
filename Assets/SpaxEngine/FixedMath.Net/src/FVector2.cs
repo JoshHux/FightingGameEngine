@@ -61,6 +61,7 @@ namespace FixMath.NET
             get
             {
                 Fix64 magnitude = this.magnitude;
+                if(magnitude==0){new FVector2(0, 0);}
                 return new FVector2(this.x / magnitude, this.y / magnitude);
             }
         }

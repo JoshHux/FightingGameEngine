@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 0
+  _stateConditions: 67108864
   _cancels: 0
   _enterEvents: 0
   _exitEvents: 0
@@ -761,7 +761,7 @@ MonoBehaviour:
     _timerEvents: []
     _projectiles: []
   _animation:
-  - _atFrame: 0
+  - _atFrame: 1
     _animationName: Hitstun-Ground
     _skipIfSameName: 0
     _startFrame: 0

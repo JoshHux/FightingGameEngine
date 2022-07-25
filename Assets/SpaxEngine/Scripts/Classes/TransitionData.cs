@@ -111,19 +111,19 @@ namespace FightingGameEngine.Data
                 //if the number of frames passed since the last valid input is more than the input leniency, then break
                 bool tooLongSinceLastInput = /*(j > 0) &&*/(!reqHold) && (sinceLastMatch > inputLeniency);
 
-                if (tooLongSinceLastInput)
-                {
-                    //Debug.Log("too long since last valid input - " + i);
-                    return false;
-                }
-
-
                 //player's buttons
                 uint playerItemBtn = (uint)(curPlayerItem.Input & InputEnum.BUTTONS);
                 //player's direction
                 uint playerItemDir = (uint)(curPlayerItem.Input & InputEnum.DIRECTIONS);
                 //player's flags
                 uint playerItemFlags = (uint)curPlayerItem.Flags;
+
+                if (tooLongSinceLastInput)
+                {
+                    //Debug.Log("too long since last valid input - " + i);
+                    return false;
+                }
+                //else if (this._targetState != null && this._targetState.name == "Prejump") { Debug.Log(i + " | passed - " + curPlayerItem.HoldDuration + " " + sinceLastMatch + "/" + inputLeniency + " | " + reqFlags + " | " + playerItemBtn + " " + playerItemFlags); }
 
                 //check the items
                 //  check if the flags match
@@ -157,10 +157,11 @@ namespace FightingGameEngine.Data
                 //for now, just set the overall check to the flag and overall input check
                 overallCheck = checkHasFlags2 && checkInput;
 
-                //if (this._targetState.name == "FlashKick")
+                //if (this._targetState != null && this._targetState.name == "Prejump")
                 //{
                 //    Debug.Log("required flags :: " + reqFlags + " | required buttons :: " + reqBtn + " | required direction :: " + reqDir);
                 //    Debug.Log("passed input leniency check | flag check :: " + checkHasFlags + " | input check :: " + checkInput + " | direction check :: " + (EnumHelper.HasEnum((uint)playerItemDir, (uint)reqDir, (!(reqHas4wayFlag || checkUp))) != checkUp));
+                //    Debug.Log("button check - p :: " + playerItemBtn + " | r :: " + reqBtn + " - " + checkInputBtn);
                 //}
 
                 //  extra checks

@@ -16,6 +16,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private FrameTimer m_stateTimer;
         [SerializeField] private FrameTimer m_stopTimer;
         [SerializeField] private soStateData m_currentState;
+        [SerializeField] private StateConditions m_currentConditions;
         [SerializeField] private TransitionFlags m_transitionFlags;
         [SerializeField] private CancelConditions m_cancelFlags;
         [SerializeField] private int m_currentFacing;
@@ -29,6 +30,8 @@ namespace FightingGameEngine.Data
         [SerializeField] private Fix64 m_currentProration;
         [SerializeField] private int m_comboCount;
         [SerializeField] private InputRecorder _inputRecorder;
+        [SerializeField] private FlatPhysics.FlatBody _positionAnchor;
+        [SerializeField] private FVector2 _positionOffset;
         //whether or not we should check for a transition to a new state
         [SerializeField] private bool m_checkState;
 
@@ -38,6 +41,7 @@ namespace FightingGameEngine.Data
         public FrameTimer StateTimer { get { return this.m_stateTimer; } set { this.m_stateTimer = value; } }
         public FrameTimer StopTimer { get { return this.m_stopTimer; } set { this.m_stopTimer = value; } }
         public soStateData CurrentState { get { return this.m_currentState; } set { this.m_currentState = value; } }
+        public StateConditions CurrentStateConditions { get { return this.m_currentConditions; } set { this.m_currentConditions = value; } }
         public TransitionFlags TransitionFlags
         {
             get { return this.m_transitionFlags; }
@@ -73,6 +77,11 @@ namespace FightingGameEngine.Data
         public int CurrentComboCount { get { return this.m_comboCount; } set { this.m_comboCount = value; } }
         //we determine whether we check the state here
         public bool CheckState { get { return this.m_checkState; } set { this.m_checkState = value; } }
+
+        //anchor for our position when we are grabbed
+        public FlatPhysics.FlatBody PositionAnchor { get { return this._positionAnchor; } }
+        public FVector2 PositionOffset { get { return this._positionOffset; } }
+
         //for easy access from the InputRecorder object
         public InputItem CurrentControllerState { get { return this._inputRecorder.CurrentControllerState; } set { this._inputRecorder.CurrentControllerState = value; } }
         public InputItem[] Inputs { get { return this._inputRecorder.GetInputs(); } }
@@ -96,6 +105,9 @@ namespace FightingGameEngine.Data
         {
             this.m_checkState = this._inputRecorder.BufferInput(bufferLeniency);
         }
+        public void SetAnchor(FlatPhysics.FlatBody newAnchor) { this._positionAnchor = newAnchor; }
+        public void SetOffset(FVector2 newOffset) { this._positionOffset = newOffset; }
         public bool InHitstop { get { return !this.m_stopTimer.IsDone(); } }
+        public bool IsAnchored() { return this._positionAnchor != null; }
     }
 }

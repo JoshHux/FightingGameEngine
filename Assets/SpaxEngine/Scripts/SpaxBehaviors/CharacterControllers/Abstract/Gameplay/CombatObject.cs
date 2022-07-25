@@ -86,6 +86,9 @@ namespace FightingGameEngine.Gameplay
 
                 if (notWhiff)
                 {
+
+                    //TODO: check if we got a blocked or clean hit
+
                     var existsTarget = processList.Find(o => o.OtherOwner == hitTarget);
 
                     if (existsTarget == null)
@@ -106,6 +109,9 @@ namespace FightingGameEngine.Gameplay
                             processList.Add(hold);
                         }
                     }
+
+                    this.status.TransitionFlags |= Enum.TransitionFlags.LANDED_HIT;
+
                 }
 
                 i++;

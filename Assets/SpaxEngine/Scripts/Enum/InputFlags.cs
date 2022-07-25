@@ -8,7 +8,7 @@ namespace FightingGameEngine.Enum
         RELEASED = 1 << 1,
         NO_INTERRUPT = 1 << 2,
         DIR_4WAY = 1 << 3,
-        CHECK_CONTROLLER = PRESSED | RELEASED,
+        CHECK_CONTROLLER = 1<<29,
         CHECK_IS_UP = (uint)(1 << 30),
 
         BACKEND_FLAGS = DIR_4WAY | CHECK_IS_UP,

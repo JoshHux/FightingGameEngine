@@ -14,10 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 0
+  _stateConditions: 67108864
   _cancels: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions: []
   _frames: []
-  _animation: []
+  _animation:
+  - _atFrame: 1
+    _animationName: 
+    _skipIfSameName: 0
+    _startFrame: 0
+    _soundFx: 
+    _vfx: 

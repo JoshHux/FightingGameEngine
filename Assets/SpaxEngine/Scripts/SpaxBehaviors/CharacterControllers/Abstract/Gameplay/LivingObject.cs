@@ -18,6 +18,7 @@ namespace FightingGameEngine.Gameplay
 
 
         public soCharacterStatus Status { get { return this.status; } }
+        public FVector2 FlatPosition { get { return this._rb.Body.Position; } }
 
         protected override void OnAwake()
         {
@@ -67,6 +68,7 @@ namespace FightingGameEngine.Gameplay
 
             //tick the state timer after possible new state assignment anything else
             bool stateComplete = !this.status.StateTimer.TickTimer();
+            //if (this.status.CurrentState.name == "Jab") { Debug.Log("state timer in StateUpdate is - " + stateComplete + " - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
 
             if (stateComplete)
             {
@@ -98,7 +100,7 @@ namespace FightingGameEngine.Gameplay
             if (this.status.InHitstop) { return; }
 
             //process our current state's state conditions
-            StateConditions curCond = this.status.CurrentState.StateConditions;
+            StateConditions curCond = this.status.CurrentStateConditions;
             this.ProcessStateConditions(curCond);
 
             //correct the direction of CalcVelocity
@@ -109,8 +111,12 @@ namespace FightingGameEngine.Gameplay
 
             //apply the total velocity to the rigidbody
             this._rb.Velocity = this.status.TotalVelocity;
+
+
             //set CalcVelocity to 0 to prevent any extra changes to velocity on the next frame
             this.status.CalcVelocity = new FVector2();
+
+            //if (this.name == "TestPlayer" && this.status.TotalVelocity.magnitude > 0) Debug.Log("SpaxUpdate, total velocity :: (" + this.status.TotalVelocity.x + ", " + this.status.TotalVelocity.y + ")");
 
             //i++;
             //Debug.Log("SpaxUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
@@ -128,10 +134,13 @@ namespace FightingGameEngine.Gameplay
 
             //record the current frame's velocity, to be used for the next frame
             this.status.CurrentVelocity = this._rb.Body.LinearVelocity;
+            //if (this.name == "TestPlayer" && this.status.TotalVelocity.magnitude > 0) Debug.Log("PostUpdate, total velocity :: (" + this.status.TotalVelocity.x + ", " + this.status.TotalVelocity.y + ")");
+
+
             //Debug.Log("-PostUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
 
             //simple check for grounded or not
-            if ((this.status.CurrentPosition.y >= -3) || (this.status.CurrentVelocity.y > 0))
+            if ((this.status.CurrentPosition.y - (this._rb.Height / 2) > -4) || (this.status.CurrentVelocity.y > 0))
             {
                 //make status think it's airborne
                 //Debug.Log("becoming airborne " + (this.status.CurrentPosition.y < -3) + " " + (this.status.CurrentVelocity.y > 0));
@@ -142,9 +151,11 @@ namespace FightingGameEngine.Gameplay
                 //make character think it's grounded
                 //Debug.Log("becoming grounded ");
                 this.status.TransitionFlags = (~TransitionFlags.AIRBORNE) & (this.status.TransitionFlags | TransitionFlags.GROUNDED);
+                //this.status.CurrentVelocity = new FVector2(this.status.TotalVelocity.x, 0);
 
             }
             //Debug.Log("postupdate - " + this.name + " - " + i);
+            //if (this.status.CurrentState.name == "Jab") { Debug.Log("state timer in PostUpdate is - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
 
         }
 
@@ -195,6 +206,9 @@ namespace FightingGameEngine.Gameplay
             int killX = EnumHelper.HasEnumInt((uint)te, (uint)TransitionEvents.KILL_X_VEL);
             //int result for killing y velocity, 1 for has enum, 0 for doesn't have
             int killY = EnumHelper.HasEnumInt((uint)te, (uint)TransitionEvents.KILL_Y_VEL);
+            //int result for flipping facing direction
+            int flipDir = EnumHelper.HasEnumInt((uint)te, (uint)TransitionEvents.FLIP_FACING);
+
 
             //int multiplier to multiply the respective velocities
             //xor with 1 so that if we do want to kill velcity we multiply that velocity with 0, and 1 when we don't
@@ -214,6 +228,9 @@ namespace FightingGameEngine.Gameplay
 
             //reassign the mew velocity
             this.status.CurrentVelocity = newVel;
+
+            //reassign the facing direction
+            this.status.CurrentFacingDirection = this.status.CurrentFacingDirection * ((flipDir * -1) + ((flipDir ^ 1) * 1));
 
             this.status.ResetLeniency();
 
@@ -366,7 +383,9 @@ namespace FightingGameEngine.Gameplay
 
                 //Debug.Log("found transition in movelist - " + trans.TargetState.name);
             }
-            //Debug.Log("found transition to - " + trans.TargetState.name);
+            //if (trans.TargetState != null) { Debug.Log("found transition to - " + trans.TargetState.name); }
+            //if (this.status.CurrentState.name == "GroundedThrowHit") { Debug.Log("transition flags is - " + this.status.TransitionFlags); }
+
 
             this.ProcessTransitionData(trans);
 
@@ -384,6 +403,8 @@ namespace FightingGameEngine.Gameplay
             var universalStateList = Spax.SpaxManager.Instance.UniversalStates;
 
             var trans = universalStateList.CheckTransition(universalStateInd, trnFlags, curCan, curRsrc, curInpt, curFacing);
+
+            //if (universalStateInd == 2) { Debug.Log(trans.TargetState.name); }
 
             if (trans == null) { return; }
 
@@ -406,16 +427,28 @@ namespace FightingGameEngine.Gameplay
 
         protected void SetState(soStateData newState)
         {
+            //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
+
+
             //set the new current state
             this.status.CurrentState = newState;
             //start the new state timer
             int stateDuration = this.status.CurrentState.Duration;
             this.status.StateTimer = new FrameTimer(stateDuration);
+            //assign the current state conditions
+            this.status.CurrentStateConditions = newState.StateConditions;
             //assign the current cancel conditions
             this.status.CancelFlags = newState.CancelConditions;
             //remove the state end transition flag
-            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~TransitionFlags.STATE_END);
+            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT));
+
+
+            //if (newState.name == "GroundedThrowHit") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
+            //if (newState.name == "GroundedThrowHit") { Debug.Log("state timer in setstate is - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
+
         }
+
+        protected void SetPosition(FVector2 newPos) { this._rb.Body.Position = newPos; }
 
         protected void SetStopTimer(int newDur)
         {
@@ -439,6 +472,13 @@ namespace FightingGameEngine.Gameplay
             }
 
 
+        }
+
+        public int IsAirborne()
+        {
+            var ret = (int)EnumHelper.isNotZero((uint)(this.status.CurrentStateConditions & StateConditions.AIRBORNE));
+
+            return ret;
         }
     }
 }

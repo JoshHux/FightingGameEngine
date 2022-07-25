@@ -191,18 +191,41 @@ namespace FlatPhysics
 
                             //pushbox unique collision stuff only needs to happen when both boxes are pushboxes
                             var bothPushBoxes = bodyB.IsPushbox && bodyA.IsPushbox;
+                            //both have to be active in order to collide
+                            var bothActivePush = bodyB.ActivePushbox && bodyA.ActivePushbox;
+                            bool collidePushboxes = bothActivePush && bothPushBoxes;
                             //if they're both pushboxes, then we re-calculate the normal to only consider the x-axis
-                            if (bothPushBoxes)
+                            if (collidePushboxes)
                             {
+                                var aGO = bodyA.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
+                                var bGO = bodyB.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
+
+                                var aIsAirborne = aGO.IsAirborne();
+                                var bIsAirborne = bGO.IsAirborne();
+                                var aFacing = aGO.Status.CurrentFacingDirection;
+                                var bFacing = bGO.Status.CurrentFacingDirection;
+
+                                var bothAreDiff = (bIsAirborne ^ aIsAirborne);
+
+
                                 //get the difference in x position 
                                 var xOffset = bodyB.Position.x - bodyA.Position.x;
-                                //if the boxes are directly on top of each other, set it to -1
-                                if (xOffset == 0)
-                                {
-                                    xOffset = -1;
-                                }
-                                normal = new FVector2(xOffset, 0);
 
+                                if (bothAreDiff > 0)
+                                {
+                                    if (bIsAirborne > 0) { xOffset = -bodyA.Position.x; }
+                                    else if (aIsAirborne > 0) { xOffset = -bodyB.Position.x; }
+                                }
+
+                                //if the boxes are directly on top of each other, set it to -1
+                                if (xOffset == 0 )
+                                {
+
+                                    xOffset = aFacing;
+                                }
+                                normal = new FVector2(xOffset, 0).normalized;
+
+                                //UnityEngine.Debug.Log("both are pushboxes "+bothActivePush);
                                 //UnityEngine.Debug.Log("reached" +
                                 //"\nA true offset: (" + trueOffsetA.x + ", " + trueOffsetA.y + ")" +
                                 //"\nB true offset: (" + trueOffsetB.x + ", " + trueOffsetB.y + ")" +
@@ -228,7 +251,7 @@ namespace FlatPhysics
                                 bodyA.Move(trueOffsetA);
                             }
                             //neither is static, move both
-                            else if (!bothPushBoxes)
+                            else
                             {
                                 //cleaned up math op's a bit
                                 //var offsetA = trueOffsetA / 2;
@@ -236,11 +259,36 @@ namespace FlatPhysics
                                 var offsetA = trueOffsetA * FixedMath.C0p5;
                                 var offsetB = trueOffsetB * FixedMath.C0p5;
 
-                                bodyA.Move(offsetA);
-                                bodyB.Move(offsetB);
-                            }
+                                var trOffA = new FVector2(offsetA.x, offsetA.y);
+                                var trOffB = new FVector2(offsetB.x, offsetB.y);
 
-                            this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola);
+                                //if both are pushboxes, apply to velocity
+                                if (bothActivePush)// && depth > (FixedMath.C0p001 / 5))
+                                {
+                                    //UnityEngine.Debug.Log("both are pushboxes " + depth);
+
+
+
+                                    bodyA.Impulse += (trOffA) * (2 / time);
+                                    bodyB.Impulse += (trOffB) * (2 / time);
+
+                                    if (trOffA.x * bodyB.LinearVelocity.x > 0) { bodyA.Impulse += new FVector2(bodyB.LinearVelocity.x, 0); }
+                                    if (trOffB.x * bodyA.LinearVelocity.x > 0) { bodyB.Impulse += new FVector2(bodyA.LinearVelocity.x, 0); }
+
+                                    //bodyA.Impulse += (trOffA) * (1 / time) + new FVector2(bodyB.LinearVelocity.x - bodyA.LinearVelocity.x, 0)* (1 / time);
+                                    //bodyB.Impulse += (trOffB) * (1 / time) + new FVector2(bodyA.LinearVelocity.x - bodyB.LinearVelocity.x, 0)* (1 / time);
+
+
+                                    //bodyA.Move(trOffA);
+                                    //bodyB.Move(trOffB);
+                                }
+                                else
+                                {
+                                    bodyA.Move(trOffA);
+                                    bodyB.Move(trOffB);
+                                }
+                            }
+                            this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, bothActivePush);
                         }
 
                         //if we are able to collide, call the respective callback
@@ -260,9 +308,18 @@ namespace FlatPhysics
             }
         }
 
-        public void ResolveCollision(FlatBody bodyA, FlatBody bodyB, FVector2 normal, Fix64 depth, int aColB, int bColA)
+        public void ResolveAgainstAllStatic(FlatBody bodyA, FlatBody bodyB)
+        {
+            var allStatic = this.bodyList.FindAll(o => o.IsStatic);
+
+        }
+
+        public void ResolveCollision(FlatBody bodyA, FlatBody bodyB, FVector2 normal, Fix64 depth, int aColB, int bColA, bool bothActivePushboxes)
         {
             FVector2 relativeVelocity = bodyB.LinearVelocity - bodyA.LinearVelocity;
+
+            //if (bodyA.GameObject.name == "TestPlayer" && bodyA.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyA, velocity :: (" + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y + ")");
+            //if (bodyB.GameObject.name == "TestPlayer" && bodyB.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyB, velocity :: (" + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y + ")");
 
             if (FVector2.Dot(relativeVelocity, normal) > 0)
             {
@@ -279,8 +336,32 @@ namespace FlatPhysics
             //            bodyA.LinearVelocity -= impulse * bodyA.InvMass;
             //            bodyB.LinearVelocity += impulse * bodyB.InvMass;
 
-            bodyA.LinearVelocity -= impulse * bodyA.InvMass * aColB;
-            bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA;
+            if (bothActivePushboxes)
+            {
+                //var mag = relativeVelocity.magnitude;
+                relativeVelocity.y = 0;
+
+                //relativeVelocity = relativeVelocity.normalized * mag;
+
+                bodyA.Impulse -= -relativeVelocity * bodyA.InvMass * aColB;
+                bodyB.Impulse += -relativeVelocity * bodyB.InvMass * bColA;
+
+                impulse.y = 0;
+                //bodyA.Impulse -= impulse * bodyA.InvMass * aColB;
+                //bodyB.Impulse += impulse * bodyB.InvMass * bColA;
+
+                //if (bodyA.GameObject.name == "TestPlayer" && bodyA.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyA, velocity :: (" + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y + ")");
+                //if (bodyB.GameObject.name == "TestPlayer" && bodyB.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyB, velocity :: (" + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y + ")");
+            }
+            else
+            {
+                bodyA.LinearVelocity -= impulse * bodyA.InvMass * aColB;
+                bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA;
+
+                //bodyA.Impulse -= impulse * bodyA.InvMass * aColB;
+                //bodyB.Impulse += impulse * bodyB.InvMass * bColA;
+
+            }
         }
 
 

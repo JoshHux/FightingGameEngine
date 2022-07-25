@@ -20,10 +20,11 @@ MonoBehaviour:
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
+    _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs:
     - Input: 16
-      Flags: 1073741827
+      Flags: 1610612736
       HoldDuration: 0
       LenientBuffer: 0
     _requiredTransitionFlags: 0

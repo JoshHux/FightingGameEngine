@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 0
+  _stateConditions: 67108864
   _cancels: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
+    _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824

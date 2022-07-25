@@ -24,16 +24,21 @@ namespace FightingGameEngine.Gameplay
         {
             //if we're in hitstop, don't continue the animation
             bool inHitstop = this._status.InHitstop;
-            if (inHitstop) { this._animator.speed = 0; }
-            else
-            {
-                this._animator.speed = 1;
-
-
-            }
             //get the animation frame at the current state timer count
             int timeInState = this._status.StateTimer.TimeElapsed;
+
+            if (inHitstop)
+            {
+                this._animator.speed = 0;
+                int isStunState = (int)EnumHelper.HasEnumInt((uint)this._status.CurrentStateConditions, (uint)StateConditions.STUN_STATE);
+                int isHitstopNonzero = (int)EnumHelper.isNotZero((uint)this._status.StopTimer.TimeElapsed) * isStunState;
+                timeInState = Mathf.Max(timeInState, isHitstopNonzero);
+            }
+            else { this._animator.speed = 1; }
+
+
             AnimationFrameData frame = this._status.CurrentState.GetAnimationAt(timeInState);
+            //if (this._status.CurrentState.name == "Jab") { Debug.Log("state timer in renderupdate is - " + this._status.StateTimer.TimeElapsed + "/" + this._status.StateTimer.EndTime); }
 
             //checking if there is data to process
             if (frame != null)

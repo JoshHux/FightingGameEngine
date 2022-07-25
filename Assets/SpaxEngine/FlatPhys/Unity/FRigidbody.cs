@@ -12,6 +12,7 @@ namespace FlatPhysics.Unity
         [SerializeField] protected bool isTrigger;
         [SerializeField] protected bool isPushbox;
         [SerializeField] protected Fix64 mass;
+        [SerializeField, ReadOnly] private FVector2 _velocity;
 
         public FlatBody Body
         {
@@ -93,7 +94,10 @@ namespace FlatPhysics.Unity
         void Update()
         {
             if (this._rb != null)
+            {
                 this.transform.position = new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f);
+                this._velocity = this.Body.LinearVelocity;
+            }
         }
 
         void OnDestroy()

@@ -33,9 +33,12 @@ namespace FightingGameEngine
         {
             //this._timeElapsed++;
             //a >= check so that we only tick up the timer if the end time is nonzero
-            var timerCheck = this._timeElapsed < this._endTime;
+            //var timerCheck = this._timeElapsed < this._endTime;
             //the same check as the line above, but doing it this way makes it so that time elapsed only increments
-            var incrementCheck = (timerCheck) && (++this._timeElapsed <= this._endTime);
+            //var incrementCheck = (timerCheck) && (++this._timeElapsed <= this._endTime);
+
+            var incrementCheck = ((this._timeElapsed + 0) < this._endTime) && (++this._timeElapsed < this._endTime);
+
 
             var ret = incrementCheck;
 

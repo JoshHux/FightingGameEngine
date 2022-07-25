@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stateList:
   - _targetState: {fileID: 11400000, guid: 85ded8227542c4a4788ae9ee79ce2dc3, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 16
@@ -29,9 +30,26 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: d52f317183da1d64cb7c58168a3040ed, type: 2}
+    _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 48
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: 62c20831dc39f914880ca12efb7c8e6a, type: 2}
+    _targetStateIndex: -1
+    _cancelConditions: 0
+    _requiredInputs: []
+    _requiredTransitionFlags: 16
     _transitionEvents: 0
     _requiredResources:
       Health: 0

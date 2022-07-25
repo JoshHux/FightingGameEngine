@@ -57,6 +57,7 @@ namespace FightingGameEngine.Gameplay
                 bool notWhiff = hold.Indicator > 0;
                 if (notWhiff)
                 {
+                    bool isGrabbed = EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.GRABBED);
                     //Debug.Log("processing hit");
                     //set hitstop
                     int potenHitstop = hold.HitboxData.Hitstop;
@@ -68,6 +69,38 @@ namespace FightingGameEngine.Gameplay
 
                     //add transition flag to let the status know we got hit
                     this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.GOT_HIT;
+
+                    //knockback/postion offset value (for grabs)
+                    var groundedPhysVal = hold.HitboxData.GroundedKnockback;
+                    groundedPhysVal.x = groundedPhysVal.x * hold.OtherOwner.Facing;
+                    var airbornePhysVal = hold.HitboxData.AirborneKnockback;
+                    airbornePhysVal.x = airbornePhysVal.x * hold.OtherOwner.Facing;
+
+
+                    if (isGrabbed)
+                    {
+                        //position of grabber
+                        var grabberPosition = hold.OtherOwner.FlatPosition;
+
+                        var newPosition = grabberPosition + groundedPhysVal;
+
+                        this.SetPosition(newPosition);
+
+                        //set proper facing direction
+                        //what is the difference between our x position and their x position?
+                        var diffPos = hold.OtherOwner.FlatPosition.x - this.status.CurrentPosition.x;
+
+                        //if our facing direction and the difference in position are different, then we should turn
+                        bool shouldTurn = (diffPos * this.status.CurrentFacingDirection) < 0;
+
+                        if (shouldTurn)
+                        {
+                            var newFacing = FixMath.NET.Fix64.Sign(diffPos);
+                            this.status.CurrentFacingDirection = newFacing;
+                        }
+                        //Debug.Log("universal transition state - " + univTargetState);
+                    }
+                    else { }
                 }
                 i++;
             }
@@ -76,7 +109,11 @@ namespace FightingGameEngine.Gameplay
             {
                 this.TryTransitionUniversalState(univTargetState);
                 //set stun duration
-                this.Status.StateTimer = new FrameTimer(totalStun);
+                int sttDur = (this.status.CurrentState.Duration == 0) ? totalStun : this.status.CurrentState.Duration;
+                this.Status.StateTimer = new FrameTimer(sttDur);
+
+
+
 
             }
 
@@ -103,6 +140,10 @@ namespace FightingGameEngine.Gameplay
         public HitIndicator AddHitboxToQuery(HitInfo boxData)
         {
             HitIndicator ret = HitIndicator.HIT;
+
+            //TODO: have a check against the stateconditions for whether we are grabbed or not
+            bool isGrabBox = EnumHelper.HasEnum((uint)boxData.HitboxData.Type, (uint)HitboxType.GRAB);
+            if (isGrabBox) { ret |= HitIndicator.GRABBED; }
 
             //make copy of object just in case of some shallow memory access shenanigans
             //last parameter is the object that hit us (to be used later)

@@ -58,7 +58,8 @@ namespace FightingGameEngine.Data
              }*/
             ret = this._moveList.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir));
 
-
+            //if (ret != null && ret.TargetState != null && ret.TargetState.name == "Grab-Back") { Debug.Log("found it"); }
+            
             return ret;
         }
 

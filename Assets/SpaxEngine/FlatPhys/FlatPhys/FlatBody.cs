@@ -18,9 +18,13 @@ namespace FlatPhysics
     public sealed class FlatBody
     {
         private bool _awake;
+        private bool _concave;
+
         private FVector2 _position;
         private FVector2 _localPosition;
         private FVector2 _linearVelocity;
+        //velocity applied to rexolve collisions, set to 0 after use
+        public FVector2 Impulse;
         private Fix64 _rotation;
         private Fix64 _rotationalVelocity;
 
@@ -95,6 +99,7 @@ namespace FlatPhysics
         public FVector2 Position
         {
             get { return this._position; }
+            set { this._position = value; }
         }
 
         public FlatBody Parent
@@ -131,6 +136,19 @@ namespace FlatPhysics
             }
         }
 
+
+        public bool Concave
+        {
+            get { return this._concave; }
+            set
+            {
+                this._concave = value;
+            }
+
+        }
+
+        public bool ActivePushbox;
+
         private FlatBody(FVector2 position, Fix64 mass, Fix64 restitution,
             bool isStatic, bool isPushbox, bool isTrigger, Fix64 radius, Fix64 width, Fix64 height,
             ShapeType shapeType, CollisionLayer layer, CollisionLayer collidesWith, FRigidbody gameObject)
@@ -138,6 +156,8 @@ namespace FlatPhysics
             this._position = position;
             this._localPosition = FVector2.zero;
             this._linearVelocity = FVector2.zero;
+            this.Impulse = FVector2.zero;
+
             this._rotation = 0;
             this._rotationalVelocity = 0;
 
@@ -156,6 +176,7 @@ namespace FlatPhysics
             this.CollidesWith = collidesWith;
             this.GameObject = gameObject;
             this.IsPushbox = isPushbox;
+            this.ActivePushbox = this.IsPushbox;
             //have it be null to start out with, guarentees null if no parent
             this._parent = null;
 
@@ -326,9 +347,10 @@ namespace FlatPhysics
             //FVector2 acceleration = this.force / this.Mass;
             //this._linearVelocity += acceleration * time;
 
-            this._linearVelocity += gravity * time;
-            this._position += this._linearVelocity * time;
-
+            //this._linearVelocity += gravity * time;
+            //this._position += this._linearVelocity * time;
+            this._position += (this._linearVelocity + this.Impulse) * time;
+            this.Impulse = new FVector2(0, 0);
             //this._rotation += this._rotationalVelocity * time;
 
             this.force = FVector2.zero;
