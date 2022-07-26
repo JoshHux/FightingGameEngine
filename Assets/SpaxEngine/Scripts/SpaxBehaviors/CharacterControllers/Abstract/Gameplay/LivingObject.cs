@@ -18,6 +18,7 @@ namespace FightingGameEngine.Gameplay
 
 
         public soCharacterStatus Status { get { return this.status; } }
+        public FlatPhysics.FlatBody Body { get { return this._rb.Body; } }
         public FVector2 FlatPosition { get { return this._rb.Body.Position; } }
 
         protected override void OnAwake()
@@ -115,6 +116,8 @@ namespace FightingGameEngine.Gameplay
 
             //set CalcVelocity to 0 to prevent any extra changes to velocity on the next frame
             this.status.CalcVelocity = new FVector2();
+            //reset the walled flag so that it only appears on flames where we touch the wall
+            this.status.TransitionFlags &= (~TransitionFlags.WALLED);
 
             //if (this.name == "TestPlayer" && this.status.TotalVelocity.magnitude > 0) Debug.Log("SpaxUpdate, total velocity :: (" + this.status.TotalVelocity.x + ", " + this.status.TotalVelocity.y + ")");
 
@@ -479,6 +482,19 @@ namespace FightingGameEngine.Gameplay
             var ret = (int)EnumHelper.isNotZero((uint)(this.status.CurrentStateConditions & StateConditions.AIRBORNE));
 
             return ret;
+        }
+
+        public int IsWalled()
+        {
+            var ret = (int)EnumHelper.isNotZero((uint)(this.status.TransitionFlags & TransitionFlags.WALLED));
+
+            return ret;
+        }
+
+
+        public void SetWalled(int done)
+        {
+            this.status.TransitionFlags |= (TransitionFlags)((int)TransitionFlags.WALLED * done);
         }
     }
 }

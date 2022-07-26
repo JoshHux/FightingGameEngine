@@ -44,8 +44,8 @@ namespace FlatPhysics
             set
             {
                 (this._shape as Circle).Radius = value;
-                this.transformUpdateRequired = true;
-                this.aabbUpdateRequired = true;
+                //this.transformUpdateRequired = true;
+                //this.aabbUpdateRequired = true;
             }
         }
 
@@ -73,8 +73,8 @@ namespace FlatPhysics
         private FVector2[] transformedVertices;
         private FlatAABB aabb;
 
-        private bool transformUpdateRequired;
-        private bool aabbUpdateRequired;
+        //private bool transformUpdateRequired;
+        //private bool aabbUpdateRequired;
 
         public readonly ShapeType ShapeType;
 
@@ -207,8 +207,8 @@ namespace FlatPhysics
 
             }
 
-            this.transformUpdateRequired = true;
-            this.aabbUpdateRequired = true;
+            //this.transformUpdateRequired = true;
+            //this.aabbUpdateRequired = true;
         }
 
         public void OnColOverlap(ContactData c)
@@ -223,8 +223,8 @@ namespace FlatPhysics
 
         private void CreateRectVertices()
         {
-            this.transformUpdateRequired = true;
-            this.aabbUpdateRequired = true;
+            //this.transformUpdateRequired = true;
+            //this.aabbUpdateRequired = true;
             this.vertices = FlatBody.CreateBoxVertices(this.Width, this.Height);
         }
 
@@ -258,77 +258,77 @@ namespace FlatPhysics
 
         public FVector2[] GetTransformedVertices()
         {
-            if (this.transformUpdateRequired)
+            //if (this.transformUpdateRequired)
+            //{
+            FlatTransform transform = new FlatTransform(this._position, this._rotation);
+
+            for (int i = 0; i < this.vertices.Length; i++)
             {
-                FlatTransform transform = new FlatTransform(this._position, this._rotation);
-
-                for (int i = 0; i < this.vertices.Length; i++)
-                {
-                    FVector2 v = this.vertices[i];
-                    this.transformedVertices[i] = FVector2.Transform(v, transform);
-                }
+                FVector2 v = this.vertices[i];
+                this.transformedVertices[i] = FVector2.Transform(v, transform);
             }
+            //}
 
-            this.transformUpdateRequired = false;
+            //this.transformUpdateRequired = false;
             return this.transformedVertices;
         }
 
         public FlatAABB GetAABB()
         {
-            if (this.aabbUpdateRequired)
-            {
-                /* Fix64 minX = Fix64.MaxValue;
-                 Fix64 minY = Fix64.MaxValue;
-                 Fix64 maxX = Fix64.MinValue;
-                 Fix64 maxY = Fix64.MinValue;
+            //if (this.aabbUpdateRequired)
+            //{
+            /* Fix64 minX = Fix64.MaxValue;
+             Fix64 minY = Fix64.MaxValue;
+             Fix64 maxX = Fix64.MinValue;
+             Fix64 maxY = Fix64.MinValue;
 
-                 if (this.ShapeType is ShapeType.Box)
+             if (this.ShapeType is ShapeType.Box)
+             {
+                 /*
+                 FVector2[] vertices = this.GetTransformedVertices();
+
+                 for (int i = 0; i < vertices.Length; i++)
                  {
-                     /*
-                     FVector2[] vertices = this.GetTransformedVertices();
+                     FVector2 v = vertices[i];
 
-                     for (int i = 0; i < vertices.Length; i++)
-                     {
-                         FVector2 v = vertices[i];
-
-                         if (v.x < minX) { minX = v.x; }
-                         if (v.x > maxX) { maxX = v.x; }
-                         if (v.y < minY) { minY = v.y; }
-                         if (v.y > maxY) { maxY = v.y; }
-                     }
-
-                     /*var wid = this.Width / 2;
-                     var hei = this.Height / 2;
-
-
-                     minX = this.position.x - wid;
-                     maxX = this.position.x + wid;
-
-                     minY = this.position.y - hei;
-                     maxY = this.position.y + hei;
-                     return this._shape.GetAABB(this.position);
-                 }
-                 else if (this.ShapeType is ShapeType.Circle)
-                 {
-                     /*
-                     minX = this.position.x - this.Radius;
-                     minY = this.position.y - this.Radius;
-                     maxX = this.position.x + this.Radius;
-                     maxY = this.position.y + this.Radius;
-
-                     return this._shape.GetAABB(this.position);
-                 }
-                 else
-                 {
-                     throw new Exception("Unknown ShapeType.");
+                     if (v.x < minX) { minX = v.x; }
+                     if (v.x > maxX) { maxX = v.x; }
+                     if (v.y < minY) { minY = v.y; }
+                     if (v.y > maxY) { maxY = v.y; }
                  }
 
-                 this.aabb = new FlatAABB(minX, minY, maxX, maxY);*/
-                this.aabb = this._shape.GetAABB(this._position);
-            }
+                 /*var wid = this.Width / 2;
+                 var hei = this.Height / 2;
 
 
-            this.aabbUpdateRequired = false;
+                 minX = this.position.x - wid;
+                 maxX = this.position.x + wid;
+
+                 minY = this.position.y - hei;
+                 maxY = this.position.y + hei;
+                 return this._shape.GetAABB(this.position);
+             }
+             else if (this.ShapeType is ShapeType.Circle)
+             {
+                 /*
+                 minX = this.position.x - this.Radius;
+                 minY = this.position.y - this.Radius;
+                 maxX = this.position.x + this.Radius;
+                 maxY = this.position.y + this.Radius;
+
+                 return this._shape.GetAABB(this.position);
+             }
+             else
+             {
+                 throw new Exception("Unknown ShapeType.");
+             }
+
+             this.aabb = new FlatAABB(minX, minY, maxX, maxY);*/
+            this.aabb = this._shape.GetAABB(this._position);
+            //}
+
+
+            //this.aabbUpdateRequired = false;
             return this.aabb;
         }
 
@@ -354,8 +354,8 @@ namespace FlatPhysics
             //this._rotation += this._rotationalVelocity * time;
 
             this.force = FVector2.zero;
-            this.transformUpdateRequired = true;
-            this.aabbUpdateRequired = true;
+            //this.transformUpdateRequired = true;
+            //this.aabbUpdateRequired = true;
 
             //if we have a parent, step based on parent
             if (this.HasParent()) { this.StepParent(); }
@@ -372,22 +372,22 @@ namespace FlatPhysics
         public void Move(FVector2 amount)
         {
             this._position += amount;
-            this.transformUpdateRequired = true;
-            this.aabbUpdateRequired = true;
+            //this.transformUpdateRequired = true;
+            //this.aabbUpdateRequired = true;
         }
 
         public void MoveTo(FVector2 position)
         {
             this._position = position;
-            this.transformUpdateRequired = true;
-            this.aabbUpdateRequired = true;
+            //this.transformUpdateRequired = true;
+            //this.aabbUpdateRequired = true;
         }
 
         public void Rotate(Fix64 amount)
         {
             this._rotation += amount;
-            this.transformUpdateRequired = true;
-            this.aabbUpdateRequired = true;
+            //this.transformUpdateRequired = true;
+            //this.aabbUpdateRequired = true;
         }
 
         public void AddForce(FVector2 amount)

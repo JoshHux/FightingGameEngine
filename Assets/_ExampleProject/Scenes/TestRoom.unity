@@ -123,6 +123,78 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &57678886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 57678887}
+  - component: {fileID: 57678888}
+  - component: {fileID: 57678889}
+  m_Layer: 9
+  m_Name: WalledBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &57678887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57678886}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1907167822}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &57678888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57678886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStatic: 0
+  isTrigger: 1
+  isPushbox: 0
+  mass:
+    m_rawValue: 8589934592
+  _velocity:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
+  _width:
+    m_rawValue: 4724464128
+  _height:
+    m_rawValue: 4294967296
+--- !u!114 &57678889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57678886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7340fa0b7f1024aba2562173901f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &112831157
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +344,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -330,6 +404,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -421,6 +497,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -498,6 +576,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -556,6 +636,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -574,6 +656,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allegiance: 0
   triggerIndex: 0
+--- !u!1 &483561567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 483561568}
+  m_Layer: 6
+  m_Name: EnvironmentDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &483561568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483561567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1735423159}
+  m_Father: {fileID: 1109899113}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,6 +976,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -940,6 +1055,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -1017,6 +1134,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -1075,6 +1194,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -1134,6 +1255,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 42949672960
   _height:
@@ -1357,6 +1480,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -1467,6 +1592,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -1539,6 +1666,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -1630,6 +1759,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -1667,6 +1798,7 @@ Transform:
   - {fileID: 1279664724}
   - {fileID: 1325415287}
   - {fileID: 136157102}
+  - {fileID: 483561568}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1692,6 +1824,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 4294967296
   _height:
@@ -1799,6 +1933,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 4294967296
   _height:
@@ -1817,6 +1953,7 @@ Transform:
   - {fileID: 520783162}
   - {fileID: 976261693}
   - {fileID: 112831158}
+  - {fileID: 1907167822}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1861,6 +1998,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 42949672960
   _height:
@@ -1982,6 +2121,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2085,6 +2226,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2260,6 +2403,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2337,6 +2482,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2395,6 +2542,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2467,6 +2616,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2539,6 +2690,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2611,6 +2764,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2702,10 +2857,84 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
     m_rawValue: 0
+--- !u!1 &1735423158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1735423159}
+  - component: {fileID: 1735423160}
+  - component: {fileID: 1735423161}
+  m_Layer: 9
+  m_Name: WalledBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1735423159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735423158}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 483561568}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1735423160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735423158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStatic: 0
+  isTrigger: 1
+  isPushbox: 0
+  mass:
+    m_rawValue: 8589934592
+  _velocity:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
+  _width:
+    m_rawValue: 4724464128
+  _height:
+    m_rawValue: 4294967296
+--- !u!114 &1735423161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735423158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7340fa0b7f1024aba2562173901f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1845527118
 GameObject:
   m_ObjectHideFlags: 0
@@ -2760,6 +2989,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2851,6 +3082,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2928,6 +3161,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -2973,6 +3208,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 429496729600
   _height:
@@ -3040,6 +3277,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1907167821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1907167822}
+  m_Layer: 6
+  m_Name: EnvironmentDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1907167822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907167821}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 57678887}
+  m_Father: {fileID: 1129726889}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1935661082
 GameObject:
   m_ObjectHideFlags: 0
@@ -3094,6 +3362,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -3185,6 +3455,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -3243,6 +3515,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -3315,6 +3589,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -3406,6 +3682,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -3483,6 +3761,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:
@@ -3560,6 +3840,8 @@ MonoBehaviour:
       m_rawValue: 0
     y:
       m_rawValue: 0
+  _thisLayer: 0
+  _collidesWith: 0
   _width:
     m_rawValue: 0
   _height:

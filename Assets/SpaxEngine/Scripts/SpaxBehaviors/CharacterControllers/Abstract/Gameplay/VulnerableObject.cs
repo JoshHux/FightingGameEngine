@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FightingGameEngine.Data;
 using FightingGameEngine.Enum;
+using FixMath.NET;
 
 namespace FightingGameEngine.Gameplay
 {
@@ -76,6 +77,9 @@ namespace FightingGameEngine.Gameplay
                     var airbornePhysVal = hold.HitboxData.AirborneKnockback;
                     airbornePhysVal.x = airbornePhysVal.x * hold.OtherOwner.Facing;
 
+                    //remove the accumulated velocity so far
+                    this.status.CurrentVelocity = new FVector2(0, 0);
+
 
                     if (isGrabbed)
                     {
@@ -95,12 +99,18 @@ namespace FightingGameEngine.Gameplay
 
                         if (shouldTurn)
                         {
-                            var newFacing = FixMath.NET.Fix64.Sign(diffPos);
+                            var newFacing = Fix64.Sign(diffPos);
                             this.status.CurrentFacingDirection = newFacing;
                         }
                         //Debug.Log("universal transition state - " + univTargetState);
+                        Spax.SpaxManager.Instance.ResolveRepositioning(hold.OtherOwner.Body, this.Body);
                     }
-                    else { }
+                    else
+                    {
+                        int airborne = this.IsAirborne();
+                        int grounded = airborne ^ 1;
+                        this.status.CalcVelocity = (groundedPhysVal * grounded) + (airbornePhysVal * airborne);
+                    }
                 }
                 i++;
             }
@@ -111,10 +121,6 @@ namespace FightingGameEngine.Gameplay
                 //set stun duration
                 int sttDur = (this.status.CurrentState.Duration == 0) ? totalStun : this.status.CurrentState.Duration;
                 this.Status.StateTimer = new FrameTimer(sttDur);
-
-
-
-
             }
 
             this.m_hurtList.Clear();

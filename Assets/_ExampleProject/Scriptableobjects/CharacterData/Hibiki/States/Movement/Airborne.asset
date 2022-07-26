@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 32
+  _stateConditions: 34
   _cancels: 1
   _enterEvents: 0
   _exitEvents: 0

@@ -11,6 +11,8 @@ namespace FlatPhysics
         public static readonly int MinIterations = 1;
         public static readonly int MaxIterations = 16;
 
+        private int _staticInd;
+
         private FVector2 gravity;
         private List<FlatBody> bodyList;
 
@@ -31,18 +33,26 @@ namespace FlatPhysics
             //this makes sure that children are only update after their parent
             //only works if there's only one level of parenting
             bool hasParent = body.HasParent();
+            int ind = this.bodyList.Count;
+            bool IsStatic = body.IsStatic;
 
             //if it does have a parent, insert the item at the end of the list
             if (hasParent)
             {
                 //UnityEngine.Debug.Log("adding child bodys");
-                int ind = this.bodyList.Count;
                 this.bodyList.Insert(ind, body);
+            }
+            else if (IsStatic)
+            {
+                this._staticInd += 1;
+                this.bodyList.Insert(0, body);
             }
             //if it does not have a parent, insert the item at the beginning of the list
             else
             {
-                this.bodyList.Insert(0, body);
+                int insertInd = this._staticInd;
+                if (ind == 0) { insertInd = -1; }
+                this.bodyList.Insert(insertInd + 1, body);
             }
         }
 
@@ -141,15 +151,24 @@ namespace FlatPhysics
                         //AABB check
                         var AABBa = bodyA.GetAABB();
                         var AABBb = bodyB.GetAABB();
-                        bool checkAABB = canCollide && Collisions.CheckAABB(AABBa, AABBb);
+                        var aIsPushbox = bodyA.IsPushbox;
+                        var bIsPushbox = bodyB.IsPushbox;
+                        var bothAreActivePushboxes = (aIsPushbox && bIsPushbox) && (bodyA.ActivePushbox && bodyB.ActivePushbox);
+                        var oneIsntPushbox = (!aIsPushbox) || (!bIsPushbox);
+
+                        bool pushboxCheck = canCollide && (oneIsntPushbox || bothAreActivePushboxes);
+                        bool checkAABB = pushboxCheck && Collisions.CheckAABB(AABBa, AABBb);
                         bool add = checkAABB && (broadPhaseList.Find(o => toAdd.EqualCheck(o)) == null);
 
                         //if ((aLayer == Filter.CollisionLayer.LAYER_6 && bLayer == Filter.CollisionLayer.LAYER_3) || (bLayer == Filter.CollisionLayer.LAYER_6 && aLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("colliding i hope"); }
-
+                        //if ((aLayer == Filter.CollisionLayer.LAYER_9 || bLayer == Filter.CollisionLayer.LAYER_9) && (aLayer == Filter.CollisionLayer.LAYER_3 || bLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("environment detection " + canCollide); }
                         //UnityEngine.Debug.Log(checkAABB + " " + add);
 
                         //the && prevents Collide from running if the bodies can't collide in the first place
-                        if (add) { broadPhaseList.Add(toAdd); }
+                        if (add)
+                        {
+                            broadPhaseList.Add(toAdd);
+                        }
                     }
                 }
 
@@ -189,19 +208,23 @@ namespace FlatPhysics
                             //TODO: Make the pushboxes check if each are cornered or not, likely use a boolean or int (-1,1) to determine what direction to push
                             //current solution is a little duct-tape-y
 
+                            //bool pushBoxAndStatic = (bodyA.IsPushbox || bodyB.IsPushbox) && (bodyA.IsStatic || bodyB.IsStatic);
+
                             //pushbox unique collision stuff only needs to happen when both boxes are pushboxes
                             var bothPushBoxes = bodyB.IsPushbox && bodyA.IsPushbox;
                             //both have to be active in order to collide
-                            var bothActivePush = bodyB.ActivePushbox && bodyA.ActivePushbox;
-                            bool collidePushboxes = bothActivePush && bothPushBoxes;
+                            //var bothActivePush = bodyB.ActivePushbox && bodyA.ActivePushbox;
+                            //bool collidePushboxes = bothActivePush && bothPushBoxes;
                             //if they're both pushboxes, then we re-calculate the normal to only consider the x-axis
-                            if (collidePushboxes)
+                            if (bothPushBoxes)
                             {
                                 var aGO = bodyA.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
                                 var bGO = bodyB.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
 
                                 var aIsAirborne = aGO.IsAirborne();
                                 var bIsAirborne = bGO.IsAirborne();
+                                var aIsWalled = aGO.IsWalled();
+                                var bIsWalled = bGO.IsWalled();
                                 var aFacing = aGO.Status.CurrentFacingDirection;
                                 var bFacing = bGO.Status.CurrentFacingDirection;
 
@@ -213,14 +236,28 @@ namespace FlatPhysics
 
                                 if (bothAreDiff > 0)
                                 {
-                                    if (bIsAirborne > 0) { xOffset = -bodyA.Position.x; }
-                                    else if (aIsAirborne > 0) { xOffset = -bodyB.Position.x; }
+                                    if (bIsAirborne > 0)
+                                    {
+                                        //UnityEngine.Debug.Log("Body B is airborne, setting offset to " + (bFacing)); 
+                                        if (aIsWalled > 0)
+                                        {
+                                            xOffset = -bodyA.Position.x;
+                                        }
+                                    }
+                                    else if (aIsAirborne > 0)
+                                    {
+                                        //UnityEngine.Debug.Log("Body A is airborne, setting offset to " + (aFacing)); 
+                                        if (bIsWalled > 0)
+                                        {
+                                            xOffset = bodyB.Position.x;
+                                        }
+                                    }
                                 }
 
                                 //if the boxes are directly on top of each other, set it to -1
-                                if (xOffset == 0 )
+                                if (xOffset == 0)
                                 {
-
+                                    UnityEngine.Debug.Log("setting offset to " + aFacing);
                                     xOffset = aFacing;
                                 }
                                 normal = new FVector2(xOffset, 0).normalized;
@@ -244,11 +281,21 @@ namespace FlatPhysics
                             if (bodyA.IsStatic)
                             {
                                 bodyB.Move(trueOffsetB);
+                                //if (pushBoxAndStatic)
+                                //{
+                                //UnityEngine.Debug.Log("Body B is with static, setting offset to " + (trueOffsetB.x));
+                                //    var go = bodyB.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
+                                //}
                             }
                             //if B is static, only move A
                             else if (bodyB.IsStatic)
                             {
                                 bodyA.Move(trueOffsetA);
+                                //if (pushBoxAndStatic)
+                                //{
+                                //UnityEngine.Debug.Log("Body A is with static, setting offset to " + (trueOffsetA.x));
+                                //     var go = bodyA.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
+                                //}
                             }
                             //neither is static, move both
                             else
@@ -263,7 +310,7 @@ namespace FlatPhysics
                                 var trOffB = new FVector2(offsetB.x, offsetB.y);
 
                                 //if both are pushboxes, apply to velocity
-                                if (bothActivePush)// && depth > (FixedMath.C0p001 / 5))
+                                if (bothPushBoxes)// && depth > (FixedMath.C0p001 / 5))
                                 {
                                     //UnityEngine.Debug.Log("both are pushboxes " + depth);
 
@@ -288,7 +335,7 @@ namespace FlatPhysics
                                     bodyB.Move(trOffB);
                                 }
                             }
-                            this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, bothActivePush);
+                            this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, bothPushBoxes);
                         }
 
                         //if we are able to collide, call the respective callback
@@ -308,10 +355,127 @@ namespace FlatPhysics
             }
         }
 
-        public void ResolveAgainstAllStatic(FlatBody bodyA, FlatBody bodyB)
+        public void ResolveAgainstAllStatic(FlatBody body1, FlatBody body2)
         {
             var allStatic = this.bodyList.FindAll(o => o.IsStatic);
+            var broadPhaseList = new List<BroadPhasePairs>();
 
+
+            int bodyCount = allStatic.Count;
+
+            for (int i = 0; i < bodyCount; i++)
+            {
+
+                FlatBody staticObj = allStatic[i];
+
+                //check is body1 collides with the static objects
+
+                var toAdd = new BroadPhasePairs(staticObj, body1, 1, 1);
+
+                //AABB check
+                var AABBa = body1.GetAABB();
+                var AABBb = staticObj.GetAABB();
+
+                bool checkAABB = Collisions.CheckAABB(AABBa, AABBb);
+                bool add = checkAABB && (broadPhaseList.Find(o => toAdd.EqualCheck(o)) == null);
+
+                //if ((aLayer == Filter.CollisionLayer.LAYER_6 && bLayer == Filter.CollisionLayer.LAYER_3) || (bLayer == Filter.CollisionLayer.LAYER_6 && aLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("colliding i hope"); }
+                //if ((aLayer == Filter.CollisionLayer.LAYER_9 || bLayer == Filter.CollisionLayer.LAYER_9) && (aLayer == Filter.CollisionLayer.LAYER_3 || bLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("environment detection " + canCollide); }
+                //UnityEngine.Debug.Log(checkAABB + " " + add);
+                UnityEngine.Debug.Log(body1.GameObject.name + " " + checkAABB + " " + add + " " + " " + staticObj.Position.x + " " + body1.Position.x);
+
+                //the && prevents Collide from running if the bodies can't collide in the first place
+                if (add)
+                {
+                    broadPhaseList.Add(toAdd);
+                }
+
+                //check is body1 collides with the static objects
+                toAdd = new BroadPhasePairs(staticObj, body2, 1, 1);
+
+                //AABB check
+                AABBa = staticObj.GetAABB();
+                AABBb = body2.GetAABB();
+
+                checkAABB = Collisions.CheckAABB(AABBa, AABBb);
+                add = checkAABB && (broadPhaseList.Find(o => toAdd.EqualCheck(o)) == null);
+
+                //if ((aLayer == Filter.CollisionLayer.LAYER_6 && bLayer == Filter.CollisionLayer.LAYER_3) || (bLayer == Filter.CollisionLayer.LAYER_6 && aLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("colliding i hope"); }
+                //if ((aLayer == Filter.CollisionLayer.LAYER_9 || bLayer == Filter.CollisionLayer.LAYER_9) && (aLayer == Filter.CollisionLayer.LAYER_3 || bLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("environment detection " + canCollide); }
+                UnityEngine.Debug.Log(body2.GameObject.name + " " + checkAABB + " " + add + " " + " " + staticObj.Position.x + " " + body2.Position.x);
+
+                //the && prevents Collide from running if the bodies can't collide in the first place
+                if (add)
+                {
+                    broadPhaseList.Add(toAdd);
+                }
+
+            }
+
+            //cull duplicates
+            //broadPhaseList = broadPhaseList.Distinct().ToList();
+
+
+            //Narrow Phase
+            int nLen = broadPhaseList.Count;
+
+            //total offset of two bodies
+            var bodyOffset = new FVector2(0, 0);
+
+            for (int i = 0; i < nLen; i++)
+            {
+                var hold = broadPhaseList[i];
+
+                //whether or not we can and do collide
+                FVector2 normal = new FVector2();
+                Fix64 depth = 0;
+
+                var bodyA = hold.BodyA;
+                var bodyB = hold.BodyB;
+
+                var bCola = hold.BColA;
+                var aColb = hold.AColB;
+
+                bool collide = this.Collide(bodyA, bodyB, out normal, out depth);
+                //UnityEngine.Debug.Log(bodyB.GameObject.name + " found a collision " + collide + " " + bodyA.Position.x + " " + bodyB.Position.x);
+
+                //if we do collide
+                if (collide)
+                {
+
+
+                    var offset = normal * depth;
+                    //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
+                    var trueOffsetB = offset * bCola;
+                    //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
+                    var trueOffsetA = -offset * aColb;
+                    //if A is static, only move B
+                    //if (bodyA.IsStatic)
+                    //{
+                    bodyB.Move(trueOffsetB);
+                    //if (pushBoxAndStatic)
+                    //{
+                    //UnityEngine.Debug.Log("Body B is with static, setting offset to " + (trueOffsetB.x));
+                    //    var go = bodyB.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
+                    //}
+                    //bodyA.Move(trueOffsetB);
+                    if (bodyB == body1)
+                    {
+                        body2.Move(trueOffsetB);
+                    }
+                    else
+                    {
+                        body1.Move(trueOffsetB);
+
+                    }
+
+                    //}
+
+
+                    this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false);
+                }
+
+            }
         }
 
         public void ResolveCollision(FlatBody bodyA, FlatBody bodyB, FVector2 normal, Fix64 depth, int aColB, int bColA, bool bothActivePushboxes)

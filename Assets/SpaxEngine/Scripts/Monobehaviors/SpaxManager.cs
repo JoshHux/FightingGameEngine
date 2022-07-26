@@ -61,9 +61,10 @@ namespace Spax
             //initialize physics world stuff
             //collision layer stuff
             this._collisionMatrix = new CollisionLayer[16];
-            int len = 9;
+            int len = 10;
             for (int i = 0; i < len; i++)
             {
+                this._collisionMatrix[i] = 0;
                 for (int j = 0; j < len; j++)
                 {
                     bool collides = !Physics.GetIgnoreLayerCollision(i, j);
@@ -140,6 +141,11 @@ namespace Spax
         {
             //Debug.Log("adding " + rb.name + " " + (rb.Body == null));
             this._world.RemoveBody(rb.Body);
+        }
+
+        public void ResolveRepositioning(FlatBody body1, FlatBody body2)
+        {
+            this._world.ResolveAgainstAllStatic(body1, body2);
         }
 
         public CollisionLayer GetCollisions(int layer) { return this._collisionMatrix[layer]; }

@@ -9,7 +9,7 @@ namespace FightingGameEngine.Enum
         STRIKE_HIGH = 1 << 2,
         GRAB_GROUNDED = 1 << 3,
         GRAB_AIRBORNE = 1 << 4,
-
+        STRIKE_UNBLOCKABLE = STRIKE_LOW | STRIKE_HIGH,
         STRIKE = STRIKE_MID | STRIKE_LOW | STRIKE_HIGH,
         GRAB = GRAB_AIRBORNE | GRAB_GROUNDED,
     }

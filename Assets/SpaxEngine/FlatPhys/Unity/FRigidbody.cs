@@ -13,6 +13,9 @@ namespace FlatPhysics.Unity
         [SerializeField] protected bool isPushbox;
         [SerializeField] protected Fix64 mass;
         [SerializeField, ReadOnly] private FVector2 _velocity;
+        [SerializeField, ReadOnly] private CollisionLayer _thisLayer;
+        [SerializeField, ReadOnly] private CollisionLayer _collidesWith;
+
 
         public FlatBody Body
         {
@@ -89,6 +92,9 @@ namespace FlatPhysics.Unity
             this._rb.Awake = true;
 
             SpaxManager.Instance.AddBody(this);
+
+            this._thisLayer = this.Body.Layer;
+            this._collidesWith = this.Body.CollidesWith;
         }
 
         void Update()
