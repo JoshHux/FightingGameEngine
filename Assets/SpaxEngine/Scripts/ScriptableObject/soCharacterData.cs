@@ -27,6 +27,7 @@ namespace FightingGameEngine.Data
         public Fix64 RunAccel { get { return this._runAccel; } }
         public Fix64 RunMaxSpd { get { return this._runMaxSpd; } }
         public Fix64 FallMaxSpd { get { return this._fallMaxSpd; } }
+        public ResourceData[] MaxResources { get { return this._maxResources; } }
         public soStateData[] StateList { get { return this._stateList; } }
         public TransitionData[] MoveList { get { return this._moveList.ToArray(); } }
 
