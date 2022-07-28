@@ -68,7 +68,7 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 0
       Flags: 0
-      HoldDuration: 391
+      HoldDuration: 2094
       LenientBuffer: 0
   _positionOffset:
     x:

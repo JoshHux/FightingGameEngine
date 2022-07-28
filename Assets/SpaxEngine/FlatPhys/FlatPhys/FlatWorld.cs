@@ -382,7 +382,7 @@ namespace FlatPhysics
                 //if ((aLayer == Filter.CollisionLayer.LAYER_6 && bLayer == Filter.CollisionLayer.LAYER_3) || (bLayer == Filter.CollisionLayer.LAYER_6 && aLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("colliding i hope"); }
                 //if ((aLayer == Filter.CollisionLayer.LAYER_9 || bLayer == Filter.CollisionLayer.LAYER_9) && (aLayer == Filter.CollisionLayer.LAYER_3 || bLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("environment detection " + canCollide); }
                 //UnityEngine.Debug.Log(checkAABB + " " + add);
-                UnityEngine.Debug.Log(body1.GameObject.name + " " + checkAABB + " " + add + " " + " " + staticObj.Position.x + " " + body1.Position.x);
+                //UnityEngine.Debug.Log(body1.GameObject.name + " " + checkAABB + " " + add + " " + " " + staticObj.Position.x + " " + body1.Position.x);
 
                 //the && prevents Collide from running if the bodies can't collide in the first place
                 if (add)
@@ -402,7 +402,7 @@ namespace FlatPhysics
 
                 //if ((aLayer == Filter.CollisionLayer.LAYER_6 && bLayer == Filter.CollisionLayer.LAYER_3) || (bLayer == Filter.CollisionLayer.LAYER_6 && aLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("colliding i hope"); }
                 //if ((aLayer == Filter.CollisionLayer.LAYER_9 || bLayer == Filter.CollisionLayer.LAYER_9) && (aLayer == Filter.CollisionLayer.LAYER_3 || bLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("environment detection " + canCollide); }
-                UnityEngine.Debug.Log(body2.GameObject.name + " " + checkAABB + " " + add + " " + " " + staticObj.Position.x + " " + body2.Position.x);
+                //UnityEngine.Debug.Log(body2.GameObject.name + " " + checkAABB + " " + add + " " + " " + staticObj.Position.x + " " + body2.Position.x);
 
                 //the && prevents Collide from running if the bodies can't collide in the first place
                 if (add)
