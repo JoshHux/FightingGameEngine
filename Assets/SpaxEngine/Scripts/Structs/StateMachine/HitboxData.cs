@@ -61,6 +61,9 @@ namespace FightingGameEngine.Data
         //change in resources when hitbox connects
         public ResourceData ResourceChange;
 
+        //data for what the move can be cancelled into
+        public CancelConditions OnHitCancel;
+
         public bool IsValid()
         {
             bool ret = this.Duration > 0;
