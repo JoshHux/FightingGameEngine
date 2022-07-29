@@ -131,8 +131,8 @@ namespace FightingGameEngine.Gameplay
                 int potenHitstop = hold.HitboxData.Hitstop;
                 this.SetStopTimer(potenHitstop);
 
-                soCharacterStatus.CurrentResources.Add(processList[i].HitboxData.resources);
-                soCharacterStatus.CancelFlags.Add(processList[i].HitboxData.OnHitCancel);
+                this.status.CurrentResources += (processList[i].HitboxData.ResourceChange);
+                this.status.CancelFlags |= (processList[i].HitboxData.OnHitCancel);
 
                 i++;
             }

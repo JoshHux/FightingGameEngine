@@ -10,6 +10,7 @@ namespace FightingGameEngine.Data
     {
 
         [SerializeField] private int _maxHp;
+        [SerializeField] private ResourceData _maxResources;
         [SerializeField] private Fix64 _mass;
         [SerializeField] private Fix64 _friction;
         [SerializeField] private Fix64 _walkAccel;
@@ -27,7 +28,7 @@ namespace FightingGameEngine.Data
         public Fix64 RunAccel { get { return this._runAccel; } }
         public Fix64 RunMaxSpd { get { return this._runMaxSpd; } }
         public Fix64 FallMaxSpd { get { return this._fallMaxSpd; } }
-        public ResourceData[] MaxResources { get { return this._maxResources; } }
+        public ResourceData MaxResources { get { return this._maxResources; } }
         public soStateData[] StateList { get { return this._stateList; } }
         public TransitionData[] MoveList { get { return this._moveList.ToArray(); } }
 
@@ -60,7 +61,7 @@ namespace FightingGameEngine.Data
             ret = this._moveList.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir));
 
             //if (ret != null && ret.TargetState != null && ret.TargetState.name == "Grab-Back") { Debug.Log("found it"); }
-            
+
             return ret;
         }
 

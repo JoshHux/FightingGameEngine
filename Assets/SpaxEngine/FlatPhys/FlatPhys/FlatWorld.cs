@@ -459,6 +459,8 @@ namespace FlatPhysics
                     //    var go = bodyB.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
                     //}
                     //bodyA.Move(trueOffsetB);
+
+                    //bodyB is always the non-static object in this case
                     if (bodyB == body1)
                     {
                         body2.Move(trueOffsetB);

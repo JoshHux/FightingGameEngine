@@ -5,9 +5,9 @@ namespace FightingGameEngine.Data
     [System.Serializable]
     public struct FrameEventData
     {
+        public int Duration;
         public CancelConditions ToggleCancels;
         public StateConditions ToggleStateConditions;
-        public int Duration;
         public bool IsValid()
         {
             bool ret = this.Duration > 0;
