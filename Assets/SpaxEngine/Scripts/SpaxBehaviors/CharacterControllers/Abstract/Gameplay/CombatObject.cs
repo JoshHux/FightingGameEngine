@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FightingGameEngine.Data;
+using FightingGameEngine.Enum;
 
 namespace FightingGameEngine.Gameplay
 {
@@ -133,6 +134,16 @@ namespace FightingGameEngine.Gameplay
 
                 this.status.CurrentResources += (processList[i].HitboxData.ResourceChange);
                 this.status.CancelFlags |= (processList[i].HitboxData.OnHitCancel);
+
+                if(EnumHelper.HasEnum((uint)processList[i].Indicator, (uint)HitIndicator.COUNTER_HIT)){
+                    this.status.CancelFlags |= (processList[i].HitboxData.OnCounterHitCancel); 
+                }
+
+                else if(EnumHelper.HasEnum((uint)processList[i].Indicator, (uint)HitIndicator.BLOCKED)){
+                    this.status.CancelFlags |= (processList[i].HitboxData.OnBlockedHitCancel);
+                }
+                
+                
 
                 //set current resources to max resources in case it's exceeded
                 this.status.CurrentResources.Min(this.data.MaxResources);

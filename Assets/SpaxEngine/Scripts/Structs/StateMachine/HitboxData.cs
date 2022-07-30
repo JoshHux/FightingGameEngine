@@ -63,6 +63,8 @@ namespace FightingGameEngine.Data
 
         //data for what the move can be cancelled into
         public CancelConditions OnHitCancel;
+        public CancelConditions OnCounterHitCancel;
+        public CancelConditions OnBlockedHitCancel;
 
         public bool IsValid()
         {
