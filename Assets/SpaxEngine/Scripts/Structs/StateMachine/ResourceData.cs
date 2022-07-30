@@ -1,4 +1,5 @@
 using FixMath.NET;
+using UnityEngine;
 namespace FightingGameEngine.Data
 {
     //represents one instance of an input
@@ -45,6 +46,38 @@ namespace FightingGameEngine.Data
             bool ret = r7Check;
 
             return ret;
+        }
+
+        //set all variables to another ResourceData's variables if it exceeds the value
+        public void Min(ResourceData other)
+        {
+            if(this.Health > other.Health){
+                this.Health = other.Health;
+            }
+            if(this.Meter > other.Meter){
+                this.Meter = other.Meter;
+            }
+            if(this.Resource1 > other.Resource1){
+                this.Resource1 = other.Resource1;
+            }
+            if(this.Resource2 > other.Resource2){
+                this.Resource2 = other.Resource2;
+            }
+            if(this.Resource3 > other.Resource3){
+                this.Resource3 = other.Resource3;
+            }
+            if(this.Resource4 > other.Resource4){
+                this.Resource4 = other.Resource4;
+            }
+            if(this.Resource5 > other.Resource5){
+                this.Resource5 = other.Resource5;
+            }
+            if(this.Resource6 > other.Resource6){
+                this.Resource6 = other.Resource6;
+            }
+            if(this.Resource7 > other.Resource7){
+                this.Resource7 = other.Resource7;
+            }
         }
 
         public static ResourceData operator -(ResourceData a, ResourceData b)

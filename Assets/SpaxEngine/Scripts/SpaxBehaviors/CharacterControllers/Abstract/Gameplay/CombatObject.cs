@@ -134,6 +134,9 @@ namespace FightingGameEngine.Gameplay
                 this.status.CurrentResources += (processList[i].HitboxData.ResourceChange);
                 this.status.CancelFlags |= (processList[i].HitboxData.OnHitCancel);
 
+                //set current resources to max resources in case it's exceeded
+                this.status.CurrentResources.Min(this.data.MaxResources);
+
                 i++;
             }
 
