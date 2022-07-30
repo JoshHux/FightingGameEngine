@@ -432,9 +432,10 @@ namespace FightingGameEngine.Gameplay
         {
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
 
-
             //set the new current state
             this.status.CurrentState = newState;
+            ///process current state
+            this.ProcessTransitionEvent(this.status.CurrentState.ExitEvents);
             //start the new state timer
             int stateDuration = this.status.CurrentState.Duration;
             this.status.StateTimer = new FrameTimer(stateDuration);
@@ -445,6 +446,7 @@ namespace FightingGameEngine.Gameplay
             //remove the state end transition flag
             this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT));
 
+            this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
 
             //if (newState.name == "GroundedThrowHit") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state timer in setstate is - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
