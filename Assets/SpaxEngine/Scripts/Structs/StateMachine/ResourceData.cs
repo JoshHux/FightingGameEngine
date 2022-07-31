@@ -49,7 +49,7 @@ namespace FightingGameEngine.Data
         }
 
         //set all variables to another ResourceData's variables if it exceeds the value
-        public void Min(ResourceData other)
+        public void SetMin(ResourceData other)
         {
             if(this.Health > other.Health){
                 this.Health = other.Health;

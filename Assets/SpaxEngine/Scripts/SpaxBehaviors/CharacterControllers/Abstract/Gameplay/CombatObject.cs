@@ -146,7 +146,7 @@ namespace FightingGameEngine.Gameplay
                 
 
                 //set current resources to max resources in case it's exceeded
-                this.status.CurrentResources.Min(this.data.MaxResources);
+                this.status.CurrentResources.SetMin(this.data.MaxResources);
 
                 i++;
             }

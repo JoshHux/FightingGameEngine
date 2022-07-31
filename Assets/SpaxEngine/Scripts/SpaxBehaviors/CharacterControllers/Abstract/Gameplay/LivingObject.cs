@@ -476,7 +476,18 @@ namespace FightingGameEngine.Gameplay
                 this._rb.Body.LinearVelocity = new FVector2();
             }
 
+        }
 
+        protected void SetCurrentResources(ResourceData newResources)
+        {
+            this.status.CurrentResources = newResources;
+            this.status.CurrentResources.SetMin(this.data.MaxResources);
+        }
+
+        protected void AddCurrentResources(ResourceData newResources)
+        {
+            this.status.CurrentResources = newResources + this.status.CurrentResources;
+            this.status.CurrentResources.SetMin(this.data.MaxResources);
         }
 
         public int IsAirborne()
