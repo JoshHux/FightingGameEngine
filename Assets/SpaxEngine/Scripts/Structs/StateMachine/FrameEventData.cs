@@ -6,12 +6,8 @@ namespace FightingGameEngine.Data
     public struct FrameEventData
     {
         public int Duration;
-        public CancelConditions ToggleCancels;
-        public StateConditions ToggleStateConditions;
-        public bool IsValid()
-        {
-            bool ret = this.Duration > 0;
-            return ret;
-        }
+        public CancelConditions CancelsConditions;
+        public StateConditions StateConditions;
+
     }
 }

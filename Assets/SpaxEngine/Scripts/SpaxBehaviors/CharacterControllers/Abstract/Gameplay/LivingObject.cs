@@ -27,6 +27,7 @@ namespace FightingGameEngine.Gameplay
             //initialize the timers
             this.status.StateTimer = new FrameTimer();
             this.status.StopTimer = new FrameTimer();
+            this.status.ConditionTimer = new ConditionTimer();
 
             //set default data for the status
             this.status.CalcVelocity = new FVector2();
@@ -69,6 +70,9 @@ namespace FightingGameEngine.Gameplay
 
             //tick the state timer after possible new state assignment anything else
             bool stateComplete = !this.status.StateTimer.TickTimer();
+            //tick the condition timer, the persistent condition will possibly reset on the frame we reach
+            this.status.ConditionTimer.TickTimer();
+
             //if (this.status.CurrentState.name == "Jab") { Debug.Log("state timer in StateUpdate is - " + stateComplete + " - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
 
             if (stateComplete)
@@ -280,6 +284,24 @@ namespace FightingGameEngine.Gameplay
             var curR = this.status.CurrentResources;
             //add 'em up and we're done
             this.status.CurrentResources = curR + rChange;
+
+
+            /*----- PROCESSING TIMER EVENT -----*/
+            var timerEvent = frame.TimerEvent;
+
+            //do we have a nonzero duration for this timer?
+            var isNonzero = (int)EnumHelper.isNotZero((uint)timerEvent.Duration);
+
+            //parameters we put into the timer
+            var endTime = timerEvent.Duration * isNonzero;
+            var addedStateConditions = (StateConditions)((int)timerEvent.StateConditions * isNonzero);
+
+            //get new timer
+            var newCondTimer = new ConditionTimer(endTime, addedStateConditions);
+
+            //set the new timer
+            this.status.ConditionTimer = newCondTimer;
+
         }
 
         //call to process the state conditions of our current state

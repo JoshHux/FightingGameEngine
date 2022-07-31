@@ -17,7 +17,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private ResourceData _resourceChange;
         [SerializeField] private HitboxHolder _hitboxes;
         [SerializeField] private HurtboxHolder _hurtboxes;
-        [SerializeField] private FrameEventData[] _timerEvents;
+        [SerializeField] private FrameEventData _timerEvents;
         [SerializeField] private ProjectileEvent[] _projectiles;
 
         //the minimum atframe value should be 1, if 0, then it's invalid
@@ -30,7 +30,7 @@ namespace FightingGameEngine.Data
         public ResourceData ResourceChange { get { return this._resourceChange; } }
         public ProjectileEvent[] Projectiles { get { return this._projectiles; } }
 
-        public FrameEventData[] TimerEvents { get { return this._timerEvents; } }
+        public FrameEventData TimerEvent { get { return this._timerEvents; } }
 
         //returns whether or not this frame has a projectiles to spawn
         public bool HasProjectile()

@@ -1936,7 +1936,7 @@ MonoBehaviour:
   _thisLayer: 0
   _collidesWith: 0
   _width:
-    m_rawValue: 8589934592
+    m_rawValue: 4294967296
   _height:
     m_rawValue: 8589934592
 --- !u!4 &1129726889

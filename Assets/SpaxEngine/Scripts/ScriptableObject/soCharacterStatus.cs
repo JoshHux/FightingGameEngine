@@ -15,6 +15,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private ResourceData m_currentResources;
         [SerializeField] private FrameTimer m_stateTimer;
         [SerializeField] private FrameTimer m_stopTimer;
+        [SerializeField] private ConditionTimer m_conditionTimer;
         [SerializeField] private soStateData m_currentState;
         [SerializeField] private StateConditions m_currentConditions;
         [SerializeField] private TransitionFlags m_transitionFlags;
@@ -40,8 +41,9 @@ namespace FightingGameEngine.Data
         public int CurrentFacingDirection { get { return this.m_currentFacing; } set { this.m_currentFacing = value; } }
         public FrameTimer StateTimer { get { return this.m_stateTimer; } set { this.m_stateTimer = value; } }
         public FrameTimer StopTimer { get { return this.m_stopTimer; } set { this.m_stopTimer = value; } }
+        public ConditionTimer ConditionTimer { get { return this.m_conditionTimer; } set { this.m_conditionTimer = value; } }
         public soStateData CurrentState { get { return this.m_currentState; } set { this.m_currentState = value; } }
-        public StateConditions CurrentStateConditions { get { return this.m_currentConditions; } set { this.m_currentConditions = value; } }
+        public StateConditions CurrentStateConditions { get { return this.m_currentConditions | this.m_conditionTimer.StateConditions; } set { this.m_currentConditions = value; } }
         public TransitionFlags TransitionFlags
         {
             get { return this.m_transitionFlags; }
