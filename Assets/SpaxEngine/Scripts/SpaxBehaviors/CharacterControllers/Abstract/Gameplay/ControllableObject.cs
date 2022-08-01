@@ -98,7 +98,7 @@ namespace FightingGameEngine.Gameplay
         private void BufferInput()
         {
             //whether to add extra buffer leniency to the input to buffer aerials curing prejump
-            bool bufferLeniency = EnumHelper.HasEnum((uint)this.status.CurrentStateConditions, (uint)StateConditions.BUFFER_INPUT);
+            bool bufferLeniency = EnumHelper.HasEnum((uint)this.status.TotalStateConditions, (uint)StateConditions.BUFFER_INPUT);
             //adds a new input, check if state can transition
             //buffers the current controller state, saved in the recorder itself
             this.status.BufferInput(bufferLeniency);

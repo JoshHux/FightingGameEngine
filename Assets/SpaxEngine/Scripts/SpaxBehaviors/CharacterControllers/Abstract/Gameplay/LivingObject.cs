@@ -105,7 +105,7 @@ namespace FightingGameEngine.Gameplay
             if (this.status.InHitstop) { return; }
 
             //process our current state's state conditions
-            StateConditions curCond = this.status.CurrentStateConditions;
+            StateConditions curCond = this.status.TotalStateConditions;
             this.ProcessStateConditions(curCond);
 
             //correct the direction of CalcVelocity
@@ -146,7 +146,7 @@ namespace FightingGameEngine.Gameplay
 
             //Debug.Log("-PostUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
 
-            //simple check for grounded or not
+            //simple check if we're airborne
             if ((this.status.CurrentPosition.y - (this._rb.Height / 2) > -4) || (this.status.CurrentVelocity.y > 0))
             {
                 //make status think it's airborne
@@ -503,7 +503,7 @@ namespace FightingGameEngine.Gameplay
 
         public int IsAirborne()
         {
-            var ret = (int)EnumHelper.isNotZero((uint)(this.status.CurrentStateConditions & StateConditions.AIRBORNE));
+            var ret = (int)EnumHelper.isNotZero((uint)(this.status.TotalStateConditions & StateConditions.AIRBORNE));
 
             return ret;
         }

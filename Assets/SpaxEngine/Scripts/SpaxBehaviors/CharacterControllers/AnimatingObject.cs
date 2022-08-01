@@ -30,7 +30,7 @@ namespace FightingGameEngine.Gameplay
             if (inHitstop)
             {
                 this._animator.speed = 0;
-                int isStunState = (int)EnumHelper.HasEnumInt((uint)this._status.CurrentStateConditions, (uint)StateConditions.STUN_STATE);
+                int isStunState = (int)EnumHelper.HasEnumInt((uint)this._status.TotalStateConditions, (uint)StateConditions.STUN_STATE);
                 int isHitstopNonzero = (int)EnumHelper.isNotZero((uint)this._status.StopTimer.TimeElapsed) * isStunState;
                 timeInState = Mathf.Max(timeInState, isHitstopNonzero);
             }
