@@ -280,10 +280,8 @@ namespace FightingGameEngine.Gameplay
             /*----- PROCESSING RESOURCE CHANGE -----*/
             //resource change on this frame
             var rChange = frame.ResourceChange;
-            //get current resources for easy reference
-            var curR = this.status.CurrentResources;
-            //add 'em up and we're done
-            this.status.CurrentResources = curR + rChange;
+            //add current resources
+            this.AddCurrentResources(rChange);
 
 
             /*----- PROCESSING TIMER EVENT -----*/

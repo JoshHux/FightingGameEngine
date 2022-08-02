@@ -132,7 +132,7 @@ namespace FightingGameEngine.Gameplay
                 int potenHitstop = hold.HitboxData.Hitstop;
                 this.SetStopTimer(potenHitstop);
 
-                this.status.CurrentResources += (processList[i].HitboxData.ResourceChange);
+                this.AddCurrentResources(processList[i].HitboxData.ResourceChange);
                 this.status.CancelFlags |= (processList[i].HitboxData.OnHitCancel);
 
                 if(EnumHelper.HasEnum((uint)processList[i].Indicator, (uint)HitIndicator.COUNTER_HIT)){
@@ -143,10 +143,6 @@ namespace FightingGameEngine.Gameplay
                     this.status.CancelFlags |= (processList[i].HitboxData.OnBlockedHitCancel);
                 }
                 
-                
-
-                //set current resources to max resources in case it's exceeded
-                this.status.CurrentResources.SetMin(this.data.MaxResources);
 
                 i++;
             }
