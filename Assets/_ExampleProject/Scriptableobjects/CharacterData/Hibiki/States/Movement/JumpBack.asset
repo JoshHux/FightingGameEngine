@@ -116,6 +116,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
       Hitbox1:
         Duration: 0
         UniversalStateCause: 0
@@ -175,6 +178,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
       Hitbox2:
         Duration: 0
         UniversalStateCause: 0
@@ -234,6 +240,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
       Hitbox3:
         Duration: 0
         UniversalStateCause: 0
@@ -293,6 +302,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
       Hitbox4:
         Duration: 0
         UniversalStateCause: 0
@@ -352,6 +364,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
       Hitbox5:
         Duration: 0
         UniversalStateCause: 0
@@ -411,6 +426,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
       Hitbox6:
         Duration: 0
         UniversalStateCause: 0
@@ -470,6 +488,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
       Hitbox7:
         Duration: 0
         UniversalStateCause: 0
@@ -529,6 +550,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
       Hitbox8:
         Duration: 0
         UniversalStateCause: 0
@@ -588,6 +612,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
       Hitbox9:
         Duration: 0
         UniversalStateCause: 0
@@ -647,6 +674,9 @@ MonoBehaviour:
           Resource5: 0
           Resource6: 0
           Resource7: 0
+        OnHitCancel: 0
+        OnCounterHitCancel: 0
+        OnBlockedHitCancel: 0
     _hurtboxes:
       Hurtbox0:
         Position:
@@ -758,7 +788,10 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
-    _timerEvents: []
+    _timerEvents:
+      Duration: 0
+      CancelsConditions: 0
+      StateConditions: 0
     _projectiles: []
   _animation:
   - _atFrame: 0

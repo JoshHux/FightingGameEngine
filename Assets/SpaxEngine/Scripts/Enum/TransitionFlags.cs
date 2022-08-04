@@ -14,6 +14,8 @@ namespace FightingGameEngine.Enum
         GOT_HIT = 1 << 4,
         //when a character lands a hit
         LANDED_HIT = 1 << 5,
+        //when a character blocks a hit
+        BLOCKED_HIT = GOT_HIT | 1 << 6,
         //when a character's current state ends
         STATE_END = 1 << 30,
     }

@@ -27,20 +27,20 @@ MonoBehaviour:
     _timeElapsed: 0
     _endTime: 0
   m_stopTimer:
-    _timeElapsed: 100
-    _endTime: 100
+    _timeElapsed: 0
+    _endTime: 0
   m_conditionTimer:
     _timeElapsed: 0
     _endTime: 0
     _stateConditions: 0
   m_currentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
-  m_currentConditions: 929
+  m_currentConditions: 8388721
   m_transitionFlags: 1073741825
   m_cancelFlags: 4294967295
-  m_currentFacing: 1
+  m_currentFacing: -1
   m_currentPosition:
     x:
-      m_rawValue: -15984360698
+      m_rawValue: -13372003328
     y:
       m_rawValue: -15032385536
   m_currentVelocity:
@@ -72,75 +72,27 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 8
       Flags: 1
-      HoldDuration: 107
+      HoldDuration: 12
       LenientBuffer: 0
     - Input: 8
-      Flags: 6
-      HoldDuration: 78
-      LenientBuffer: 0
-    - Input: 8
-      Flags: 5
-      HoldDuration: 26
-      LenientBuffer: 0
-    - Input: 8
-      Flags: 6
-      HoldDuration: 15
-      LenientBuffer: 0
-    - Input: 256
-      Flags: 1
-      HoldDuration: 5
-      LenientBuffer: 0
-    - Input: 256
-      Flags: 6
-      HoldDuration: 45
-      LenientBuffer: 0
-    - Input: 8
-      Flags: 1
-      HoldDuration: 34
-      LenientBuffer: 0
-    - Input: 8
-      Flags: 6
-      HoldDuration: 68
-      LenientBuffer: 0
-    - Input: 16
-      Flags: 1
-      HoldDuration: 83
-      LenientBuffer: 0
-    - Input: 16
-      Flags: 6
-      HoldDuration: 11
-      LenientBuffer: 0
-    - Input: 8
-      Flags: 1
-      HoldDuration: 13
-      LenientBuffer: 0
-    - Input: 8
-      Flags: 6
-      HoldDuration: 8
-      LenientBuffer: 0
-    - Input: 16
-      Flags: 1
-      HoldDuration: 6
-      LenientBuffer: 0
-    - Input: 16
       Flags: 6
       HoldDuration: 3
       LenientBuffer: 0
     - Input: 512
       Flags: 1
-      HoldDuration: 4
+      HoldDuration: 5
       LenientBuffer: 0
     - Input: 512
       Flags: 6
-      HoldDuration: 164
+      HoldDuration: 44
       LenientBuffer: 0
     - Input: 512
       Flags: 5
-      HoldDuration: 6
+      HoldDuration: 5
       LenientBuffer: 0
     - Input: 512
       Flags: 6
-      HoldDuration: 283
+      HoldDuration: 100
       LenientBuffer: 0
   _positionOffset:
     x:

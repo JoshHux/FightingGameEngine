@@ -13,6 +13,16 @@ MonoBehaviour:
   m_Name: Hibiki
   m_EditorClassIdentifier: 
   _maxHp: 600
+  _maxResources:
+    Health: 0
+    Meter: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+    Resource4: 0
+    Resource5: 0
+    Resource6: 0
+    Resource7: 0
   _mass:
     m_rawValue: 4294967296
   _friction:
@@ -32,6 +42,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
   - {fileID: 11400000, guid: 398ccdbf91e2da640a08f18def63a744, type: 2}
   - {fileID: 11400000, guid: 75081ba64281fd94ba3bc95d3a789d7b, type: 2}
+  - {fileID: 11400000, guid: 3699aba2eee5d634498c3345c9e61898, type: 2}
   _moveList:
   - _targetState: {fileID: 11400000, guid: f35299342e97d984fb11155d0908426d, type: 2}
     _targetStateIndex: -1
@@ -157,12 +168,60 @@ MonoBehaviour:
       Resource5: 0
       Resource6: 0
       Resource7: 0
+  - _targetState: {fileID: 11400000, guid: b0db58909e93d1043922300730fdbb0e, type: 2}
+    _targetStateIndex: -1
+    _cancelConditions: 4
+    _requiredInputs:
+    - Input: 8
+      Flags: 5
+      HoldDuration: 0
+      LenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 0
+      LenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 0
+      LenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
   - _targetState: {fileID: 11400000, guid: 7644e2bb656dda24c9e77be374861d70, type: 2}
     _targetStateIndex: -1
     _cancelConditions: 2
     _requiredInputs:
     - Input: 4096
       Flags: 1
+      HoldDuration: 0
+      LenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: af6272e58bd260a409a2749ef7c370d9, type: 2}
+    _targetStateIndex: -1
+    _cancelConditions: 8
+    _requiredInputs:
+    - Input: 8192
+      Flags: 536870912
       HoldDuration: 0
       LenientBuffer: 0
     _requiredTransitionFlags: 1

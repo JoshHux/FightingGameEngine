@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
   _duration: 0
-  _stateConditions: 536870912
+  _stateConditions: 536870944
   _cancels: 0
   _enterEvents: 0
   _exitEvents: 0

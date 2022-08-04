@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Stun-Grounded
+  m_Name: Block-Standing
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 67108880
+  _stateConditions: 41943056
   _cancels: 0
   _enterEvents: 0
   _exitEvents: 0
@@ -22,7 +22,11 @@ MonoBehaviour:
   - _targetState: {fileID: 0}
     _targetStateIndex: 0
     _cancelConditions: 0
-    _requiredInputs: []
+    _requiredInputs:
+    - Input: 8192
+      Flags: 1610612736
+      HoldDuration: 0
+      LenientBuffer: 0
     _requiredTransitionFlags: 1073741824
     _transitionEvents: 0
     _requiredResources:
@@ -36,7 +40,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames:
-  - _atFrame: 0
+  - _atFrame: 1
     _setVelocity: 0
     _appliedVelocity:
       x:
@@ -686,9 +690,9 @@ MonoBehaviour:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 8589934592
+            m_rawValue: 4294967296
           y:
-            m_rawValue: 8589934592
+            m_rawValue: 4294967296
       Hurtbox1:
         Position:
           x:
@@ -794,9 +798,9 @@ MonoBehaviour:
       StateConditions: 0
     _projectiles: []
   _animation:
-  - _atFrame: 1
-    _animationName: Hitstun-Ground
-    _skipIfSameName: 0
+  - _atFrame: 0
+    _animationName: Blocking
+    _skipIfSameName: 1
     _startFrame: 0
     _soundFx: 
     _vfx: 

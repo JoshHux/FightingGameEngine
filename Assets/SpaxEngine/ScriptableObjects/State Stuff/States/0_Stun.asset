@@ -20,10 +20,10 @@ MonoBehaviour:
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
-    _targetStateIndex: 2
+    _targetStateIndex: 4
     _cancelConditions: 0
     _requiredInputs: []
-    _requiredTransitionFlags: 1
+    _requiredTransitionFlags: 81
     _transitionEvents: 0
     _requiredResources:
       Health: 0
@@ -40,6 +40,22 @@ MonoBehaviour:
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 2
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 0}
+    _targetStateIndex: 2
+    _cancelConditions: 0
+    _requiredInputs: []
+    _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
       Health: 0

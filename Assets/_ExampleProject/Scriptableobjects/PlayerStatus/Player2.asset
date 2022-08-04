@@ -29,9 +29,13 @@ MonoBehaviour:
   m_stopTimer:
     _timeElapsed: 0
     _endTime: 0
+  m_conditionTimer:
+    _timeElapsed: 0
+    _endTime: 0
+    _stateConditions: 0
   m_currentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
-  m_currentConditions: 929
-  m_transitionFlags: 1073741825
+  m_currentConditions: 8388721
+  m_transitionFlags: 1073741905
   m_cancelFlags: 4294967295
   m_currentFacing: 1
   m_currentPosition:
@@ -68,7 +72,7 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 0
       Flags: 0
-      HoldDuration: 2094
+      HoldDuration: 218
       LenientBuffer: 0
   _positionOffset:
     x:

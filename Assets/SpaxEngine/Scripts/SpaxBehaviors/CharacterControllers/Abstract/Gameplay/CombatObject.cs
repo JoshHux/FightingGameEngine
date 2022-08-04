@@ -128,22 +128,29 @@ namespace FightingGameEngine.Gameplay
 
                 var hitIndicator = hold.Indicator;
 
+                //did we block the hit?
+                int blocked = (int)EnumHelper.isNotZero((uint)(hitIndicator & HitIndicator.BLOCKED));
+                //unblocked hit
+                int rawHit = blocked ^ 1;
+
                 //set hitstop
-                int potenHitstop = hold.HitboxData.Hitstop;
+                int potenHitstop = hold.HitboxData.Hitstop * rawHit + hold.HitboxData.BlockStop * blocked;
                 this.SetStopTimer(potenHitstop);
 
                 this.status.CurrentResources += (processList[i].HitboxData.ResourceChange);
                 this.status.CancelFlags |= (processList[i].HitboxData.OnHitCancel);
 
-                if(EnumHelper.HasEnum((uint)processList[i].Indicator, (uint)HitIndicator.COUNTER_HIT)){
-                    this.status.CancelFlags |= (processList[i].HitboxData.OnCounterHitCancel); 
+                if (EnumHelper.HasEnum((uint)processList[i].Indicator, (uint)HitIndicator.COUNTER_HIT))
+                {
+                    this.status.CancelFlags |= (processList[i].HitboxData.OnCounterHitCancel);
                 }
 
-                else if(EnumHelper.HasEnum((uint)processList[i].Indicator, (uint)HitIndicator.BLOCKED)){
+                else if (EnumHelper.HasEnum((uint)processList[i].Indicator, (uint)HitIndicator.BLOCKED))
+                {
                     this.status.CancelFlags |= (processList[i].HitboxData.OnBlockedHitCancel);
                 }
-                
-                
+
+
 
                 //set current resources to max resources in case it's exceeded
                 this.status.CurrentResources.SetMin(this.data.MaxResources);

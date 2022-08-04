@@ -1,5 +1,6 @@
 using UnityEngine;
 using FixMath.NET;
+using FightingGameEngine.Enum;
 namespace FightingGameEngine.Data
 {
     [System.Serializable]
@@ -13,11 +14,13 @@ namespace FightingGameEngine.Data
         [SerializeField] private bool _setGravity;
         //  basically ignored if setGravity is false
         [SerializeField] private Fix64 _appliedGravity;
+        [SerializeField] private FrameEventData _timerEvents;
+        [SerializeField] private StateConditions _toggleCond;
+        [SerializeField] private CancelConditions _toggleCancels;
         //what and how do resources change at this frame
         [SerializeField] private ResourceData _resourceChange;
         [SerializeField] private HitboxHolder _hitboxes;
         [SerializeField] private HurtboxHolder _hurtboxes;
-        [SerializeField] private FrameEventData _timerEvents;
         [SerializeField] private ProjectileEvent[] _projectiles;
 
         //the minimum atframe value should be 1, if 0, then it's invalid
@@ -26,11 +29,15 @@ namespace FightingGameEngine.Data
         public FVector2 AppliedVelocity { get { return this._appliedVelocity; } }
         public bool SetGravity { get { return this._setGravity; } }
         public Fix64 AppliedGravity { get { return this._appliedGravity; } }
+
+        public StateConditions ToggleCondtitions { get { return this._toggleCond; } }
+        public CancelConditions ToggleCancels { get { return this._toggleCancels; } }
+
         //what and how do resources change at this frame
         public ResourceData ResourceChange { get { return this._resourceChange; } }
+        public FrameEventData TimerEvent { get { return this._timerEvents; } }
         public ProjectileEvent[] Projectiles { get { return this._projectiles; } }
 
-        public FrameEventData TimerEvent { get { return this._timerEvents; } }
 
         //returns whether or not this frame has a projectiles to spawn
         public bool HasProjectile()

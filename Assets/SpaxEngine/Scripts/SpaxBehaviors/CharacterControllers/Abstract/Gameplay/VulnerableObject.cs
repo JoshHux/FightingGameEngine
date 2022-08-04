@@ -58,18 +58,25 @@ namespace FightingGameEngine.Gameplay
                 bool notWhiff = hold.Indicator > 0;
                 if (notWhiff)
                 {
+                    //did we block the hit?
+                    int blocked = (int)EnumHelper.isNotZero((uint)(hold.Indicator & HitIndicator.BLOCKED));
+                    //unblocked hit
+                    int rawHit = blocked ^ 1;
+                    //were we grabbed?
                     bool isGrabbed = EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.GRABBED);
+
                     //Debug.Log("processing hit");
                     //set hitstop
-                    int potenHitstop = hold.HitboxData.Hitstop;
+                    int potenHitstop = hold.HitboxData.Hitstop * rawHit + hold.HitboxData.BlockStop * blocked;
                     this.SetStopTimer(potenHitstop);
 
                     //set universal target state
                     univTargetState = hold.HitboxData.UniversalStateCause;
-                    totalStun = hold.HitboxData.Hitstun;
+                    totalStun = hold.HitboxData.Hitstun * rawHit + hold.HitboxData.BlockStun * blocked;
+
 
                     //add transition flag to let the status know we got hit
-                    this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.GOT_HIT;
+                    this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.GOT_HIT | (TransitionFlags)((int)TransitionFlags.BLOCKED_HIT * blocked);
 
                     //knockback/postion offset value (for grabs)
                     var groundedPhysVal = hold.HitboxData.GroundedKnockback;
@@ -115,7 +122,8 @@ namespace FightingGameEngine.Gameplay
                 i++;
             }
 
-            if (univTargetState > -1)
+            //DON'T transition if we're going into hit/blockstun with 0 totalstun
+            if (univTargetState > -1 && !(univTargetState == 0 && totalStun <= 0))
             {
                 this.TryTransitionUniversalState(univTargetState);
                 //set stun duration
@@ -145,11 +153,77 @@ namespace FightingGameEngine.Gameplay
         //called by the hurtbox to add the hitbox to process in HurtBoxQueryUpdate
         public HitIndicator AddHitboxToQuery(HitInfo boxData)
         {
-            HitIndicator ret = HitIndicator.HIT;
+            HitIndicator ret = HitIndicator.WHIFF;
+            /*--- our state condition info ---*/
 
-            //TODO: have a check against the stateconditions for whether we are grabbed or not
-            bool isGrabBox = EnumHelper.HasEnum((uint)boxData.HitboxData.Type, (uint)HitboxType.GRAB);
-            if (isGrabBox) { ret |= HitIndicator.GRABBED; }
+            //current state conditions we process
+            var curSttCond = this.status.TotalStateConditions;
+
+            //what we are invulnerable against
+            var strikeInvuln = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.INVULNERABLE_STRIKE));
+            var grabInvuln = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.INVULNERABLE_GRAB));
+
+            //what we have guard point against
+            var midGuard = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.GUARD_POINT_MID));
+            var lowGuard = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.GUARD_POINT_LOW));
+            var highGuard = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.GUARD_POINT_HIGH));
+            var guardEnum = (uint)((uint)curSttCond >> 23);
+
+            //are we grounded or airborne?
+            var airOrGround = (uint)(this.status.TotalStateConditions & (StateConditions.GROUNDED | StateConditions.AIRBORNE));
+
+            /*--- attacker hitbox properties ---*/
+
+            //the total hitbox characteristics
+            var hitboxType = boxData.HitboxData.Type;
+
+            //strike properties of the hitbox
+            var strikeType = hitboxType & HitboxType.STRIKE;
+            //grab properties of the hitbox
+            uint grabType = ((uint)(hitboxType & HitboxType.GRAB) >> 3);
+
+            //hitbox type check
+            var isStrike = (int)EnumHelper.isNotZero((uint)(strikeType));
+            var isGrab = (int)EnumHelper.isNotZero((uint)(grabType));
+            var isStrikeGrab = isGrab & isStrike;
+
+            /*--- COMPARING THE HITBOX INFO VS OUR STATE CONDITIONS ---*/
+
+            //strike box
+            var weBlocked = EnumHelper.HasEnumInt(guardEnum, (uint)strikeType);
+            var weGotHit = weBlocked ^ 1;
+
+
+            //provide data to the ret
+            ret = (HitIndicator)((weBlocked * (int)HitIndicator.BLOCKED) | (weGotHit * (int)HitIndicator.HIT));
+
+
+            //TODO: try to make this branchless
+            //invuln check
+            if (((isStrike > 0) || (isStrikeGrab > 0)) && (strikeInvuln > 0))
+            {
+                ret = HitIndicator.WHIFF;
+
+            }
+            else if (isGrab > 0)
+            {
+                if ((isStrikeGrab == 0) && (grabInvuln > 0))
+                {
+                    ret = HitIndicator.WHIFF;
+                }
+                else if (EnumHelper.HasEnum((uint)grabType, (uint)airOrGround, true))
+                {
+                    //Debug.Log(grabType + " " + airOrGround);
+                    ret |= HitIndicator.GRABBED;
+                }
+                else
+                {
+                    ret = HitIndicator.WHIFF;
+                }
+            }
+            //Debug.Log(ret);
+
+
 
             //make copy of object just in case of some shallow memory access shenanigans
             //last parameter is the object that hit us (to be used later)

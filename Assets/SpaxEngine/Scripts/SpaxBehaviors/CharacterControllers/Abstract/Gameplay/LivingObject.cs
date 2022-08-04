@@ -292,16 +292,18 @@ namespace FightingGameEngine.Gameplay
             //do we have a nonzero duration for this timer?
             var isNonzero = (int)EnumHelper.isNotZero((uint)timerEvent.Duration);
 
-            //parameters we put into the timer
-            var endTime = timerEvent.Duration * isNonzero;
-            var addedStateConditions = (StateConditions)((int)timerEvent.StateConditions * isNonzero);
+            if (isNonzero > 0)
+            {
+                //parameters we put into the timer
+                var endTime = timerEvent.Duration * isNonzero;
+                var addedStateConditions = (StateConditions)((int)timerEvent.StateConditions * isNonzero);
 
-            //get new timer
-            var newCondTimer = new ConditionTimer(endTime, addedStateConditions);
+                //get new timer
+                var newCondTimer = new ConditionTimer(endTime, addedStateConditions);
 
-            //set the new timer
-            this.status.ConditionTimer = newCondTimer;
-
+                //set the new timer
+                this.status.ConditionTimer = newCondTimer;
+            }
         }
 
         //call to process the state conditions of our current state
@@ -419,6 +421,7 @@ namespace FightingGameEngine.Gameplay
         protected void TryTransitionUniversalState(int universalStateInd = -1)
         {
 
+
             var trnFlags = this.status.TransitionFlags;
             var curCan = this.status.CancelFlags;
             var curRsrc = this.status.CurrentResources;
@@ -454,6 +457,11 @@ namespace FightingGameEngine.Gameplay
         {
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
 
+            //does our current state have a negative duration (is it a node state)?
+            //  only 1 if the duration is positive
+            var isNonNodeState = (((uint)newState.Duration) >> 31)^1;
+
+
             //set the new current state
             this.status.CurrentState = newState;
             ///process current state
@@ -466,7 +474,7 @@ namespace FightingGameEngine.Gameplay
             //assign the current cancel conditions
             this.status.CancelFlags = newState.CancelConditions;
             //remove the state end transition flag
-            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT));
+            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT)*isNonNodeState));
 
             this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
 
