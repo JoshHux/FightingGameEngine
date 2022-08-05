@@ -228,7 +228,7 @@ namespace FightingGameEngine.Gameplay
                 {
                     ret = HitIndicator.WHIFF;
                 }
-                else if (EnumHelper.HasEnum((uint)grabType, (uint)airOrGround, true))
+                else if (EnumHelper.HasEnum((uint)grabType, (uint)airOrGround, true) && EnumHelper.HasEnum((uint)this.status.TotalStateConditions, (uint)StateConditions.STUN_STATE))
                 {
                     //Debug.Log(grabType + " " + airOrGround);
                     ret |= HitIndicator.GRABBED;
