@@ -224,9 +224,15 @@ namespace FightingGameEngine.Gameplay
             }
             else if (isGrab > 0)
             {
-                if ((isStrikeGrab == 0) && (grabInvuln > 0))
+                if (grabInvuln > 0)
                 {
                     ret = HitIndicator.WHIFF;
+                }
+                //IF it's a strike-grab AND we don't have strike invuln
+                //  THEN we get grabbed
+                else if ((isStrikeGrab > 0) && (strikeInvuln == 0))
+                {
+                    ret |= HitIndicator.GRABBED;
                 }
                 else if (EnumHelper.HasEnum((uint)grabType, (uint)airOrGround, true) && EnumHelper.HasEnum((uint)this.status.TotalStateConditions, (uint)StateConditions.STUN_STATE))
                 {
