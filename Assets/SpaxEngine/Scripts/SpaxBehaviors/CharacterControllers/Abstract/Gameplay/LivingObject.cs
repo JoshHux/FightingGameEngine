@@ -246,6 +246,9 @@ namespace FightingGameEngine.Gameplay
         //call to process the frame data
         protected virtual void ProcessFrameData(FrameData frame)
         {
+            /*----- PROCESSING STATE CONDITIONS -----*/
+            this.status.CurrentStateConditions ^= frame.ToggleConditions;
+
             /*----- PROCESSING APPLIED VELOCITY -----*/
             //get the velocity we want to apply
             var appliedVel = frame.AppliedVelocity;
