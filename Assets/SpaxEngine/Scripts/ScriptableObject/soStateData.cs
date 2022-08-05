@@ -12,7 +12,9 @@ namespace FightingGameEngine.Data
         [SerializeField] private soStateData _parentState;
         [SerializeField] private int _duration;
         [SerializeField] private StateConditions _stateConditions;
+        [SerializeField] private StateConditions _toggleState;
         [SerializeField] private CancelConditions _cancels;
+        [SerializeField] private CancelConditions _toggleCancel;
         [SerializeField] private TransitionEvents _enterEvents;
         [SerializeField] private TransitionEvents _exitEvents;
         [SerializeField] private List<TransitionData> _transitions;

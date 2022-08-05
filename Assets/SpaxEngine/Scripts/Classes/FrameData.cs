@@ -30,7 +30,7 @@ namespace FightingGameEngine.Data
         public bool SetGravity { get { return this._setGravity; } }
         public Fix64 AppliedGravity { get { return this._appliedGravity; } }
 
-        public StateConditions ToggleCondtitions { get { return this._toggleCond; } }
+        public StateConditions ToggleConditions { get { return this._toggleCond; } }
         public CancelConditions ToggleCancels { get { return this._toggleCancels; } }
 
         //what and how do resources change at this frame
