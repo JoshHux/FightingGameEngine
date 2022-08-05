@@ -9,7 +9,8 @@ namespace FightingGameEngine.Enum
         KILL_Z_VEL = 1 << 2,
         CLEAN_HITBOXES = 1 << 3,
         EXIT_STUN = 1 << 4,
-        FLIP_FACING = 1 << 4,
+        FLIP_FACING = 1 << 5,
+        GRAB_TECH = 1 << 30,
 
     }
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Player1
   m_EditorClassIdentifier: 
   _allegiance: 0
+  _playerId: 0
   m_currentResources:
     Health: 600
     Meter: 0
@@ -34,13 +35,13 @@ MonoBehaviour:
     _endTime: 0
     _stateConditions: 0
   m_currentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
-  m_currentConditions: 8388721
+  m_currentConditions: 113
   m_transitionFlags: 1073741825
   m_cancelFlags: 4294967295
   m_currentFacing: -1
   m_currentPosition:
     x:
-      m_rawValue: -13372003328
+      m_rawValue: 59415340502
     y:
       m_rawValue: -15032385536
   m_currentVelocity:
@@ -72,27 +73,19 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 8
       Flags: 1
-      HoldDuration: 12
+      HoldDuration: 18
       LenientBuffer: 0
     - Input: 8
       Flags: 6
-      HoldDuration: 3
+      HoldDuration: 4
       LenientBuffer: 0
-    - Input: 512
+    - Input: 256
       Flags: 1
-      HoldDuration: 5
+      HoldDuration: 4
       LenientBuffer: 0
-    - Input: 512
+    - Input: 256
       Flags: 6
-      HoldDuration: 44
-      LenientBuffer: 0
-    - Input: 512
-      Flags: 5
-      HoldDuration: 5
-      LenientBuffer: 0
-    - Input: 512
-      Flags: 6
-      HoldDuration: 100
+      HoldDuration: 346
       LenientBuffer: 0
   _positionOffset:
     x:

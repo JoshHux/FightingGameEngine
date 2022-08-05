@@ -9,6 +9,8 @@ namespace FightingGameEngine.Gameplay
     public class FightingCharacterController : ControllableObject
     {
         [SerializeField] private FRigidbody _other;
+        public int PlayerID { get { return this.status.PlayerID; } }
+
         protected override void StateCleanUpdate() { }
         protected override void PreUpdate() { }
         protected override void PostPhysUpdate()

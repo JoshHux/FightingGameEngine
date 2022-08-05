@@ -147,6 +147,23 @@ namespace FightingGameEngine.Gameplay
             this.OnFrameReached.Invoke(this, frame);
         }
 
+        //call to process transition event enums
+        protected override void ProcessTransitionEvent(TransitionEvents te)
+        {
+            base.ProcessTransitionEvent(te);
+
+            /*----- PROCESSING TECHING EVENT -----*/
+            bool grabTech = EnumHelper.HasEnum((uint)te, (uint)TransitionEvents.GRAB_TECH);
+
+            if (grabTech)
+            {
+                int otherID = (this.status.PlayerID == 0) ? 1 : 0;
+                var grabber = Spax.SpaxManager.Instance.GetLivingObjectByID(otherID);
+
+                grabber.TryTransitionUniversalState(1);
+            }
+        }
+
 
         //list of hitboxes to process, reset every frame
         private List<HitInfo> m_hurtList;

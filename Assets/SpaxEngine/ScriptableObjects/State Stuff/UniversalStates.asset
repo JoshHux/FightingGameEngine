@@ -33,7 +33,7 @@ MonoBehaviour:
     _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
-    _requiredTransitionFlags: 48
+    _requiredTransitionFlags: 0
     _transitionEvents: 0
     _requiredResources:
       Health: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: GroundedHitstun
+  m_Name: Techable
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
@@ -19,11 +19,16 @@ MonoBehaviour:
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 0}
-    _cancelConditions: 0
-    _requiredInputs: []
-    _requiredTransitionFlags: 1073741824
-    _transitionEvents: 0
+  - _targetState: {fileID: 11400000, guid: d52f317183da1d64cb7c58168a3040ed, type: 2}
+    _targetStateIndex: 0
+    _cancelConditions: 1
+    _requiredInputs:
+    - Input: 256
+      Flags: 1
+      HoldDuration: 0
+      LenientBuffer: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 1073741824
     _requiredResources:
       Health: 0
       Meter: 0

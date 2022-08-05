@@ -12,6 +12,7 @@ namespace FightingGameEngine.Data
     public class soCharacterStatus : ScriptableObject
     {
         [SerializeField] private int _allegiance;
+        [SerializeField] private int _playerId;
         [SerializeField] private ResourceData m_currentResources;
         [SerializeField] private FrameTimer m_stateTimer;
         [SerializeField] private FrameTimer m_stopTimer;
@@ -37,6 +38,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private bool m_checkState;
 
         public int Allegiance { get { return this._allegiance; } set { this._allegiance = value; } }
+        public int PlayerID { get { return this._playerId; } }
         public int CurrentHP { get { return this.m_currentResources.Health; } set { this.m_currentResources.Health = value; } }
         public int CurrentFacingDirection { get { return this.m_currentFacing; } set { this.m_currentFacing = value; } }
         public FrameTimer StateTimer { get { return this.m_stateTimer; } set { this.m_stateTimer = value; } }

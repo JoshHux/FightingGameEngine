@@ -23,6 +23,22 @@ namespace FightingGameEngine.Data
         public TransitionEvents ExitEvents { get { return this._exitEvents; } }
         public soStateData ParentState { get { return this._parentState; } }
         public int Duration { get { return this._duration; } }
+
+        public List<TransitionData> Transitions
+        {
+            get
+            {
+                var ret = new List<TransitionData>(this._transitions);
+
+                var getParent = this._parentState != null && !EnumHelper.HasEnum((uint)this.StateConditions, (uint)StateConditions.NO_PARENT_TRANS);
+                if (getParent)
+                {
+                    ret.AddRange(this._parentState.Transitions);
+                }
+
+                return ret;
+            }
+        }
         public StateConditions StateConditions
         {
             get
@@ -112,7 +128,7 @@ namespace FightingGameEngine.Data
                             i++;
                         }
             */
-            ret = this._transitions.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir));
+            ret = this.Transitions.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir));
             return ret;
         }
 

@@ -6,6 +6,7 @@ using FlatPhysics.Unity;
 using FlatPhysics.Filter;
 using FightingGameEngine;
 using FightingGameEngine.Data;
+using FightingGameEngine.Gameplay;
 
 
 namespace Spax
@@ -48,6 +49,8 @@ namespace Spax
         private Fix64 _timeStep;
         [SerializeField] private CollisionLayer[] _collisionMatrix;
 
+        private List<FightingCharacterController> _players;
+
         public soStaticValues StaticValues { get { return this._staticValues; } }
         public soUniversalStateHolder UniversalStates { get { return this._universalStates; } }
 
@@ -57,6 +60,8 @@ namespace Spax
         {
             Instance = this;
             Application.targetFrameRate = 60;
+
+            this._players = new List<FightingCharacterController>();
             //test.Initialize();
             //initialize physics world stuff
             //collision layer stuff
@@ -134,6 +139,15 @@ namespace Spax
         public void AddBody(FRigidbody rb)
         {
             this._world.AddBody(rb.Body);
+
+            FightingCharacterController livingObject = null;
+
+            bool got = rb.TryGetComponent<FightingCharacterController>(out livingObject);
+            if (got)
+            {
+                this._players.Add(livingObject);
+            }
+
         }
 
 
@@ -148,7 +162,15 @@ namespace Spax
             this._world.ResolveAgainstAllStatic(body1, body2);
         }
 
-        public CollisionLayer GetCollisions(int layer) { return this._collisionMatrix[layer]; }
+        public FightingCharacterController GetLivingObjectByID(int playerID)
+        {
+            var ret = this._players.Find(o => o.PlayerID == playerID);
+
+            return ret;
+        }
+
+        public CollisionLayer GetCollisions(int layer)
+        { return this._collisionMatrix[layer]; }
 
     }
 }

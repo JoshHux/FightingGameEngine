@@ -16,7 +16,6 @@ namespace FightingGameEngine.Gameplay
         //current status of this character
         [SerializeField] protected soCharacterStatus status;
 
-
         public soCharacterStatus Status { get { return this.status; } }
         public FlatPhysics.FlatBody Body { get { return this._rb.Body; } }
         public FVector2 FlatPosition { get { return this._rb.Body.Position; } }
