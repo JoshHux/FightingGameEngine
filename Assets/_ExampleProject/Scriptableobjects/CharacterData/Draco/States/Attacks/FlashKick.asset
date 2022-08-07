@@ -15,7 +15,9 @@ MonoBehaviour:
   _parentState: {fileID: 0}
   _duration: 30
   _stateConditions: 0
+  _toggleState: 0
   _cancels: 0
+  _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
@@ -46,6 +48,12 @@ MonoBehaviour:
     _setGravity: 0
     _appliedGravity:
       m_rawValue: 0
+    _timerEvents:
+      Duration: 0
+      CancelsConditions: 0
+      StateConditions: 0
+    _toggleCond: 0
+    _toggleCancels: 0
     _resourceChange:
       Health: 0
       Meter: 0
@@ -788,10 +796,6 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
-    _timerEvents:
-      Duration: 0
-      CancelsConditions: 0
-      StateConditions: 0
     _projectiles: []
   _animation:
   - _atFrame: 1

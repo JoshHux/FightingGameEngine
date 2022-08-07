@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
   m_Name: JumpForward
   m_EditorClassIdentifier: 
-  _parentState: {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
+  _parentState: {fileID: 11400000, guid: 3717d696bca75724c907c53abcb6436c, type: 2}
   _duration: 1
   _stateConditions: 2
   _toggleState: 0

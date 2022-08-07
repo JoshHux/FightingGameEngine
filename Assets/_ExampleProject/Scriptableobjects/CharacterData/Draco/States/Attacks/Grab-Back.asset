@@ -21,7 +21,7 @@ MonoBehaviour:
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 11400000, guid: c749d4a948e2f834393f86e81fa4756a, type: 2}
+  - _targetState: {fileID: 11400000, guid: 8f3b952904480f64c8cdd8115001cfaf, type: 2}
     _targetStateIndex: 0
     _cancelConditions: 0
     _requiredInputs: []
