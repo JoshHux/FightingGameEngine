@@ -111,7 +111,6 @@ namespace FightingGameEngine.Gameplay
                         }
                     }
 
-                    this.status.TransitionFlags |= Enum.TransitionFlags.LANDED_HIT;
 
                 }
 
@@ -130,26 +129,33 @@ namespace FightingGameEngine.Gameplay
 
                 //did we block the hit?
                 int blocked = (int)EnumHelper.isNotZero((uint)(hitIndicator & HitIndicator.BLOCKED));
+                // did we land a grab?
+                int grabbed = (int)EnumHelper.isNotZero((uint)(hitIndicator & HitIndicator.GRABBED));
                 //unblocked hit
                 int rawHit = blocked ^ 1;
+                //we landed a strike
+                this.landedStrikeThisFrame = grabbed == 0 && rawHit > 0;
+
+
+
 
                 //set hitstop
                 int potenHitstop = hold.HitboxData.Hitstop * rawHit + hold.HitboxData.BlockStop * blocked;
                 this.SetStopTimer(potenHitstop);
 
-                this.AddCurrentResources(processList[i].HitboxData.ResourceChange);
-                this.status.CancelFlags |= (processList[i].HitboxData.OnHitCancel);
+                this.AddCurrentResources(hold.HitboxData.ResourceChange);
+                this.status.CancelFlags |= (hold.HitboxData.OnHitCancel);
 
-                if (EnumHelper.HasEnum((uint)processList[i].Indicator, (uint)HitIndicator.COUNTER_HIT))
+                if (EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.COUNTER_HIT))
                 {
-                    this.status.CancelFlags |= (processList[i].HitboxData.OnCounterHitCancel);
+                    this.status.CancelFlags |= (hold.HitboxData.OnCounterHitCancel);
+                }
+                else if (EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.BLOCKED))
+                {
+                    this.status.CancelFlags = (hold.HitboxData.OnBlockedHitCancel);
                 }
 
-                else if (EnumHelper.HasEnum((uint)processList[i].Indicator, (uint)HitIndicator.BLOCKED))
-                {
-                    this.status.CancelFlags |= (processList[i].HitboxData.OnBlockedHitCancel);
-                }
-                
+                this.status.TransitionFlags |= (TransitionFlags)((int)TransitionFlags.LANDED_HIT * rawHit);
 
                 i++;
             }

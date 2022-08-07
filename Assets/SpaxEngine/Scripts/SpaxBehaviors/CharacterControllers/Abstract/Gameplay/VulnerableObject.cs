@@ -39,7 +39,12 @@ namespace FightingGameEngine.Gameplay
 
             //init the list of hitinfo objects to process when hit
             this.m_hurtList = new List<HitInfo>();
+            //init indicator of whether or not we landed a strike
+            this.landedStrikeThisFrame = false;
         }
+
+        //ONLY HERE TO MAKE SURE THAT STRIKE-TRADES END THE STRIKE'S FAVOR
+        protected bool landedStrikeThisFrame = false;
 
         protected override void HurtboxQueryUpdate()
         {
@@ -54,16 +59,18 @@ namespace FightingGameEngine.Gameplay
             {
                 var hold = this.m_hurtList[i];
 
+                //were we grabbed?
+                bool isGrabbed = EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.GRABBED);
+
                 //is this a non-whiff?
                 bool notWhiff = hold.Indicator > 0;
-                if (notWhiff)
+                bool tradedWithGrab = (isGrabbed && landedStrikeThisFrame);
+                if (notWhiff && !tradedWithGrab)
                 {
                     //did we block the hit?
                     int blocked = (int)EnumHelper.isNotZero((uint)(hold.Indicator & HitIndicator.BLOCKED));
                     //unblocked hit
                     int rawHit = blocked ^ 1;
-                    //were we grabbed?
-                    bool isGrabbed = EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.GRABBED);
 
                     //Debug.Log("processing hit");
                     //set hitstop
@@ -132,6 +139,7 @@ namespace FightingGameEngine.Gameplay
             }
 
             this.m_hurtList.Clear();
+            this.landedStrikeThisFrame = false;
         }
 
 
@@ -175,10 +183,13 @@ namespace FightingGameEngine.Gameplay
 
             //current state conditions we process
             var curSttCond = this.status.TotalStateConditions;
+            //are we in a stunstate?
+            var inStun = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.STUN_STATE));
 
             //what we are invulnerable against
             var strikeInvuln = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.INVULNERABLE_STRIKE));
             var grabInvuln = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.INVULNERABLE_GRAB));
+            var projInvuln = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.INVULNERABLE_PROJECTILE));
 
             //what we have guard point against
             var midGuard = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.GUARD_POINT_MID));
@@ -202,6 +213,7 @@ namespace FightingGameEngine.Gameplay
             //hitbox type check
             var isStrike = (int)EnumHelper.isNotZero((uint)(strikeType));
             var isGrab = (int)EnumHelper.isNotZero((uint)(grabType));
+            var isProj = (int)EnumHelper.isNotZero((uint)(hitboxType & HitboxType.PROJECTILE));
             var isStrikeGrab = isGrab & isStrike;
 
             /*--- COMPARING THE HITBOX INFO VS OUR STATE CONDITIONS ---*/
@@ -217,34 +229,67 @@ namespace FightingGameEngine.Gameplay
 
             //TODO: try to make this branchless
             //invuln check
+            //  each multiplier vairable can ONLY be zero IF they are that hitbox type AND we have the corresponding invuln condition 
+            //  we want the stuff afte 1^ to be 0 for a hit, 1 for a whiff
+
+            //projectile invuln multiplier
+            //  only considers a whiff if this is a projectile first
+            var projMult = 1 ^ (isProj * projInvuln);
+
+            ret = (HitIndicator)((int)ret * projMult);
+
+            //strike invuln multiplier
+            //  mult is 1 if it isn't a strike box
+            var strikeIndicator = (isStrike | isStrikeGrab);
+            var strikeMult = 1 ^ ((strikeIndicator * strikeInvuln) | (strikeIndicator ^ 1));
+
+            ret = (HitIndicator)((int)ret * strikeMult);
+
+            //grab invuln multiplier
+            var grabLocMatch = (int)EnumHelper.isNotZero((uint)(grabType & airOrGround));
+            //  ((isStrikeGrab^isGrab)*isStrikeGrab) overrides isGrab to be 0 if the hit is a strike-grab
+            //      it's 1 if we have a regular grab
+            var rawGrab = ((isStrikeGrab ^ isGrab) * isStrikeGrab);
+            var grabMult = 1 ^ ((rawGrab & (grabInvuln | inStun | (grabLocMatch ^ 1))));// | (rawGrab ^ 1));
+
+            ret |= (HitIndicator)((int)HitIndicator.GRABBED * grabMult);
+
+
+            /*if (isProj > 0 && projInvuln > 0)
+                        {
+                            ret = HitIndicator.WHIFF;
+                        }
+                        else
             if (((isStrike > 0) || (isStrikeGrab > 0)) && (strikeInvuln > 0))
             {
                 ret = HitIndicator.WHIFF;
-
             }
-            else if (isGrab > 0)
+            else
+            if (isGrab > 0)
             {
-                if (grabInvuln > 0)
-                {
-                    ret = HitIndicator.WHIFF;
-                }
                 //IF it's a strike-grab AND we don't have strike invuln
                 //  THEN we get grabbed
-                else if ((isStrikeGrab > 0) && (strikeInvuln == 0))
+                if ((isStrikeGrab > 0) && (strikeInvuln == 0))
                 {
                     ret |= HitIndicator.GRABBED;
                 }
-                else if (EnumHelper.HasEnum((uint)grabType, (uint)airOrGround, true) && EnumHelper.HasEnum((uint)this.status.TotalStateConditions, (uint)StateConditions.STUN_STATE))
+                else if (grabInvuln > 0)
+                {
+                    //Debug.Log("INVULN WHIFF");
+                    ret = HitIndicator.WHIFF;
+                }
+                else if (EnumHelper.HasEnum((uint)grabType, (uint)airOrGround, true) && !EnumHelper.HasEnum((uint)this.status.TotalStateConditions, (uint)StateConditions.STUN_STATE))
                 {
                     //Debug.Log(grabType + " " + airOrGround);
                     ret |= HitIndicator.GRABBED;
                 }
                 else
                 {
+                    //Debug.Log("ELSE WHIFF");
                     ret = HitIndicator.WHIFF;
                 }
-            }
-            //Debug.Log(ret);
+            }*/
+            Debug.Log(grabMult);
 
 
 

@@ -12,6 +12,7 @@ namespace FightingGameEngine.Enum
         CAN_MOVE = 1 << 5,
         AUTO_TURN = 1 << 6,
 
+        INVULNERABLE_PROJECTILE = 1 << 20,
         INVULNERABLE_STRIKE = 1 << 21,
         INVULNERABLE_GRAB = 1 << 22,
 

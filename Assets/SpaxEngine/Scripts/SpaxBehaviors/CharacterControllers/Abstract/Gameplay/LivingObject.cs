@@ -247,6 +247,7 @@ namespace FightingGameEngine.Gameplay
         {
             /*----- PROCESSING STATE CONDITIONS -----*/
             this.status.CurrentStateConditions ^= frame.ToggleConditions;
+            this.status.CancelFlags ^= frame.ToggleCancels;
 
             /*----- PROCESSING APPLIED VELOCITY -----*/
             //get the velocity we want to apply
@@ -459,7 +460,7 @@ namespace FightingGameEngine.Gameplay
 
             //does our current state have a negative duration (is it a node state)?
             //  only 1 if the duration is positive
-            var isNonNodeState = (((uint)newState.Duration) >> 31)^1;
+            var isNonNodeState = (((uint)newState.Duration) >> 31) ^ 1;
 
 
             //set the new current state
@@ -474,7 +475,7 @@ namespace FightingGameEngine.Gameplay
             //assign the current cancel conditions
             this.status.CancelFlags = newState.CancelConditions;
             //remove the state end transition flag
-            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT)*isNonNodeState));
+            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT) * isNonNodeState));
 
             this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
 
