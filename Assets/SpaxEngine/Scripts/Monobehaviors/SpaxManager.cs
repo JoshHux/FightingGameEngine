@@ -171,6 +171,7 @@ namespace Spax
 
         public CollisionLayer GetCollisions(int layer)
         { return this._collisionMatrix[layer]; }
+        public int GetNumberOfPlayers() { return this._players.Count; }
 
     }
 }

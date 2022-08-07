@@ -16,6 +16,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private ResourceData m_currentResources;
         [SerializeField] private FrameTimer m_stateTimer;
         [SerializeField] private FrameTimer m_stopTimer;
+        [SerializeField] private FrameTimer m_superFlashTimer;
         [SerializeField] private ConditionTimer m_conditionTimer;
         [SerializeField] private soStateData m_currentState;
         [SerializeField] private StateConditions m_currentConditions;
@@ -31,6 +32,13 @@ namespace FightingGameEngine.Data
         [SerializeField] private Fix64 m_currentGravity;
         [SerializeField] private Fix64 m_currentProration;
         [SerializeField] private int m_comboCount;
+
+        //bounce data for ground and wall bounces
+        [SerializeField] private int m_groundBounces;
+        [SerializeField] private Fix64 m_groundBounceScaling;
+        [SerializeField] private int m_wallBounces;
+        [SerializeField] private Fix64 m_wallBounceScaling;
+
         [SerializeField] private InputRecorder _inputRecorder;
         [SerializeField] private FlatPhysics.FlatBody _positionAnchor;
         [SerializeField] private FVector2 _positionOffset;
@@ -43,6 +51,7 @@ namespace FightingGameEngine.Data
         public int CurrentFacingDirection { get { return this.m_currentFacing; } set { this.m_currentFacing = value; } }
         public FrameTimer StateTimer { get { return this.m_stateTimer; } set { this.m_stateTimer = value; } }
         public FrameTimer StopTimer { get { return this.m_stopTimer; } set { this.m_stopTimer = value; } }
+        public FrameTimer SuperFlashTimer { get { return this.m_superFlashTimer; } set { this.m_superFlashTimer = value; } }
         public ConditionTimer ConditionTimer { get { return this.m_conditionTimer; } set { this.m_conditionTimer = value; } }
         public soStateData CurrentState { get { return this.m_currentState; } set { this.m_currentState = value; } }
         //the conditions we have, based on our current state
@@ -82,6 +91,14 @@ namespace FightingGameEngine.Data
         public Fix64 CurrentGravity { get { return this.m_currentGravity; } set { this.m_currentGravity = value; } }
         public Fix64 CurrentProration { get { return this.m_currentProration; } set { this.m_currentProration = value; } }
         public int CurrentComboCount { get { return this.m_comboCount; } set { this.m_comboCount = value; } }
+
+        //public access to bounce info
+        public int GroundBounces { get { return this.m_groundBounces; } set { this.m_groundBounces = value; } }
+        public Fix64 GroundBounceScaling { get { return this.m_groundBounceScaling; } set { this.m_groundBounceScaling = value; } }
+        public int WallBounces { get { return this.m_wallBounces; } set { this.m_wallBounces = value; } }
+        public Fix64 WallBounceScaling { get { return this.m_wallBounceScaling; } set { this.m_wallBounceScaling = value; } }
+
+
         //we determine whether we check the state here
         public bool CheckState { get { return this.m_checkState; } set { this.m_checkState = value; } }
 

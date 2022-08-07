@@ -67,6 +67,9 @@ namespace FightingGameEngine.Gameplay
                 bool tradedWithGrab = (isGrabbed && landedStrikeThisFrame);
                 if (notWhiff && !tradedWithGrab)
                 {
+                    //quick access to the hitbox data
+                    var boxData = hold.HitboxData;
+
                     //did we block the hit?
                     int blocked = (int)EnumHelper.isNotZero((uint)(hold.Indicator & HitIndicator.BLOCKED));
                     //unblocked hit
@@ -75,17 +78,17 @@ namespace FightingGameEngine.Gameplay
                     //Debug.Log("processing hit");
 
                     //set universal target state
-                    univTargetState = hold.HitboxData.UniversalStateCause;
-                    totalStun = hold.HitboxData.Hitstun * rawHit + hold.HitboxData.BlockStun * blocked;
+                    univTargetState = boxData.UniversalStateCause;
+                    totalStun = boxData.Hitstun * rawHit + boxData.BlockStun * blocked;
 
 
                     //add transition flag to let the status know we got hit
                     this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.GOT_HIT | (TransitionFlags)((int)TransitionFlags.BLOCKED_HIT * blocked);
 
                     //knockback/postion offset value (for grabs)
-                    var groundedPhysVal = hold.HitboxData.GroundedKnockback;
+                    var groundedPhysVal = boxData.GroundedKnockback;
                     groundedPhysVal.x = groundedPhysVal.x * hold.OtherOwner.Facing;
-                    var airbornePhysVal = hold.HitboxData.AirborneKnockback;
+                    var airbornePhysVal = boxData.AirborneKnockback;
                     airbornePhysVal.x = airbornePhysVal.x * hold.OtherOwner.Facing;
 
                     //remove the accumulated velocity so far
@@ -124,6 +127,11 @@ namespace FightingGameEngine.Gameplay
                         this.status.CurrentVelocity = (groundedPhysVal * grounded) + (airbornePhysVal * airborne);
                         //Debug.Log("grounded - " + grounded + " | airborne - " + airborne + " | knockback - " + ((groundedPhysVal * grounded) + (airbornePhysVal * airborne)).x + " , " + ((groundedPhysVal * grounded) + (airbornePhysVal * airborne)).y);
 
+                        //set bounce data
+                        this.status.GroundBounces = boxData.GroundBounces;
+                        this.status.GroundBounceScaling = boxData.GroundBounceMultiplier;
+                        this.status.WallBounces = boxData.WallBounces;
+                        this.status.WallBounceScaling = boxData.WallBounceMultiplier;
                     }
 
                     //set hitstop
@@ -146,7 +154,58 @@ namespace FightingGameEngine.Gameplay
             this.landedStrikeThisFrame = false;
         }
 
+        //call to process the state conditions of our current state
+        protected override void ProcessStateConditions(StateConditions stateConditions)
+        {
+            //grounded or not
+            int grounded = this.IsAirborne() ^ 1;
+            //walled or not
+            int walled = this.IsWalled();
 
+            //bounce data
+            //  we multiply each ground bounce count by the respective environment check to make it so that we only apply bounce if each count is nonzero
+            //wall bounce count
+            int groundBounces = this.status.GroundBounces * grounded;
+            //ground bounce count
+            int wallBounces = this.status.WallBounces * walled;
+
+            //get the current physics velocity for bouncing
+            //new velocity that will be reassigned to the current velocity
+            var newVel = this.status.CurrentVelocity;
+
+            base.ProcessStateConditions(stateConditions);
+
+            //TODO: see if we can make this branchless
+            //  MAYBE: check to make sure we only wall bounce when airborne
+
+            //we only bounce with x or y velocity since we ony want the character to either pop up or away from the wall
+            //  we don't check the direction of the velocity but generally, we will only really collide with the wall or ground 
+            //  in the same direction of their velocity
+            //      IF BOUNCES ARE NOT WORKING PROPERLY: CHANGE THE CHECK OF VELOCITY TO EXPLICITLY LAUNCH AWAY FROM THE WALL
+            if (groundBounces > 0)
+            {
+                var gBounceScaling = this.status.GroundBounceScaling;
+
+                //multiply by the negative scaling so that we bounce back up
+                newVel.y = newVel.y * gBounceScaling * -1;
+
+                //deincrement respective bounce count
+                this.status.GroundBounces -= 1;
+            }
+            if (wallBounces > 0)
+            {
+                var wBounceScaling = this.status.WallBounceScaling;
+
+                //multiply by the negative scaling so that we bounce back up
+                newVel.x = newVel.x * wBounceScaling * -1;
+                //deincrement respective bounce count
+                this.status.WallBounces -= 1;
+            }
+
+            //reassign new velocity
+            this.status.CurrentVelocity = newVel;
+
+        }
         //call to process the frame data
         protected override void ProcessFrameData(FrameData frame)
         {

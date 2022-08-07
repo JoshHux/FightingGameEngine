@@ -8,6 +8,7 @@ namespace FightingGameEngine.Data
     {
         //the minimum atframe value should be 1, if 0, then it's invalid
         [SerializeField] private int _atFrame;
+        [SerializeField] private int _superFlashDuration;
         [SerializeField] private bool _setVelocity;
         [SerializeField] private FVector2 _appliedVelocity;
         //whether or not we change the gravity of the character
@@ -25,6 +26,8 @@ namespace FightingGameEngine.Data
 
         //the minimum atframe value should be 1, if 0, then it's invalid
         public int AtFrame { get { return this._atFrame; } }
+        public int SuperFlashDuration { get { return this._superFlashDuration; } }
+
         public bool SetVelocity { get { return this._setVelocity; } }
         public FVector2 AppliedVelocity { get { return this._appliedVelocity; } }
         public bool SetGravity { get { return this._setGravity; } }

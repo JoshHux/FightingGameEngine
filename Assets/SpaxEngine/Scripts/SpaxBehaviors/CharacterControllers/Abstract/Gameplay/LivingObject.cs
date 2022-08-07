@@ -26,6 +26,7 @@ namespace FightingGameEngine.Gameplay
             //initialize the timers
             this.status.StateTimer = new FrameTimer();
             this.status.StopTimer = new FrameTimer();
+            this.status.SuperFlashTimer = new FrameTimer();
             this.status.ConditionTimer = new ConditionTimer();
 
             //set default data for the status
@@ -61,6 +62,8 @@ namespace FightingGameEngine.Gameplay
             //try to transition to a new state
             this.TryTransitionState();
 
+            //tick superflash timer
+            this.TickSuperFlash();
 
             //tick the stop timer
             bool inHitstop = this.status.StopTimer.TickTimer();
@@ -197,6 +200,11 @@ namespace FightingGameEngine.Gameplay
             //process any transition events
             this.ProcessTransitionEvent(trans.TransitionEvents);
 
+            //we process this transition event outside of the standard function
+            //  this is because we want to access the transition's resources
+            var changeInResources = trans.RequiredResources * (int)EnumHelper.isNotZero((uint)(trans.TransitionEvents & TransitionEvents.ADD_RESOURCES));
+            this.AddCurrentResources(changeInResources);
+
             //check if it's a nodestate, if it is, try to transition out of it
             if (targetState.Duration < 0)
             {
@@ -305,6 +313,9 @@ namespace FightingGameEngine.Gameplay
                 //set the new timer
                 this.status.ConditionTimer = newCondTimer;
             }
+
+            /*----- PROCESSING SUPERFLASH -----*/
+            this.status.SuperFlashTimer = new FrameTimer(frame.SuperFlashDuration);
         }
 
         //call to process the state conditions of our current state
@@ -454,6 +465,67 @@ namespace FightingGameEngine.Gameplay
             this.status.CalcVelocity = newCalc;
         }
 
+        //how superflash will work is that all other players are set to be in hitstop for the duration except us
+        //  renderer will handle all the flashy stuff
+
+        //TODO: notify renderer that superflash has occured
+        //TODO: 
+        private void StartSuperFlash(int duration)
+        {
+
+            //set the other players to "hitstop"
+            //manager instance
+            var managerInstance = Spax.SpaxManager.Instance;
+            int end = managerInstance.GetNumberOfPlayers();
+            int i = 0;
+            while (i < end)
+            {
+                if (i != this.status.PlayerID)
+                {
+                    var other = managerInstance.GetLivingObjectByID(i);
+                    other.StartStopTimer(duration);
+                }
+                i++;
+            }
+        }
+
+
+        //call when you want to tick the SuperFlashTimer
+        //  returns true when you tick superflash
+        private bool TickSuperFlash()
+        {
+            //do we need to tick superflash?
+            bool tickingSuperflash = !this.status.SuperFlashTimer.IsDone();
+            //do we need to start superflash?
+            bool startSf = tickingSuperflash && (this.status.SuperFlashTimer.TimeElapsed == 0);
+
+            bool otherInSuperflash = false;
+
+            //we have yet to start superflash, check to start superflash
+            if (startSf)
+            {
+                //are the other characters with lower playerID in super flash?
+                //manager instance
+                var managerInstance = Spax.SpaxManager.Instance;
+                int end = this.status.PlayerID;
+                int i = 0;
+                while (i < end)
+                {
+                    var other = managerInstance.GetLivingObjectByID(i);
+                    otherInSuperflash = otherInSuperflash || other.IsInSuperFlash();
+                    i++;
+                }
+
+                //no others are in superflash right now, start superflash
+                if (!otherInSuperflash) { this.StartSuperFlash(this.status.SuperFlashTimer.EndTime); }
+            }
+
+            //if a character with a higher index is in superflash, we don't tick superflash
+            bool ret = !otherInSuperflash && this.status.SuperFlashTimer.TickTimer();
+
+            return ret;
+
+        }
         protected void SetState(soStateData newState)
         {
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
@@ -535,10 +607,21 @@ namespace FightingGameEngine.Gameplay
             return ret;
         }
 
+        public bool IsInSuperFlash()
+        {
+            bool ret = !this.status.SuperFlashTimer.IsDone();
+            return ret;
+        }
+
 
         public void SetWalled(int done)
         {
             this.status.TransitionFlags |= (TransitionFlags)((int)TransitionFlags.WALLED * done);
+        }
+
+        public void StartStopTimer(int dur)
+        {
+            this.SetStopTimer(dur);
         }
     }
 }

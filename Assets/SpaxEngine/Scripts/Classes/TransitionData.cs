@@ -33,7 +33,7 @@ namespace FightingGameEngine.Data
 
             bool checkCancels = EnumHelper.HasEnum((uint)curCan, (uint)transCancels, true);
             bool checkFlags = checkCancels && EnumHelper.HasEnum((uint)curFlags, (uint)transFlags, true);
-            bool checkResources = checkFlags && transRsrc.Check(curResources);
+            bool checkResources = checkFlags && (EnumHelper.HasEnum((uint)this._transitionEvents, (uint)TransitionEvents.DODGE_RESOURCE_CHECK) || transRsrc.Check(curResources));
             bool checkInputs = checkResources && this.CheckInputs(playerInputs, facingDir);
 
             return checkInputs;
