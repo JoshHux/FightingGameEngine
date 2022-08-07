@@ -73,9 +73,6 @@ namespace FightingGameEngine.Gameplay
                     int rawHit = blocked ^ 1;
 
                     //Debug.Log("processing hit");
-                    //set hitstop
-                    int potenHitstop = hold.HitboxData.Hitstop * rawHit + hold.HitboxData.BlockStop * blocked;
-                    this.SetStopTimer(potenHitstop);
 
                     //set universal target state
                     univTargetState = hold.HitboxData.UniversalStateCause;
@@ -123,8 +120,15 @@ namespace FightingGameEngine.Gameplay
                     {
                         int airborne = this.IsAirborne();
                         int grounded = airborne ^ 1;
-                        this.status.CalcVelocity = (groundedPhysVal * grounded) + (airbornePhysVal * airborne);
+                        //Velocity in hitstop will be restored based on CurrentVelocity
+                        this.status.CurrentVelocity = (groundedPhysVal * grounded) + (airbornePhysVal * airborne);
+                        //Debug.Log("grounded - " + grounded + " | airborne - " + airborne + " | knockback - " + ((groundedPhysVal * grounded) + (airbornePhysVal * airborne)).x + " , " + ((groundedPhysVal * grounded) + (airbornePhysVal * airborne)).y);
+
                     }
+
+                    //set hitstop
+                    int potenHitstop = hold.HitboxData.Hitstop * rawHit + hold.HitboxData.BlockStop * blocked;
+                    this.SetStopTimer(potenHitstop);
                 }
                 i++;
             }
@@ -249,8 +253,8 @@ namespace FightingGameEngine.Gameplay
             var grabLocMatch = (int)EnumHelper.isNotZero((uint)(grabType & airOrGround));
             //  ((isStrikeGrab^isGrab)*isStrikeGrab) overrides isGrab to be 0 if the hit is a strike-grab
             //      it's 1 if we have a regular grab
-            var rawGrab = ((isStrikeGrab ^ isGrab) * isStrikeGrab);
-            var grabMult = 1 ^ ((rawGrab & (grabInvuln | inStun | (grabLocMatch ^ 1))));// | (rawGrab ^ 1));
+            var rawGrab = ((isStrikeGrab ^ isGrab) * (isStrikeGrab ^ 1));
+            var grabMult = 1 ^ ((rawGrab & (grabInvuln | inStun | (grabLocMatch ^ 1))) | (isStrike * (1 ^ isStrikeGrab)));
 
             ret |= (HitIndicator)((int)HitIndicator.GRABBED * grabMult);
 
@@ -289,7 +293,8 @@ namespace FightingGameEngine.Gameplay
                     ret = HitIndicator.WHIFF;
                 }
             }*/
-            Debug.Log(grabMult);
+            //Debug.Log(grabType + " " + airOrGround);
+            //Debug.Log(grabMult + " = " + rawGrab + " & " + (grabInvuln | inStun | (grabLocMatch ^ 1)));
 
 
 
