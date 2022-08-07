@@ -89,10 +89,10 @@ MonoBehaviour:
           x:
             m_rawValue: 4294967296
           y:
-            m_rawValue: 0
+            m_rawValue: 4294967296
         Dimensions:
           x:
-            m_rawValue: 4294967296
+            m_rawValue: 6442450944
           y:
             m_rawValue: 4294967296
         Priority: 0
