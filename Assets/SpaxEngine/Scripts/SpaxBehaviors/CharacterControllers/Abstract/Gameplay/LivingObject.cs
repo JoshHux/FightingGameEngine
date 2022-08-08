@@ -575,6 +575,10 @@ namespace FightingGameEngine.Gameplay
                 //Debug.Log("starting stop timer in - " + this.name + " for " + potenHitstop + " frames long");
                 this.status.StopTimer = new FrameTimer(potenHitstop);
 
+
+                //record the current frame's velocity, to be used for the next frame
+                this.status.CurrentVelocity = this._rb.Body.LinearVelocity;
+
                 //should freeze the rigidbody's velocity
                 this._rb.Body.LinearVelocity = new FVector2();
             }

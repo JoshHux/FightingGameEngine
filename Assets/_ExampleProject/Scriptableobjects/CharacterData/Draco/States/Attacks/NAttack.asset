@@ -39,6 +39,7 @@ MonoBehaviour:
       Resource7: 0
   _frames:
   - _atFrame: 8
+    _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
       x:
