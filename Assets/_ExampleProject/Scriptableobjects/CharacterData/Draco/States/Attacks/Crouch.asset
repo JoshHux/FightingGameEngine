@@ -10,21 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: NAttack
+  m_Name: Crouch
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 24
-  _stateConditions: 0
+  _duration: 0
+  _stateConditions: 16
   _toggleState: 0
   _cancels: 0
   _toggleCancel: 0
-  _enterEvents: 2
+  _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}
-    _targetStateIndex: -1
+  - _targetState: {fileID: 0}
+    _targetStateIndex: 0
     _cancelConditions: 0
-    _requiredInputs: []
+    _requiredInputs:
+    - Input: 8192
+      Flags: 1610612736
+      HoldDuration: 0
+      LenientBuffer: 0
     _requiredTransitionFlags: 1073741824
     _transitionEvents: 0
     _requiredResources:
@@ -38,7 +42,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames:
-  - _atFrame: 8
+  - _atFrame: 1
     _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
@@ -67,26 +71,26 @@ MonoBehaviour:
       Resource7: 0
     _hitboxes:
       Hitbox0:
-        Duration: 6
+        Duration: 0
         UniversalStateCause: 0
-        Type: 1
+        Type: 0
         Position:
           x:
-            m_rawValue: 7301444608
+            m_rawValue: 0
           y:
-            m_rawValue: 6442450944
+            m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 6442450944
+            m_rawValue: 0
           y:
-            m_rawValue: 10737418240
+            m_rawValue: 0
         Priority: 0
         Damage: 0
         ChipDamage: 0
-        Hitstun: 15
+        Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
-        Hitstop: 8
+        Hitstop: 0
         BlockStop: 0
         MinDamage: 0
         UntechTime: 0
@@ -94,12 +98,12 @@ MonoBehaviour:
         CounterStunMod: 0
         GroundedKnockback:
           x:
-            m_rawValue: 429496729600
+            m_rawValue: 0
           y:
             m_rawValue: 0
         AirborneKnockback:
           x:
-            m_rawValue: 42949672960
+            m_rawValue: 0
           y:
             m_rawValue: 0
         changeHitGravity: 0
@@ -695,9 +699,9 @@ MonoBehaviour:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 0
+            m_rawValue: 4294967296
           y:
-            m_rawValue: 0
+            m_rawValue: 4294967296
       Hurtbox1:
         Position:
           x:
@@ -799,9 +803,9 @@ MonoBehaviour:
             m_rawValue: 0
     _projectiles: []
   _animation:
-  - _atFrame: 1
-    _animationName: AttackB
-    _skipIfSameName: 0
+  - _atFrame: 0
+    _animationName: Crouch
+    _skipIfSameName: 1
     _startFrame: 0
     _soundFx: 
     _vfx: 

@@ -39,12 +39,13 @@ MonoBehaviour:
       Resource7: 0
   _frames:
   - _atFrame: 1
+    _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
       x:
         m_rawValue: 0
       y:
-        m_rawValue: 0
+        m_rawValue: 85899345920
     _setGravity: 0
     _appliedGravity:
       m_rawValue: 0
@@ -799,7 +800,7 @@ MonoBehaviour:
     _projectiles: []
   _animation:
   - _atFrame: 1
-    _animationName: Pre_Jump
+    _animationName: Flashkick
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 
