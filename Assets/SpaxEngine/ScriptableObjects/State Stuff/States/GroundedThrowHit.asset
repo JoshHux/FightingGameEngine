@@ -39,6 +39,7 @@ MonoBehaviour:
       Resource7: 0
   _frames:
   - _atFrame: 1
+    _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
       x:
@@ -798,6 +799,7 @@ MonoBehaviour:
             m_rawValue: 0
     _projectiles: []
   - _atFrame: 8
+    _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
       x:
@@ -1557,6 +1559,7 @@ MonoBehaviour:
             m_rawValue: 0
     _projectiles: []
   - _atFrame: 21
+    _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
       x:

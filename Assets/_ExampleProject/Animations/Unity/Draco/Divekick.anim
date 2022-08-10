@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tatsu
+  m_Name: Divekick
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,17 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 02239af47460ede44aa27dfdac6dc32c, type: 3}
-    - time: 0.083333336
       value: {fileID: 21300000, guid: dda8477fb2267b74faa36751348cfe19, type: 3}
-    - time: 0.2
-      value: {fileID: 21300000, guid: bde2f10f503153c41a8251c1f736131c, type: 3}
-    - time: 0.36666667
+    - time: 0.06666667
       value: {fileID: 21300000, guid: 99d34bb420f1cc24ca028e5634b39f7c, type: 3}
-    - time: 0.51666665
-      value: {fileID: 21300000, guid: 7ac8ceea3d3a4f5448e754ee4260fae1, type: 3}
-    - time: 0.6666667
-      value: {fileID: 21300000, guid: c70018ea0d394804eaaf2f49facaa028, type: 3}
+    - time: 0.13333334
+      value: {fileID: 21300000, guid: 5a783952daf62bb41b61ee788e2614f7, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,18 +44,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 02239af47460ede44aa27dfdac6dc32c, type: 3}
     - {fileID: 21300000, guid: dda8477fb2267b74faa36751348cfe19, type: 3}
-    - {fileID: 21300000, guid: bde2f10f503153c41a8251c1f736131c, type: 3}
     - {fileID: 21300000, guid: 99d34bb420f1cc24ca028e5634b39f7c, type: 3}
-    - {fileID: 21300000, guid: 7ac8ceea3d3a4f5448e754ee4260fae1, type: 3}
-    - {fileID: 21300000, guid: c70018ea0d394804eaaf2f49facaa028, type: 3}
+    - {fileID: 21300000, guid: 5a783952daf62bb41b61ee788e2614f7, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.68333334
+    m_StopTime: 0.15
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

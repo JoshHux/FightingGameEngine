@@ -332,7 +332,7 @@ AnimatorStateMachine:
     m_Position: {x: 635, y: 775, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -991604940331892487}
-    m_Position: {x: 860, y: 1050, z: 0}
+    m_Position: {x: 880, y: 1100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4806566033200242679}
     m_Position: {x: 680, y: 850, z: 0}
@@ -342,6 +342,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -8520421610176091743}
     m_Position: {x: 750, y: 980, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 7844682147541438774}
+    m_Position: {x: 785, y: 1045, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -503,6 +506,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: dc9f11ea639ce074980956ad58b11700, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &7844682147541438774
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Divekick
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 75196c7206ca94e41afb8eb47de77b46, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
