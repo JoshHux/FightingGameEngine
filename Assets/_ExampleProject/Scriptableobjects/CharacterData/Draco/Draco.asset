@@ -52,9 +52,13 @@ MonoBehaviour:
       Flags: 1
       HoldDuration: 0
       LenientBuffer: 0
-    - Input: 64
-      Flags: 1
+    - Input: 212
+      Flags: 9
       HoldDuration: 0
+      LenientBuffer: 0
+    - Input: 7
+      Flags: 10
+      HoldDuration: 30
       LenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 0
