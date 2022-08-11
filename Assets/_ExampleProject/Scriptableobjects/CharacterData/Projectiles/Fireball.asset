@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9567d0122b99c224cbf02ade5fac0263, type: 3}
+  m_Name: Fireball
+  m_EditorClassIdentifier: 
+  _maxHp: 1
+  _maxResources:
+    Health: 0
+    Meter: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+    Resource4: 0
+    Resource5: 0
+    Resource6: 0
+    Resource7: 0
+  _mass:
+    m_rawValue: 0
+  _friction:
+    m_rawValue: 0
+  _walkAccel:
+    m_rawValue: 0
+  _walkMaxSpd:
+    m_rawValue: 0
+  _runAccel:
+    m_rawValue: 0
+  _runMaxSpd:
+    m_rawValue: 0
+  _fallMaxSpd:
+    m_rawValue: 0
+  _stateList:
+  - {fileID: 11400000, guid: 3c243ab43815d934abb001d9f77f60e5, type: 2}
+  - {fileID: 11400000, guid: 7abf68b3ba82cb94d8c9a6ed9e76dbee, type: 2}
+  - {fileID: 11400000, guid: 3caa2f58ac332d14983507322490136a, type: 2}
+  _moveList: []

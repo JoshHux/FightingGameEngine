@@ -34,6 +34,11 @@ namespace FlatPhysics.Unity
             get { return this._rb.LinearVelocity; }
             set { this._rb.LinearVelocity = value; }
         }
+   public FVector2 Position
+        {
+            get { return this._rb.Position; }
+            set { this._rb.Position = value; }
+        }
 
         public FVector2 LocalPosition
         {

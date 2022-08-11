@@ -4,6 +4,7 @@ using UnityEngine;
 using FixMath.NET;
 using FlatPhysics.Unity;
 using FightingGameEngine.Enum;
+using FightingGameEngine.Data;
 namespace FightingGameEngine.Gameplay
 {
     public class FightingCharacterController : ControllableObject
@@ -13,10 +14,11 @@ namespace FightingGameEngine.Gameplay
 
         protected override void StateCleanUpdate() { }
         protected override void PreUpdate() { }
-        protected override void PostPhysUpdate()
-        {
+        protected override void PostPhysUpdate() { }
 
-        }
+        //call to process the frame data
+        protected override void ProcessFrameData(FrameData frame)
+        { base.ProcessFrameData(frame); }
         //call to process the state conditions of our current state
         protected override void ProcessStateConditions(StateConditions stateConditions)
         {
@@ -78,6 +80,8 @@ namespace FightingGameEngine.Gameplay
 
 
 
+            /*----- PROCESSING ACTIVE PUSHBOX -----*/
+            this.Body.ActivePushbox = !EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.INACTIVE_PUSHBOX);
         }
     }
 }

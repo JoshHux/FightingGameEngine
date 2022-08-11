@@ -157,10 +157,12 @@ namespace FightingGameEngine.Data
                 //for now, just set the overall check to the flag and overall input check
                 overallCheck = checkHasFlags2 && checkInput;
 
-                //if (this._targetState != null && this._targetState.name == "Prejump")
+                //if (this._targetState != null && this._targetState.name == "FlashKick" && j > 0)
                 //{
-                //    Debug.Log("required flags :: " + reqFlags + " | required buttons :: " + reqBtn + " | required direction :: " + reqDir);
-                //    Debug.Log("passed input leniency check | flag check :: " + checkHasFlags + " | input check :: " + checkInput + " | direction check :: " + (EnumHelper.HasEnum((uint)playerItemDir, (uint)reqDir, (!(reqHas4wayFlag || checkUp))) != checkUp));
+                //    Debug.Log("overall check :: " + overallCheck + " | required lenient direction :: " + (!(reqHas4wayFlag || checkUp)) + " | 4way :: " + EnumHelper.HasEnum(reqFlagsRaw, (uint)InputFlags.DIR_4WAY, true) + " | check up :: " + checkUp);
+                //    Debug.Log("required flags :: " + reqFlagsRaw + " | required buttons :: " + reqBtn + " | required direction :: " + reqDir);
+                //    Debug.Log("player flags :: " + playerItemFlags + " | player buttons :: " + playerItemBtn + " | player direction :: " + playerItemDir);
+                //    Debug.Log("passed input leniency check | flag check :: " + checkHasFlags + " | input check :: " + checkInput + " | direction check :: " + (EnumHelper.HasEnum((uint)playerItemDir, (uint)reqDir, (!(reqHas4wayFlag || checkUp)))));
                 //    Debug.Log("button check - p :: " + playerItemBtn + " | r :: " + reqBtn + " - " + checkInputBtn);
                 //}
 
@@ -303,6 +305,7 @@ namespace FightingGameEngine.Data
                     //prepping req input data for easy use
                     reqInput = reqItem.Input;
                     //required input flags, removed flags that cannot be applied to player inputs
+                    reqFlagsRaw = (uint)reqItem.Flags;
                     reqFlags = (uint)(reqItem.Flags & (~InputFlags.BACKEND_FLAGS));
                     //get the solo button and direction input
                     reqBtn = (uint)(reqInput & InputEnum.BUTTONS);

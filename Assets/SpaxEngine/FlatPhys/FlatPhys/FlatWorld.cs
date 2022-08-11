@@ -9,7 +9,7 @@ namespace FlatPhysics
     {
 
         public static readonly int MinIterations = 1;
-        public static readonly int MaxIterations = 16;
+        public static readonly int MaxIterations = 8;
 
         private int _staticInd;
 
@@ -158,7 +158,7 @@ namespace FlatPhysics
 
                         bool pushboxCheck = canCollide && (oneIsntPushbox || bothAreActivePushboxes);
                         bool checkAABB = pushboxCheck && Collisions.CheckAABB(AABBa, AABBb);
-                        bool add = checkAABB && (broadPhaseList.Find(o => toAdd.EqualCheck(o)) == null);
+                        bool add = checkAABB;// && (broadPhaseList.Find(o => toAdd.EqualCheck(o)) == null);
 
                         //if ((aLayer == Filter.CollisionLayer.LAYER_6 && bLayer == Filter.CollisionLayer.LAYER_3) || (bLayer == Filter.CollisionLayer.LAYER_6 && aLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("colliding i hope"); }
                         //if ((aLayer == Filter.CollisionLayer.LAYER_9 || bLayer == Filter.CollisionLayer.LAYER_9) && (aLayer == Filter.CollisionLayer.LAYER_3 || bLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("environment detection " + canCollide); }

@@ -58,6 +58,8 @@ namespace FightingGameEngine.Gameplay
             while (i < len)
             {
                 var hold = this.m_hurtList[i];
+                //applied knockback
+                var kb = new FVector2();
 
                 //were we grabbed?
                 bool isGrabbed = EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.GRABBED);
@@ -124,7 +126,7 @@ namespace FightingGameEngine.Gameplay
                         int airborne = this.IsAirborne();
                         int grounded = airborne ^ 1;
                         //Velocity in hitstop will be restored based on CurrentVelocity
-                        this.status.CurrentVelocity = (groundedPhysVal * grounded) + (airbornePhysVal * airborne);
+                        kb = (groundedPhysVal * grounded) + (airbornePhysVal * airborne);
                         //Debug.Log("grounded - " + grounded + " | airborne - " + airborne + " | knockback - " + ((groundedPhysVal * grounded) + (airbornePhysVal * airborne)).x + " , " + ((groundedPhysVal * grounded) + (airbornePhysVal * airborne)).y);
 
                         //set bounce data
@@ -137,6 +139,8 @@ namespace FightingGameEngine.Gameplay
                     //set hitstop
                     int potenHitstop = hold.HitboxData.Hitstop * rawHit + hold.HitboxData.BlockStop * blocked;
                     this.SetStopTimer(potenHitstop);
+                    //set the current velocity to kb so that we only override velocity when hit
+                    this.status.CurrentVelocity = kb;
                 }
                 i++;
             }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Grab
+  m_Name: p_Fireball_Ending
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 30
+  _duration: 20
   _stateConditions: 0
   _toggleState: 0
   _cancels: 0
@@ -21,27 +21,11 @@ MonoBehaviour:
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 11400000, guid: c749d4a948e2f834393f86e81fa4756a, type: 2}
-    _targetStateIndex: 0
-    _cancelConditions: 0
-    _requiredInputs: []
-    _requiredTransitionFlags: 32
-    _transitionEvents: 0
-    _requiredResources:
-      Health: 0
-      Meter: 0
-      Resource1: 0
-      Resource2: 0
-      Resource3: 0
-      Resource4: 0
-      Resource5: 0
-      Resource6: 0
-      Resource7: 0
   - _targetState: {fileID: 0}
     _targetStateIndex: 0
     _cancelConditions: 0
     _requiredInputs: []
-    _requiredTransitionFlags: 1073741824
+    _requiredTransitionFlags: 0
     _transitionEvents: 0
     _requiredResources:
       Health: 0
@@ -54,7 +38,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames:
-  - _atFrame: 5
+  - _atFrame: 20
     _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
@@ -83,19 +67,19 @@ MonoBehaviour:
       Resource7: 0
     _hitboxes:
       Hitbox0:
-        Duration: 2
-        UniversalStateCause: 2
-        Type: 8
+        Duration: 0
+        UniversalStateCause: 0
+        Type: 0
         Position:
           x:
-            m_rawValue: 4294967296
+            m_rawValue: 0
           y:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 4294967296
+            m_rawValue: 0
           y:
-            m_rawValue: 4294967296
+            m_rawValue: 0
         Priority: 0
         Damage: 0
         ChipDamage: 0
@@ -110,7 +94,7 @@ MonoBehaviour:
         CounterStunMod: 0
         GroundedKnockback:
           x:
-            m_rawValue: 4294967296
+            m_rawValue: 0
           y:
             m_rawValue: 0
         AirborneKnockback:
@@ -814,10 +798,4 @@ MonoBehaviour:
           y:
             m_rawValue: 0
     _projectiles: []
-  _animation:
-  - _atFrame: 1
-    _animationName: Grab
-    _skipIfSameName: 0
-    _startFrame: 0
-    _soundFx: 
-    _vfx: 
+  _animation: []

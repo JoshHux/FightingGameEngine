@@ -63,7 +63,7 @@ namespace FightingGameEngine.Gameplay
             this.TryTransitionState();
 
             //tick superflash timer
-            this.TickSuperFlash();
+            var foo = !this.status.SuperFlashTimer.IsDone() && this.TickSuperFlash();
 
             //tick the stop timer
             bool inHitstop = this.status.StopTimer.TickTimer();
@@ -316,6 +316,33 @@ namespace FightingGameEngine.Gameplay
 
             /*----- PROCESSING SUPERFLASH -----*/
             this.status.SuperFlashTimer = new FrameTimer(frame.SuperFlashDuration);
+
+            /*----- PROCESSING PROJECTILE SPAWNING -----*/
+            if (frame.HasProjectile())
+            {
+                var projectiles = frame.Projectiles;
+                int facing = this.status.CurrentFacingDirection;
+                int len = projectiles.Length;
+                int i = 0;
+                while (i < len)
+                {
+                    var projectileData = projectiles[i];
+                    var obj = projectileData.Projectile;
+                    var rot = projectileData.SpawnRotation;
+                    var pos = new FVector2(projectileData.SpawnOffset.x * facing, projectileData.SpawnOffset.x);
+
+                    //actually instantiate the object
+                    var go = (GameObject)Instantiate(obj, this.transform.position, this.transform.rotation);
+
+//if(go==null){Debug.Log("go is null");}
+                    var goRb = go.GetComponent<FBox>();
+//if(go==null){Debug.Log("goRb is null");}
+
+                    //goRb.Position = pos;
+                    i++;
+                }
+            }
+
         }
 
         //call to process the state conditions of our current state
@@ -391,6 +418,7 @@ namespace FightingGameEngine.Gameplay
                 //Debug.Log("applying friction - " + appliedFrict + " - " + this.status.CalcVelocity.x + " - " + this.status.TotalVelocity.x);
 
             }
+
         }
 
         //call to process try to transition the state

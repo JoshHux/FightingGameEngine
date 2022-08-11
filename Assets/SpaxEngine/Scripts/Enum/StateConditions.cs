@@ -11,6 +11,7 @@ namespace FightingGameEngine.Enum
         APPLY_FRICTION = 1 << 4,
         CAN_MOVE = 1 << 5,
         AUTO_TURN = 1 << 6,
+        INACTIVE_PUSHBOX = 1 << 7,
 
         INVULNERABLE_PROJECTILE = 1 << 20,
         INVULNERABLE_STRIKE = 1 << 21,
