@@ -28,8 +28,11 @@ MonoBehaviour:
     _timeElapsed: 0
     _endTime: 0
   m_stopTimer:
-    _timeElapsed: 80
-    _endTime: 80
+    _timeElapsed: 0
+    _endTime: 0
+  m_superFlashTimer:
+    _timeElapsed: 0
+    _endTime: 0
   m_conditionTimer:
     _timeElapsed: 0
     _endTime: 0
@@ -41,7 +44,7 @@ MonoBehaviour:
   m_currentFacing: 1
   m_currentPosition:
     x:
-      m_rawValue: -36153348096
+      m_rawValue: -19327352832
     y:
       m_rawValue: -15032385536
   m_currentVelocity:
@@ -59,6 +62,12 @@ MonoBehaviour:
   m_currentProration:
     m_rawValue: 0
   m_comboCount: 0
+  m_groundBounces: 0
+  m_groundBounceScaling:
+    m_rawValue: 0
+  m_wallBounces: 0
+  m_wallBounceScaling:
+    m_rawValue: 0
   _inputRecorder:
     _controllerState:
       Input: 0
@@ -73,7 +82,7 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 0
       Flags: 0
-      HoldDuration: 1959
+      HoldDuration: 90
       LenientBuffer: 0
   _positionOffset:
     x:

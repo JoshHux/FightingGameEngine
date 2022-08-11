@@ -52,13 +52,9 @@ MonoBehaviour:
       Flags: 1
       HoldDuration: 0
       LenientBuffer: 0
-    - Input: 224
-      Flags: 9
+    - Input: 64
+      Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
-    - Input: 7
-      Flags: 10
-      HoldDuration: 30
       LenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 0
@@ -144,7 +140,7 @@ MonoBehaviour:
       Flags: 1
       HoldDuration: 0
       LenientBuffer: 0
-    _requiredTransitionFlags: 0
+    _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
       Health: 0
@@ -248,7 +244,7 @@ MonoBehaviour:
       Resource5: 0
       Resource6: 0
       Resource7: 0
-  - _targetState: {fileID: 11400000, guid: af6272e58bd260a409a2749ef7c370d9, type: 2}
+  - _targetState: {fileID: 11400000, guid: 5b39f88bbb500be4395fd90785fd475b, type: 2}
     _targetStateIndex: -1
     _cancelConditions: 8
     _requiredInputs:
@@ -257,6 +253,46 @@ MonoBehaviour:
       HoldDuration: 0
       LenientBuffer: 0
     _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: 6e1362a6706854f4da6fb03745e7d85e, type: 2}
+    _targetStateIndex: -1
+    _cancelConditions: 0
+    _requiredInputs:
+    - Input: 2
+      Flags: 536870912
+      HoldDuration: 0
+      LenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: 971799a8dc06fdb46b5f31545dca9f22, type: 2}
+    _targetStateIndex: -1
+    _cancelConditions: 33554432
+    _requiredInputs:
+    - Input: 512
+      Flags: 1
+      HoldDuration: 0
+      LenientBuffer: 0
+    _requiredTransitionFlags: 2
     _transitionEvents: 0
     _requiredResources:
       Health: 0

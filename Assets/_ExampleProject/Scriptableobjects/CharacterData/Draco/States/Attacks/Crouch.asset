@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: JumpBack
+  m_Name: Crouch
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 1
-  _stateConditions: 0
+  _duration: 0
+  _stateConditions: 16
   _toggleState: 0
   _cancels: 0
   _toggleCancel: 0
@@ -22,9 +22,13 @@ MonoBehaviour:
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
-    _targetStateIndex: -1
+    _targetStateIndex: 0
     _cancelConditions: 0
-    _requiredInputs: []
+    _requiredInputs:
+    - Input: 8192
+      Flags: 1610612736
+      HoldDuration: 0
+      LenientBuffer: 0
     _requiredTransitionFlags: 1073741824
     _transitionEvents: 0
     _requiredResources:
@@ -43,9 +47,9 @@ MonoBehaviour:
     _setVelocity: 0
     _appliedVelocity:
       x:
-        m_rawValue: -21474836480
+        m_rawValue: 0
       y:
-        m_rawValue: 128849018880
+        m_rawValue: 0
     _setGravity: 0
     _appliedGravity:
       m_rawValue: 0
@@ -695,9 +699,9 @@ MonoBehaviour:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 0
+            m_rawValue: 4294967296
           y:
-            m_rawValue: 0
+            m_rawValue: 4294967296
       Hurtbox1:
         Position:
           x:
@@ -800,7 +804,7 @@ MonoBehaviour:
     _projectiles: []
   _animation:
   - _atFrame: 0
-    _animationName: Airborne
+    _animationName: Crouch
     _skipIfSameName: 1
     _startFrame: 0
     _soundFx: 
