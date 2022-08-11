@@ -94,14 +94,14 @@ MonoBehaviour:
         CounterStunMod: 0
         GroundedKnockback:
           x:
-            m_rawValue: 429496729600
+            m_rawValue: 85899345920
           y:
-            m_rawValue: 429496729600
+            m_rawValue: 85899345920
         AirborneKnockback:
           x:
-            m_rawValue: 429496729600
+            m_rawValue: 85899345920
           y:
-            m_rawValue: 429496729600
+            m_rawValue: 85899345920
         changeHitGravity: 0
         HitGravity:
           m_rawValue: 0

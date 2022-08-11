@@ -16,12 +16,12 @@ MonoBehaviour:
   _duration: 0
   _stateConditions: 16
   _toggleState: 0
-  _cancels: 0
+  _cancels: 8
   _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 0}
+  - _targetState: {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}
     _targetStateIndex: 0
     _cancelConditions: 0
     _requiredInputs:

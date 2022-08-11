@@ -37,7 +37,7 @@ MonoBehaviour:
       Resource5: 0
       Resource6: 0
       Resource7: 0
-  - _targetState: {fileID: 11400000, guid: 2ae2af20a94a28c42b8847d0c5cc11aa, type: 2}
+  - _targetState: {fileID: 11400000, guid: 12119dddabb58eb4eb6bdcd213d7b616, type: 2}
     _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs:
@@ -57,7 +57,7 @@ MonoBehaviour:
       Resource5: 0
       Resource6: 0
       Resource7: 0
-  - _targetState: {fileID: 11400000, guid: ce03797e588230b4cb160a994392f9ed, type: 2}
+  - _targetState: {fileID: 11400000, guid: c218a841c0874b847903030c99fd3032, type: 2}
     _targetStateIndex: -1
     _cancelConditions: 0
     _requiredInputs:
@@ -79,6 +79,7 @@ MonoBehaviour:
       Resource7: 0
   _frames:
   - _atFrame: 0
+    _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
       x:

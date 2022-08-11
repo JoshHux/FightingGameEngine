@@ -248,6 +248,26 @@ MonoBehaviour:
       Resource5: 0
       Resource6: 0
       Resource7: 0
+  - _targetState: {fileID: 11400000, guid: 49e97b3f66e6f3f4f93862a574f6dfbb, type: 2}
+    _targetStateIndex: -1
+    _cancelConditions: 2
+    _requiredInputs:
+    - Input: 4096
+      Flags: 1
+      HoldDuration: 0
+      LenientBuffer: 0
+    _requiredTransitionFlags: 2
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 1
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
   - _targetState: {fileID: 11400000, guid: 5b39f88bbb500be4395fd90785fd475b, type: 2}
     _targetStateIndex: -1
     _cancelConditions: 8
@@ -270,7 +290,7 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: 6e1362a6706854f4da6fb03745e7d85e, type: 2}
     _targetStateIndex: -1
-    _cancelConditions: 0
+    _cancelConditions: 8
     _requiredInputs:
     - Input: 2
       Flags: 536870912
@@ -293,6 +313,26 @@ MonoBehaviour:
     _cancelConditions: 33554432
     _requiredInputs:
     - Input: 512
+      Flags: 1
+      HoldDuration: 0
+      LenientBuffer: 0
+    _requiredTransitionFlags: 2
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: a6b3ef3da51c6f4499db965ac422d4e1, type: 2}
+    _targetStateIndex: -1
+    _cancelConditions: 16
+    _requiredInputs:
+    - Input: 256
       Flags: 1
       HoldDuration: 0
       LenientBuffer: 0
