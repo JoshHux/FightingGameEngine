@@ -9,6 +9,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private soStateData _targetState;
 
         [SerializeField] private int _targetStateIndex = -1;
+        [SerializeField] private int _targetUniversalStateIndex = -1;
         [SerializeField] private CancelConditions _cancelConditions;
 
         [SerializeField] private InputItem[] _requiredInputs;
@@ -18,6 +19,7 @@ namespace FightingGameEngine.Data
 
         public soStateData TargetState { get { return this._targetState; } }
         public int TargetStateIndex { get { return this._targetStateIndex; } }
+        public int TargetUniversalStateIndex { get { return this._targetUniversalStateIndex; } }
         public TransitionEvents TransitionEvents { get { return this._transitionEvents; } }
         public CancelConditions RequiredCancels { get { return this._cancelConditions; } }
         public TransitionFlags RequiredTransitionFlags { get { return this._requiredTransitionFlags; } }

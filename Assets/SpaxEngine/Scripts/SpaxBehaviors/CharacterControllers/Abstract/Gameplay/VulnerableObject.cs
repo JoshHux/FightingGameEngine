@@ -275,6 +275,8 @@ namespace FightingGameEngine.Gameplay
 
             //strike properties of the hitbox
             var strikeType = hitboxType & HitboxType.STRIKE;
+            //strike properties of the hitbox
+            uint unblockableType = ((uint)(hitboxType & HitboxType.TRUE_UNBLOCKABLE) >> 7);
             //grab properties of the hitbox
             uint grabType = ((uint)(hitboxType & HitboxType.GRAB) >> 3);
 
@@ -283,12 +285,14 @@ namespace FightingGameEngine.Gameplay
             var isGrab = (int)EnumHelper.isNotZero((uint)(grabType));
             var isProj = (int)EnumHelper.isNotZero((uint)(hitboxType & HitboxType.PROJECTILE));
             var isNotOtg = ((int)EnumHelper.isNotZero((uint)(hitboxType & HitboxType.OFF_THE_GROUND)) ^ 1);
+            //is the hit unblockable?
+            var isBlockable = ((int)EnumHelper.HasEnumInt((uint)airOrGround, (uint)unblockableType) ^ 1);
             var isStrikeGrab = isGrab & isStrike;
 
             /*--- COMPARING THE HITBOX INFO VS OUR STATE CONDITIONS ---*/
 
             //strike box
-            var weBlocked = EnumHelper.HasEnumInt(guardEnum, (uint)strikeType);
+            var weBlocked = EnumHelper.HasEnumInt(guardEnum, (uint)strikeType) * isBlockable;
             var weGotHit = weBlocked ^ 1;
 
 

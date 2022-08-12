@@ -177,23 +177,30 @@ namespace FightingGameEngine.Gameplay
             //if it's null, go to default state
             if (targetState == null)
             {
-                //are we airborne right now?
-                bool airborne = EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)TransitionFlags.AIRBORNE);
-
-                //index of default state 0 for grounded, 1 for airborne
-                int ind = (airborne) ? 1 : 0;
-                //do we have a valid index to transition to?
-                bool validIndex = trans.TargetStateIndex > 1;
-                if (validIndex)
+                if (trans.TargetStateIndex >-1)
                 {
-                    ind = trans.TargetStateIndex;
+                    //are we airborne right now?
+                    bool airborne = EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)TransitionFlags.AIRBORNE);
+
+                    //index of default state 0 for grounded, 1 for airborne
+                    int ind = (airborne) ? 1 : 0;
+                    //do we have a valid index to transition to?
+                    bool validIndex = trans.TargetStateIndex > 1;
+                    if (validIndex)
+                    {
+                        ind = trans.TargetStateIndex;
+                    }
+
+                    //Debug.Log(ind);
+
+                    //set the state we want to transtion to
+                    targetState = this.data.StateList[ind];
                 }
-
-                //Debug.Log(ind);
-
-                //set the state we want to transtion to
-                targetState = this.data.StateList[ind];
-
+                //check transition to universal state
+                else if (trans.TargetUniversalStateIndex >-1)
+                {
+                    targetState = Spax.SpaxManager.Instance.UniversalStates.GetStateData(trans.TargetUniversalStateIndex);
+                }
             }
             //set the new state
             this.SetState(targetState);
@@ -334,9 +341,9 @@ namespace FightingGameEngine.Gameplay
                     //actually instantiate the object
                     var go = (GameObject)Instantiate(obj, this.transform.position, this.transform.rotation);
 
-//if(go==null){Debug.Log("go is null");}
+                    //if(go==null){Debug.Log("go is null");}
                     var goRb = go.GetComponent<FBox>();
-//if(go==null){Debug.Log("goRb is null");}
+                    //if(go==null){Debug.Log("goRb is null");}
 
                     //goRb.Position = pos;
                     i++;

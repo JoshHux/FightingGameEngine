@@ -47,5 +47,12 @@ namespace FightingGameEngine.Data
             return ret;
         }
 
+        public soStateData GetStateData(int ind)
+        {
+            var ret = this._stateList[ind].TargetState;
+
+            return ret;
+        }
+
     }
 }
