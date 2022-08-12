@@ -257,6 +257,7 @@ namespace FightingGameEngine.Gameplay
             var strikeInvuln = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.INVULNERABLE_STRIKE));
             var grabInvuln = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.INVULNERABLE_GRAB));
             var projInvuln = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.INVULNERABLE_PROJECTILE));
+            var onTheGround = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.ON_THE_GROUND));
 
             //what we have guard point against
             var midGuard = (int)EnumHelper.isNotZero((uint)(curSttCond & StateConditions.GUARD_POINT_MID));
@@ -281,6 +282,7 @@ namespace FightingGameEngine.Gameplay
             var isStrike = (int)EnumHelper.isNotZero((uint)(strikeType));
             var isGrab = (int)EnumHelper.isNotZero((uint)(grabType));
             var isProj = (int)EnumHelper.isNotZero((uint)(hitboxType & HitboxType.PROJECTILE));
+            var isNotOtg = ((int)EnumHelper.isNotZero((uint)(hitboxType & HitboxType.OFF_THE_GROUND)) ^ 1);
             var isStrikeGrab = isGrab & isStrike;
 
             /*--- COMPARING THE HITBOX INFO VS OUR STATE CONDITIONS ---*/
@@ -302,8 +304,9 @@ namespace FightingGameEngine.Gameplay
             //projectile invuln multiplier
             //  only considers a whiff if this is a projectile first
             var projMult = 1 ^ (isProj * projInvuln);
+            var otgMult = 1 ^ (isNotOtg * onTheGround);
 
-            ret = (HitIndicator)((int)ret * projMult);
+            ret = (HitIndicator)((int)ret * projMult * otgMult);
 
             //strike invuln multiplier
             //  mult is 1 if it isn't a strike box

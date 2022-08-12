@@ -157,7 +157,10 @@ namespace FlatPhysics
                         var oneIsntPushbox = (!aIsPushbox) || (!bIsPushbox);
 
                         bool pushboxCheck = canCollide && (oneIsntPushbox || bothAreActivePushboxes);
-                        bool checkAABB = pushboxCheck && Collisions.CheckAABB(AABBa, AABBb);
+
+                        //only bodies with different or null parents will collide with each other
+                        bool parentCheck = pushboxCheck && (bodyA.Parent == null || bodyB.Parent == null || (bodyA.Parent != bodyB.Parent));
+                        bool checkAABB = parentCheck && Collisions.CheckAABB(AABBa, AABBb);
                         bool add = checkAABB;// && (broadPhaseList.Find(o => toAdd.EqualCheck(o)) == null);
 
                         //if ((aLayer == Filter.CollisionLayer.LAYER_6 && bLayer == Filter.CollisionLayer.LAYER_3) || (bLayer == Filter.CollisionLayer.LAYER_6 && aLayer == Filter.CollisionLayer.LAYER_3)) { UnityEngine.Debug.Log("colliding i hope"); }
@@ -218,8 +221,8 @@ namespace FlatPhysics
                             //if they're both pushboxes, then we re-calculate the normal to only consider the x-axis
                             if (bothPushBoxes)
                             {
-                                var aGO = bodyA.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
-                                var bGO = bodyB.GameObject.GetComponent<FightingGameEngine.Gameplay.LivingObject>();
+                                var aGO = bodyA.livingObject;
+                                var bGO = bodyB.livingObject;
 
                                 var aIsAirborne = aGO.IsAirborne();
                                 var bIsAirborne = bGO.IsAirborne();
@@ -352,6 +355,7 @@ namespace FlatPhysics
 
                     }
                 }
+                broadPhaseList.Clear();
             }
         }
 
@@ -539,46 +543,51 @@ namespace FlatPhysics
 
             ShapeType shapeTypeA = bodyA.ShapeType;
             ShapeType shapeTypeB = bodyB.ShapeType;
+            return Collisions.IntersectPolygons(
+                                    bodyA.Position, bodyA.GetTransformedVertices(),
+                                    bodyB.Position, bodyB.GetTransformedVertices(),
+                                    out normal, out depth);
+            /*
+if (shapeTypeA == ShapeType.Box)
+{
+    if (shapeTypeB == ShapeType.Box)
+    {
+        return Collisions.IntersectPolygons(
+            bodyA.Position, bodyA.GetTransformedVertices(),
+            bodyB.Position, bodyB.GetTransformedVertices(),
+            out normal, out depth);
+    }
+    else if (shapeTypeB == ShapeType.Circle)
+    {
+        bool result = Collisions.IntersectCirclePolygon(
+            bodyB.Position, bodyB.Radius,
+            bodyA.Position, bodyA.GetTransformedVertices(),
+            out normal, out depth);
 
-            if (shapeTypeA == ShapeType.Box)
-            {
-                if (shapeTypeB == ShapeType.Box)
-                {
-                    return Collisions.IntersectPolygons(
-                        bodyA.Position, bodyA.GetTransformedVertices(),
-                        bodyB.Position, bodyB.GetTransformedVertices(),
-                        out normal, out depth);
-                }
-                else if (shapeTypeB == ShapeType.Circle)
-                {
-                    bool result = Collisions.IntersectCirclePolygon(
-                        bodyB.Position, bodyB.Radius,
-                        bodyA.Position, bodyA.GetTransformedVertices(),
-                        out normal, out depth);
+        normal = -normal;
+        return result;
+    }
+}
+else if (shapeTypeA == ShapeType.Circle)
+{
+    if (shapeTypeB == ShapeType.Box)
+    {
+        return Collisions.IntersectCirclePolygon(
+            bodyA.Position, bodyA.Radius,
+            bodyB.Position, bodyB.GetTransformedVertices(),
+            out normal, out depth);
+    }
+    else if (shapeTypeB == ShapeType.Circle)
+    {
+        return Collisions.IntersectCircles(
+            bodyA.Position, bodyA.Radius,
+            bodyB.Position, bodyB.Radius,
+            out normal, out depth);
+    }
+}
 
-                    normal = -normal;
-                    return result;
-                }
-            }
-            else if (shapeTypeA == ShapeType.Circle)
-            {
-                if (shapeTypeB == ShapeType.Box)
-                {
-                    return Collisions.IntersectCirclePolygon(
-                        bodyA.Position, bodyA.Radius,
-                        bodyB.Position, bodyB.GetTransformedVertices(),
-                        out normal, out depth);
-                }
-                else if (shapeTypeB == ShapeType.Circle)
-                {
-                    return Collisions.IntersectCircles(
-                        bodyA.Position, bodyA.Radius,
-                        bodyB.Position, bodyB.Radius,
-                        out normal, out depth);
-                }
-            }
-
-            return false;
+return false;
+*/
         }
     }
     public sealed class BroadPhasePairs

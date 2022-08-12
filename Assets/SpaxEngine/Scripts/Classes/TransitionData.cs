@@ -34,7 +34,7 @@ namespace FightingGameEngine.Data
             bool checkCancels = EnumHelper.HasEnum((uint)curCan, (uint)transCancels, true);
             bool checkFlags = checkCancels && EnumHelper.HasEnum((uint)curFlags, (uint)transFlags, true);
             bool checkResources = checkFlags && (EnumHelper.HasEnum((uint)this._transitionEvents, (uint)TransitionEvents.DODGE_RESOURCE_CHECK) || transRsrc.Check(curResources));
-            bool checkInputs = checkResources && this.CheckInputs(playerInputs, facingDir);
+            bool checkInputs = checkResources && ((this._requiredInputs.Length == 0) || ((playerInputs.Length > 0) && this.CheckInputs(playerInputs, facingDir)));
 
             return checkInputs;
         }
@@ -46,9 +46,9 @@ namespace FightingGameEngine.Data
             int requiredInputLen = this._requiredInputs.Length;
 
             //if no required inputs, just return a true
-            if (requiredInputLen == 0) { return true; }
+            //if (requiredInputLen == 0) { return true; }
             //if no player inputs, no pass the check
-            else if (playerInputLen == 0) { return false; }
+            //else if (playerInputLen == 0) { return false; }
 
 
             //index for the player's inputs

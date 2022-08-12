@@ -85,6 +85,8 @@ namespace FightingGameEngine.Gameplay
 
                     //assign the new animation state
                     this._animator.PlayInFixedTime(afd.AnimationName, 0, startTime);
+                    this._animator.speed = (float)afd.AnimationSpeed;
+
 
                 }
 

@@ -5,7 +5,7 @@ using FlatPhysics.Shapes;
 using FlatPhysics.Filter;
 using FlatPhysics.Contact;
 using FlatPhysics.Unity;
-
+using FightingGameEngine.Gameplay;
 namespace FlatPhysics
 {
     public enum ShapeType
@@ -84,6 +84,9 @@ namespace FlatPhysics
         public readonly CollisionLayer CollidesWith;
         //gameobject this body corresponds to
         public readonly FRigidbody GameObject;
+        public readonly LivingObject livingObject;
+
+
         public readonly bool IsPushbox;
 
         private Shape _shape;
@@ -188,6 +191,8 @@ namespace FlatPhysics
             {
                 this.InvMass = 0;
             }
+
+            if (this.IsPushbox) { this.livingObject = this.GameObject.GetComponent<LivingObject>(); }
 
             if (this.ShapeType is ShapeType.Box)
             {

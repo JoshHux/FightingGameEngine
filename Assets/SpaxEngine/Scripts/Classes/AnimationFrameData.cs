@@ -1,3 +1,4 @@
+using FixMath.NET;
 namespace FightingGameEngine.Data
 {
     [System.Serializable]
@@ -5,6 +6,7 @@ namespace FightingGameEngine.Data
     {
         [UnityEngine.SerializeField] private int _atFrame;
         [UnityEngine.SerializeField] private string _animationName;
+        [UnityEngine.SerializeField] private Fix64 _animationSpeed = 1;
         //whether or not we ignore applying this animation if we're already doing that animation
         [UnityEngine.SerializeField] private bool _skipIfSameName;
         [UnityEngine.SerializeField] private int _startFrame;
@@ -13,6 +15,7 @@ namespace FightingGameEngine.Data
 
         public int AtFrame { get { return this._atFrame; } }
         public string AnimationName { get { return this._animationName; } }
+        public Fix64 AnimationSpeed { get { return this._animationSpeed; } }
         public bool SkipIfSameName { get { return this._skipIfSameName; } }
         public int StartFrame { get { return this._startFrame; } }
         public string SoundFX { get { return this._soundFx; } }
