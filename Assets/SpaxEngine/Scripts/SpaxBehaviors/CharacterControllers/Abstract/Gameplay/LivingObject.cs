@@ -253,7 +253,7 @@ namespace FightingGameEngine.Gameplay
             //reassign the facing direction
             this.status.CurrentFacingDirection = this.status.CurrentFacingDirection * ((flipDir * -1) + ((flipDir ^ 1) * 1));
 
-            this.status.ResetLeniency();
+            //this.status.ResetLeniency();
 
         }
 

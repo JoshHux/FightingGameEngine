@@ -121,6 +121,7 @@ namespace FightingGameEngine.Data
                 //player's flags
                 uint playerItemFlags = (uint)curPlayerItem.Flags;
 
+
                 if (tooLongSinceLastInput)
                 {
                     //Debug.Log("too long since last valid input - " + i);
@@ -282,6 +283,7 @@ namespace FightingGameEngine.Data
 
 
 
+
                 //did the input match what we're looking for?
                 if (overallCheck)
                 {
@@ -329,6 +331,11 @@ namespace FightingGameEngine.Data
                     //  so that one item can contribute as much as it can
                     //  but only if the index is nonzero, since 0 is the controller state
                     i -= (int)EnumHelper.isNotZero((uint)i);
+                }
+                //if the input is lenient, AND it failed to complete the item, add the duration to the amount of time passed
+                else if (i == 1 && curPlayerItem.LenientBuffer)
+                {
+                    sinceLastMatch += curPlayerItem.HoldDuration;
                 }
 
                 //increment the player inputs

@@ -114,7 +114,7 @@ namespace FightingGameEngine.Data
 
             //increment the hold duration of the last item in the list
             //don't ask why I'm doing it like this, I don't even want to know, I'm tired
-            lastBuffered.HoldDuration += (lastBuffered.LenientBuffer) ? 0 : 1;
+            lastBuffered.HoldDuration +=1;
             this._recordedChanges[lastInd] = lastBuffered;
 
             //TODO: *IF* processing inputs takes too long, add method here to hard limit the number of input changes we have 

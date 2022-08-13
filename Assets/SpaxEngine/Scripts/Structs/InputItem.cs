@@ -12,14 +12,16 @@ namespace FightingGameEngine.Data
         //bool that tells whther or not we should ignore the buffer time when checking the input
         //only matters for the SECOND item in the input array
         //[UnityEngine.HideInInspector]
-        public bool LenientBuffer;
+        public bool _lenientBuffer;
+
+        public bool LenientBuffer { get { return this._lenientBuffer; } }
 
         public InputItem(InputEnum input)
         {
             this.Input = input;
             this.Flags = 0;
             this.HoldDuration = 0;
-            this.LenientBuffer = false;
+            this._lenientBuffer = false;
         }
 
         public InputItem(InputEnum input, InputFlags flags, bool lenBuf)
@@ -27,7 +29,7 @@ namespace FightingGameEngine.Data
             this.Input = input;
             this.Flags = flags;
             this.HoldDuration = 0;
-            this.LenientBuffer = lenBuf;
+            this._lenientBuffer = lenBuf;
         }
 
         public InputItem(InputEnum input, InputFlags flags, bool lenBuf, int holdDur)
@@ -35,7 +37,7 @@ namespace FightingGameEngine.Data
             this.Input = input;
             this.Flags = flags;
             this.HoldDuration = holdDur;
-            this.LenientBuffer = lenBuf;
+            this._lenientBuffer = lenBuf;
         }
 
         //returns true if the x-axis is being pressed
