@@ -177,7 +177,7 @@ namespace FightingGameEngine.Gameplay
             //if it's null, go to default state
             if (targetState == null)
             {
-                if (trans.TargetStateIndex >-1)
+                if (trans.TargetUniversalStateIndex < 0)
                 {
                     //are we airborne right now?
                     bool airborne = EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)TransitionFlags.AIRBORNE);
@@ -197,7 +197,7 @@ namespace FightingGameEngine.Gameplay
                     targetState = this.data.StateList[ind];
                 }
                 //check transition to universal state
-                else if (trans.TargetUniversalStateIndex >-1)
+                else
                 {
                     targetState = Spax.SpaxManager.Instance.UniversalStates.GetStateData(trans.TargetUniversalStateIndex);
                 }

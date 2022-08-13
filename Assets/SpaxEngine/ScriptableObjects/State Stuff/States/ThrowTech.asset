@@ -15,12 +15,15 @@ MonoBehaviour:
   _parentState: {fileID: 0}
   _duration: 10
   _stateConditions: 16
+  _toggleState: 0
   _cancels: 0
+  _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -37,6 +40,7 @@ MonoBehaviour:
       Resource7: 0
   _frames:
   - _atFrame: 1
+    _superFlashDuration: 0
     _setVelocity: 1
     _appliedVelocity:
       x:
@@ -798,6 +802,8 @@ MonoBehaviour:
   _animation:
   - _atFrame: 1
     _animationName: Tech-Grab
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 

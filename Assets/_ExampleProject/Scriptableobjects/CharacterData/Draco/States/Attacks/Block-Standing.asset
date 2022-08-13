@@ -23,6 +23,7 @@ MonoBehaviour:
   _transitions:
   - _targetState: {fileID: 0}
     _targetStateIndex: 0
+    _targetUniversalStateIndex: -1
     _cancelConditions: 0
     _requiredInputs:
     - Input: 8192
@@ -805,6 +806,8 @@ MonoBehaviour:
   _animation:
   - _atFrame: 0
     _animationName: Blocking
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 1
     _startFrame: 0
     _soundFx: 

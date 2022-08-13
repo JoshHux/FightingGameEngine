@@ -23,6 +23,7 @@ MonoBehaviour:
   _transitions:
   - _targetState: {fileID: 0}
     _targetStateIndex: 0
+    _targetUniversalStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -39,6 +40,7 @@ MonoBehaviour:
       Resource7: 0
   _frames:
   - _atFrame: 1
+    _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
       x:
@@ -800,6 +802,8 @@ MonoBehaviour:
   _animation:
   - _atFrame: 1
     _animationName: Backdash
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 

@@ -54,6 +54,7 @@ namespace FlatPhysics
             get { return (this._shape as Rectangle).Width; }
             set
             {
+                //automatically preps the AABB dimensions
                 (this._shape as Rectangle).Width = value;
                 this.CreateRectVertices();
             }
@@ -63,6 +64,7 @@ namespace FlatPhysics
             get { return (this._shape as Rectangle).Height; }
             set
             {
+                //automatically preps the AABB dimensions
                 (this._shape as Rectangle).Height = value;
                 this.CreateRectVertices();
             }

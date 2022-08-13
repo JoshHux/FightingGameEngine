@@ -46,6 +46,7 @@ MonoBehaviour:
   _moveList:
   - _targetState: {fileID: 11400000, guid: f35299342e97d984fb11155d0908426d, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 8192
     _requiredInputs:
     - Input: 512
@@ -74,6 +75,7 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: 5f9b7d7fee279bf4699b608f21869253, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 33554432
     _requiredInputs:
     - Input: 512
@@ -106,6 +108,7 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: ee5a285aef9236e4e98f19362c03abf4, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 33554432
     _requiredInputs:
     - Input: 512
@@ -126,6 +129,7 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: ec4ccaf1bf851684d83ea02ec74ec191, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 16
     _requiredInputs:
     - Input: 8
@@ -150,6 +154,7 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: c406a419fbe823544ab82f9033798bb7, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 16
     _requiredInputs:
     - Input: 256
@@ -170,6 +175,7 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: b0db58909e93d1043922300730fdbb0e, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 4
     _requiredInputs:
     - Input: 8
@@ -198,6 +204,7 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: 7644e2bb656dda24c9e77be374861d70, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 2
     _requiredInputs:
     - Input: 4096
@@ -218,6 +225,7 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: af6272e58bd260a409a2749ef7c370d9, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 8
     _requiredInputs:
     - Input: 8192

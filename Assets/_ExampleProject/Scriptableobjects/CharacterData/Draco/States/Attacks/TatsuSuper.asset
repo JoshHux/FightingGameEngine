@@ -23,6 +23,7 @@ MonoBehaviour:
   _transitions:
   - _targetState: {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -3081,6 +3082,8 @@ MonoBehaviour:
   _animation:
   - _atFrame: 1
     _animationName: Tatsu
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 

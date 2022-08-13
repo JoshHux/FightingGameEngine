@@ -268,6 +268,76 @@ namespace FlatPhysics
             return true;
         }
 
+        //Spax's addition, tests intersecting rectangles
+        //followed for calculations :: https://gamedevelopment.tutsplus.com/tutorials/how-to-create-a-custom-2d-physics-engine-the-basics-and-impulse-resolution--gamedev-6331
+        public static bool IntersectRectangles(FlatBody bodyA, FlatBody bodyB, out FVector2 normal, out Fix64 depth)
+        {
+            //default values for normal and depth
+            normal = new FVector2(0, 0);
+            depth = 0;
+
+
+            var n = bodyB.Position - bodyA.Position;
+            var boxA = bodyA.GetAABB();
+            var boxB = bodyB.GetAABB();
+
+            //how far does either body extend in the x-axis?
+            var xExtendA = (boxA.Max.x - boxA.Min.x) / 2;
+            var xExtendB = (boxB.Max.x - boxB.Min.x) / 2;
+
+            //is the sum of the extents farther than the x distance between the two boxes?
+            var xOverlap = xExtendA + xExtendB - Fix64.Abs(n.x);
+
+            //will be positive if they are overlapping on x axis
+            if (xOverlap > 0)
+            {
+                //same thing we did for x, this time with y
+
+
+                //how far does either body extend in the y-axis?
+                var yExtendA = (boxA.Max.y - boxA.Min.y) / 2;
+                var yExtendB = (boxB.Max.y - boxB.Min.y) / 2;
+
+                //is the sum of the extents farther than the y distance between the two boxes?
+                var yOverlap = yExtendA + yExtendB - Fix64.Abs(n.y);
+
+                //will be positive if they are overlapping on y axis
+                if (yOverlap > 0)
+                {
+                    //var xOverPro = xOverlap / (xExtendA + xExtendB);
+                    //var yOverPro = yOverlap / (yExtendA + yExtendB);
+                    //if (xOverPro > yOverPro)
+                    if (yOverlap > xOverlap)
+                    {
+                        if (n.x < 0)
+                        {
+                            normal = new FVector2(-1, 0);
+                        }
+                        else
+                        {
+                            normal = new FVector2(1, 0);
+                        }
+                        depth = xOverlap;
+                    }
+                    else
+                    {
+                        if (n.y < 0)
+                        {
+                            normal = new FVector2(0, -1);
+                        }
+                        else
+                        {
+                            normal = new FVector2(0, 1);
+                        }
+                        depth = yOverlap;
+                    }
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static bool IntersectPolygons(FVector2[] verticesA, FVector2[] verticesB, out FVector2 normal, out Fix64 depth)
         {
             normal = FVector2.zero;

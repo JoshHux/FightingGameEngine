@@ -543,11 +543,15 @@ namespace FlatPhysics
 
             ShapeType shapeTypeA = bodyA.ShapeType;
             ShapeType shapeTypeB = bodyB.ShapeType;
-            return Collisions.IntersectPolygons(
+            return Collisions.IntersectRectangles(
+                                    bodyA,
+                                    bodyB,
+                                    out normal, out depth);
+            /*return Collisions.IntersectPolygons(
                                     bodyA.Position, bodyA.GetTransformedVertices(),
                                     bodyB.Position, bodyB.GetTransformedVertices(),
                                     out normal, out depth);
-            /*
+            
 if (shapeTypeA == ShapeType.Box)
 {
     if (shapeTypeB == ShapeType.Box)

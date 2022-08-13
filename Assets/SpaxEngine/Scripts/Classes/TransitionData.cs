@@ -80,7 +80,8 @@ namespace FightingGameEngine.Data
             uint reqDir = (uint)(reqInput & InputEnum.DIRECTIONS);
 
             //amount of input leniency allowed
-            int inputLeniency = Spax.SpaxManager.Instance.StaticValues.InputLeniency;
+            int inputLeniency = Spax.SpaxManager.Instance.StaticValues.InputBuffer;
+            //int inputBuffer = Spax.SpaxManager.Instance.StaticValues.InputBuffer;
 
             //check against the list of player inputs
             while (i < playerInputLen)
@@ -104,7 +105,7 @@ namespace FightingGameEngine.Data
                 }
                 //else
                 //{
-                //    Debug.Log("skipping this input's duration");
+                //    Debug.Log("skipping this input's duration " + i + " | " + curPlayerItem.LenientBuffer + " | " + curPlayerItem.Input + " | " + curPlayerItem.Flags + " | " + curPlayerItem.HoldDuration);
                 //}
 
                 //     check if there's a hold durations
@@ -298,6 +299,13 @@ namespace FightingGameEngine.Data
                         //we did, return true
                         return true;
                     }
+
+                    //if we completed this item and it's NOT a check controller state, then we change the input leniency to the leniency instead of the buffer'
+                    //  this is so that we avoid a scenario where inputs with leniency don't cause a scneario where the inputs before it have 10 frames of lenie3ncy when they shouldn't
+                    bool reqHasCheck = EnumHelper.HasEnum(reqFlagsRaw, (uint)InputFlags.CHECK_CONTROLLER, true);
+                    if (!reqHasCheck) { inputLeniency = Spax.SpaxManager.Instance.StaticValues.InputLeniency; }
+
+
 
                     //we reach this only if we haven't yet matched every input, set new required input item to check against
                     reqItem = this._requiredInputs[j];

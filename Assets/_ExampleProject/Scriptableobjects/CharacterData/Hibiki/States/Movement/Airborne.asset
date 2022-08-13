@@ -15,12 +15,15 @@ MonoBehaviour:
   _parentState: {fileID: 0}
   _duration: 0
   _stateConditions: 6
+  _toggleState: 0
   _cancels: 1
+  _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1
@@ -39,6 +42,8 @@ MonoBehaviour:
   _animation:
   - _atFrame: 0
     _animationName: Airborne
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 1
     _startFrame: 0
     _soundFx: 
