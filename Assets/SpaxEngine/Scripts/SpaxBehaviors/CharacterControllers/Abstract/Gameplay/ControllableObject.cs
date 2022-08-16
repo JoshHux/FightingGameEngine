@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using FightingGameEngine.Enum;
 using FightingGameEngine.Data;
+using Spax;
 
 namespace FightingGameEngine.Gameplay
 {
@@ -12,15 +13,23 @@ namespace FightingGameEngine.Gameplay
         //Unity's input mapping, replace when given the opportunity
         [SerializeField] private InputActionAsset actions;
         [SerializeField] private bool _canControl = true;
+
+        FightingCharacterController cont;
+        SpaxManager manager;
         protected override void OnAwake()
         {
             base.OnAwake();
 
+            manager = FindObjectOfType<SpaxManager>();
+            cont = transform.root.GetComponent<FightingCharacterController>();
+
+            if (cont.inputMode == inputMod.Record)
+            {
+                cont.inputDateToRecordAndPlay.frameCommands.Clear();//Clear the data asset if we start recording, to avoid having more inputs than frame wich is not good, we want 1 input per frame (60 inputs/1s)
+            }
+
             //init the status object, only really for the input recorder to get ready
             this.status.Initialize();
-
-            if (this._canControl)
-            {
                 //using the input system to do a little mapping, replace as soon as possible
                 //pressed events
                 actions["Direction"].performed += ctx => ApplyInput(ctx.ReadValue<UnityEngine.Vector2>(), 0b0000000000000000, false, true);
@@ -48,51 +57,58 @@ namespace FightingGameEngine.Gameplay
                 actions["Block"].Enable();
 
                 actions.Enable();
-            }
         }
 
         protected override void InputUpdate()
         {
             //Debug.Log("input updating");
+            SimulateRecordPlayInputs();
             this.BufferInput();
         }
 
         private void ApplyInput(UnityEngine.Vector2 dir, InputEnum input, bool released, bool direction)
         {
-            //check the direction
-            //"current" controller state, for easy reference
-            var curInput = this.status.CurrentControllerState;
-            //getting the buttons only for later refrence
-            var curInputBtn = curInput.Input & InputEnum.BUTTONS;
-            var finalDir = curInput.Input & InputEnum.DIRECTIONS;
+            _canControl = cont.inputMode == inputMod.Play ? false : _canControl;
 
-            if (direction)
+            if (!this._canControl)
             {
-                //get the x-direction from dir, X_ZERO is the default so we only need to check negative or positive values
-                var xDir = InputEnum.X_ZERO;
-                if (dir.x > 0) { xDir = InputEnum.X_POSITIVE; }
-                else if (dir.x < 0) { xDir = InputEnum.X_NEGATIVE; }
-
-                //get the y-direction from dir, Y_ZERO is the default so we only need to check negative or positive values
-                var yDir = InputEnum.Y_ZERO;
-                if (dir.y > 0) { yDir = InputEnum.Y_POSITIVE; }
-                else if (dir.y < 0) { yDir = InputEnum.Y_NEGATIVE; }
-                finalDir = xDir & yDir;
+                return;
             }
-            //buttons 
-            curInputBtn |= (InputEnum)input;
-            if (released) { curInputBtn &= (InputEnum)(~input); }
-            //AND the xDir and yDir so that we get the final direction to be assigned to the CurrentControllerState in the InputRecorder object
+            else
+            {
+                //check the direction
+                //"current" controller state, for easy reference
+                var curInput = this.status.CurrentControllerState;
+                //getting the buttons only for later refrence
+                var curInputBtn = curInput.Input & InputEnum.BUTTONS;
+                var finalDir = curInput.Input & InputEnum.DIRECTIONS;
+                if (direction)
+                {
+                    //get the x-direction from dir, X_ZERO is the default so we only need to check negative or positive values
+                    var xDir = InputEnum.X_ZERO;
+                    if (dir.x > 0) { xDir = InputEnum.X_POSITIVE; }
+                    else if (dir.x < 0) { xDir = InputEnum.X_NEGATIVE; }
 
-            //final new InputEnum
-            var finalInput = finalDir | curInputBtn;
+                    //get the y-direction from dir, Y_ZERO is the default so we only need to check negative or positive values
+                    var yDir = InputEnum.Y_ZERO;
+                    if (dir.y > 0) { yDir = InputEnum.Y_POSITIVE; }
+                    else if (dir.y < 0) { yDir = InputEnum.Y_NEGATIVE; }
+                    finalDir = xDir & yDir;
+                }
+                //buttons 
+                curInputBtn |= (InputEnum)input;
+                if (released) { curInputBtn &= (InputEnum)(~input); }
+                //AND the xDir and yDir so that we get the final direction to be assigned to the CurrentControllerState in the InputRecorder object
 
-            //new InputItem we assign as the CurrentControllerState
-            var newCurState = new InputItem(finalInput);
+                //final new InputEnum
+                var finalInput = finalDir | curInputBtn;
 
-            //assign new CurrentControllerState
-            this.status.CurrentControllerState = newCurState;
+                //new InputItem we assign as the CurrentControllerState
+                var newCurState = new InputItem(finalInput);
 
+                //assign new CurrentControllerState
+                this.status.CurrentControllerState = newCurState;
+            }
         }
 
         private void BufferInput()
@@ -103,6 +119,39 @@ namespace FightingGameEngine.Gameplay
             //buffers the current controller state, saved in the recorder itself
             this.status.BufferInput(bufferLeniency);
         }
+
+        #region Input Recorder
+        private void RecordInputsEachFrame(InputEnum command) {
+            if (cont.inputMode == inputMod.Record)
+            {
+                cont.inputDateToRecordAndPlay.frameCommands.Add(command.ToString());
+            }
+        }
+        private void PlayInputEachFrame(InputEnum command)
+        {
+            if (cont.inputMode == inputMod.Play)
+            {
+                if (manager.currentFrame > 0)
+                {
+                    if (manager.currentFrame < cont.inputDateToRecordAndPlay.frameCommands.Count)
+                    {
+                        command = (InputEnum)System.Enum.Parse(typeof(InputEnum), cont.inputDateToRecordAndPlay.frameCommands[manager.currentFrame]);
+
+                        //new InputItem we assign as the CurrentControllerState
+                        var newCurState = new InputItem(command);
+
+                        //assign new CurrentControllerState
+                        this.status.CurrentControllerState = newCurState;
+                    }
+                }
+            }
+        }
+        private void SimulateRecordPlayInputs() {
+            var curInput = this.status.CurrentControllerState;
+            RecordInputsEachFrame(curInput.Input);
+            PlayInputEachFrame(curInput.Input);
+        }
+        #endregion
 
         void OnDestroy()
         {
@@ -129,3 +178,4 @@ namespace FightingGameEngine.Gameplay
         }
     }
 }
+public enum inputMod { None, Record, Play }

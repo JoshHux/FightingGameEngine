@@ -16,6 +16,11 @@ namespace FightingGameEngine.Gameplay
         protected override void PreUpdate() { }
         protected override void PostPhysUpdate() { }
 
+        [Space(50)]
+        //For the input recorder
+        public inputMod inputMode = inputMod.None;
+        public InputData inputDateToRecordAndPlay;
+
         //call to process the frame data
         protected override void ProcessFrameData(FrameData frame)
         { base.ProcessFrameData(frame); }
