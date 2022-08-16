@@ -44,7 +44,7 @@ MonoBehaviour:
   m_currentFacing: 1
   m_currentPosition:
     x:
-      m_rawValue: -19327352832
+      m_rawValue: -62277025792
     y:
       m_rawValue: -15032385536
   m_currentVelocity:
@@ -73,17 +73,17 @@ MonoBehaviour:
       Input: 0
       Flags: 0
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _previousControllerState:
       Input: 0
       Flags: 0
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _recordedChanges:
     - Input: 0
       Flags: 0
-      HoldDuration: 90
-      LenientBuffer: 0
+      HoldDuration: 22613
+      _lenientBuffer: 0
   _positionOffset:
     x:
       m_rawValue: 0
