@@ -144,6 +144,7 @@ namespace FightingGameEngine.Gameplay
                 this.SetStopTimer(potenHitstop);
 
                 this.AddCurrentResources(hold.HitboxData.ResourceChange);
+                this.status.CurrentHP -= hold.HitboxData.Damage; // deal damage?
                 this.status.CancelFlags |= (hold.HitboxData.OnHitCancel);
 
                 if (EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.COUNTER_HIT))

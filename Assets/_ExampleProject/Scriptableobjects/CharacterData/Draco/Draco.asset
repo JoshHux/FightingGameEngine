@@ -52,15 +52,60 @@ MonoBehaviour:
     - Input: 512
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
-    - Input: 212
+      _lenientBuffer: 0
+    - Input: 224
       Flags: 9
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 7
       Flags: 10
       HoldDuration: 30
-      LenientBuffer: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: 1eb0af3790bbc02498a089323a826bf6, type: 2}
+    _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _cancelConditions: 128
+    _requiredInputs:
+    - Input: 512
+      Flags: 1
+      HoldDuration: 0
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 0
+      _lenientBuffer: 0
+    - Input: 1
+      Flags: 2
+      HoldDuration: 0
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 2
+      HoldDuration: 0
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 2
+      HoldDuration: 0
+      _lenientBuffer: 0
+    - Input: 1
+      Flags: 2
+      HoldDuration: 0
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 2
+      HoldDuration: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 0
     _requiredResources:
@@ -81,19 +126,19 @@ MonoBehaviour:
     - Input: 512
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 8
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 1
       Flags: 2
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 2
       Flags: 2
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 0
     _requiredResources:
@@ -114,19 +159,19 @@ MonoBehaviour:
     - Input: 512
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 16
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 4
       Flags: 2
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 2
       Flags: 2
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 0
     _requiredResources:
@@ -147,7 +192,7 @@ MonoBehaviour:
     - Input: 512
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
@@ -168,11 +213,11 @@ MonoBehaviour:
     - Input: 8
       Flags: 536870912
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 256
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 3
     _requiredResources:
@@ -193,7 +238,7 @@ MonoBehaviour:
     - Input: 256
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 3
     _requiredResources:
@@ -214,15 +259,15 @@ MonoBehaviour:
     - Input: 8
       Flags: 5
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 8
       Flags: 6
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     - Input: 8
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
@@ -243,7 +288,7 @@ MonoBehaviour:
     - Input: 4096
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
@@ -264,7 +309,7 @@ MonoBehaviour:
     - Input: 4096
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 2
     _transitionEvents: 0
     _requiredResources:
@@ -285,7 +330,7 @@ MonoBehaviour:
     - Input: 8192
       Flags: 536870912
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
@@ -306,7 +351,7 @@ MonoBehaviour:
     - Input: 2
       Flags: 536870912
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
@@ -327,7 +372,7 @@ MonoBehaviour:
     - Input: 512
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 2
     _transitionEvents: 0
     _requiredResources:
@@ -348,7 +393,7 @@ MonoBehaviour:
     - Input: 256
       Flags: 1
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 2
     _transitionEvents: 0
     _requiredResources:

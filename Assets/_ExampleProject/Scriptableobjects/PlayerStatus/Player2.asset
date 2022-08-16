@@ -73,17 +73,17 @@ MonoBehaviour:
       Input: 0
       Flags: 0
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _previousControllerState:
       Input: 0
       Flags: 0
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _recordedChanges:
     - Input: 0
       Flags: 0
       HoldDuration: 90
-      LenientBuffer: 0
+      _lenientBuffer: 0
   _positionOffset:
     x:
       m_rawValue: 0

@@ -23,6 +23,7 @@ MonoBehaviour:
   _transitions:
   - _targetState: {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -39,6 +40,7 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1
@@ -97,7 +99,7 @@ MonoBehaviour:
           y:
             m_rawValue: 10737418240
         Priority: 0
-        Damage: 0
+        Damage: 100
         ChipDamage: 0
         Hitstun: 15
         MinHitstun: 0
@@ -853,13 +855,13 @@ MonoBehaviour:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 0
+            m_rawValue: 34359738368
           y:
-            m_rawValue: 0
+            m_rawValue: 34359738368
         Priority: 0
-        Damage: 0
+        Damage: 100
         ChipDamage: 0
-        Hitstun: 15
+        Hitstun: 30
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 8
@@ -872,12 +874,12 @@ MonoBehaviour:
           x:
             m_rawValue: 85899345920
           y:
-            m_rawValue: 0
+            m_rawValue: 42949672960
         AirborneKnockback:
           x:
             m_rawValue: 85899345920
           y:
-            m_rawValue: 0
+            m_rawValue: 42949672960
         changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
@@ -1577,6 +1579,8 @@ MonoBehaviour:
   _animation:
   - _atFrame: 1
     _animationName: Divekick
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 
