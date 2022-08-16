@@ -24,6 +24,8 @@ MonoBehaviour:
   - _targetState: {fileID: 0}
     _targetStateIndex: -1
     _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824

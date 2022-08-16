@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using FixMath.NET;
 using FightingGameEngine.Enum;
 namespace FightingGameEngine.Data
 {
@@ -10,7 +11,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private List<TransitionData> _stateList;
 
         //check the transition to specific state
-        public TransitionData CheckTransition(int targetStateIndex, TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir)
+        public TransitionData CheckTransition(int targetStateIndex, TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
             TransitionData potenTrans = this._stateList[targetStateIndex];
@@ -37,7 +38,7 @@ namespace FightingGameEngine.Data
                 i++;
             }
 */
-            bool gotTransition = potenTrans.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir);
+            bool gotTransition = potenTrans.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir, yVel, yPos);
 
             if (gotTransition)
             {

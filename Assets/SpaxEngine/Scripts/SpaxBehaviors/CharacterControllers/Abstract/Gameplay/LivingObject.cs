@@ -436,7 +436,7 @@ namespace FightingGameEngine.Gameplay
             var curRsrc = this.status.CurrentResources;
             var curInpt = this.status.Inputs;
             var curFacing = this.status.CurrentFacingDirection;
-            var trans = this.status.CurrentState.CheckTransitions(trnFlags, curCan, curRsrc, curInpt, curFacing);
+            var trans = this.status.CurrentState.CheckTransitions(trnFlags, curCan, curRsrc, curInpt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
 
 
             //don't check the state for transitions anymore
@@ -445,7 +445,7 @@ namespace FightingGameEngine.Gameplay
             if (trans == null)
             {
                 //check the move list in the data instead
-                trans = this.data.CheckMoveList(trnFlags, curCan, curRsrc, curInpt, curFacing);
+                trans = this.data.CheckMoveList(trnFlags, curCan, curRsrc, curInpt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
 
                 //if (trans == null)
                 //{
@@ -477,7 +477,7 @@ namespace FightingGameEngine.Gameplay
 
             var universalStateList = Spax.SpaxManager.Instance.UniversalStates;
 
-            var trans = universalStateList.CheckTransition(universalStateInd, trnFlags, curCan, curRsrc, curInpt, curFacing);
+            var trans = universalStateList.CheckTransition(universalStateInd, trnFlags, curCan, curRsrc, curInpt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
 
             //if (universalStateInd == 2) { Debug.Log(trans.TargetState.name); }
 

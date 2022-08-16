@@ -23,6 +23,9 @@ MonoBehaviour:
   _transitions:
   - _targetState: {fileID: 0}
     _targetStateIndex: 0
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -2321,6 +2324,8 @@ MonoBehaviour:
   _animation:
   - _atFrame: 1
     _animationName: Hibiki-Grabbed
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 

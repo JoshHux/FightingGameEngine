@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PreAirjump
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 2
+  _duration: 3
   _stateConditions: 134217746
   _toggleState: 0
   _cancels: 0
@@ -23,12 +23,15 @@ MonoBehaviour:
   _transitions:
   - _targetState: {fileID: 11400000, guid: 1a8690a4a46be8a41a022780f04ea3bf, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs:
     - Input: 16
       Flags: 536870912
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1073741824
     _transitionEvents: 0
     _requiredResources:
@@ -43,12 +46,15 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: ef1f1bc73370da64292f549bee366596, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs:
     - Input: 8
       Flags: 536870912
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1073741824
     _transitionEvents: 0
     _requiredResources:
@@ -63,6 +69,9 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: b5e71d27d8fae424b9e3191157aef442, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -841,6 +850,8 @@ MonoBehaviour:
   _animation:
   - _atFrame: 0
     _animationName: Pre_Jump
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 

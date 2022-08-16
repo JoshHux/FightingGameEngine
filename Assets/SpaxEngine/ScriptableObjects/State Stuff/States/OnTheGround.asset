@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Airborne
+  m_Name: OnTheGround
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 0
-  _stateConditions: 6
+  _duration: 30
+  _stateConditions: 524289
   _toggleState: 0
-  _cancels: 33562643
+  _cancels: 0
   _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 11400000, guid: b5b876ff71f99894083ac282afbd58e2, type: 2}
-    _targetStateIndex: -1
-    _targetUniversalStateIndex: -1
+  - _targetState: {fileID: 11400000, guid: ccb6a2142e5628843a617d97f0244e7f, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
     _minimumHeight:
       m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs: []
-    _requiredTransitionFlags: 1
+    _requiredTransitionFlags: 1073741824
     _transitionEvents: 0
     _requiredResources:
       Health: 0
@@ -41,12 +41,4 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames: []
-  _animation:
-  - _atFrame: 0
-    _animationName: Airborne
-    _animationSpeed:
-      m_rawValue: 4294967296
-    _skipIfSameName: 1
-    _startFrame: 0
-    _soundFx: 
-    _vfx: 
+  _animation: []

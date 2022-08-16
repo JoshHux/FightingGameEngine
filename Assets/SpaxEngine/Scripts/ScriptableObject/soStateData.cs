@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using FixMath.NET;
 using FightingGameEngine.Enum;
 
 namespace FightingGameEngine.Data
@@ -105,7 +106,7 @@ namespace FightingGameEngine.Data
             return ret;
         }
 
-        public TransitionData CheckTransitions(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir)
+        public TransitionData CheckTransitions(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
             /*
@@ -130,7 +131,7 @@ namespace FightingGameEngine.Data
                             i++;
                         }
             */
-            ret = this.Transitions.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir));
+            ret = this.Transitions.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir, yVel, yPos));
             return ret;
         }
 

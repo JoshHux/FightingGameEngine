@@ -1,4 +1,5 @@
 using UnityEngine;
+using FixMath.NET;
 using FightingGameEngine.Enum;
 
 namespace FightingGameEngine.Data
@@ -10,6 +11,8 @@ namespace FightingGameEngine.Data
 
         [SerializeField] private int _targetStateIndex = -1;
         [SerializeField] private int _targetUniversalStateIndex = -1;
+        //only relevant if character has a positive y-velocity
+        [SerializeField] private Fix64 _minimumHeight;
         [SerializeField] private CancelConditions _cancelConditions;
 
         [SerializeField] private InputItem[] _requiredInputs;
@@ -26,7 +29,7 @@ namespace FightingGameEngine.Data
         public ResourceData RequiredResources { get { return this._requiredResources; } }
 
 
-        public bool CheckTransition(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir)
+        public bool CheckTransition(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             var transCancels = this._cancelConditions;
             var transFlags = this._requiredTransitionFlags;
@@ -35,7 +38,8 @@ namespace FightingGameEngine.Data
 
             bool checkCancels = EnumHelper.HasEnum((uint)curCan, (uint)transCancels, true);
             bool checkFlags = checkCancels && EnumHelper.HasEnum((uint)curFlags, (uint)transFlags, true);
-            bool checkResources = checkFlags && (EnumHelper.HasEnum((uint)this._transitionEvents, (uint)TransitionEvents.DODGE_RESOURCE_CHECK) || transRsrc.Check(curResources));
+            bool checkHeight = checkFlags && ((this._minimumHeight == 0) || (yVel > 0 && yPos >= this._minimumHeight) || (yVel < 0));
+            bool checkResources = checkHeight && (EnumHelper.HasEnum((uint)this._transitionEvents, (uint)TransitionEvents.DODGE_RESOURCE_CHECK) || transRsrc.Check(curResources));
             bool checkInputs = checkResources && ((this._requiredInputs.Length == 0) || ((playerInputs.Length > 0) && this.CheckInputs(playerInputs, facingDir)));
 
             return checkInputs;

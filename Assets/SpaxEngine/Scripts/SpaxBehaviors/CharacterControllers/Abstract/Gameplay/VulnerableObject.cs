@@ -363,7 +363,7 @@ namespace FightingGameEngine.Gameplay
                     ret = HitIndicator.WHIFF;
                 }
             }*/
-            //Debug.Log(grabType + " " + airOrGround);
+            //Debug.Log(grabType + " " + (hitboxType & HitboxType.GRAB) + " | " + airOrGround);
             //Debug.Log(grabMult + " = " + rawGrab + " & " + (grabInvuln | inStun | (grabLocMatch ^ 1)));
 
 
