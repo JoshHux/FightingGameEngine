@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: JumpForward
+  m_Name: c_HBK_Backdash
   m_EditorClassIdentifier: 
-  _parentState: {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
-  _duration: 1
-  _stateConditions: 2
+  _parentState: {fileID: 0}
+  _duration: 10
+  _stateConditions: 0
   _toggleState: 0
   _cancels: 0
   _toggleCancel: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
-    _targetStateIndex: -1
+    _targetStateIndex: 0
     _targetUniversalStateIndex: -1
     _minimumHeight:
       m_rawValue: 0
@@ -46,16 +46,16 @@ MonoBehaviour:
     _setVelocity: 0
     _appliedVelocity:
       x:
-        m_rawValue: 21474836480
+        m_rawValue: 0
       y:
-        m_rawValue: 128849018880
+        m_rawValue: 0
     _setGravity: 0
     _appliedGravity:
       m_rawValue: 0
     _timerEvents:
-      Duration: 0
+      Duration: 1000
       CancelsConditions: 0
-      StateConditions: 0
+      StateConditions: 6291456
     _toggleCond: 0
     _toggleCancels: 0
     _resourceChange:
@@ -802,11 +802,11 @@ MonoBehaviour:
             m_rawValue: 0
     _projectiles: []
   _animation:
-  - _atFrame: 0
-    _animationName: Airborne
+  - _atFrame: 1
+    _animationName: Backdash
     _animationSpeed:
       m_rawValue: 4294967296
-    _skipIfSameName: 1
+    _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 
     _vfx: 

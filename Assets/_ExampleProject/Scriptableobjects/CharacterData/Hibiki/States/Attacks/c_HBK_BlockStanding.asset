@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Backdash
+  m_Name: c_HBK_BlockStanding
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 10
-  _stateConditions: 0
+  _duration: 0
+  _stateConditions: 41943056
   _toggleState: 0
   _cancels: 0
   _toggleCancel: 0
@@ -24,8 +24,14 @@ MonoBehaviour:
   - _targetState: {fileID: 0}
     _targetStateIndex: 0
     _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
-    _requiredInputs: []
+    _requiredInputs:
+    - Input: 8192
+      Flags: 1610612736
+      HoldDuration: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1073741824
     _transitionEvents: 0
     _requiredResources:
@@ -51,9 +57,9 @@ MonoBehaviour:
     _appliedGravity:
       m_rawValue: 0
     _timerEvents:
-      Duration: 1000
+      Duration: 0
       CancelsConditions: 0
-      StateConditions: 6291456
+      StateConditions: 0
     _toggleCond: 0
     _toggleCancels: 0
     _resourceChange:
@@ -696,9 +702,9 @@ MonoBehaviour:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 0
+            m_rawValue: 4294967296
           y:
-            m_rawValue: 0
+            m_rawValue: 4294967296
       Hurtbox1:
         Position:
           x:
@@ -800,11 +806,11 @@ MonoBehaviour:
             m_rawValue: 0
     _projectiles: []
   _animation:
-  - _atFrame: 1
-    _animationName: Backdash
+  - _atFrame: 0
+    _animationName: Blocking
     _animationSpeed:
       m_rawValue: 4294967296
-    _skipIfSameName: 0
+    _skipIfSameName: 1
     _startFrame: 0
     _soundFx: 
     _vfx: 

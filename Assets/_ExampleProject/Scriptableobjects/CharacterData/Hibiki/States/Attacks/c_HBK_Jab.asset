@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Fireball
+  m_Name: c_HBK_Jab
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 100
+  _duration: 24
   _stateConditions: 0
   _toggleState: 0
   _cancels: 0
@@ -21,8 +21,11 @@ MonoBehaviour:
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 0}
+  - _targetState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -67,26 +70,26 @@ MonoBehaviour:
       Resource7: 0
     _hitboxes:
       Hitbox0:
-        Duration: 0
+        Duration: 6
         UniversalStateCause: 0
-        Type: 0
+        Type: 1
         Position:
           x:
-            m_rawValue: 0
+            m_rawValue: 4294967296
           y:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 0
+            m_rawValue: 8589934592
           y:
-            m_rawValue: 0
+            m_rawValue: 4294967296
         Priority: 0
         Damage: 0
         ChipDamage: 0
-        Hitstun: 0
+        Hitstun: 100
         MinHitstun: 0
         BlockStun: 0
-        Hitstop: 0
+        Hitstop: 100
         BlockStop: 0
         MinDamage: 0
         UntechTime: 0
@@ -797,13 +800,13 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
-    _projectiles:
-    - _projectile: {fileID: 2957983518375794688, guid: 5a1b9961627d98248903993c1080796e, type: 3}
-      _spawnOffset:
-        x:
-          m_rawValue: 0
-        y:
-          m_rawValue: 0
-      _spawnRotation:
-        m_rawValue: 0
-  _animation: []
+    _projectiles: []
+  _animation:
+  - _atFrame: 1
+    _animationName: AttackB
+    _animationSpeed:
+      m_rawValue: 4294967296
+    _skipIfSameName: 0
+    _startFrame: 0
+    _soundFx: 
+    _vfx: 

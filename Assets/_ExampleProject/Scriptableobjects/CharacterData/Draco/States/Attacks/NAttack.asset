@@ -86,7 +86,7 @@ MonoBehaviour:
         Priority: 0
         Damage: 100
         ChipDamage: 0
-        Hitstun: 1500
+        Hitstun: 25
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 8
@@ -99,12 +99,12 @@ MonoBehaviour:
           x:
             m_rawValue: 85899345920
           y:
-            m_rawValue: 214748364800
+            m_rawValue: 85899345920
         AirborneKnockback:
           x:
             m_rawValue: 85899345920
           y:
-            m_rawValue: 214748364800
+            m_rawValue: 42949672960
         changeHitGravity: 0
         HitGravity:
           m_rawValue: 0
@@ -859,7 +859,7 @@ MonoBehaviour:
           x:
             m_rawValue: 42949672960
           y:
-            m_rawValue: 214748364800
+            m_rawValue: 85899345920
         AirborneKnockback:
           x:
             m_rawValue: 42949672960

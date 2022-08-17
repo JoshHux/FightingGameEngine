@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: c_HBK_StunAir
+  m_Name: c_HBK-ss_StunAir
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
@@ -21,6 +21,29 @@ MonoBehaviour:
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
+  - _targetState: {fileID: 0}
+    _targetStateIndex: -1
+    _targetUniversalStateIndex: 3
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredInputs:
+    - Input: 65280
+      Flags: 268435456
+      HoldDuration: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1073741826
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
   - _targetState: {fileID: 0}
     _targetStateIndex: 1
     _targetUniversalStateIndex: -1

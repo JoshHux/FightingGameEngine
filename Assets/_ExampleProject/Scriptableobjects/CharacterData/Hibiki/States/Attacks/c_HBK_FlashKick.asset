@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Stun-Grounded
+  m_Name: c_HBK_FlashKick
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 0
-  _stateConditions: 67108881
+  _duration: 30
+  _stateConditions: 0
   _toggleState: 0
   _cancels: 0
   _toggleCancel: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
-    _targetStateIndex: 0
+    _targetStateIndex: -1
     _targetUniversalStateIndex: -1
     _minimumHeight:
       m_rawValue: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames:
-  - _atFrame: 0
+  - _atFrame: 1
     _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
@@ -698,9 +698,9 @@ MonoBehaviour:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 8589934592
+            m_rawValue: 0
           y:
-            m_rawValue: 8589934592
+            m_rawValue: 0
       Hurtbox1:
         Position:
           x:
@@ -803,7 +803,7 @@ MonoBehaviour:
     _projectiles: []
   _animation:
   - _atFrame: 1
-    _animationName: Hitstun-Ground
+    _animationName: Pre_Jump
     _animationSpeed:
       m_rawValue: 4294967296
     _skipIfSameName: 0

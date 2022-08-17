@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: JumpBack
+  m_Name: c_HBK-ss_OnTheGround
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 1
-  _stateConditions: 0
-  _toggleState: 0
+  _duration: 30
+  _stateConditions: 67633172
+  _toggleState: 20
   _cancels: 0
   _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
-    _targetStateIndex: -1
+    _targetStateIndex: 0
     _targetUniversalStateIndex: -1
     _minimumHeight:
       m_rawValue: 0
@@ -46,9 +46,9 @@ MonoBehaviour:
     _setVelocity: 0
     _appliedVelocity:
       x:
-        m_rawValue: -21474836480
+        m_rawValue: 0
       y:
-        m_rawValue: 128849018880
+        m_rawValue: 0
     _setGravity: 0
     _appliedGravity:
       m_rawValue: 0
@@ -698,9 +698,9 @@ MonoBehaviour:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 0
+            m_rawValue: 4294967296
           y:
-            m_rawValue: 0
+            m_rawValue: 17179869184
       Hurtbox1:
         Position:
           x:
@@ -802,11 +802,11 @@ MonoBehaviour:
             m_rawValue: 0
     _projectiles: []
   _animation:
-  - _atFrame: 0
-    _animationName: Airborne
+  - _atFrame: 1
+    _animationName: OnTheGround
     _animationSpeed:
-      m_rawValue: 4294967296
-    _skipIfSameName: 1
+      m_rawValue: 0
+    _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 
     _vfx: 

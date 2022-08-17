@@ -10,26 +10,70 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Block-Standing
+  m_Name: c_HBK_Prejump
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 0
-  _stateConditions: 41943056
+  _duration: 5
+  _stateConditions: 134217746
   _toggleState: 0
   _cancels: 0
   _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
-  - _targetState: {fileID: 0}
-    _targetStateIndex: 0
+  - _targetState: {fileID: 11400000, guid: b3b437f0bb1f27142a5f58733927a6a0, type: 2}
+    _targetStateIndex: -1
     _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs:
-    - Input: 8192
-      Flags: 1610612736
+    - Input: 16
+      Flags: 536870912
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1073741824
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: 6dd38eca16f64c54ba9503a6c27c2825, type: 2}
+    _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredInputs:
+    - Input: 8
+      Flags: 536870912
+      HoldDuration: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1073741824
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: b5011c0a00b139c49a1168ae661bdecb, type: 2}
+    _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredInputs: []
     _requiredTransitionFlags: 1073741824
     _transitionEvents: 0
     _requiredResources:
@@ -43,7 +87,7 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames:
-  - _atFrame: 1
+  - _atFrame: 0
     _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
@@ -700,9 +744,9 @@ MonoBehaviour:
             m_rawValue: 0
         Dimensions:
           x:
-            m_rawValue: 4294967296
+            m_rawValue: 8589934592
           y:
-            m_rawValue: 4294967296
+            m_rawValue: 8589934592
       Hurtbox1:
         Position:
           x:
@@ -805,10 +849,10 @@ MonoBehaviour:
     _projectiles: []
   _animation:
   - _atFrame: 0
-    _animationName: Blocking
+    _animationName: Pre_Jump
     _animationSpeed:
       m_rawValue: 4294967296
-    _skipIfSameName: 1
+    _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 
     _vfx: 

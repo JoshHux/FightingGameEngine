@@ -90,7 +90,7 @@ MonoBehaviour:
     _hitboxes:
       Hitbox0:
         Duration: 2
-        UniversalStateCause: 2
+        UniversalStateCause: 4
         Type: 136
         Position:
           x:
