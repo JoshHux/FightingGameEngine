@@ -147,6 +147,9 @@ namespace FightingGameEngine.Data
                 //      check for the controller state doesn't have these inputs
                 bool reqHasUpFlag = EnumHelper.HasEnum(reqFlagsRaw, (uint)InputFlags.CHECK_IS_UP, true);
 
+                //      check for the controller state for any of there inputs
+                bool reqHasAnyDown = EnumHelper.HasEnum(reqFlagsRaw, (uint)InputFlags.ANY_IS_DOWN, true);
+
 
                 //are we checking if these inputs are currently up?
                 //      we only check if we're looking at the first item in the player's input (the controller state)
@@ -158,9 +161,9 @@ namespace FightingGameEngine.Data
                 //      we're so a lenient check if we're checking for if this input is not being pressed
                 //          this is because if ANY of the inputs are registered, then we gotta fail it
                 //          so we gotta turn the check into a fail flag if checkUp is true
-                bool checkInputBtn = EnumHelper.HasEnum(playerItemBtn, reqBtn, !checkUp) != checkUp;
+                bool checkInputBtn = EnumHelper.HasEnum(playerItemBtn, reqBtn, reqHasAnyDown || !checkUp) != checkUp;
                 //      check the directions, we do a lenient check if the required flags DOES NOT INCLUDE the 4way flag
-                bool checkInput = checkInputBtn && (EnumHelper.HasEnum(playerItemDir, reqDir, (!(reqHas4wayFlag || checkUp))) != checkUp);
+                bool checkInput = checkInputBtn && (EnumHelper.HasEnum(playerItemDir, reqDir, reqHasAnyDown || !(reqHas4wayFlag || checkUp)) != checkUp);
 
                 //for now, just set the overall check to the flag and overall input check
                 overallCheck = checkHasFlags2 && checkInput;

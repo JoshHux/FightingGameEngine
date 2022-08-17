@@ -390,7 +390,7 @@ namespace FightingGameEngine.Gameplay
             //is the x velocity non-zero?
             bool xVelCheck = wantApplyFric && (xVel != 0);
             //only apply gravity ONLY if WE ALSO grounded, AND we DON'T want to move
-            bool applyFriction = xVelCheck && ((!wantToMove) || fasterThanMax) && EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)StateConditions.GROUNDED);
+            bool applyFriction = xVelCheck && ((!wantToMove) || fasterThanMax);// && EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)StateConditions.GROUNDED);
 
             if (applyFriction)
             {
@@ -414,8 +414,7 @@ namespace FightingGameEngine.Gameplay
 
                 this.status.CalcVelocity += applyingFriction;
 
-                if (this.status.CurrentState.name == "c_HBK_Trip")
-                    Debug.Log("applying friction - " + appliedFrict + " - " + this.status.CalcVelocity.x + " - " + this.status.TotalVelocity.x);
+                //if (this.status.CurrentState.name == "c_HBK_OnTheGround") Debug.Log("applying friction - " + appliedFrict + " - " + this.status.CalcVelocity.x + " - " + this.status.TotalVelocity.x);
 
             }
 
@@ -425,7 +424,7 @@ namespace FightingGameEngine.Gameplay
         protected void TryTransitionState()
         {
 
-            if (this.status.CurrentState.name == "c_HBK_StunAir") Debug.Log("checking airborne " + (this.status.CurrentPosition.y) + " " + (this.status.CurrentVelocity.y) + "  |  " + (this.status.CurrentPosition.y - (this._rb.Height / 2) > 0) + " " + (this.status.CurrentVelocity.y > 0));
+            //if (this.status.CurrentState.name == "c_HBK_StunAir") Debug.Log("checking airborne " + (this.status.CurrentPosition.y) + " " + (this.status.CurrentVelocity.y) + "  |  " + (this.status.CurrentPosition.y - (this._rb.Height / 2) > 0) + " " + (this.status.CurrentVelocity.y > 0));
 
             //simple check if we're airborne
             if ((this.status.CurrentPosition.y > 0) || (this.status.CurrentVelocity.y > 0))
