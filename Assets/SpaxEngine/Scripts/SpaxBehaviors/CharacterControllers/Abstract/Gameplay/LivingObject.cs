@@ -16,9 +16,10 @@ namespace FightingGameEngine.Gameplay
         //current status of this character
         [SerializeField] protected soCharacterStatus status;
 
+        public soCharacterData Data { get { return this.data; } }
         public soCharacterStatus Status { get { return this.status; } }
         public FlatPhysics.FlatBody Body { get { return this._rb.Body; } }
-        public FVector2 FlatPosition { get { return this._rb.Body.Position; } }
+        public FVector2 FlatPosition { get { return this._rb.Position; } }
 
         protected override void OnAwake()
         {
@@ -131,38 +132,29 @@ namespace FightingGameEngine.Gameplay
             //Debug.Log("SpaxUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
             //Debug.Log("spaxupdate - " + this.name + " - " + i);
         }
+        protected override void PostPhysUpdate()
+        {  //if we're in hitstop, we con't want to assign velocity
+            if (!this.status.InHitstop)
+            {//record the current frame's velocity, to be used for the next frame
+                this.status.CurrentVelocity = this._rb.Body.LinearVelocity;
+                //return;
+            }
+
+
+            //if (this.name == "TestPlayer" && this.status.TotalVelocity.magnitude > 0) Debug.Log("PostUpdate, total velocity :: (" + this.status.TotalVelocity.x + ", " + this.status.TotalVelocity.y + ")");
+            this.status.CurrentPosition = this._rb.Position;
+
+        }
 
         protected override void PostUpdate()
         {
             //record the current frame's position, to be used for the next frame
-            this.status.CurrentPosition = this._rb.Body.Position;
 
-
-            //if we're in hitstop, we con't want to assign velocity
-            if (this.status.InHitstop) { return; }
-
-            //record the current frame's velocity, to be used for the next frame
-            this.status.CurrentVelocity = this._rb.Body.LinearVelocity;
-            //if (this.name == "TestPlayer" && this.status.TotalVelocity.magnitude > 0) Debug.Log("PostUpdate, total velocity :: (" + this.status.TotalVelocity.x + ", " + this.status.TotalVelocity.y + ")");
 
 
             //Debug.Log("-PostUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
 
-            //simple check if we're airborne
-            if ((this.status.CurrentPosition.y - (this._rb.Height / 2) > -4) || (this.status.CurrentVelocity.y > 0))
-            {
-                //make status think it's airborne
-                //Debug.Log("becoming airborne " + (this.status.CurrentPosition.y < -3) + " " + (this.status.CurrentVelocity.y > 0));
-                this.status.TransitionFlags = (~TransitionFlags.GROUNDED) & (this.status.TransitionFlags | TransitionFlags.AIRBORNE);
-            }
-            else
-            {
-                //make character think it's grounded
-                //Debug.Log("becoming grounded ");
-                this.status.TransitionFlags = (~TransitionFlags.AIRBORNE) & (this.status.TransitionFlags | TransitionFlags.GROUNDED);
-                //this.status.CurrentVelocity = new FVector2(this.status.TotalVelocity.x, 0);
 
-            }
             //Debug.Log("postupdate - " + this.name + " - " + i);
             //if (this.status.CurrentState.name == "Jab") { Debug.Log("state timer in PostUpdate is - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
 
@@ -422,7 +414,8 @@ namespace FightingGameEngine.Gameplay
 
                 this.status.CalcVelocity += applyingFriction;
 
-                //Debug.Log("applying friction - " + appliedFrict + " - " + this.status.CalcVelocity.x + " - " + this.status.TotalVelocity.x);
+                if (this.status.CurrentState.name == "c_HBK_Trip")
+                    Debug.Log("applying friction - " + appliedFrict + " - " + this.status.CalcVelocity.x + " - " + this.status.TotalVelocity.x);
 
             }
 
@@ -431,6 +424,24 @@ namespace FightingGameEngine.Gameplay
         //call to process try to transition the state
         protected void TryTransitionState()
         {
+
+            if (this.status.CurrentState.name == "c_HBK_StunAir") Debug.Log("checking airborne " + (this.status.CurrentPosition.y) + " " + (this.status.CurrentVelocity.y) + "  |  " + (this.status.CurrentPosition.y - (this._rb.Height / 2) > 0) + " " + (this.status.CurrentVelocity.y > 0));
+
+            //simple check if we're airborne
+            if ((this.status.CurrentPosition.y > 0) || (this.status.CurrentVelocity.y > 0))
+            {
+                //make status think it's airborne
+                //Debug.Log("becoming airborne " + (this.status.CurrentPosition.y  > 0) ) + " " + (this.status.CurrentVelocity.y > 0));
+                this.status.TransitionFlags = (~TransitionFlags.GROUNDED) & (this.status.TransitionFlags | TransitionFlags.AIRBORNE);
+            }
+            else
+            {
+                //make character think it's grounded
+                //Debug.Log("becoming grounded ");
+                this.status.TransitionFlags = (~TransitionFlags.AIRBORNE) & (this.status.TransitionFlags | TransitionFlags.GROUNDED);
+                //this.status.CurrentVelocity = new FVector2(this.status.TotalVelocity.x, 0);
+            }
+
             var trnFlags = this.status.TransitionFlags;
             var curCan = this.status.CancelFlags;
             var curRsrc = this.status.CurrentResources;
@@ -467,7 +478,20 @@ namespace FightingGameEngine.Gameplay
 
         protected void TryTransitionUniversalState(int universalStateInd = -1)
         {
-
+            //simple check if we're airborne
+            if ((this.status.CurrentPosition.y > 0) || (this.status.CurrentVelocity.y > 0))
+            {
+                //make status think it's airborne
+                //Debug.Log("becoming airborne " + (this.status.CurrentPosition.y < -3) + " " + (this.status.CurrentVelocity.y > 0));
+                this.status.TransitionFlags = (~TransitionFlags.GROUNDED) & (this.status.TransitionFlags | TransitionFlags.AIRBORNE);
+            }
+            else
+            {
+                //make character think it's grounded
+                //Debug.Log("becoming grounded ");
+                this.status.TransitionFlags = (~TransitionFlags.AIRBORNE) & (this.status.TransitionFlags | TransitionFlags.GROUNDED);
+                //this.status.CurrentVelocity = new FVector2(this.status.TotalVelocity.x, 0);
+            }
 
             var trnFlags = this.status.TransitionFlags;
             var curCan = this.status.CancelFlags;
@@ -568,14 +592,21 @@ namespace FightingGameEngine.Gameplay
             //does our current state have a negative duration (is it a node state)?
             //  only 1 if the duration is positive
             var isNonNodeState = (((uint)newState.Duration) >> 31) ^ 1;
-
+            // we only transfer state duration if
+            //     a) we're EXITING in a stun state AND we're ENTERING a stun state AND the entering state's duration is 0
+            var wasStunState = (int)EnumHelper.isNotZero((uint)(this.status.TotalStateConditions & StateConditions.STUN_STATE));
+            var enterStunState = (int)EnumHelper.isNotZero((uint)(newState.StateConditions & StateConditions.STUN_STATE));
+            var enterZeroDur = (int)(EnumHelper.isNotZero((uint)(newState.Duration)) ^ 1);
+            var transferDuration = wasStunState * enterStunState * enterZeroDur;
+            var replaceDuration = transferDuration ^ 1;
+            var oldStateDuration = this.status.StateTimer.EndTime;
 
             //set the new current state
             this.status.CurrentState = newState;
             ///process current state
             this.ProcessTransitionEvent(this.status.CurrentState.ExitEvents);
             //start the new state timer
-            int stateDuration = this.status.CurrentState.Duration;
+            int stateDuration = (this.status.CurrentState.Duration);// * replaceDuration) + (oldStateDuration * transferDuration);
             this.status.StateTimer = new FrameTimer(stateDuration);
             //assign the current state conditions
             this.status.CurrentStateConditions = newState.StateConditions;
@@ -586,12 +617,13 @@ namespace FightingGameEngine.Gameplay
 
             this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
 
-            //if (newState.name == "GroundedThrowHit") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
+            if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
+            //if (newState.name == "Hitstun-Air") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state timer in setstate is - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
 
         }
 
-        protected void SetPosition(FVector2 newPos) { this._rb.Body.Position = newPos; }
+        protected void SetPosition(FVector2 newPos) { this._rb.Position = newPos; }
 
         protected void SetStopTimer(int newDur)
         {

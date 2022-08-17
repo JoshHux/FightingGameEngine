@@ -152,6 +152,7 @@ namespace FightingGameEngine.Gameplay
                 //set stun duration
                 int sttDur = (this.status.CurrentState.Duration == 0) ? totalStun : this.status.CurrentState.Duration;
                 this.Status.StateTimer = new FrameTimer(sttDur);
+                Debug.Log(this.status.CurrentState + " " + totalStun + " " + sttDur);
             }
 
             this.m_hurtList.Clear();

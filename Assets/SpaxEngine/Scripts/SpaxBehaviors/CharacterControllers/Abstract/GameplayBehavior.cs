@@ -18,10 +18,11 @@ namespace FightingGameEngine.Gameplay
                     manager.StateCleanUpdate += (() => StateCleanUpdate());
                     manager.PreUpdate += (() => PreUpdate());
                     manager.SpaxUpdate += (() => SpaxUpdate());
+                    manager.PostPhysUpdate += (() => PostPhysUpdate());
                     manager.HitQueryUpdate += (() => HitboxQueryUpdate());
                     manager.HurtQueryUpdate += (() => HurtboxQueryUpdate());
                     manager.PostUpdate += (() => PostUpdate());
-                   // Debug.Log("adding to the thing");
+                    // Debug.Log("adding to the thing");
                 }
             }
         }
@@ -37,6 +38,7 @@ namespace FightingGameEngine.Gameplay
                 manager.StateCleanUpdate -= (() => StateCleanUpdate());
                 manager.PreUpdate -= (() => PreUpdate());
                 manager.SpaxUpdate -= (() => SpaxUpdate());
+                manager.PostPhysUpdate -= (() => PostPhysUpdate());
                 manager.HitQueryUpdate -= (() => HitboxQueryUpdate());
                 manager.HurtQueryUpdate -= (() => HurtboxQueryUpdate());
                 manager.PostUpdate -= (() => PostUpdate());

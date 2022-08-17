@@ -28,8 +28,8 @@ MonoBehaviour:
     _timeElapsed: 0
     _endTime: 0
   m_stopTimer:
-    _timeElapsed: 0
-    _endTime: 0
+    _timeElapsed: 8
+    _endTime: 8
   m_superFlashTimer:
     _timeElapsed: 0
     _endTime: 0
@@ -38,15 +38,15 @@ MonoBehaviour:
     _endTime: 0
     _stateConditions: 0
   m_currentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
-  m_currentConditions: 113
-  m_transitionFlags: 1073741825
+  m_currentConditions: 117
+  m_transitionFlags: 1073741833
   m_cancelFlags: 4294967295
   m_currentFacing: 1
   m_currentPosition:
     x:
-      m_rawValue: -20030515200
+      m_rawValue: -62277025792
     y:
-      m_rawValue: -15032385536
+      m_rawValue: 0
   m_currentVelocity:
     x:
       m_rawValue: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 0
       Flags: 0
-      HoldDuration: 327
+      HoldDuration: 3096
       _lenientBuffer: 0
   _positionOffset:
     x:

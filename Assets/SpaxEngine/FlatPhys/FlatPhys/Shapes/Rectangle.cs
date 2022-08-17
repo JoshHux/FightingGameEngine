@@ -31,8 +31,11 @@ namespace FlatPhysics.Shapes
 
             var minX = position.x - wd;
             var minY = position.y - ht;
+            //var minY = position.y;
             var maxX = position.x + wd;
             var maxY = position.y + ht;
+            //var maxY = position.y + (ht * 2);
+
             var ret = new FlatAABB(minX, minY, maxX, maxY);
             return ret;
         }

@@ -12,6 +12,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private int _maxHp;
         [SerializeField] private ResourceData _maxResources;
         [SerializeField] private Fix64 _mass;
+        [SerializeField] private Fix64 _juggleMass;
         [SerializeField] private Fix64 _friction;
         [SerializeField] private Fix64 _walkAccel;
         [SerializeField] private Fix64 _walkMaxSpd;

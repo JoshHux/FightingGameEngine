@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 113
+  _stateConditions: 117
   _toggleState: 0
   _cancels: 4294967295
   _toggleCancel: 0
@@ -23,6 +23,9 @@ MonoBehaviour:
   _transitions:
   - _targetState: {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 2
@@ -39,12 +42,15 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: 2ae2af20a94a28c42b8847d0c5cc11aa, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs:
     - Input: 16
       Flags: 536870912
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
@@ -59,12 +65,15 @@ MonoBehaviour:
       Resource7: 0
   - _targetState: {fileID: 11400000, guid: ce03797e588230b4cb160a994392f9ed, type: 2}
     _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs:
     - Input: 8
       Flags: 536870912
       HoldDuration: 0
-      LenientBuffer: 0
+      _lenientBuffer: 0
     _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
@@ -841,6 +850,8 @@ MonoBehaviour:
   _animation:
   - _atFrame: 0
     _animationName: Idle
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 1
     _startFrame: 0
     _soundFx: 

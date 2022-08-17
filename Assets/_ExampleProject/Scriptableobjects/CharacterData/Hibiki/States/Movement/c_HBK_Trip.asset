@@ -10,20 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: Stun-Air
+  m_Name: c_HBK_Trip
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 67108868
+  _stateConditions: 0
+  _toggleState: 0
   _cancels: 0
+  _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions: []
   _frames: []
-  _animation:
-  - _atFrame: 1
-    _animationName: 
-    _skipIfSameName: 0
-    _startFrame: 0
-    _soundFx: 
-    _vfx: 
+  _animation: []

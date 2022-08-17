@@ -278,6 +278,8 @@ namespace FlatPhysics
 
 
             var n = bodyB.Position - bodyA.Position;
+            //var n = (bodyB.Position + new FVector2(0, bodyB.Height / 2)) - (bodyA.Position + new FVector2(0, bodyA.Height / 2));
+
             var boxA = bodyA.GetAABB();
             var boxB = bodyB.GetAABB();
 

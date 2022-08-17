@@ -7,7 +7,8 @@ using FlatPhysics.Filter;
 using FightingGameEngine;
 using FightingGameEngine.Data;
 using FightingGameEngine.Gameplay;
-
+using UnityEngine.UI;
+using System.IO;
 
 namespace Spax
 {
@@ -56,6 +57,12 @@ namespace Spax
 
         //for initializing the physics and filtering collisions
         //private CollisionGroup[] groups;
+
+        [Space(50)]
+        public int currentFrame;
+        public Text currentFrameText;
+        public bool paused = false;
+
         void Awake()
         {
             Instance = this;
@@ -104,11 +111,32 @@ namespace Spax
             }
         }
 
-        void FixedUpdate()
+        void Update()
         {
-            GameplayUpdate();
-            RendererUpdate();
-
+            if (paused)
+            {
+                if (Input.GetKeyDown("p"))
+                {
+                    paused = false;
+                }
+                if (Input.GetKeyDown("u"))
+                {
+                    GameplayUpdate();
+                    RendererUpdate();
+                    currentFrame++;
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown("p"))
+                {
+                    paused = true;
+                }
+                GameplayUpdate();
+                RendererUpdate();
+                currentFrame++;
+            }
+            currentFrameText.text = currentFrame.ToString();
         }
 
         private void GameplayUpdate()
@@ -134,8 +162,6 @@ namespace Spax
             RenderUpdate?.Invoke();
         }
 
-
-
         public void AddBody(FRigidbody rb)
         {
             this._world.AddBody(rb.Body);
@@ -149,7 +175,6 @@ namespace Spax
             }
 
         }
-
 
         public void RemoveBody(FRigidbody rb)
         {
@@ -172,6 +197,5 @@ namespace Spax
         public CollisionLayer GetCollisions(int layer)
         { return this._collisionMatrix[layer]; }
         public int GetNumberOfPlayers() { return this._players.Count; }
-
     }
 }

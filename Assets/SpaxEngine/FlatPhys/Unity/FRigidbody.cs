@@ -12,6 +12,7 @@ namespace FlatPhysics.Unity
         [SerializeField] protected bool isTrigger;
         [SerializeField] protected bool isPushbox;
         [SerializeField] protected Fix64 mass;
+        [SerializeField, ReadOnly] private FVector2 _position;
         [SerializeField, ReadOnly] private FVector2 _velocity;
         [SerializeField, ReadOnly] private CollisionLayer _thisLayer;
         [SerializeField, ReadOnly] private CollisionLayer _collidesWith;
@@ -34,10 +35,10 @@ namespace FlatPhysics.Unity
             get { return this._rb.LinearVelocity; }
             set { this._rb.LinearVelocity = value; }
         }
-   public FVector2 Position
+        public FVector2 Position
         {
-            get { return this._rb.Position; }
-            set { this._rb.Position = value; }
+            get { return this._rb.Position + new FVector2(0, -this._rb.Height / 2); }
+            set { this._rb.Position = value + new FVector2(0, this._rb.Height / 2); }
         }
 
         public FVector2 LocalPosition
@@ -108,6 +109,7 @@ namespace FlatPhysics.Unity
             {
                 this.transform.position = new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f);
                 this._velocity = this.Body.LinearVelocity;
+                this._position = this.Body.Position;
             }
         }
 

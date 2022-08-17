@@ -14,13 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 67108880
+  _stateConditions: 67108881
+  _toggleState: 0
   _cancels: 0
+  _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
     _targetStateIndex: 0
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
     _cancelConditions: 0
     _requiredInputs: []
     _requiredTransitionFlags: 1073741824
@@ -37,6 +42,7 @@ MonoBehaviour:
       Resource7: 0
   _frames:
   - _atFrame: 0
+    _superFlashDuration: 0
     _setVelocity: 0
     _appliedVelocity:
       x:
@@ -46,6 +52,12 @@ MonoBehaviour:
     _setGravity: 0
     _appliedGravity:
       m_rawValue: 0
+    _timerEvents:
+      Duration: 0
+      CancelsConditions: 0
+      StateConditions: 0
+    _toggleCond: 0
+    _toggleCancels: 0
     _resourceChange:
       Health: 0
       Meter: 0
@@ -788,14 +800,12 @@ MonoBehaviour:
             m_rawValue: 0
           y:
             m_rawValue: 0
-    _timerEvents:
-      Duration: 0
-      CancelsConditions: 0
-      StateConditions: 0
     _projectiles: []
   _animation:
   - _atFrame: 1
     _animationName: Hitstun-Ground
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 

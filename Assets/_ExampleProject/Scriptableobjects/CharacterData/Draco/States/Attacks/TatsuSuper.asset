@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TatsuSuper
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
-  _duration: 40
+  _duration: 60
   _stateConditions: 0
   _toggleState: 0
   _cancels: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
       Resource7: 0
   _frames:
   - _atFrame: 6
-    _superFlashDuration: 0
+    _superFlashDuration: 60
     _setVelocity: 0
     _appliedVelocity:
       x:
