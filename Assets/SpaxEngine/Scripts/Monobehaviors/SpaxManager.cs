@@ -58,7 +58,24 @@ namespace Spax
         //for initializing the physics and filtering collisions
         //private CollisionGroup[] groups;
 
-        [Space(50)]
+        [Space(20)]
+        [SerializeField] private Text _roundTimer;
+        //time (seconds) that a round takes
+        [SerializeField] private int maxTime = 99;
+        //# of frames for a second according to timer; 60 for accuracy, but can be set inaccurately for aesthetic purposes
+        [SerializeField] private int secondFrames = 60; 
+        //# of frames elapsed in a match; differs from currentFrame, which continually increments
+        private int matchFrames = 0;
+
+        [Space(20)]
+        [SerializeField] private UIPlayerCanvas P1UI;
+        [SerializeField] private UIPlayerCanvas P2UI;
+        [SerializeField] private soCharacterStatus P1Status;
+        [SerializeField] private soCharacterStatus P2Status;
+        [SerializeField] private soCharacterData P1Data;
+        [SerializeField] private soCharacterData P2Data;
+
+        [Space(30)]
         public int currentFrame;
         public Text currentFrameText;
         public bool paused = false;
@@ -124,6 +141,7 @@ namespace Spax
                     GameplayUpdate();
                     RendererUpdate();
                     currentFrame++;
+                    matchFrames++;
                 }
             }
             else
@@ -135,8 +153,15 @@ namespace Spax
                 GameplayUpdate();
                 RendererUpdate();
                 currentFrame++;
+                matchFrames++;
             }
             currentFrameText.text = currentFrame.ToString();
+            
+            _roundTimer.text = ((int)(maxTime - ((float)matchFrames / secondFrames))).ToString();
+
+            if((float)matchFrames / secondFrames >= maxTime){
+                TimeOut();
+            }
         }
 
         private void GameplayUpdate()
@@ -197,5 +222,38 @@ namespace Spax
         public CollisionLayer GetCollisions(int layer)
         { return this._collisionMatrix[layer]; }
         public int GetNumberOfPlayers() { return this._players.Count; }
+
+        public void StartRound(int lostPlayer){
+            matchFrames = 0;
+            
+            GetLivingObjectByID(0).SetPosition(new FVector2(5,0));
+            GetLivingObjectByID(1).SetPosition(new FVector2(-5,0));
+
+            P1Status.CurrentHP = P1Data.MaxHP;
+            P2Status.CurrentHP = P2Data.MaxHP;
+            //0 = P1, 1 = P2 to match player IDs and also lol programming counting
+            if(lostPlayer == 0){
+                P2UI.WinRound();
+            }
+            else if(lostPlayer == 1){
+                P1UI.WinRound();
+            }
+            else{
+                //for starting rounds without round increments?
+            }
+        }
+
+        private void TimeOut(){
+            matchFrames = 0;
+            if(P1Status.CurrentHP > P2Status.CurrentHP){
+                StartRound(1);
+            }
+            else if(P2Status.CurrentHP > P1Status.CurrentHP){
+                StartRound(0);
+            }
+            else{
+                StartRound(-1);
+            }
+        }
     }
 }
