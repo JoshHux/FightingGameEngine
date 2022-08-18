@@ -238,6 +238,17 @@ Transform:
   m_Father: {fileID: 1129726889}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &191937607 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
+  m_PrefabInstance: {fileID: 499039020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6407d7ef8b4413d45bbb90e7abca03e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &338181341
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +333,17 @@ MonoBehaviour:
     m_rawValue: 0
   _height:
     m_rawValue: 0
+--- !u!114 &404526389 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
+  m_PrefabInstance: {fileID: 2363943427048573295}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6407d7ef8b4413d45bbb90e7abca03e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &451562197
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,9 +528,17 @@ PrefabInstance:
       value: UIPlayerCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
+      propertyPath: CharData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4607cca02dbdef04ca166e133ffdfed5, type: 2}
+    - target: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
       propertyPath: CharStatus
       value: 
       objectReference: {fileID: 11400000, guid: 7c1ff47a453c88f4ba6ec17d8dbae044, type: 2}
+    - target: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
+      propertyPath: GameManager
+      value: 
+      objectReference: {fileID: 1388420133}
     - target: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
       propertyPath: CharController
       value: 
@@ -1560,6 +1590,15 @@ MonoBehaviour:
   _staticValues: {fileID: 11400000, guid: 277c623cd07f2824d9068635e055e9b5, type: 2}
   _universalStates: {fileID: 11400000, guid: 6e45f051812751f48adf8ed3bca68333, type: 2}
   _collisionMatrix: 
+  _roundTimer: {fileID: 1679871069}
+  maxTime: 99
+  secondFrames: 10
+  P1UI: {fileID: 404526389}
+  P2UI: {fileID: 191937607}
+  P1Status: {fileID: 11400000, guid: 3c40efbeb82fb074597f72f624b18477, type: 2}
+  P2Status: {fileID: 11400000, guid: 7c1ff47a453c88f4ba6ec17d8dbae044, type: 2}
+  P1Data: {fileID: 11400000, guid: e2ce3e0cfab79054a943943431017305, type: 2}
+  P2Data: {fileID: 11400000, guid: 4607cca02dbdef04ca166e133ffdfed5, type: 2}
   currentFrame: 0
   currentFrameText: {fileID: 1634890856}
   paused: 0
@@ -2747,9 +2786,17 @@ PrefabInstance:
       value: UIPlayerCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
+      propertyPath: CharData
+      value: 
+      objectReference: {fileID: 11400000, guid: e2ce3e0cfab79054a943943431017305, type: 2}
+    - target: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
       propertyPath: CharStatus
       value: 
       objectReference: {fileID: 11400000, guid: 3c40efbeb82fb074597f72f624b18477, type: 2}
+    - target: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
+      propertyPath: GameManager
+      value: 
+      objectReference: {fileID: 1388420133}
     - target: {fileID: 5030740198584519024, guid: 8f9fae87f87c1c742a79b0b794125194, type: 3}
       propertyPath: CharController
       value: 

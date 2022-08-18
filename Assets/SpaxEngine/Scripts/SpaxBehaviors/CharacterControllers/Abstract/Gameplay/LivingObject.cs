@@ -622,7 +622,7 @@ namespace FightingGameEngine.Gameplay
 
         }
 
-        protected void SetPosition(FVector2 newPos) { this._rb.Position = newPos; }
+        public void SetPosition(FVector2 newPos) { this._rb.Position = newPos; }
 
         protected void SetStopTimer(int newDur)
         {

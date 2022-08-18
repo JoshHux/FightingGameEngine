@@ -84,12 +84,12 @@ MonoBehaviour:
           y:
             m_rawValue: 4294967296
         Priority: 0
-        Damage: 0
+        Damage: 100
         ChipDamage: 0
-        Hitstun: 100
+        Hitstun: 50
         MinHitstun: 0
         BlockStun: 0
-        Hitstop: 100
+        Hitstop: 20
         BlockStop: 0
         MinDamage: 0
         UntechTime: 0

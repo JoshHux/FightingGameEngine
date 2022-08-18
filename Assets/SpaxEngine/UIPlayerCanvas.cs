@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using FightingGameEngine.Data;
 using FightingGameEngine.Gameplay;
+using Spax;
 
 public class UIPlayerCanvas : MonoBehaviour
 {
@@ -17,13 +18,13 @@ public class UIPlayerCanvas : MonoBehaviour
     [UnityEngine.SerializeField] private Text ComboCounter;
     private int ComboCount = 0;
 
-    [UnityEngine.SerializeField] private FightingCharacterController CharController;
-    private soCharacterStatus CharStatus;
+    [UnityEngine.SerializeField] private soCharacterData CharData;
+    [UnityEngine.SerializeField] private soCharacterStatus CharStatus;
+    [UnityEngine.SerializeField] private SpaxManager GameManager;
 
     void Start()
     {
-        CharStatus = CharController.Status;
-        MaxHealth = CharController.Data.MaxHP;
+        MaxHealth = CharData.MaxHP;
         HealthValue = MaxHealth;
         //reset round counters
         foreach(Image counter in RoundCounters){
@@ -42,7 +43,8 @@ public class UIPlayerCanvas : MonoBehaviour
         SetHealth(HealthValue);
         SetComboCount(CharStatus.CurrentComboCount);
         if(HealthValue <= 0){
-            WinRound(); //temporary solution
+            GameManager.StartRound(CharStatus.PlayerID);
+            //WinRound(); //temporary solution
         }
     }
 
@@ -70,8 +72,8 @@ public class UIPlayerCanvas : MonoBehaviour
         if(RoundsWon >= RoundCounters.Length){
             // Game over?
         }
-        CharStatus.CurrentHP = MaxHealth;
-        SetHealth(MaxHealth);
+        //CharStatus.CurrentHP = MaxHealth;
+        //SetHealth(MaxHealth); //redundant
     }
 
     public void ShowComboCounter()
