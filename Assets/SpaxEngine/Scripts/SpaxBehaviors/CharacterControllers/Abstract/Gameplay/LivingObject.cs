@@ -653,14 +653,16 @@ namespace FightingGameEngine.Gameplay
 
         protected void SetCurrentResources(ResourceData newResources)
         {
-            this.status.CurrentResources = newResources;
-            this.status.CurrentResources.SetMin(this.data.MaxResources);
+            this.status.CurrentResources = newResources.SetMin(this.data.MaxResources);
+            //this.status.CurrentResources.SetMin(this.data.MaxResources);
         }
 
         protected void AddCurrentResources(ResourceData newResources)
         {
-            this.status.CurrentResources = newResources + this.status.CurrentResources;
-            this.status.CurrentResources.SetMin(this.data.MaxResources);
+            var potenResources = newResources + this.status.CurrentResources;
+            //Debug.Log("adding resources");
+            this.status.CurrentResources = potenResources.SetMin(this.data.MaxResources);
+            //Debug.Log("current resources :: " + this.status.CurrentResources.Resource1 + " | " + this.data.MaxResources.Resource1);
         }
 
         public int IsAirborne()
@@ -693,5 +695,6 @@ namespace FightingGameEngine.Gameplay
         {
             this.SetStopTimer(dur);
         }
+
     }
 }

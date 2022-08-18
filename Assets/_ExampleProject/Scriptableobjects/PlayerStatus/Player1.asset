@@ -15,9 +15,9 @@ MonoBehaviour:
   _allegiance: 0
   _playerId: 0
   m_currentResources:
-    Health: 500
+    Health: 290
     Meter: 0
-    Resource1: 159
+    Resource1: 0
     Resource2: 0
     Resource3: 0
     Resource4: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_currentFacing: -1
   m_currentPosition:
     x:
-      m_rawValue: -10665836232
+      m_rawValue: -57982058503
     y:
       m_rawValue: 0
   m_currentVelocity:
@@ -80,21 +80,113 @@ MonoBehaviour:
       HoldDuration: 0
       _lenientBuffer: 0
     _recordedChanges:
-    - Input: 8
+    - Input: 2
+      Flags: 1
+      HoldDuration: 42
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 2
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 18
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 1
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 2
+      HoldDuration: 77
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 6
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 52
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 5
+      HoldDuration: 8
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 1
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 6
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 2
+      HoldDuration: 58
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 35
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 576
       Flags: 1
       HoldDuration: 8
       _lenientBuffer: 0
-    - Input: 8
+    - Input: 576
       Flags: 6
-      HoldDuration: 19
+      HoldDuration: 58
       _lenientBuffer: 0
-    - Input: 8
-      Flags: 5
-      HoldDuration: 40
+    - Input: 2
+      Flags: 1
+      HoldDuration: 5
       _lenientBuffer: 0
-    - Input: 8
+    - Input: 2
       Flags: 6
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
       HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 2
+      HoldDuration: 60
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 8
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 0
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 7
       _lenientBuffer: 0
     - Input: 512
       Flags: 1
@@ -102,7 +194,107 @@ MonoBehaviour:
       _lenientBuffer: 0
     - Input: 512
       Flags: 6
-      HoldDuration: 335
+      HoldDuration: 1
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 37
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 33
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 1
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 16
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 1
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 52
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 6
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 1
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 2
+      HoldDuration: 46
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 30
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 2
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 2
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 9
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 11
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 57
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 9
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 1
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 2
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 2
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 2
+      HoldDuration: 113
       _lenientBuffer: 0
   _positionOffset:
     x:
