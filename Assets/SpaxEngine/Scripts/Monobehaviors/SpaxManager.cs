@@ -157,9 +157,9 @@ namespace Spax
             }
             currentFrameText.text = currentFrame.ToString();
             
-            _roundTimer.text = ((int)(maxTime - ((float)matchFrames / secondFrames))).ToString();
+            _roundTimer.text = ((int)(maxTime - ((Fix64)matchFrames / secondFrames))).ToString();
 
-            if((float)matchFrames / secondFrames >= maxTime){
+            if((Fix64)matchFrames / secondFrames >= maxTime){
                 TimeOut();
             }
         }
