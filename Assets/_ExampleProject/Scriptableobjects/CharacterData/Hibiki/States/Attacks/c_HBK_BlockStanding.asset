@@ -32,7 +32,7 @@ MonoBehaviour:
       Flags: 1610612736
       HoldDuration: 0
       _lenientBuffer: 0
-    _requiredTransitionFlags: 1073741824
+    _requiredTransitionFlags: 0
     _transitionEvents: 0
     _requiredResources:
       Health: 0

@@ -27,5 +27,9 @@ namespace FightingGameEngine.Enum
         NO_PARENT_TRANS = 1 << 29,
         NO_PARENT_COND = (uint)(1 << 30),
 
+        //backend flags for identifying what state we're in
+        GUARD_POINT = GUARD_POINT_LOW | GUARD_POINT_MID | GUARD_POINT_HIGH,
+        BLOCKSTUN_STATE = STUN_STATE | GUARD_POINT,
+
     }
 }

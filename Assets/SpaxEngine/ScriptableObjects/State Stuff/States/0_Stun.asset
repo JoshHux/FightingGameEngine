@@ -18,7 +18,7 @@ MonoBehaviour:
   _toggleState: 0
   _cancels: 0
   _toggleCancel: 0
-  _enterEvents: 0
+  _enterEvents: 128
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}

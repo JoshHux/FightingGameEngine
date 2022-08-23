@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 117
+  _stateConditions: 8388725
   _toggleState: 0
   _cancels: 4294967295
   _toggleCancel: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   _frames:
   - _atFrame: 0
     _superFlashDuration: 0
-    _setVelocity: 0
+    _setVelocity: 1
     _appliedVelocity:
       x:
         m_rawValue: 0

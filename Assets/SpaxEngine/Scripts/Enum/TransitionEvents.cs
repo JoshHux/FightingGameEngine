@@ -11,8 +11,9 @@ namespace FightingGameEngine.Enum
         EXIT_STUN = 1 << 4,
         FLIP_FACING = 1 << 5,
         ADD_RESOURCES = 1 << 6,
-        DODGE_RESOURCE_CHECK = 1 << 7,
+        FACE_OPPONENT = 1 << 7,
 
+        DODGE_RESOURCE_CHECK = 1 << 29,
         GRAB_TECH = 1 << 30,
 
     }

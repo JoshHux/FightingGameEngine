@@ -83,7 +83,7 @@ namespace FightingGameEngine.Gameplay
                     univTargetState = boxData.UniversalStateCause;
                     totalStun = boxData.Hitstun * rawHit + boxData.BlockStun * blocked;
 
-
+                    //if (blocked > 0) { Debug.Log("blocked hit"); }
                     //add transition flag to let the status know we got hit
                     this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.GOT_HIT | (TransitionFlags)((int)TransitionFlags.BLOCKED_HIT * blocked);
 
@@ -292,16 +292,46 @@ namespace FightingGameEngine.Gameplay
 
             /*--- COMPARING THE HITBOX INFO VS OUR STATE CONDITIONS ---*/
 
+            //-- IMPORTANT NOTE --//
+            //We are only checking if we're crossed up manually because we're using a block button and we want to at least make crossups work
+            //TODO: make block button ignore crossups a toggleable feature
+            //are we in a blockstun state?
+            int inBlockstun = (int)(EnumHelper.isNotZero((uint)(curSttCond & StateConditions.GUARD_POINT)) * EnumHelper.isNotZero((uint)(curSttCond & StateConditions.STUN_STATE)));
+
+            //if we're blocking, check the x-position of the attacker and us to check for crossups
+            //  only 1 if we got crossed up, 0 if we didn't
+            int crossup = (int)(((uint)(Fix64.Sign(boxData.OtherOwner.FlatPosition.x - this.status.CurrentPosition.x) * this.status.CurrentFacingDirection)) >> 31);
+
+            /* SIDE TANGENT */
+            /*
+            I just had a revelation.
+            Edd has told me that in GGXrd, the blocking state will force the character to automatically turn to face whatever just hit them.
+            And that crossups only hit if they're not in blockstun.
+            This makes crossups in true blockstrings do nothing.
+            I thought this was weird until I realized something.
+            First off, this is a form of crossup protection, which is nice, but here's the most important thing:
+                BLOCKING IN XRD DOESN'T CARE ABOUT WHAT SIDE YOU'RE ON
+                I think, I actually don't know it's a theory, but I'm pretty sure this is the case for all ArkSys games. 
+            Let me explain.
+            GBFVS and DNF Duel are ArkSys games with a block buttons and it gives complete crossup protection. I didn't think much of it until 
+            Edd told me the second thing, and I realized that the only reason that would happen is because THE BLOCKING PLAYER ISN'T HOLDING BACKWARDS!
+            But then I thought about FD and Barrier in GG and BB respectively, they have ways to manually enter block states, they don't give 
+            you crossup protection!
+            But that's because you still have to hold backwards to enter that state! as soon as your character changes what direction they face, they'll
+            stop blocking!
+            ArkSys blockstates always protect against crossups! They just look like they don't because you have to hold backward to enter them!
+            */
+
+
             //strike box
-            var weBlocked = EnumHelper.HasEnumInt(guardEnum, (uint)strikeType) * isBlockable;
+            //we add inBlockstun to make it so that we give crossup protection in blockstun
+            var weBlocked = EnumHelper.HasEnumInt(guardEnum, (uint)strikeType) * isBlockable * ((crossup ^ 1) | inBlockstun);
             var weGotHit = weBlocked ^ 1;
 
 
             //provide data to the ret
             ret = (HitIndicator)((weBlocked * (int)HitIndicator.BLOCKED) | (weGotHit * (int)HitIndicator.HIT));
 
-
-            //TODO: try to make this branchless
             //invuln check
             //  each multiplier vairable can ONLY be zero IF they are that hitbox type AND we have the corresponding invuln condition 
             //  we want the stuff afte 1^ to be 0 for a hit, 1 for a whiff
@@ -366,7 +396,7 @@ namespace FightingGameEngine.Gameplay
             }*/
             //Debug.Log(grabType + " " + (hitboxType & HitboxType.GRAB) + " | " + airOrGround);
             //Debug.Log(grabMult + " = " + rawGrab + " & " + (grabInvuln | inStun | (grabLocMatch ^ 1)));
-
+            //Debug.Log(ret);
 
 
             //make copy of object just in case of some shallow memory access shenanigans
