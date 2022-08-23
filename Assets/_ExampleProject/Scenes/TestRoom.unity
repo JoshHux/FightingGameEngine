@@ -1438,6 +1438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _status: {fileID: 11400000, guid: 7c1ff47a453c88f4ba6ec17d8dbae044, type: 2}
+  _data: {fileID: 0}
   _animator: {fileID: 0}
 --- !u!114 &1129726887
 MonoBehaviour:
@@ -3603,6 +3604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _status: {fileID: 11400000, guid: 3c40efbeb82fb074597f72f624b18477, type: 2}
+  _data: {fileID: 0}
   _animator: {fileID: 0}
 --- !u!1 &4162488699245833601
 GameObject:
