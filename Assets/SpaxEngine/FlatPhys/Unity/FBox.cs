@@ -46,7 +46,26 @@ namespace FlatPhysics.Unity
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.green;
+            switch (boxColor)
+            {
+                case col.Red:
+                    Gizmos.color = Color.red;
+                    break;
+                case col.Green:
+                    Gizmos.color = Color.green;
+                    break;
+                case col.Yellow:
+                    Gizmos.color = Color.yellow;
+                    break;
+                case col.Cyan:
+                    Gizmos.color = Color.cyan;
+                    break;
+                case col.Blue:
+                    Gizmos.color = Color.blue;
+                    break;
+                default:
+                    break;
+            }
             if (Application.isPlaying && (this._rb != null))
             {
                 Vector3 pos = new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f);
@@ -54,7 +73,6 @@ namespace FlatPhysics.Unity
 
                 Gizmos.matrix = Matrix4x4.TRS(pos, transform.rotation, Vector3.one);
 
-                //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH`    
                 Gizmos.DrawWireCube(Vector2.zero, dim);
             }
             else
@@ -62,7 +80,7 @@ namespace FlatPhysics.Unity
                 Vector3 dim = new Vector3((float)this._width, (float)this._height, 1f);
 
                 Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
-                //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH`    
+
                 Gizmos.DrawWireCube(Vector2.zero, dim);
             }
         }
