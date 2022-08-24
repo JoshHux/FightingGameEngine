@@ -19,6 +19,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private Fix64 _runAccel;
         [SerializeField] private Fix64 _runMaxSpd;
         [SerializeField] private Fix64 _fallMaxSpd;
+        [SerializeField] private soVFXValues _vfxValues;
         [SerializeField] private soStateData[] _stateList;
         [SerializeField] private List<TransitionData> _moveList;
         public int MaxHP { get { return this._maxHp; } }
@@ -29,6 +30,7 @@ namespace FightingGameEngine.Data
         public Fix64 RunAccel { get { return this._runAccel; } }
         public Fix64 RunMaxSpd { get { return this._runMaxSpd; } }
         public Fix64 FallMaxSpd { get { return this._fallMaxSpd; } }
+        public soVFXValues VFXValues { get { return this._vfxValues; } }
         public ResourceData MaxResources { get { return this._maxResources; } }
         public soStateData[] StateList { get { return this._stateList; } }
         public TransitionData[] MoveList { get { return this._moveList.ToArray(); } }

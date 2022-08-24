@@ -28,8 +28,8 @@ MonoBehaviour:
     _timeElapsed: 0
     _endTime: 0
   m_stopTimer:
-    _timeElapsed: 8
-    _endTime: 8
+    _timeElapsed: 0
+    _endTime: 0
   m_superFlashTimer:
     _timeElapsed: 0
     _endTime: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_currentFacing: -1
   m_currentPosition:
     x:
-      m_rawValue: -23957737472
+      m_rawValue: -19327352832
     y:
       m_rawValue: 0
   m_currentVelocity:
@@ -82,7 +82,7 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 0
       Flags: 0
-      HoldDuration: 430
+      HoldDuration: 308
       _lenientBuffer: 0
   _positionOffset:
     x:

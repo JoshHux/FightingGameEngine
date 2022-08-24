@@ -39,6 +39,7 @@ MonoBehaviour:
     m_rawValue: 429496729600
   _fallMaxSpd:
     m_rawValue: 429496729600
+  _vfxValues: {fileID: 0}
   _stateList:
   - {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
   - {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
@@ -47,6 +48,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3699aba2eee5d634498c3345c9e61898, type: 2}
   - {fileID: 11400000, guid: 9bbea489f0db62f45aae88b78a85df55, type: 2}
   - {fileID: 11400000, guid: 29125816607ae3f4b968e3849be93d5d, type: 2}
+  - {fileID: 11400000, guid: a97ed7c3067b6a249b79af25d7edf77c, type: 2}
+  - {fileID: 11400000, guid: 3699aba2eee5d634498c3345c9e61898, type: 2}
+  - {fileID: 11400000, guid: a97ed7c3067b6a249b79af25d7edf77c, type: 2}
   - {fileID: 11400000, guid: a97ed7c3067b6a249b79af25d7edf77c, type: 2}
   _moveList:
   - _targetState: {fileID: 11400000, guid: f35299342e97d984fb11155d0908426d, type: 2}

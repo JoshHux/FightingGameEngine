@@ -11,7 +11,9 @@ namespace FightingGameEngine.Data
         [UnityEngine.SerializeField] private bool _skipIfSameName;
         [UnityEngine.SerializeField] private int _startFrame;
         [UnityEngine.SerializeField] private string _soundFx;
-        [UnityEngine.SerializeField] private string _vfx;
+        [UnityEngine.SerializeField] private int _vfx;
+        [UnityEngine.SerializeField] private FVector3 _vfxPosition;
+        [UnityEngine.SerializeField] private FVector3 _vfxRotation;
 
         public int AtFrame { get { return this._atFrame; } }
         public string AnimationName { get { return this._animationName; } }
@@ -19,6 +21,8 @@ namespace FightingGameEngine.Data
         public bool SkipIfSameName { get { return this._skipIfSameName; } }
         public int StartFrame { get { return this._startFrame; } }
         public string SoundFX { get { return this._soundFx; } }
-        public string VFX { get { return this._vfx; } }
+        public int VFX { get { return this._vfx; } }
+        public FVector3 VFXPosition { get { return this._vfxPosition; } }
+        public FVector3 VFXRotation { get { return this._vfxRotation; } }
     }
 }

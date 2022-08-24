@@ -10,6 +10,7 @@ namespace FightingGameEngine.Gameplay
     public class AnimatingObject : RendererBehavior
     {
         [SerializeField] private soCharacterStatus _status;
+        [SerializeField] private soCharacterData _data;
         [SerializeField, ReadOnly] private Animator _animator;
 
         protected override void OnStart()
@@ -90,6 +91,13 @@ namespace FightingGameEngine.Gameplay
 
                 }
 
+            }
+
+            if (afd.VFX >= 0)
+            {
+                Vector3 spawnPos = new Vector3((float)afd.VFXPosition.x, (float)afd.VFXPosition.y, (float)afd.VFXPosition.z);
+                Quaternion spawnRot = Quaternion.Euler((float)afd.VFXRotation.x, (float)afd.VFXRotation.y, (float)afd.VFXRotation.z);
+                Instantiate(this._data.VFXValues.VFXList[afd.VFX], spawnPos, spawnRot);
             }
 
 

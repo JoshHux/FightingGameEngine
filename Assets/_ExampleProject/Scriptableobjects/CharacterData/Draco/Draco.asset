@@ -39,6 +39,7 @@ MonoBehaviour:
     m_rawValue: 429496729600
   _fallMaxSpd:
     m_rawValue: 429496729600
+  _vfxValues: {fileID: 11400000, guid: 6c46f8405be31834aa459829c2704ce0, type: 2}
   _stateList:
   - {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}
   - {fileID: 11400000, guid: 3717d696bca75724c907c53abcb6436c, type: 2}

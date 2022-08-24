@@ -19,6 +19,9 @@ namespace FightingGameEngine.Gameplay
         //For the input recorder
         public inputMod inputMode = inputMod.None;
         public InputData inputDateToRecordAndPlay;
+        [Space(50)]
+        //For multiples Controllers
+        public controllers controllerToUse = controllers.pad1;
 
         //call to process the frame data
         protected override void ProcessFrameData(FrameData frame)
