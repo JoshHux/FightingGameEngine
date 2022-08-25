@@ -47,5 +47,8 @@ return ret;
 public static bool operator ==(StateID a,StateID b){
     return a.ID==b.ID;
 }
+public static bool operator !=(StateID a,StateID b){
+    return a.ID!=b.ID;
+}
 
 }
