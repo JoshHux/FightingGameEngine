@@ -10,6 +10,7 @@ namespace FightingGameEngine.Data
 
     public class soStateData : ScriptableObject
     {
+        [SerializeField] private StateID _id;
         [SerializeField] private soStateData _parentState;
         [SerializeField] private int _duration;
         [SerializeField] private StateConditions _stateConditions;
@@ -22,6 +23,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private List<FrameData> _frames;
         [SerializeField] private List<AnimationFrameData> _animation;
 
+        public StateID StateID { get { return this._id; } }
         public TransitionEvents EnterEvents { get { return this._enterEvents; } }
         public TransitionEvents ExitEvents { get { return this._exitEvents; } }
         public soStateData ParentState { get { return this._parentState; } }
@@ -91,6 +93,21 @@ namespace FightingGameEngine.Data
 
             return ret;
         }
+        
+#if UNITY_EDITOR
+        public void SetStateID(int index, string charName)
+        {
+
+            this._id = new StateID();
+
+            this._id.ID = StateID.FromString(charName);
+            //Debug.Log(StateID.FromString(charName));
+            this._id.SetIndex((long)index);
+            if (charName == "UNIV") { this._id.SetAsUniversal(); }
+            //Debug.Log(this._id.ID);
+
+        }
+#endif
 
         public FrameData GetFrameAt(int f)
         {
