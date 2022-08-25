@@ -66,6 +66,10 @@ namespace FightingGameEngine.Data
         public CancelConditions OnCounterHitCancel;
         public CancelConditions OnBlockedHitCancel;
 
+        //VFX data
+        public int Hitspark;
+        public FVector3 HitsparkPos;
+
         public bool IsValid()
         {
             bool ret = this.Duration > 0;

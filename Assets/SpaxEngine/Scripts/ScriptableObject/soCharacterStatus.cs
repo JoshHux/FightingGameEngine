@@ -45,6 +45,8 @@ namespace FightingGameEngine.Data
         //whether or not we should check for a transition to a new state
         [SerializeField] private bool m_checkState;
 
+        [SerializeField] private RendererInfo m_rendererInfo;
+
         public int Allegiance { get { return this._allegiance; } set { this._allegiance = value; } }
         public int PlayerID { get { return this._playerId; } }
         public int CurrentHP { get { return this.m_currentResources.Health; } set { this.m_currentResources.Health = value; } }
@@ -110,6 +112,7 @@ namespace FightingGameEngine.Data
         public InputItem CurrentControllerState { get { return this._inputRecorder.CurrentControllerState; } set { this._inputRecorder.CurrentControllerState = value; } }
         public InputItem[] Inputs { get { return this._inputRecorder.GetInputs(); } }
 
+        public RendererInfo RendererInfo { get { return this.m_rendererInfo; } set { this.m_rendererInfo = value; } } 
 
         //gets the total velocity that will be assigned to the rigidbody
         public FVector2 TotalVelocity

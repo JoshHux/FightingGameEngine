@@ -53,8 +53,20 @@ namespace FightingGameEngine.Gameplay
 
             var newScale = new Vector3(facingDir, rendererScale.y, rendererScale.z);
             this.transform.localScale = newScale;
+
+            if(this._status.RendererInfo.VFXID > 0){
+                //convert player position to Vector3
+                Vector3 playerPos = new Vector3((float)this._status.CurrentPosition.x, (float)this._status.CurrentPosition.y, 0);
+                //shortcut
+                RendererInfo ri = this._status.RendererInfo; 
+                Instantiate(ri.VFXValues.VFXList[ri.VFXID], playerPos + ri.VFXPos, Quaternion.identity);
+            }
+            
         }
-        protected override void PostRenderUpdate() { }
+        protected override void PostRenderUpdate() 
+        { 
+            this._status.RendererInfo = new RendererInfo(0, Vector3.zero);
+        }
 
         //call to process a given animationFrameData
         private void ProcessAnimationData(AnimationFrameData afd)
@@ -93,11 +105,12 @@ namespace FightingGameEngine.Gameplay
 
             }
 
-            if (afd.VFX >= 0)
+            if (afd.VFX > 0)
             {
                 Vector3 spawnPos = new Vector3((float)afd.VFXPosition.x, (float)afd.VFXPosition.y, (float)afd.VFXPosition.z);
+                Vector3 playerPos = new Vector3((float)this._status.CurrentPosition.x, (float)this._status.CurrentPosition.y, 0);
                 Quaternion spawnRot = Quaternion.Euler((float)afd.VFXRotation.x, (float)afd.VFXRotation.y, (float)afd.VFXRotation.z);
-                Instantiate(this._data.VFXValues.VFXList[afd.VFX], spawnPos, spawnRot);
+                Instantiate(this._data.VFXValues.VFXList[afd.VFX], playerPos + spawnPos, spawnRot);
             }
 
 

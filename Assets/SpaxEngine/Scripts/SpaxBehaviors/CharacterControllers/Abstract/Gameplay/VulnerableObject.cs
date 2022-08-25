@@ -141,6 +141,12 @@ namespace FightingGameEngine.Gameplay
                     this.SetStopTimer(potenHitstop);
                     //set the current velocity to kb so that we only override velocity when hit
                     this.status.CurrentVelocity = kb;
+
+                    //set hitspark
+                    this.status.RendererInfo.VFXID = boxData.Hitspark;
+                    //convert FVector3 to Vector3
+                    Vector3 vfxPos = new Vector3((float)boxData.HitsparkPos.x, (float)boxData.HitsparkPos.y, (float)boxData.HitsparkPos.z);
+                    this.status.RendererInfo.VFXPos = vfxPos;
                 }
                 i++;
             }
