@@ -1419,7 +1419,7 @@ GameObject:
   - component: {fileID: 1129726887}
   - component: {fileID: 1129726886}
   m_Layer: 6
-  m_Name: TestPlayer (1)
+  m_Name: Hibiki
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _status: {fileID: 11400000, guid: 7c1ff47a453c88f4ba6ec17d8dbae044, type: 2}
-  _data: {fileID: 0}
+  _data: {fileID: 11400000, guid: 4607cca02dbdef04ca166e133ffdfed5, type: 2}
   _animator: {fileID: 0}
 --- !u!114 &1129726887
 MonoBehaviour:
@@ -3604,7 +3604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _status: {fileID: 11400000, guid: 3c40efbeb82fb074597f72f624b18477, type: 2}
-  _data: {fileID: 0}
+  _data: {fileID: 11400000, guid: e2ce3e0cfab79054a943943431017305, type: 2}
   _animator: {fileID: 0}
 --- !u!1 &4162488699245833601
 GameObject:
@@ -3619,7 +3619,7 @@ GameObject:
   - component: {fileID: 4162488699245833607}
   - component: {fileID: 4162488699245833600}
   m_Layer: 6
-  m_Name: Player 1
+  m_Name: Draco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
