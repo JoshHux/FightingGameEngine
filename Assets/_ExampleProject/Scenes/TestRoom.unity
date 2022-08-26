@@ -1458,7 +1458,7 @@ MonoBehaviour:
   _canControl: 1
   _other: {fileID: 4162488699245833606}
   inputMode: 0
-  inputDateToRecordAndPlay: {fileID: 0}
+  inputDateToRecordAndPlay: {fileID: 11400000, guid: daeb9ee8b1cb06b4ea2dcebbd5cc56d1, type: 2}
   controllerToUse: 3
 --- !u!114 &1129726888
 MonoBehaviour:
@@ -3697,7 +3697,7 @@ MonoBehaviour:
   _canControl: 1
   _other: {fileID: 1129726888}
   inputMode: 0
-  inputDateToRecordAndPlay: {fileID: 0}
+  inputDateToRecordAndPlay: {fileID: 11400000, guid: ef8d9b46c4666ae4db54f074fe6f4f04, type: 2}
   controllerToUse: 2
 --- !u!114 &4162488699350202212
 MonoBehaviour:

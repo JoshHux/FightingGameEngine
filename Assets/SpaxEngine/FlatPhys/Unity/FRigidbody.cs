@@ -167,6 +167,7 @@ namespace FlatPhysics.Unity
                 this.transform.position = new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f);
                 this._velocity = this.Body.LinearVelocity;
                 this._position = this.Body.Position;
+
                 DrawBoxesInRunTime(new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f), new Vector3((float)this._rb.Width, (float)this._rb.Height, 1f));
             }
         }

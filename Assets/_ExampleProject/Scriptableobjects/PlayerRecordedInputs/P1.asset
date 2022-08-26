@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6857624cfba75ca4bbb80266aab2c4ea, type: 3}
-  m_Name: New Input Data
+  m_Name: P1
   m_EditorClassIdentifier: 
   frameCommands: []
