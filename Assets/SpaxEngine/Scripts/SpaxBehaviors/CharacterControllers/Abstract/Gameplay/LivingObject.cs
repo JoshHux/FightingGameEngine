@@ -420,6 +420,8 @@ namespace FightingGameEngine.Gameplay
 
         }
 
+        protected virtual void OnStateSet(){}
+
         //call to process try to transition the state
         protected void TryTransitionState()
         {

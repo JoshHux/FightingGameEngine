@@ -58,11 +58,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -70,6 +76,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -132,11 +139,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -144,6 +157,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -228,11 +242,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 0
   isPushbox: 1
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -240,6 +260,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 4294967296
   _height:
@@ -261,6 +282,9 @@ MonoBehaviour:
   actions: {fileID: -944628639613478452, guid: 8c47bb0ab1ab45e418c7916162600bc4, type: 3}
   _canControl: 1
   _other: {fileID: 0}
+  inputMode: 0
+  inputDateToRecordAndPlay: {fileID: 0}
+  controllerToUse: 0
 --- !u!114 &6514058054381558204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _status: {fileID: 11400000, guid: 3c40efbeb82fb074597f72f624b18477, type: 2}
+  _data: {fileID: 0}
   _animator: {fileID: 0}
 --- !u!1 &6514058054581868289
 GameObject:
@@ -319,11 +344,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -331,6 +362,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -398,11 +430,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -410,6 +448,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -477,11 +516,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -489,6 +534,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -570,11 +616,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -582,6 +634,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -630,11 +683,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -642,6 +701,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -740,11 +800,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -752,6 +818,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -833,11 +900,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -845,6 +918,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -907,11 +981,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -919,6 +999,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -967,11 +1048,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -979,6 +1066,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -1060,11 +1148,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -1072,6 +1166,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -1172,11 +1267,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -1184,6 +1285,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -1232,11 +1334,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -1244,6 +1352,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -1363,11 +1472,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -1375,6 +1490,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -1423,11 +1539,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 4294967296
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -1435,6 +1557,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 0
   _height:
@@ -1502,11 +1625,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd850c70d94d16747a1567316d05ab26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxColor: 4
   isStatic: 0
   isTrigger: 1
   isPushbox: 0
   mass:
     m_rawValue: 8589934592
+  _position:
+    x:
+      m_rawValue: 0
+    y:
+      m_rawValue: 0
   _velocity:
     x:
       m_rawValue: 0
@@ -1514,6 +1643,7 @@ MonoBehaviour:
       m_rawValue: 0
   _thisLayer: 0
   _collidesWith: 0
+  drawedBox: {fileID: 0}
   _width:
     m_rawValue: 4724464128
   _height:

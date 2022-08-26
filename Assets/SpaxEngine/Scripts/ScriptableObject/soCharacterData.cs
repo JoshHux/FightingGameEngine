@@ -9,6 +9,7 @@ namespace FightingGameEngine.Data
     public class soCharacterData : ScriptableObject
     {
 
+        [SerializeField] private string _charName="AAAA";
         [SerializeField] private int _maxHp;
         [SerializeField] private ResourceData _maxResources;
         [SerializeField] private Fix64 _mass;
@@ -35,6 +36,29 @@ namespace FightingGameEngine.Data
         public soStateData[] StateList { get { return this._stateList; } }
         public TransitionData[] MoveList { get { return this._moveList.ToArray(); } }
 
+
+#if UNITY_EDITOR
+        //convenience function to automatically set the state id's
+        public void AssignStateID()
+        {
+            int i = 0;
+            int len = this._stateList.Length;
+
+            while (i < len)
+            {
+                var hold = this._stateList[i];
+
+                hold.SetStateID(i, this._charName);
+
+                //var name = StateID.CharString(hold.StateID);
+                //var index = hold.StateID.GetIndex();
+
+                //Debug.Log(i + " :: " + "index = " + index + " | name = " + name + " | long ID = " + hold.StateID.ID);
+
+                i++;
+            }
+        }
+#endif
         public TransitionData CheckMoveList(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
