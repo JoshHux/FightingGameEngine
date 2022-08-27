@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DracoVFXValues
   m_EditorClassIdentifier: 
   _vfxList:
-  - {fileID: 443929754293522201, guid: fac799c69eeda5548b4dff124bb77ea3, type: 3}
   - {fileID: 7153093472602642277, guid: e4c254e645396ec418b9345de351991a, type: 3}
+  - {fileID: 443929754293522201, guid: fac799c69eeda5548b4dff124bb77ea3, type: 3}

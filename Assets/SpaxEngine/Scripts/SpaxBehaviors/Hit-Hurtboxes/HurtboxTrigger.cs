@@ -20,7 +20,8 @@ namespace FightingGameEngine.Gameplay
 
         protected override void CheckDataFromFrame(object sender, FrameData data)
         {
-            //get the data for quick and easy access
+            //get the data for quick 
+            if (data == null) { this.DeactivateBox(); }
             var boxdata = data.GetHurtbox(this.triggerIndex);
             //valid or invalid boxdata, checks if dimensions are valid
             bool isValid = boxdata.Dimensions.sqrMagnitude > 0;

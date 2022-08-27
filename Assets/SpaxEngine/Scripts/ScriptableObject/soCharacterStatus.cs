@@ -74,7 +74,7 @@ namespace FightingGameEngine.Data
             get { return this.m_cancelFlags; }
             set
             {
-                this.m_checkState = true;
+                //this.m_checkState = true;
                 this.m_cancelFlags = value;
             }
         }
@@ -83,7 +83,7 @@ namespace FightingGameEngine.Data
             get { return this.m_currentResources; }
             set
             {
-                this.m_checkState = true;
+                //this.m_checkState = true;
                 this.m_currentResources = value;
             }
         }
@@ -102,11 +102,7 @@ namespace FightingGameEngine.Data
 
 
         //we determine whether we check the state here
-        public bool CheckState { get { return this.m_checkState; } set { this.m_checkState = value; } }
-
-        //anchor for our position when we are grabbed
-        public FlatPhysics.FlatBody PositionAnchor { get { return this._positionAnchor; } }
-        public FVector2 PositionOffset { get { return this._positionOffset; } }
+        //public bool CheckState { get { return this.m_checkState; } set { this.m_checkState = value; } }
 
         //for easy access from the InputRecorder object
         public InputItem CurrentControllerState { get { return this._inputRecorder.CurrentControllerState; } set { this._inputRecorder.CurrentControllerState = value; } }

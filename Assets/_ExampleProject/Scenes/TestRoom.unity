@@ -1044,7 +1044,7 @@ MonoBehaviour:
   _collidesWith: 0
   drawedBox: {fileID: 6580086804919254037, guid: 640821540e696ba498cb367bf6c77c1b, type: 3}
   _width:
-    m_rawValue: 42949672960
+    m_rawValue: 85899345920
   _height:
     m_rawValue: 429496729600
 --- !u!23 &888866645
@@ -1104,8 +1104,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888866643}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20, y: -5, z: 0}
-  m_LocalScale: {x: 10, y: 100, z: 1}
+  m_LocalPosition: {x: -25, y: -5, z: 0}
+  m_LocalScale: {x: 20, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -2003,7 +2003,7 @@ MonoBehaviour:
   _collisionMatrix: 
   _roundTimer: {fileID: 1679871069}
   maxTime: 99
-  secondFrames: 10
+  secondFrames: 60
   P1UI: {fileID: 404526389}
   P2UI: {fileID: 191937607}
   P1Status: {fileID: 11400000, guid: 3c40efbeb82fb074597f72f624b18477, type: 2}

@@ -26,6 +26,33 @@ namespace FightingGameEngine.Gameplay
         //call to process the frame data
         protected override void ProcessFrameData(FrameData frame)
         { base.ProcessFrameData(frame); }
+
+
+        //call to process transition event enums
+        protected override void ProcessTransitionEvent(TransitionEvents te)
+        {
+            base.ProcessTransitionEvent(te);
+/*----- PROCESSING AUTOMATIC TURNING -----*/
+
+            //can we rotate?
+            bool canRotate = EnumHelper.HasEnum((uint)te, (uint)TransitionEvents.FACE_OPPONENT);
+
+            //TODO: When transporting this to 3d, replace this calculation with a 3d math
+
+            //what is the difference between our x position and their x position?
+            var diffPos = this._other.Position.x - this.status.CurrentPosition.x;
+
+            //if our facing direction and the difference in position are different, then we should turn
+            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) < 0);
+
+            if (shouldTurn)
+            {
+                var newFacing = Fix64.Sign(diffPos);
+                this.status.CurrentFacingDirection = newFacing;
+            }
+
+        }
+
         //call to process the state conditions of our current state
         protected override void ProcessStateConditions(StateConditions stateConditions)
         {

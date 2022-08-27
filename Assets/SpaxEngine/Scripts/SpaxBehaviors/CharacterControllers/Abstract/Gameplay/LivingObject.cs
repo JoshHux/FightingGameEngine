@@ -50,7 +50,7 @@ namespace FightingGameEngine.Gameplay
             //get the default state
             var defaultState = this.data.StateList[0];
             //set the default state
-            this.SetState(defaultState);
+            this.SetStateRaw(defaultState);
         }
 
         protected override void StateUpdate()
@@ -420,6 +420,8 @@ namespace FightingGameEngine.Gameplay
 
         }
 
+        protected virtual void OnStateSet() { }
+
         //call to process try to transition the state
         protected void TryTransitionState()
         {
@@ -450,7 +452,7 @@ namespace FightingGameEngine.Gameplay
 
 
             //don't check the state for transitions anymore
-            this.status.CheckState = false;
+            //this.status.CheckState = false;
             //if it's null, no transition to process
             if (trans == null)
             {
@@ -593,13 +595,13 @@ namespace FightingGameEngine.Gameplay
             var isNonNodeState = (((uint)newState.Duration) >> 31) ^ 1;
             // we only transfer state duration if
             //     a) we're EXITING in a stun state AND we're ENTERING a stun state AND the entering state's duration is 0
-            var wasStunState = (int)EnumHelper.isNotZero((uint)(this.status.TotalStateConditions & StateConditions.STUN_STATE));
+            /*var wasStunState = (int)EnumHelper.isNotZero((uint)(this.status.TotalStateConditions & StateConditions.STUN_STATE));
             var enterStunState = (int)EnumHelper.isNotZero((uint)(newState.StateConditions & StateConditions.STUN_STATE));
             var enterZeroDur = (int)(EnumHelper.isNotZero((uint)(newState.Duration)) ^ 1);
             var transferDuration = wasStunState * enterStunState * enterZeroDur;
             var replaceDuration = transferDuration ^ 1;
             var oldStateDuration = this.status.StateTimer.EndTime;
-
+*/
             //set the new current state
             this.status.CurrentState = newState;
             ///process current state
@@ -616,11 +618,42 @@ namespace FightingGameEngine.Gameplay
 
             this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
 
-            if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
+            this.OnStateSet();
+            //if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "Hitstun-Air") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state timer in setstate is - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
 
         }
+
+        //call to set the state without any consideration about transition events or transfering stun
+        protected void SetStateRaw(soStateData newState)
+        {
+            //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
+
+
+            //set the new current state
+            this.status.CurrentState = newState;
+            ///process current state
+            //this.ProcessTransitionEvent(this.status.CurrentState.ExitEvents);
+            //start the new state timer
+            int stateDuration = (this.status.CurrentState.Duration);// * replaceDuration) + (oldStateDuration * transferDuration);
+            this.status.StateTimer = new FrameTimer(stateDuration);
+            //assign the current state conditions
+            this.status.CurrentStateConditions = newState.StateConditions;
+            //assign the current cancel conditions
+            this.status.CancelFlags = newState.CancelConditions;
+            //remove the state end transition flag
+            this.status.TransitionFlags = (TransitionFlags)((int)this.status.TransitionFlags & ~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT)));
+
+            this.OnStateSet();
+            //this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
+
+            //if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
+            //if (newState.name == "Hitstun-Air") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
+            //if (newState.name == "GroundedThrowHit") { Debug.Log("state timer in setstate is - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
+
+        }
+
 
         public void SetPosition(FVector2 newPos) { this._rb.Position = newPos; }
 
@@ -653,14 +686,16 @@ namespace FightingGameEngine.Gameplay
 
         protected void SetCurrentResources(ResourceData newResources)
         {
-            this.status.CurrentResources = newResources;
-            this.status.CurrentResources.SetMin(this.data.MaxResources);
+            this.status.CurrentResources = newResources.SetMin(this.data.MaxResources);
+            //this.status.CurrentResources.SetMin(this.data.MaxResources);
         }
 
         protected void AddCurrentResources(ResourceData newResources)
         {
-            this.status.CurrentResources = newResources + this.status.CurrentResources;
-            this.status.CurrentResources.SetMin(this.data.MaxResources);
+            var potenResources = newResources + this.status.CurrentResources;
+            //Debug.Log("adding resources");
+            this.status.CurrentResources = potenResources.SetMin(this.data.MaxResources);
+            //Debug.Log("current resources :: " + this.status.CurrentResources.Resource1 + " | " + this.data.MaxResources.Resource1);
         }
 
         public int IsAirborne()
@@ -693,5 +728,6 @@ namespace FightingGameEngine.Gameplay
         {
             this.SetStopTimer(dur);
         }
+
     }
 }
