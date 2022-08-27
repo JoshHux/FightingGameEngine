@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
   m_Name: Airborne
   m_EditorClassIdentifier: 
+  _id:
+    ID: 0
   _parentState: {fileID: 0}
   _duration: 0
   _stateConditions: 6
@@ -49,7 +51,7 @@ MonoBehaviour:
     _skipIfSameName: 1
     _startFrame: 0
     _soundFx: 
-    _vfx: 0
+    _vfx: -1
     _vfxPosition:
       x:
         m_rawValue: 0

@@ -12,7 +12,7 @@ namespace FightingGameEngine.Data
         //position of VFX to spawn
         private Vector3 _vfxPos;
         //list of VFX objects according to ID
-        private soVFXValues _vfxValues;
+        [UnityEngine.SerializeField] private soVFXValues _vfxValues;
         
         //public GameObject VFXObject { get { return this._vfxObject; } set { this._vfxObject = value; } }
 

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_currentFacing: 1
   m_currentPosition:
     x:
-      m_rawValue: -19327352832
+      m_rawValue: -10737417792
     y:
       m_rawValue: 0
   m_currentVelocity:
@@ -80,9 +80,61 @@ MonoBehaviour:
       HoldDuration: 0
       _lenientBuffer: 0
     _recordedChanges:
-    - Input: 0
-      Flags: 0
-      HoldDuration: 308
+    - Input: 16
+      Flags: 1
+      HoldDuration: 16
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 66
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 6
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 49
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 5
+      HoldDuration: 7
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 33
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 8
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 29
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 5
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 50
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 217
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 49
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 264
       _lenientBuffer: 0
   _positionOffset:
     x:
@@ -90,3 +142,5 @@ MonoBehaviour:
     y:
       m_rawValue: 0
   m_checkState: 1
+  m_rendererInfo:
+    _vfxValues: {fileID: 11400000, guid: 6c46f8405be31834aa459829c2704ce0, type: 2}

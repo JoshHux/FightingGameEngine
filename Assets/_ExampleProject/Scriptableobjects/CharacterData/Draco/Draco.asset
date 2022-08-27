@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9567d0122b99c224cbf02ade5fac0263, type: 3}
   m_Name: Draco
   m_EditorClassIdentifier: 
+  _charName: AAAA
   _maxHp: 600
   _maxResources:
     Health: 0

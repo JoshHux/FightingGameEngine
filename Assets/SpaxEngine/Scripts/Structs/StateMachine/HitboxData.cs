@@ -68,7 +68,6 @@ namespace FightingGameEngine.Data
 
         //VFX data
         public int Hitspark;
-        public FVector3 HitsparkPos;
 
         public bool IsValid()
         {
