@@ -246,6 +246,13 @@ namespace FightingGameEngine.Gameplay
             }
         }
 
+        //fires when state is changed
+        protected override void OnStateSet()
+        {
+            base.OnStateSet();
+            OnFrameReached.Invoke(this, null);
+        }
+
 
         //list of hitboxes to process, reset every frame
         private List<HitInfo> m_hurtList;

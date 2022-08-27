@@ -420,7 +420,7 @@ namespace FightingGameEngine.Gameplay
 
         }
 
-        protected virtual void OnStateSet(){}
+        protected virtual void OnStateSet() { }
 
         //call to process try to transition the state
         protected void TryTransitionState()
@@ -618,6 +618,7 @@ namespace FightingGameEngine.Gameplay
 
             this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
 
+            this.OnStateSet();
             //if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "Hitstun-Air") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state timer in setstate is - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
@@ -644,6 +645,7 @@ namespace FightingGameEngine.Gameplay
             //remove the state end transition flag
             this.status.TransitionFlags = (TransitionFlags)((int)this.status.TransitionFlags & ~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT)));
 
+            this.OnStateSet();
             //this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
 
             //if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
