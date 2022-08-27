@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
   m_Name: TatsuSuper
   m_EditorClassIdentifier: 
+  _id:
+    ID: 0
   _parentState: {fileID: 0}
   _duration: 60
   _stateConditions: 0
@@ -131,6 +133,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox1:
         Duration: 0
         UniversalStateCause: 0
@@ -193,6 +196,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox2:
         Duration: 0
         UniversalStateCause: 0
@@ -255,6 +259,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox3:
         Duration: 0
         UniversalStateCause: 0
@@ -317,6 +322,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox4:
         Duration: 0
         UniversalStateCause: 0
@@ -379,6 +385,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox5:
         Duration: 0
         UniversalStateCause: 0
@@ -441,6 +448,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox6:
         Duration: 0
         UniversalStateCause: 0
@@ -503,6 +511,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox7:
         Duration: 0
         UniversalStateCause: 0
@@ -565,6 +574,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox8:
         Duration: 0
         UniversalStateCause: 0
@@ -627,6 +637,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox9:
         Duration: 0
         UniversalStateCause: 0
@@ -689,6 +700,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
     _hurtboxes:
       Hurtbox0:
         Position:
@@ -891,6 +903,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox1:
         Duration: 0
         UniversalStateCause: 0
@@ -953,6 +966,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox2:
         Duration: 0
         UniversalStateCause: 0
@@ -1015,6 +1029,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox3:
         Duration: 0
         UniversalStateCause: 0
@@ -1077,6 +1092,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox4:
         Duration: 0
         UniversalStateCause: 0
@@ -1139,6 +1155,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox5:
         Duration: 0
         UniversalStateCause: 0
@@ -1201,6 +1218,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox6:
         Duration: 0
         UniversalStateCause: 0
@@ -1263,6 +1281,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox7:
         Duration: 0
         UniversalStateCause: 0
@@ -1325,6 +1344,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox8:
         Duration: 0
         UniversalStateCause: 0
@@ -1387,6 +1407,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox9:
         Duration: 0
         UniversalStateCause: 0
@@ -1449,6 +1470,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
     _hurtboxes:
       Hurtbox0:
         Position:
@@ -1651,6 +1673,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox1:
         Duration: 0
         UniversalStateCause: 0
@@ -1713,6 +1736,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox2:
         Duration: 0
         UniversalStateCause: 0
@@ -1775,6 +1799,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox3:
         Duration: 0
         UniversalStateCause: 0
@@ -1837,6 +1862,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox4:
         Duration: 0
         UniversalStateCause: 0
@@ -1899,6 +1925,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox5:
         Duration: 0
         UniversalStateCause: 0
@@ -1961,6 +1988,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox6:
         Duration: 0
         UniversalStateCause: 0
@@ -2023,6 +2051,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox7:
         Duration: 0
         UniversalStateCause: 0
@@ -2085,6 +2114,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox8:
         Duration: 0
         UniversalStateCause: 0
@@ -2147,6 +2177,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox9:
         Duration: 0
         UniversalStateCause: 0
@@ -2209,6 +2240,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
     _hurtboxes:
       Hurtbox0:
         Position:
@@ -2411,6 +2443,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox1:
         Duration: 0
         UniversalStateCause: 0
@@ -2473,6 +2506,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox2:
         Duration: 0
         UniversalStateCause: 0
@@ -2535,6 +2569,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox3:
         Duration: 0
         UniversalStateCause: 0
@@ -2597,6 +2632,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox4:
         Duration: 0
         UniversalStateCause: 0
@@ -2659,6 +2695,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox5:
         Duration: 0
         UniversalStateCause: 0
@@ -2721,6 +2758,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox6:
         Duration: 0
         UniversalStateCause: 0
@@ -2783,6 +2821,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox7:
         Duration: 0
         UniversalStateCause: 0
@@ -2845,6 +2884,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox8:
         Duration: 0
         UniversalStateCause: 0
@@ -2907,6 +2947,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox9:
         Duration: 0
         UniversalStateCause: 0
@@ -2969,6 +3010,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
     _hurtboxes:
       Hurtbox0:
         Position:
@@ -3089,4 +3131,18 @@ MonoBehaviour:
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 
-    _vfx: 
+    _vfx: -1
+    _vfxPosition:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _vfxRotation:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0

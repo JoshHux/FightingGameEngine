@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
   m_Name: Stun-Air
   m_EditorClassIdentifier: 
+  _id:
+    ID: 0
   _parentState: {fileID: 0}
   _duration: 0
   _stateConditions: 67108868
+  _toggleState: 0
   _cancels: 0
+  _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions: []
@@ -23,7 +27,23 @@ MonoBehaviour:
   _animation:
   - _atFrame: 1
     _animationName: 
+    _animationSpeed:
+      m_rawValue: 4294967296
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 
-    _vfx: 
+    _vfx: -1
+    _vfxPosition:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _vfxRotation:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0

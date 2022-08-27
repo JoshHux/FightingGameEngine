@@ -144,9 +144,8 @@ namespace FightingGameEngine.Gameplay
 
                     //set hitspark
                     this.status.RendererInfo.VFXID = boxData.Hitspark;
-                    //convert FVector3 to Vector3
-                    Vector3 vfxPos = new Vector3((float)boxData.HitsparkPos.x, (float)boxData.HitsparkPos.y, (float)boxData.HitsparkPos.z);
-                    this.status.RendererInfo.VFXPos = vfxPos;
+                    this.status.RendererInfo.VFXPos = hold.ContactLoc;
+                    print(hold.ContactLoc);
                 }
                 i++;
             }
