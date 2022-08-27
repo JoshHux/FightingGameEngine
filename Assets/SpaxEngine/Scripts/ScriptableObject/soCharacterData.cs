@@ -9,7 +9,7 @@ namespace FightingGameEngine.Data
     public class soCharacterData : ScriptableObject
     {
 
-        [SerializeField] private string _charName="AAAA";
+        [SerializeField] private string _charName = "AAAA";
         [SerializeField] private int _maxHp;
         [SerializeField] private ResourceData _maxResources;
         [SerializeField] private Fix64 _mass;
@@ -59,6 +59,7 @@ namespace FightingGameEngine.Data
             }
         }
 #endif
+
         public TransitionData CheckMoveList(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
@@ -90,6 +91,22 @@ namespace FightingGameEngine.Data
             //if (ret != null && ret.TargetState != null && ret.TargetState.name == "Grab-Back") { Debug.Log("found it"); }
 
             return ret;
+        }
+
+        public soStateData GetStateFromID(StateID id)
+        {
+            int i = 0;
+            int len = this._stateList.Length;
+
+            while (i < len)
+            {
+                var hold = this._stateList[i];
+
+                if (hold.StateID == id) { return hold; }
+                i++;
+            }
+
+            return null;
         }
 
     }
