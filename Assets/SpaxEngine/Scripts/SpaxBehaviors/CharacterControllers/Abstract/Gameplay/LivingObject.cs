@@ -36,7 +36,7 @@ namespace FightingGameEngine.Gameplay
 
 
             //assign default values from character's data
-            this.status.CurrentHP = this.data.MaxHP;
+            this.status.CurrentHP = this.data.MaxResources.Health;
             this.status.CurrentGravity = this.data.Mass;
             this.status.CurrentFacingDirection = -1;
         }
@@ -51,6 +51,10 @@ namespace FightingGameEngine.Gameplay
             var defaultState = this.data.StateList[0];
             //set the default state
             this.SetStateRaw(defaultState);
+
+            //set starting resources
+            this.status.CurrentResources = this.data.StartingResources;
+
         }
 
         protected override void StateUpdate()

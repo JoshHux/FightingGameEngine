@@ -229,8 +229,8 @@ namespace Spax
             GetLivingObjectByID(0).SetPosition(new FVector2(5,0));
             GetLivingObjectByID(1).SetPosition(new FVector2(-5,0));
 
-            P1Status.CurrentHP = P1Data.MaxHP;
-            P2Status.CurrentHP = P2Data.MaxHP;
+            P1Status.CurrentHP = P1Data.MaxResources.Health;
+            P2Status.CurrentHP = P2Data.MaxResources.Health;
             //0 = P1, 1 = P2 to match player IDs and also lol programming counting
             if(lostPlayer == 0){
                 P2UI.WinRound();
