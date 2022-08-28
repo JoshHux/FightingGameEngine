@@ -13,7 +13,16 @@ MonoBehaviour:
   m_Name: Draco
   m_EditorClassIdentifier: 
   _charName: AAAA
-  _maxHp: 600
+  _startingResources:
+    Health: 600
+    Meter: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+    Resource4: 0
+    Resource5: 0
+    Resource6: 0
+    Resource7: 0
   _maxResources:
     Health: 600
     Meter: 0

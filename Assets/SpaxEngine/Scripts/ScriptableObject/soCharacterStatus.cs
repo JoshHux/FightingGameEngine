@@ -44,8 +44,12 @@ namespace FightingGameEngine.Data
         [SerializeField] private FVector2 _positionOffset;
         //whether or not we should check for a transition to a new state
         [SerializeField] private bool m_checkState;
-
+        //to hold character's VFX and render info
         [SerializeField] private RendererInfo m_rendererInfo;
+        //damage scaling for combos
+        [SerializeField] private Fix64 m_currentDamageScaling;
+        [SerializeField] private Fix64 m_storedDamageScaling;
+
 
         public int Allegiance { get { return this._allegiance; } set { this._allegiance = value; } }
         public int PlayerID { get { return this._playerId; } }
@@ -109,6 +113,9 @@ namespace FightingGameEngine.Data
         public InputItem[] Inputs { get { return this._inputRecorder.GetInputs(); } }
 
         public RendererInfo RendererInfo { get { return this.m_rendererInfo; } set { this.m_rendererInfo = value; } } 
+
+        public Fix64 CurrentDamageScaling { get { return this.m_currentDamageScaling; } set { this.m_currentDamageScaling = value; } }
+        public Fix64 StoredDamageScaling { get { return this.m_storedDamageScaling; } set { this.m_storedDamageScaling = value; } }
 
         //gets the total velocity that will be assigned to the rigidbody
         public FVector2 TotalVelocity

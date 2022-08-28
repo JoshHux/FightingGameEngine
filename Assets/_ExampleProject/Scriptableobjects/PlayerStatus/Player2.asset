@@ -37,16 +37,16 @@ MonoBehaviour:
     _timeElapsed: 0
     _endTime: 0
     _stateConditions: 0
-  m_currentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
-  m_currentConditions: 8388725
-  m_transitionFlags: 1073741825
-  m_cancelFlags: 4294967295
+  m_currentState: {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
+  m_currentConditions: 6
+  m_transitionFlags: 2
+  m_cancelFlags: 1
   m_currentFacing: -1
   m_currentPosition:
     x:
-      m_rawValue: -10737417792
+      m_rawValue: -19327352832
     y:
-      m_rawValue: 0
+      m_rawValue: 12383822848
   m_currentVelocity:
     x:
       m_rawValue: 0
@@ -80,61 +80,9 @@ MonoBehaviour:
       HoldDuration: 0
       _lenientBuffer: 0
     _recordedChanges:
-    - Input: 16
-      Flags: 1
-      HoldDuration: 16
-      _lenientBuffer: 0
-    - Input: 16
-      Flags: 6
-      HoldDuration: 66
-      _lenientBuffer: 0
-    - Input: 8
-      Flags: 1
-      HoldDuration: 6
-      _lenientBuffer: 0
-    - Input: 8
-      Flags: 6
-      HoldDuration: 49
-      _lenientBuffer: 0
-    - Input: 8
-      Flags: 5
-      HoldDuration: 7
-      _lenientBuffer: 0
-    - Input: 8
-      Flags: 6
-      HoldDuration: 33
-      _lenientBuffer: 0
-    - Input: 16
-      Flags: 1
-      HoldDuration: 8
-      _lenientBuffer: 0
-    - Input: 16
-      Flags: 6
-      HoldDuration: 29
-      _lenientBuffer: 0
-    - Input: 16
-      Flags: 5
-      HoldDuration: 4
-      _lenientBuffer: 0
-    - Input: 16
-      Flags: 6
-      HoldDuration: 50
-      _lenientBuffer: 0
-    - Input: 8
-      Flags: 1
-      HoldDuration: 3
-      _lenientBuffer: 0
-    - Input: 8
-      Flags: 6
-      HoldDuration: 217
-      _lenientBuffer: 0
-    - Input: 2
-      Flags: 1
-      HoldDuration: 49
-      _lenientBuffer: 0
-    - Input: 2
-      Flags: 6
-      HoldDuration: 264
+    - Input: 0
+      Flags: 0
+      HoldDuration: 1
       _lenientBuffer: 0
   _positionOffset:
     x:
@@ -144,3 +92,7 @@ MonoBehaviour:
   m_checkState: 1
   m_rendererInfo:
     _vfxValues: {fileID: 11400000, guid: 6c46f8405be31834aa459829c2704ce0, type: 2}
+  m_currentDamageScaling:
+    m_rawValue: 0
+  m_storedDamageScaling:
+    m_rawValue: 0

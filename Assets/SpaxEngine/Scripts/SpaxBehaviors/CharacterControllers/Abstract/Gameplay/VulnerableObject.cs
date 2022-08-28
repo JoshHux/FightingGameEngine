@@ -416,15 +416,23 @@ namespace FightingGameEngine.Gameplay
             var toAdd = new HitInfo(boxData.HitboxData, ret, boxData.ContactLoc, boxData.OtherOwner);
 
 
-
             //make sure we only are hit by the hitbox WITH THE HIGHEST priority if hit by multiple hitboxes from the same object
             var existsTarget = this.m_hurtList.Find(o => o.OtherOwner == toAdd.OtherOwner);
             if (existsTarget == null)
             {
                 //Debug.Log("add to list");
 
-                //add to list of hitboxes to process
-                this.m_hurtList.Add(toAdd);
+                
+                //if hitbox is grab, clear the other objects to query so that character doesn't get hit by both grab and strike
+                if((uint)(existsTarget.HitboxData.Type & HitboxType.GRAB) != 0){ //notation correct?
+                    this.m_hurtList.Insert(0,existsTarget);
+                    this.m_hurtList.RemoveRange(1,this.m_hurtList.Count - 1);
+                    this.m_hurtList.Add(toAdd);
+                }
+                else{
+                    //add to list of hitboxes to process
+                    this.m_hurtList.Add(toAdd);
+                }
 
             }
             else

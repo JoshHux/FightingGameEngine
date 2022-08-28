@@ -25,6 +25,9 @@ namespace FightingGameEngine.Gameplay
                 box.SetTriggerAllegiance(this.status.Allegiance);
                 //we don't need to hook the delegate, since the boxes do it themselves on start
             }
+
+            this.status.CurrentDamageScaling = 1;
+            this.status.StoredDamageScaling = 1;
         }
 
         protected override void HitboxQueryUpdate()
