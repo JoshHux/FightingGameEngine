@@ -32,7 +32,7 @@ namespace FlatPhysics.Unity
             this._timeStep = (Fix64)1 / (Fix64)60;
         }
 
-        void FixedUpdate()
+        void Update()
         {
             this._world.Step(this._timeStep, 128);
         }

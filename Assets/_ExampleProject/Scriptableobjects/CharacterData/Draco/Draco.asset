@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9567d0122b99c224cbf02ade5fac0263, type: 3}
   m_Name: Draco
   m_EditorClassIdentifier: 
+  _charName: AAAA
   _maxHp: 600
   _maxResources:
     Health: 0
@@ -30,9 +31,9 @@ MonoBehaviour:
   _friction:
     m_rawValue: 4294967296
   _walkAccel:
-    m_rawValue: 21474836480
+    m_rawValue: 429496729600
   _walkMaxSpd:
-    m_rawValue: 21474836480
+    m_rawValue: 429496729600
   _runAccel:
     m_rawValue: 429496729600
   _runMaxSpd:
