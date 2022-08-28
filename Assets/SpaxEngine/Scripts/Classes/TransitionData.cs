@@ -116,7 +116,7 @@ namespace FightingGameEngine.Data
                 bool reqHold = (reqHoldDur > 0);
 
                 //if the number of frames passed since the last valid input is more than the input leniency, then break
-                bool tooLongSinceLastInput = /*(j > 0) &&*/(!reqHold) && (sinceLastMatch > inputLeniency);
+                bool tooLongSinceLastInput = /*(j > 0) &&(!reqHold) &&*/ (sinceLastMatch > inputLeniency);
 
                 //player's buttons
                 uint playerItemBtn = (uint)(curPlayerItem.Input & InputEnum.BUTTONS);
@@ -192,18 +192,22 @@ namespace FightingGameEngine.Data
                     int k = i + 1;
                     //filter the flags to make looking for the press/release we're looking for
                     var lookForFlag = InputFlags.PRESSED;
+                    var lookForFlag2 = InputFlags.RELEASED;
 
                     //amount of frames held
                     int kHeldFrames = 0;
+                    //Debug.Log("overall check :: " + overallCheck + " | required lenient direction :: " + (!(reqHas4wayFlag || checkUp)) + " | 4way :: " + EnumHelper.HasEnum(reqFlagsRaw, (uint)InputFlags.DIR_4WAY, true) + " | check up :: " + checkUp);
+                    //Debug.Log("required flags :: " + reqFlagsRaw + " | required buttons :: " + reqBtn + " | required direction :: " + reqDir);
+                    //Debug.Log("player flags :: " + playerItemFlags + " | player buttons :: " + playerItemBtn + " | player direction :: " + playerItemDir);
+                    //Debug.Log("passed input leniency check | flag check :: " + checkHasFlags + " | input check :: " + checkInput + " | direction check :: " + (EnumHelper.HasEnum((uint)playerItemDir, (uint)reqDir, (!(reqHas4wayFlag || checkUp)))));
+                    //Debug.Log("button check - p :: " + playerItemBtn + " | r :: " + reqBtn + " - " + checkInputBtn);
 
                     //-1 is so we dodge the first neutral item
-                    while ((k < (playerInputLen)) && !(kHeldFrames >= reqHoldDur))
+                    while ((k < (playerInputLen)) && (kHeldFrames < reqHoldDur))
                     {
                         //current player input item we're looking at
                         var kCurPlayerItem = playerInputs[k];
 
-                        //add the amount of frames held
-                        kHeldFrames += kCurPlayerItem.HoldDuration;
 
                         //player's buttons
                         var kPlayerItemBtn = kCurPlayerItem.Input & InputEnum.BUTTONS;
@@ -217,6 +221,14 @@ namespace FightingGameEngine.Data
                         bool kCheckInputBtn = EnumHelper.HasEnum((uint)kPlayerItemBtn, reqBtn, true);
                         //      check the directions, we do a lenient check if the required flags DOES INCLUDE the 4way flag
                         bool kCheckInput = kCheckHasFlags && kCheckInputBtn && EnumHelper.HasEnum((uint)kPlayerItemDir, reqDir, !reqHas4wayFlag);
+
+                        //if we found a released flag we immediately want to end the loop, released means that we ended the charge WITHOUT adding the duration of that input
+                        bool kCheckHasReleasedFlags = EnumHelper.HasEnum((uint)kCurPlayerItem.Flags, (uint)lookForFlag2, true) && kCheckInputBtn && EnumHelper.HasEnum((uint)kPlayerItemDir, reqDir, !reqHas4wayFlag);
+
+                        if (kCheckHasReleasedFlags) { break; }
+
+                        //no reason to break the charge, add the amount of frames held
+                        kHeldFrames += kCurPlayerItem.HoldDuration;
 
                         //Debug.Log("hold check loop - " + k + " | adding : " + kCurPlayerItem.HoldDuration);
                         //Debug.Log("button check :: " + kCheckInputBtn + " | flag check :: " + kCheckHasFlags + " | direction check :: " + EnumHelper.HasEnum((uint)kPlayerItemDir, (uint)(reqItem.Input & InputEnum.DIRECTIONS), !reqHas4wayFlag) + " | 4way? :: " + reqHas4wayFlag);

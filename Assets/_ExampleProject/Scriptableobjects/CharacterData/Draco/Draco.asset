@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: Draco
   m_EditorClassIdentifier: 
   _charName: AAAA
-  _maxHp: 600
+  _startingResources:
+    Health: 600
+    Meter: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+    Resource4: 0
+    Resource5: 0
+    Resource6: 0
+    Resource7: 0
   _maxResources:
-    Health: 0
+    Health: 600
     Meter: 0
     Resource1: 0
     Resource2: 0
@@ -31,9 +40,9 @@ MonoBehaviour:
   _friction:
     m_rawValue: 4294967296
   _walkAccel:
-    m_rawValue: 429496729600
+    m_rawValue: 21474836480
   _walkMaxSpd:
-    m_rawValue: 429496729600
+    m_rawValue: 21474836480
   _runAccel:
     m_rawValue: 429496729600
   _runMaxSpd:

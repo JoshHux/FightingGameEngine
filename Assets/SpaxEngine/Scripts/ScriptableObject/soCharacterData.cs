@@ -9,8 +9,8 @@ namespace FightingGameEngine.Data
     public class soCharacterData : ScriptableObject
     {
 
-        [SerializeField] private string _charName="AAAA";
-        [SerializeField] private int _maxHp;
+        [SerializeField] private string _charName = "AAAA";
+        [SerializeField] private ResourceData _startingResources;
         [SerializeField] private ResourceData _maxResources;
         [SerializeField] private Fix64 _mass;
         [SerializeField] private Fix64 _juggleMass;
@@ -23,7 +23,6 @@ namespace FightingGameEngine.Data
         [SerializeField] private soVFXValues _vfxValues;
         [SerializeField] private soStateData[] _stateList;
         [SerializeField] private List<TransitionData> _moveList;
-        public int MaxHP { get { return this._maxHp; } }
         public Fix64 Mass { get { return this._mass; } }
         public Fix64 Friction { get { return this._friction; } }
         public Fix64 WalkAccel { get { return this._walkAccel; } }
@@ -32,6 +31,7 @@ namespace FightingGameEngine.Data
         public Fix64 RunMaxSpd { get { return this._runMaxSpd; } }
         public Fix64 FallMaxSpd { get { return this._fallMaxSpd; } }
         public soVFXValues VFXValues { get { return this._vfxValues; } }
+        public ResourceData StartingResources { get { return this._startingResources; } }
         public ResourceData MaxResources { get { return this._maxResources; } }
         public soStateData[] StateList { get { return this._stateList; } }
         public TransitionData[] MoveList { get { return this._moveList.ToArray(); } }
@@ -59,6 +59,7 @@ namespace FightingGameEngine.Data
             }
         }
 #endif
+
         public TransitionData CheckMoveList(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
@@ -90,6 +91,22 @@ namespace FightingGameEngine.Data
             //if (ret != null && ret.TargetState != null && ret.TargetState.name == "Grab-Back") { Debug.Log("found it"); }
 
             return ret;
+        }
+
+        public soStateData GetStateFromID(StateID id)
+        {
+            int i = 0;
+            int len = this._stateList.Length;
+
+            while (i < len)
+            {
+                var hold = this._stateList[i];
+
+                if (hold.StateID == id) { return hold; }
+                i++;
+            }
+
+            return null;
         }
 
     }

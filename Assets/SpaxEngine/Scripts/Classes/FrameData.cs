@@ -41,7 +41,6 @@ namespace FightingGameEngine.Data
         public FrameEventData TimerEvent { get { return this._timerEvents; } }
         public ProjectileEvent[] Projectiles { get { return this._projectiles; } }
 
-
         //returns whether or not this frame has a projectiles to spawn
         public bool HasProjectile()
         {

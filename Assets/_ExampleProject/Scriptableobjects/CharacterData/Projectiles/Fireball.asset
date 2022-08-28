@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9567d0122b99c224cbf02ade5fac0263, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  _charName: AAAA
   _maxHp: 1
   _maxResources:
     Health: 0
@@ -25,6 +26,8 @@ MonoBehaviour:
     Resource7: 0
   _mass:
     m_rawValue: 0
+  _juggleMass:
+    m_rawValue: 0
   _friction:
     m_rawValue: 0
   _walkAccel:
@@ -37,6 +40,7 @@ MonoBehaviour:
     m_rawValue: 0
   _fallMaxSpd:
     m_rawValue: 0
+  _vfxValues: {fileID: 0}
   _stateList:
   - {fileID: 11400000, guid: 3c243ab43815d934abb001d9f77f60e5, type: 2}
   - {fileID: 11400000, guid: 7abf68b3ba82cb94d8c9a6ed9e76dbee, type: 2}

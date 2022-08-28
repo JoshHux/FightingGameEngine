@@ -17,7 +17,7 @@ MonoBehaviour:
   m_currentResources:
     Health: 600
     Meter: 0
-    Resource1: 1
+    Resource1: 0
     Resource2: 0
     Resource3: 0
     Resource4: 0
@@ -39,9 +39,9 @@ MonoBehaviour:
     _stateConditions: 0
   m_currentState: {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}
   m_currentConditions: 114
-  m_transitionFlags: 1073741825
+  m_transitionFlags: 1
   m_cancelFlags: 4294967295
-  m_currentFacing: 1
+  m_currentFacing: -1
   m_currentPosition:
     x:
       m_rawValue: 4294967296
@@ -90,3 +90,9 @@ MonoBehaviour:
     y:
       m_rawValue: 0
   m_checkState: 1
+  m_rendererInfo:
+    _vfxValues: {fileID: 11400000, guid: 6c46f8405be31834aa459829c2704ce0, type: 2}
+  m_currentDamageScaling:
+    m_rawValue: 0
+  m_storedDamageScaling:
+    m_rawValue: 0

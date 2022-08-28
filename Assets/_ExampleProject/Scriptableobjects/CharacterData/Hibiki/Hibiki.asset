@@ -12,9 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9567d0122b99c224cbf02ade5fac0263, type: 3}
   m_Name: Hibiki
   m_EditorClassIdentifier: 
-  _maxHp: 600
+  _charName: HBKI
+  _startingResources:
+    Health: 600
+    Meter: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+    Resource4: 0
+    Resource5: 0
+    Resource6: 0
+    Resource7: 0
   _maxResources:
-    Health: 0
+    Health: 600
     Meter: 0
     Resource1: 0
     Resource2: 0
@@ -39,6 +49,7 @@ MonoBehaviour:
     m_rawValue: 429496729600
   _fallMaxSpd:
     m_rawValue: 429496729600
+  _vfxValues: {fileID: 11400000, guid: 6c46f8405be31834aa459829c2704ce0, type: 2}
   _stateList:
   - {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
   - {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
@@ -48,6 +59,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9bbea489f0db62f45aae88b78a85df55, type: 2}
   - {fileID: 11400000, guid: 29125816607ae3f4b968e3849be93d5d, type: 2}
   - {fileID: 11400000, guid: a97ed7c3067b6a249b79af25d7edf77c, type: 2}
+  - {fileID: 11400000, guid: b0db58909e93d1043922300730fdbb0e, type: 2}
+  - {fileID: 11400000, guid: ce03797e588230b4cb160a994392f9ed, type: 2}
+  - {fileID: 11400000, guid: 2ae2af20a94a28c42b8847d0c5cc11aa, type: 2}
+  - {fileID: 11400000, guid: 6dd38eca16f64c54ba9503a6c27c2825, type: 2}
+  - {fileID: 11400000, guid: b3b437f0bb1f27142a5f58733927a6a0, type: 2}
+  - {fileID: 11400000, guid: b5011c0a00b139c49a1168ae661bdecb, type: 2}
+  - {fileID: 11400000, guid: 7644e2bb656dda24c9e77be374861d70, type: 2}
   _moveList:
   - _targetState: {fileID: 11400000, guid: f35299342e97d984fb11155d0908426d, type: 2}
     _targetStateIndex: -1

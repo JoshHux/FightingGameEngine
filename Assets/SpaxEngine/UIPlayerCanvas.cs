@@ -24,7 +24,7 @@ public class UIPlayerCanvas : MonoBehaviour
 
     void Start()
     {
-        MaxHealth = CharData.MaxHP;
+        MaxHealth = CharData.MaxResources.Health;
         HealthValue = MaxHealth;
         //reset round counters
         foreach(Image counter in RoundCounters){

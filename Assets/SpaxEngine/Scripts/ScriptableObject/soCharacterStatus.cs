@@ -44,8 +44,12 @@ namespace FightingGameEngine.Data
         [SerializeField] private FVector2 _positionOffset;
         //whether or not we should check for a transition to a new state
         [SerializeField] private bool m_checkState;
-
+        //to hold character's VFX and render info
         [SerializeField] private RendererInfo m_rendererInfo;
+        //damage scaling for combos
+        [SerializeField] private Fix64 m_currentDamageScaling;
+        [SerializeField] private Fix64 m_storedDamageScaling;
+
 
         public int Allegiance { get { return this._allegiance; } set { this._allegiance = value; } }
         public int PlayerID { get { return this._playerId; } }
@@ -74,7 +78,7 @@ namespace FightingGameEngine.Data
             get { return this.m_cancelFlags; }
             set
             {
-                this.m_checkState = true;
+                //this.m_checkState = true;
                 this.m_cancelFlags = value;
             }
         }
@@ -83,7 +87,7 @@ namespace FightingGameEngine.Data
             get { return this.m_currentResources; }
             set
             {
-                this.m_checkState = true;
+                //this.m_checkState = true;
                 this.m_currentResources = value;
             }
         }
@@ -102,17 +106,16 @@ namespace FightingGameEngine.Data
 
 
         //we determine whether we check the state here
-        public bool CheckState { get { return this.m_checkState; } set { this.m_checkState = value; } }
-
-        //anchor for our position when we are grabbed
-        public FlatPhysics.FlatBody PositionAnchor { get { return this._positionAnchor; } }
-        public FVector2 PositionOffset { get { return this._positionOffset; } }
+        //public bool CheckState { get { return this.m_checkState; } set { this.m_checkState = value; } }
 
         //for easy access from the InputRecorder object
         public InputItem CurrentControllerState { get { return this._inputRecorder.CurrentControllerState; } set { this._inputRecorder.CurrentControllerState = value; } }
         public InputItem[] Inputs { get { return this._inputRecorder.GetInputs(); } }
 
         public RendererInfo RendererInfo { get { return this.m_rendererInfo; } set { this.m_rendererInfo = value; } } 
+
+        public Fix64 CurrentDamageScaling { get { return this.m_currentDamageScaling; } set { this.m_currentDamageScaling = value; } }
+        public Fix64 StoredDamageScaling { get { return this.m_storedDamageScaling; } set { this.m_storedDamageScaling = value; } }
 
         //gets the total velocity that will be assigned to the rigidbody
         public FVector2 TotalVelocity

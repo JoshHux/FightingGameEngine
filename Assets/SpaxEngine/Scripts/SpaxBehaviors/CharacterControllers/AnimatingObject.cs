@@ -54,18 +54,21 @@ namespace FightingGameEngine.Gameplay
             var newScale = new Vector3(facingDir, rendererScale.y, rendererScale.z);
             this.transform.localScale = newScale;
 
-            if(this._status.RendererInfo.VFXID > 0){
+            if(this._status.RendererInfo.VFXID >= 0){
                 //convert player position to Vector3
                 Vector3 playerPos = new Vector3((float)this._status.CurrentPosition.x, (float)this._status.CurrentPosition.y, 0);
                 //shortcut
                 RendererInfo ri = this._status.RendererInfo; 
-                Instantiate(ri.VFXValues.VFXList[ri.VFXID], playerPos + ri.VFXPos, Quaternion.identity);
+                print(this._status);
+                Instantiate(ri.VFXValues.VFXList[ri.VFXID], ri.VFXPos, Quaternion.identity);
+                this._status.RendererInfo.VFXID = -1; 
             }
             
         }
         protected override void PostRenderUpdate() 
         { 
-            this._status.RendererInfo = new RendererInfo(0, Vector3.zero);
+            print("post render");
+            this._status.RendererInfo = new RendererInfo(-1, Vector3.zero);
         }
 
         //call to process a given animationFrameData
@@ -105,7 +108,7 @@ namespace FightingGameEngine.Gameplay
 
             }
 
-            if (afd.VFX > 0)
+            if (afd.VFX >= 0)
             {
                 Vector3 spawnPos = new Vector3((float)afd.VFXPosition.x, (float)afd.VFXPosition.y, (float)afd.VFXPosition.z);
                 Vector3 playerPos = new Vector3((float)this._status.CurrentPosition.x, (float)this._status.CurrentPosition.y, 0);
