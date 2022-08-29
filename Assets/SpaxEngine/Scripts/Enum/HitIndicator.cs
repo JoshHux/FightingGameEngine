@@ -12,6 +12,7 @@ namespace FightingGameEngine.Enum
         GRABBED = 1 << 3,
         SUPER = 1 << 4,
         CLASH = 1 << 5,
+        COMBO = 1 << 6,
 
 
     }

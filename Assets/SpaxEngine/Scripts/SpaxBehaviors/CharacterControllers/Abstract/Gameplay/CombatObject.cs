@@ -126,6 +126,7 @@ namespace FightingGameEngine.Gameplay
             len = processList.Count;
             while (i < len)
             {
+                //holds the current HitInfo object
                 var hold = processList[i];
 
                 var hitIndicator = hold.Indicator;
@@ -134,12 +135,21 @@ namespace FightingGameEngine.Gameplay
                 int blocked = (int)EnumHelper.isNotZero((uint)(hitIndicator & HitIndicator.BLOCKED));
                 // did we land a grab?
                 int grabbed = (int)EnumHelper.isNotZero((uint)(hitIndicator & HitIndicator.GRABBED));
+                //is it a combo hit?
+                int comboed = (int)EnumHelper.isNotZero((uint)(hitIndicator & HitIndicator.COMBO));
                 //unblocked hit
                 int rawHit = blocked ^ 1;
                 //we landed a strike
                 this.landedStrikeThisFrame = grabbed == 0 && rawHit > 0;
 
+                if(comboed == 0){
+                    this.status.CurrentDamageScaling = 1;
+                }
 
+                //multiply hitbox's scaling with stored scaling for every box that isn't blocked
+                if(blocked == 0){
+                    this.status.StoredDamageScaling *= hold.HitboxData.ForcedProration;
+                }
 
 
                 //set hitstop
@@ -147,7 +157,6 @@ namespace FightingGameEngine.Gameplay
                 this.SetStopTimer(potenHitstop);
 
                 this.AddCurrentResources(hold.HitboxData.ResourceChange);
-                this.status.CurrentHP -= hold.HitboxData.Damage; // deal damage?
                 this.status.CancelFlags |= (hold.HitboxData.OnHitCancel);
 
                 if (EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.COUNTER_HIT))
@@ -164,6 +173,14 @@ namespace FightingGameEngine.Gameplay
                 i++;
             }
 
+        }
+
+        //fires when state is changed
+        protected override void OnStateSet()
+        {
+            base.OnStateSet();
+            this.status.CurrentDamageScaling *= this.status.StoredDamageScaling;
+            this.status.StoredDamageScaling = 1;
         }
 
 
