@@ -266,6 +266,13 @@ namespace FightingGameEngine.Gameplay
         public HitIndicator AddHitboxToQuery(HitInfo boxData)
         {
             HitIndicator ret = HitIndicator.WHIFF;
+
+            var hasGrab = this.m_hurtList.Find(hold => hold.HitboxData.Type == HitboxType.GRAB);
+            if(hasGrab != null)
+            {
+                return ret;
+            }
+
             /*--- our state condition info ---*/
 
             //current state conditions we process
