@@ -123,6 +123,7 @@ namespace FightingGameEngine.Gameplay
 
             //apply the total velocity to the rigidbody
             this._rb.Velocity = this.status.TotalVelocity;
+            this._rb.Position = this.status.CurrentPosition;
 
 
             //set CalcVelocity to 0 to prevent any extra changes to velocity on the next frame

@@ -2,7 +2,7 @@ using FixMath.NET;
 using FightingGameEngine.Enum;
 namespace FightingGameEngine.Data
 {
-    
+
     [System.Serializable]
     public struct GameplayState
     {
@@ -14,6 +14,7 @@ namespace FightingGameEngine.Data
         public StateConditions PersistSttCond;
         public TimerInfo StateTimer;
         public TimerInfo StopTimer;
+        public TimerInfo FlashTimer;
         public TimerInfo PersistTimer;
         public TransitionFlags TransitionFlags;
         public CancelConditions CancelFlags;
@@ -29,6 +30,7 @@ namespace FightingGameEngine.Data
         public int WallBounces;
         public Fix64 WallBounceScaling;
         public InputItem CurrentControllerState;
+        public int FacingDir;
 
         public GameplayState(soCharacterStatus status)
         {
@@ -38,6 +40,7 @@ namespace FightingGameEngine.Data
             this.PersistSttCond = status.ConditionTimer.StateConditions;
             this.StateTimer = new TimerInfo(status.StateTimer);
             this.StopTimer = new TimerInfo(status.StopTimer);
+            this.FlashTimer = new TimerInfo(status.SuperFlashTimer);
             this.PersistTimer = new TimerInfo(status.ConditionTimer);
             this.CancelFlags = status.CancelFlags;
             this.TransitionFlags = status.TransitionFlags;
@@ -51,6 +54,7 @@ namespace FightingGameEngine.Data
             this.WallBounces = status.WallBounces;
             this.WallBounceScaling = status.WallBounceScaling;
             this.CurrentControllerState = status.CurrentControllerState;
+            this.FacingDir = status.CurrentFacingDirection;
         }
     }
 }

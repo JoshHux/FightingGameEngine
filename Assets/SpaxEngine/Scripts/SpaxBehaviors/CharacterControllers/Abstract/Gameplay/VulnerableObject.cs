@@ -256,7 +256,7 @@ namespace FightingGameEngine.Gameplay
         protected override void OnStateSet()
         {
             base.OnStateSet();
-            OnFrameReached.Invoke(this, null);
+            this.OnFrameReached?.Invoke(this, null);
         }
 
 

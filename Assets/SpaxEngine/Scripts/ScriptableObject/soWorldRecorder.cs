@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace FightingGameEngine.Data
 {
+    [CreateAssetMenu(fileName = "WorldStates", menuName = "WorldStates", order = 1)]
     public class soWorldRecorder : ScriptableObject
     {
         [SerializeField] private List<WorldState> _worldStates;

@@ -82,6 +82,10 @@ namespace Spax
 
         [Space(30)]
         [SerializeField] private soWorldRecorder _worldStates;
+        [SerializeField] private bool _recordWorld;
+
+
+
 
         void Awake()
         {
@@ -89,6 +93,7 @@ namespace Spax
             Application.targetFrameRate = 60;
 
             this._players = new List<FightingCharacterController>();
+            this._worldStates.Init();
             //test.Initialize();
             //initialize physics world stuff
             //collision layer stuff
@@ -170,6 +175,7 @@ namespace Spax
 
         private void GameplayUpdate()
         {
+            if (this._recordWorld) { this._worldStates.AddWorldState(new WorldState(this.P1Status, this.P2Status)); }
             InputUpdate?.Invoke();
             StateUpdate?.Invoke();
             StateCleanUpdate?.Invoke();
