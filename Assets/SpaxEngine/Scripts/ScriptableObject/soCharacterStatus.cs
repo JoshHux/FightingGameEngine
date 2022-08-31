@@ -112,7 +112,7 @@ namespace FightingGameEngine.Data
         public InputItem CurrentControllerState { get { return this._inputRecorder.CurrentControllerState; } set { this._inputRecorder.CurrentControllerState = value; } }
         public InputItem[] Inputs { get { return this._inputRecorder.GetInputs(); } }
 
-        public RendererInfo RendererInfo { get { return this.m_rendererInfo; } set { this.m_rendererInfo = value; } } 
+        public RendererInfo RendererInfo { get { return this.m_rendererInfo; } set { this.m_rendererInfo = value; } }
 
         public Fix64 CurrentDamageScaling { get { return this.m_currentDamageScaling; } set { this.m_currentDamageScaling = value; } }
         public Fix64 StoredDamageScaling { get { return this.m_storedDamageScaling; } set { this.m_storedDamageScaling = value; } }
@@ -135,9 +135,29 @@ namespace FightingGameEngine.Data
         {
             this.m_checkState = this._inputRecorder.BufferInput(bufferLeniency);
         }
-        public void SetAnchor(FlatPhysics.FlatBody newAnchor) { this._positionAnchor = newAnchor; }
-        public void SetOffset(FVector2 newOffset) { this._positionOffset = newOffset; }
+
+        public void ApplyGameplayState(GameplayState state)
+        {
+            this.m_calcVelocity = state.PhysicsData.CalcVelocity;
+            this.m_currentVelocity = state.PhysicsData.CurrentVelocity;
+            this.m_currentPosition = state.PhysicsData.CurrentPosition;
+
+            this.m_cancelFlags = state.CancelFlags;
+            this.m_comboCount = state.CurrentComboCount;
+            this.m_currentConditions = state.CurrentStateConditions;
+            this.m_currentDamageScaling = state.CurrentProration;
+            this.m_currentFacing = state.FacingDir;
+            this.m_currentGravity = state.CurrentGravity;
+            this.m_currentResources = state.CurrentResources;
+
+            this.m_stateTimer = new FrameTimer(state.StateTimer.EndTime, state.StateTimer.TimeElapsed);
+            this.m_stopTimer = new FrameTimer(state.StopTimer.EndTime, state.StopTimer.TimeElapsed);
+            this.m_superFlashTimer = new FrameTimer(state.FlashTimer.EndTime, state.FlashTimer.TimeElapsed);
+            this.m_conditionTimer = new ConditionTimer(state.PersistTimer.EndTime, state.PersistTimer.TimeElapsed, state.PersistSttCond);
+        }
+
+        public GameplayState GetGameplayState() { return new GameplayState(this); }
+
         public bool InHitstop { get { return !this.m_stopTimer.IsDone(); } }
-        public bool IsAnchored() { return this._positionAnchor != null; }
     }
 }

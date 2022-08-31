@@ -18,11 +18,14 @@ namespace FightingGameEngine.Data
         //parent object of box we're colliding with
         private VulnerableObject _otherOwner;
 
+        private Fix64 _currentDamageScaling;
+
 
         public HitboxData HitboxData { get { return this._hitboxData; } set { this._hitboxData = value; } }
         public HitIndicator Indicator { get { return this._indicator; } set { this._indicator = value; } }
         public Vector3 ContactLoc { get { return this._contactLoc; } set { this._contactLoc = value; } }
         public VulnerableObject OtherOwner { get { return this._otherOwner; } set { this._otherOwner = value; } }
+        public Fix64 CurrentDamageScaling { get { return this._currentDamageScaling; } set { this._currentDamageScaling = value; } }
 
         public HitInfo(HitboxData hd, HitIndicator hi, Vector3 cl, VulnerableObject vu)
         {
@@ -30,6 +33,15 @@ namespace FightingGameEngine.Data
             this._indicator = hi;
             this._contactLoc = cl;
             this._otherOwner = vu;
+        }
+
+        public HitInfo(HitboxData hd, HitIndicator hi, Vector3 cl, VulnerableObject vu, Fix64 cds)
+        {
+            this._hitboxData = hd;
+            this._indicator = hi;
+            this._contactLoc = cl;
+            this._otherOwner = vu;
+            this._currentDamageScaling = cds;
         }
     }
 }

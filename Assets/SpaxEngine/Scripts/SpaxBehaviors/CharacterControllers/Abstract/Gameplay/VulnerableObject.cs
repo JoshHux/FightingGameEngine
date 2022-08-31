@@ -147,6 +147,11 @@ namespace FightingGameEngine.Gameplay
                     this.status.RendererInfo.VFXPos = hold.ContactLoc;
                     print(hold.ContactLoc);
                 }
+
+                // deal damage            
+                this.status.CurrentHP -= (int)Fix64.Max(hold.HitboxData.Damage * hold.CurrentDamageScaling, hold.HitboxData.MinDamage);
+                //this.status.CurrentHP -= boxData.HitboxData.Damage; 
+
                 i++;
             }
 
@@ -159,6 +164,8 @@ namespace FightingGameEngine.Gameplay
                 this.Status.StateTimer = new FrameTimer(sttDur);
                 //Debug.Log(this.status.CurrentState + " " + totalStun + " " + sttDur);
             }
+
+            
 
             this.m_hurtList.Clear();
             this.landedStrikeThisFrame = false;
@@ -249,7 +256,7 @@ namespace FightingGameEngine.Gameplay
         protected override void OnStateSet()
         {
             base.OnStateSet();
-            OnFrameReached.Invoke(this, null);
+            this.OnFrameReached?.Invoke(this, null);
         }
 
 
@@ -259,6 +266,13 @@ namespace FightingGameEngine.Gameplay
         public HitIndicator AddHitboxToQuery(HitInfo boxData)
         {
             HitIndicator ret = HitIndicator.WHIFF;
+
+            var hasGrab = this.m_hurtList.Find(hold => hold.HitboxData.Type == HitboxType.GRAB);
+            if(hasGrab != null)
+            {
+                return ret;
+            }
+
             /*--- our state condition info ---*/
 
             //current state conditions we process
@@ -371,6 +385,10 @@ namespace FightingGameEngine.Gameplay
 
             ret |= (HitIndicator)((int)HitIndicator.GRABBED * grabMult);
 
+            //add combo flag
+            ret |= (HitIndicator)((int)HitIndicator.COMBO * inStun);
+            
+
 
             /*if (isProj > 0 && projInvuln > 0)
                         {
@@ -424,8 +442,10 @@ namespace FightingGameEngine.Gameplay
 
                 
                 //if hitbox is grab, clear the other objects to query so that character doesn't get hit by both grab and strike
-                if((uint)(existsTarget.HitboxData.Type & HitboxType.GRAB) != 0){ //notation correct?
-                    this.m_hurtList.Insert(0,existsTarget);
+                var existsGrab = this.m_hurtList.Find(hold => hold.HitboxData.Type == HitboxType.GRAB);
+                if(existsGrab != null)
+                { 
+                    this.m_hurtList.Insert(0,existsGrab);
                     this.m_hurtList.RemoveRange(1,this.m_hurtList.Count - 1);
                     this.m_hurtList.Add(toAdd);
                 }
@@ -447,6 +467,9 @@ namespace FightingGameEngine.Gameplay
                     this.m_hurtList.Add(toAdd);
                 }
             }
+
+            
+
 
             return ret;
         }

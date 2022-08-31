@@ -50,7 +50,8 @@ namespace FightingGameEngine.Gameplay
 
         protected override void CheckDataFromFrame(object sender, FrameData data)
         {
-            if (data == null) { this.DeactivateBox(); }
+            if (data == null) { this.DeactivateBox(); return; }
+            //UnityEngine.Debug.Log((data == null));
             //get the data for quick and easy access
             var boxdata = data.GetHitbox(this.triggerIndex);
             //valid or invalid boxdata, checks if durationis nonzero

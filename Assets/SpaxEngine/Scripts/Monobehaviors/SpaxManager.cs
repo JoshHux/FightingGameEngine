@@ -50,7 +50,7 @@ namespace Spax
         private Fix64 _timeStep;
         [SerializeField] private CollisionLayer[] _collisionMatrix;
 
-        private List<FightingCharacterController> _players;
+        [SerializeField, ReadOnly] private List<FightingCharacterController> _players;
 
         public soStaticValues StaticValues { get { return this._staticValues; } }
         public soUniversalStateHolder UniversalStates { get { return this._universalStates; } }
@@ -63,7 +63,7 @@ namespace Spax
         //time (seconds) that a round takes
         [SerializeField] private int maxTime = 99;
         //# of frames for a second according to timer; 60 for accuracy, but can be set inaccurately for aesthetic purposes
-        [SerializeField] private int secondFrames = 60; 
+        [SerializeField] private int secondFrames = 60;
         //# of frames elapsed in a match; differs from currentFrame, which continually increments
         private int matchFrames = 0;
 
@@ -80,12 +80,20 @@ namespace Spax
         public Text currentFrameText;
         public bool paused = false;
 
+        [Space(30)]
+        [SerializeField] private soWorldRecorder _worldStates;
+        [SerializeField] private bool _recordWorld;
+
+
+
+
         void Awake()
         {
             Instance = this;
             Application.targetFrameRate = 60;
 
             this._players = new List<FightingCharacterController>();
+            this._worldStates.Init();
             //test.Initialize();
             //initialize physics world stuff
             //collision layer stuff
@@ -156,16 +164,18 @@ namespace Spax
                 matchFrames++;
             }
             currentFrameText.text = currentFrame.ToString();
-            
+
             _roundTimer.text = ((int)(maxTime - ((Fix64)matchFrames / secondFrames))).ToString();
 
-            if((Fix64)matchFrames / secondFrames >= maxTime){
+            if ((Fix64)matchFrames / secondFrames >= maxTime)
+            {
                 TimeOut();
             }
         }
 
         private void GameplayUpdate()
         {
+            if (this._recordWorld) { this._worldStates.AddWorldState(new WorldState(this.P1Status, this.P2Status)); }
             InputUpdate?.Invoke();
             StateUpdate?.Invoke();
             StateCleanUpdate?.Invoke();
@@ -223,35 +233,43 @@ namespace Spax
         { return this._collisionMatrix[layer]; }
         public int GetNumberOfPlayers() { return this._players.Count; }
 
-        public void StartRound(int lostPlayer){
+        public void StartRound(int lostPlayer)
+        {
             matchFrames = 0;
-            
-            GetLivingObjectByID(0).SetPosition(new FVector2(5,0));
-            GetLivingObjectByID(1).SetPosition(new FVector2(-5,0));
+
+            GetLivingObjectByID(0).SetPosition(new FVector2(5, 0));
+            GetLivingObjectByID(1).SetPosition(new FVector2(-5, 0));
 
             P1Status.CurrentHP = P1Data.MaxResources.Health;
             P2Status.CurrentHP = P2Data.MaxResources.Health;
             //0 = P1, 1 = P2 to match player IDs and also lol programming counting
-            if(lostPlayer == 0){
+            if (lostPlayer == 0)
+            {
                 P2UI.WinRound();
             }
-            else if(lostPlayer == 1){
+            else if (lostPlayer == 1)
+            {
                 P1UI.WinRound();
             }
-            else{
+            else
+            {
                 //for starting rounds without round increments?
             }
         }
 
-        private void TimeOut(){
+        private void TimeOut()
+        {
             matchFrames = 0;
-            if(P1Status.CurrentHP > P2Status.CurrentHP){
+            if (P1Status.CurrentHP > P2Status.CurrentHP)
+            {
                 StartRound(1);
             }
-            else if(P2Status.CurrentHP > P1Status.CurrentHP){
+            else if (P2Status.CurrentHP > P1Status.CurrentHP)
+            {
                 StartRound(0);
             }
-            else{
+            else
+            {
                 StartRound(-1);
             }
         }
