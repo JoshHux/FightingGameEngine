@@ -2014,7 +2014,7 @@ MonoBehaviour:
   currentFrame: 0
   currentFrameText: {fileID: 1634890856}
   paused: 0
-  _worldStates: {fileID: 0}
+  _worldStates: {fileID: 11400000, guid: 2506935478f0f4b419df22d846778764, type: 2}
   _recordWorld: 0
 --- !u!1 &1429810720
 GameObject:
