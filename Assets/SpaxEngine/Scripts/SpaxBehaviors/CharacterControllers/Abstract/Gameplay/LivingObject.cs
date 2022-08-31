@@ -660,7 +660,7 @@ namespace FightingGameEngine.Gameplay
         }
 
 
-        public void SetPosition(FVector2 newPos) { this._rb.Position = newPos; }
+        public void SetPosition(FVector2 newPos) { this.status.CurrentPosition = newPos; }
 
         protected void SetStopTimer(int newDur)
         {

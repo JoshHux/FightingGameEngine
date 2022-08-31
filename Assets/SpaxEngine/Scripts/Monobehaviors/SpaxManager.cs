@@ -138,6 +138,12 @@ namespace Spax
 
         void Update()
         {
+            if (currentFrame == 0)
+            {
+
+                GetLivingObjectByID(0).SetPosition(new FVector2(5, 0));
+                GetLivingObjectByID(1).SetPosition(new FVector2(-5, 0));
+            }
             if (paused)
             {
                 if (Input.GetKeyDown("p"))
@@ -184,7 +190,7 @@ namespace Spax
             //m_space.Update();
             //UpdatePhysics();
             //world.PhysUpdate();
-            this._world.Step(this._timeStep, 128);
+            this._world.Step(this._timeStep);
             PostPhysUpdate?.Invoke();
             HitQueryUpdate?.Invoke();
             HurtQueryUpdate?.Invoke();
@@ -207,6 +213,7 @@ namespace Spax
             if (got)
             {
                 this._players.Add(livingObject);
+
             }
 
         }
@@ -237,8 +244,8 @@ namespace Spax
         {
             matchFrames = 0;
 
-            GetLivingObjectByID(0).SetPosition(new FVector2(5, 0));
-            GetLivingObjectByID(1).SetPosition(new FVector2(-5, 0));
+            GetLivingObjectByID(0).SetPosition(new FVector2(5, 1));
+            GetLivingObjectByID(1).SetPosition(new FVector2(-5, 1));
 
             P1Status.CurrentHP = P1Data.MaxResources.Health;
             P2Status.CurrentHP = P2Data.MaxResources.Health;

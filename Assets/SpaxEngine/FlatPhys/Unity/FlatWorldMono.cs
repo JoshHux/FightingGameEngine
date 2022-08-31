@@ -34,7 +34,7 @@ namespace FlatPhysics.Unity
 
         void Update()
         {
-            this._world.Step(this._timeStep, 128);
+            this._world.Step(this._timeStep);
         }
 
         public void AddBody(FRigidbody rb)
