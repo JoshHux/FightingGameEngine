@@ -4,7 +4,7 @@ namespace FightingGameEngine.Data
 {
     public struct GameplayState
     {
-        public int CurrentStateInd;
+        public StateID CurrentStateID;
         public PhysicsState PhysicsData;
         //the conditions we have, based on our current state
         public StateConditions CurrentStateConditions;
