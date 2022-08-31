@@ -2001,6 +2001,7 @@ MonoBehaviour:
   _staticValues: {fileID: 11400000, guid: 277c623cd07f2824d9068635e055e9b5, type: 2}
   _universalStates: {fileID: 11400000, guid: 6e45f051812751f48adf8ed3bca68333, type: 2}
   _collisionMatrix: 
+  _players: []
   _roundTimer: {fileID: 1679871069}
   maxTime: 99
   secondFrames: 60
@@ -2013,6 +2014,8 @@ MonoBehaviour:
   currentFrame: 0
   currentFrameText: {fileID: 1634890856}
   paused: 0
+  _worldStates: {fileID: 11400000, guid: 2506935478f0f4b419df22d846778764, type: 2}
+  _recordWorld: 0
 --- !u!1 &1429810720
 GameObject:
   m_ObjectHideFlags: 0

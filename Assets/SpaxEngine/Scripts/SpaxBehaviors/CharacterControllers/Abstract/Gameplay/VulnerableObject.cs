@@ -232,7 +232,7 @@ namespace FightingGameEngine.Gameplay
             /*----- ACTIVATING HURTBOXES -----*/
             //call the delegate and pass the frame in, the boxes will take care of the rest
             //the way that we set this up, we don't need to call this from CombatObject because the HitboxTrigger objects will also have their hooks in this delegate
-            this.OnFrameReached.Invoke(this, frame);
+            this.OnFrameReached?.Invoke(this, frame);
         }
 
         //call to process transition event enums

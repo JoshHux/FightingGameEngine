@@ -734,5 +734,12 @@ namespace FightingGameEngine.Gameplay
             this.SetStopTimer(dur);
         }
 
+        public void ApplyGameplayState(GameplayState state)
+        {
+            this.SetStateRaw(this.data.GetStateFromID(state.CurrentStateID));
+
+            this.status.ApplyGameplayState(state);
+        }
+
     }
 }
