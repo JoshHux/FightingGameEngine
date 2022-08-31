@@ -40,15 +40,15 @@ MonoBehaviour:
   _friction:
     m_rawValue: 4294967296
   _walkAccel:
-    m_rawValue: 21474836480
+    m_rawValue: 42949672960
   _walkMaxSpd:
-    m_rawValue: 21474836480
+    m_rawValue: 85899345920
   _runAccel:
     m_rawValue: 429496729600
   _runMaxSpd:
     m_rawValue: 429496729600
   _fallMaxSpd:
-    m_rawValue: 429496729600
+    m_rawValue: 858993459200
   _vfxValues: {fileID: 11400000, guid: 6c46f8405be31834aa459829c2704ce0, type: 2}
   _stateList:
   - {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}

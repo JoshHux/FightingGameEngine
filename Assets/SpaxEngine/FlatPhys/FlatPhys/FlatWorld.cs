@@ -83,7 +83,10 @@ namespace FlatPhysics
 
             var broadPhaseList = new List<BroadPhasePairs>();
 
-            #region Physic calculations
+
+            for (int it = 0; it < iterations; it++)
+            {
+                 #region Physic calculations
             // Movement step
 
             this.bodyList.ForEach(o => o.Step(time, this.gravity, iterations));
@@ -355,11 +358,6 @@ namespace FlatPhysics
             }
             broadPhaseList.Clear();
             #endregion
-
-            for (int it = 0; it < iterations; it++)
-            {
-                
-                
             }
         }
 
