@@ -74,9 +74,9 @@ namespace FlatPhysics
             return true;
         }
 
-        public void Step(Fix64 time, int iterations)
+        public void Step(Fix64 time)
         {
-            iterations = UnityEngine.Mathf.Clamp(iterations, FlatWorld.MinIterations, FlatWorld.MaxIterations);
+            //iterations = UnityEngine.Mathf.Clamp(iterations, FlatWorld.MinIterations, FlatWorld.MaxIterations);
 
             int bodyCount = this.bodyList.Count;
             int bodyCounti = this.bodyList.Count - 1;
@@ -84,12 +84,12 @@ namespace FlatPhysics
             var broadPhaseList = new List<BroadPhasePairs>();
 
 
-            for (int it = 0; it < iterations; it++)
-            {
-                 #region Physic calculations
+            //for (int it = 0; it < iterations; it++)
+            //{
+            #region Physic calculations
             // Movement step
 
-            this.bodyList.ForEach(o => o.Step(time, this.gravity, iterations));
+            this.bodyList.ForEach(o => o.Step(time, this.gravity, 1));
 
             //TODO: Remove this loop, maybe update childeren from the parent in the Step, childeren should not have linear velocity afterall
             // Parent update step
@@ -183,6 +183,8 @@ namespace FlatPhysics
 
             //Narrow Phase
             int nLen = broadPhaseList.Count;
+
+            if (nLen == 0) { return; }
 
             for (int i = 0; i < nLen; i++)
             {
@@ -315,6 +317,7 @@ namespace FlatPhysics
                             var trOffB = new FVector2(offsetB.x, offsetB.y);
 
                             //if both are pushboxes, apply to velocity
+                            /*
                             if (bothPushBoxes)// && depth > (FixedMath.C0p001 / 5))
                             {
                                 //UnityEngine.Debug.Log("both are pushboxes " + depth);
@@ -339,6 +342,9 @@ namespace FlatPhysics
                                 bodyA.Move(trOffA);
                                 bodyB.Move(trOffB);
                             }
+                            */
+                            bodyA.Move(trOffA);
+                            bodyB.Move(trOffB);
                         }
                         this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, bothPushBoxes);
                     }
@@ -358,7 +364,7 @@ namespace FlatPhysics
             }
             broadPhaseList.Clear();
             #endregion
-            }
+            //}
         }
 
         public void ResolveAgainstAllStatic(FlatBody body1, FlatBody body2)
@@ -508,32 +514,35 @@ namespace FlatPhysics
             //            bodyA.LinearVelocity -= impulse * bodyA.InvMass;
             //            bodyB.LinearVelocity += impulse * bodyB.InvMass;
 
-            if (bothActivePushboxes)
-            {
-                //var mag = relativeVelocity.magnitude;
-                relativeVelocity.y = 0;
+             if (bothActivePushboxes)
+             {
+                 //var mag = relativeVelocity.magnitude;
+                 relativeVelocity.y = 0;
 
-                //relativeVelocity = relativeVelocity.normalized * mag;
+                 //relativeVelocity = relativeVelocity.normalized * mag;
 
-                bodyA.Impulse -= -relativeVelocity * bodyA.InvMass * aColB;
-                bodyB.Impulse += -relativeVelocity * bodyB.InvMass * bColA;
+                 bodyA.Impulse -= -relativeVelocity * bodyA.InvMass * aColB;
+                 bodyB.Impulse += -relativeVelocity * bodyB.InvMass * bColA;
+                 //bodyA.Move(relativeVelocity * bodyA.InvMass * aColB * ((Fix64)1 / (Fix64)60));
+                 //bodyB.Move(-relativeVelocity * bodyB.InvMass * bColA * ((Fix64)1 / (Fix64)60));
+                 impulse.y = 0;
+                 //bodyA.Impulse -= impulse * bodyA.InvMass * aColB;
+                 //bodyB.Impulse += impulse * bodyB.InvMass * bColA;
 
-                impulse.y = 0;
-                //bodyA.Impulse -= impulse * bodyA.InvMass * aColB;
-                //bodyB.Impulse += impulse * bodyB.InvMass * bColA;
+                 //if (bodyA.GameObject.name == "TestPlayer" && bodyA.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyA, velocity :: (" + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y + ")");
+                 //if (bodyB.GameObject.name == "TestPlayer" && bodyB.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyB, velocity :: (" + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y + ")");
+             }
+             else
+             {
+                 bodyA.LinearVelocity -= impulse * bodyA.InvMass * aColB;
+                 bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA;
 
-                //if (bodyA.GameObject.name == "TestPlayer" && bodyA.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyA, velocity :: (" + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y + ")");
-                //if (bodyB.GameObject.name == "TestPlayer" && bodyB.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyB, velocity :: (" + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y + ")");
-            }
-            else
-            {
-                bodyA.LinearVelocity -= impulse * bodyA.InvMass * aColB;
-                bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA;
+                 //bodyA.Impulse -= impulse * bodyA.InvMass * aColB;
+                 //bodyB.Impulse += impulse * bodyB.InvMass * bColA;
 
-                //bodyA.Impulse -= impulse * bodyA.InvMass * aColB;
-                //bodyB.Impulse += impulse * bodyB.InvMass * bColA;
-
-            }
+             }
+            //bodyA.LinearVelocity -= impulse * bodyA.InvMass * aColB;
+            //bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA;
         }
 
 
