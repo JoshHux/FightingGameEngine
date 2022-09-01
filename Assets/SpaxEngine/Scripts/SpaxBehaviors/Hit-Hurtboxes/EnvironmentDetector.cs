@@ -16,12 +16,12 @@ namespace FightingGameEngine.Gameplay
 
             this._trigger = this.GetComponent<FBox>();
             this._owner = this.transform.parent.GetComponentInParent<LivingObject>();
-            this._trigger.Body.OnOverlap += (ctx) => this.OnFlatOverlap(ctx);
+            this._trigger.Body.OnOverlap += this.OnFlatOverlap;
         }
 
         void OnDestroy()
         {
-            this._trigger.Body.OnOverlap -= (ctx) => this.OnFlatOverlap(ctx);
+            this._trigger.Body.OnOverlap -= this.OnFlatOverlap;
 
         }
 
@@ -29,7 +29,7 @@ namespace FightingGameEngine.Gameplay
 
         //delegate to add the object this object is overlapping with
         //if we are not overlapping with an object, nothing is added to curColliding
-        private void OnFlatOverlap(ContactData c)
+        private void OnFlatOverlap(in ContactData c)
         {
             //UnityEngine.Debug.Log("walled");
             this._owner.SetWalled(1);

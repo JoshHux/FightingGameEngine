@@ -14,7 +14,7 @@ namespace FlatPhysics
         Box = 1
     }
 
-    public delegate void OverlapEventHandler(ContactData c);
+    public delegate void OverlapEventHandler(in ContactData c);
     public sealed class FlatBody
     {
         private bool _awake;

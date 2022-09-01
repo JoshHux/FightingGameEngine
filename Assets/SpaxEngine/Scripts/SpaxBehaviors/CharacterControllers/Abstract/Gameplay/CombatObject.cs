@@ -70,7 +70,7 @@ namespace FightingGameEngine.Gameplay
 
 
         //process the hits we landed
-        private void ProcessHitInfo(HitInfo[] hitInfo)
+        private void ProcessHitInfo(in HitInfo[] hitInfo)
         {
             // Debug.Log("processing HitInfo");
 

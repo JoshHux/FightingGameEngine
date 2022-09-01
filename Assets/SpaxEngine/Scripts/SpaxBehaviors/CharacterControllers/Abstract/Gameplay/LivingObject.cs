@@ -166,7 +166,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to process transition data 
-        protected virtual void ProcessTransitionData(TransitionData trans)
+        protected virtual void ProcessTransitionData(in TransitionData trans)
         {
             //state to transition to
             var targetState = trans.TargetState;
@@ -218,7 +218,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to process transition event enums
-        protected virtual void ProcessTransitionEvent(TransitionEvents te)
+        protected virtual void ProcessTransitionEvent(in TransitionEvents te)
         {
             //int result for killing x velocity, 1 for has enum, 0 for doesn't have
             int killX = EnumHelper.HasEnumInt((uint)te, (uint)TransitionEvents.KILL_X_VEL);
@@ -255,7 +255,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to process the frame data
-        protected virtual void ProcessFrameData(FrameData frame)
+        protected virtual void ProcessFrameData(in FrameData frame)
         {
             /*----- PROCESSING STATE CONDITIONS -----*/
             this.status.CurrentStateConditions ^= frame.ToggleConditions;
@@ -350,7 +350,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to process the state conditions of our current state
-        protected virtual void ProcessStateConditions(StateConditions stateConditions)
+        protected virtual void ProcessStateConditions(in StateConditions stateConditions)
         {
 
             /*----- PROCESSING GRAVITY APPLICATION -----*/
@@ -591,7 +591,7 @@ namespace FightingGameEngine.Gameplay
             return ret;
 
         }
-        protected void SetState(soStateData newState)
+        protected void SetState(in soStateData newState)
         {
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
 
@@ -631,7 +631,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to set the state without any consideration about transition events or transfering stun
-        protected void SetStateRaw(soStateData newState)
+        protected void SetStateRaw(in soStateData newState)
         {
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
 
@@ -689,13 +689,13 @@ namespace FightingGameEngine.Gameplay
 
         }
 
-        protected void SetCurrentResources(ResourceData newResources)
+        protected void SetCurrentResources(in ResourceData newResources)
         {
             this.status.CurrentResources = newResources.SetMin(this.data.MaxResources);
             //this.status.CurrentResources.SetMin(this.data.MaxResources);
         }
 
-        protected void AddCurrentResources(ResourceData newResources)
+        protected void AddCurrentResources(in ResourceData newResources)
         {
             var potenResources = newResources + this.status.CurrentResources;
             //Debug.Log("adding resources");
@@ -734,7 +734,7 @@ namespace FightingGameEngine.Gameplay
             this.SetStopTimer(dur);
         }
 
-        public void ApplyGameplayState(GameplayState state)
+        public void ApplyGameplayState(in GameplayState state)
         {
             this.SetStateRaw(this.data.GetStateFromID(state.CurrentStateID));
 

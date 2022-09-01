@@ -23,16 +23,16 @@ namespace FightingGameEngine.Gameplay
         {
             base.OnStart();
 
-            this.Trigger.Body.OnOverlap += (ctx) => this.OnFlatOverlap(ctx);
+            this.Trigger.Body.OnOverlap += this.OnFlatOverlap;
         }
 
         void OnDestroy()
         {
-            this.Trigger.Body.OnOverlap -= (ctx) => this.OnFlatOverlap(ctx);
+            this.Trigger.Body.OnOverlap -= this.OnFlatOverlap;
 
         }
 
-        private void ActivateBox(HitboxData newData)
+        private void ActivateBox(in HitboxData newData)
         {
             this.m_data = newData;
 
@@ -48,7 +48,7 @@ namespace FightingGameEngine.Gameplay
             this.CommonActivateBox(newPos, newDim);
         }
 
-        protected override void CheckDataFromFrame(object sender, FrameData data)
+        protected override void CheckDataFromFrame(object sender, in FrameData data)
         {
             if (data == null) { this.DeactivateBox(); return; }
             //UnityEngine.Debug.Log((data == null));
@@ -78,7 +78,7 @@ namespace FightingGameEngine.Gameplay
 
         //delegate to add the object this object is overlapping with
         //if we are not overlapping with an object, nothing is added to curColliding
-        private void OnFlatOverlap(ContactData c)
+        private void OnFlatOverlap(in ContactData c)
         {
             //only continue if we are active
             bool dontContinue = !this.IsActive();

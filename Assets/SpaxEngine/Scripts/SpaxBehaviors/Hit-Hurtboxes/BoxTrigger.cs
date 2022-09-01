@@ -71,7 +71,7 @@ namespace FightingGameEngine.Gameplay
 
         public virtual bool IsActive() { return this._trigger.Awake; }
 
-        protected abstract void CheckDataFromFrame(object sender, FrameData data);
+        protected abstract void CheckDataFromFrame(object sender,in FrameData data);
         public abstract void DeactivateBox();
     }
 }

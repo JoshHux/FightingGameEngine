@@ -7,7 +7,7 @@ using FixMath.NET;
 
 namespace FightingGameEngine.Gameplay
 {
-    public delegate void BoxActivator(object sender, FrameData frameData);
+    public delegate void BoxActivator(object sender, in FrameData frameData);
 
     public abstract class VulnerableObject : LivingObject
     {
@@ -165,14 +165,14 @@ namespace FightingGameEngine.Gameplay
                 //Debug.Log(this.status.CurrentState + " " + totalStun + " " + sttDur);
             }
 
-            
+
 
             this.m_hurtList.Clear();
             this.landedStrikeThisFrame = false;
         }
 
         //call to process the state conditions of our current state
-        protected override void ProcessStateConditions(StateConditions stateConditions)
+        protected override void ProcessStateConditions(in StateConditions stateConditions)
         {
             //grounded or not
             int grounded = this.IsAirborne() ^ 1;
@@ -224,7 +224,7 @@ namespace FightingGameEngine.Gameplay
 
         }
         //call to process the frame data
-        protected override void ProcessFrameData(FrameData frame)
+        protected override void ProcessFrameData(in FrameData frame)
         {
             //call base version
             base.ProcessFrameData(frame);
@@ -236,7 +236,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to process transition event enums
-        protected override void ProcessTransitionEvent(TransitionEvents te)
+        protected override void ProcessTransitionEvent(in TransitionEvents te)
         {
             base.ProcessTransitionEvent(te);
 
@@ -263,12 +263,12 @@ namespace FightingGameEngine.Gameplay
         //list of hitboxes to process, reset every frame
         private List<HitInfo> m_hurtList;
         //called by the hurtbox to add the hitbox to process in HurtBoxQueryUpdate
-        public HitIndicator AddHitboxToQuery(HitInfo boxData)
+        public HitIndicator AddHitboxToQuery(in HitInfo boxData)
         {
             HitIndicator ret = HitIndicator.WHIFF;
 
             var hasGrab = this.m_hurtList.Find(hold => hold.HitboxData.Type == HitboxType.GRAB);
-            if(hasGrab != null)
+            if (hasGrab != null)
             {
                 return ret;
             }
@@ -387,7 +387,7 @@ namespace FightingGameEngine.Gameplay
 
             //add combo flag
             ret |= (HitIndicator)((int)HitIndicator.COMBO * inStun);
-            
+
 
 
             /*if (isProj > 0 && projInvuln > 0)
@@ -440,16 +440,17 @@ namespace FightingGameEngine.Gameplay
             {
                 //Debug.Log("add to list");
 
-                
+
                 //if hitbox is grab, clear the other objects to query so that character doesn't get hit by both grab and strike
                 var existsGrab = this.m_hurtList.Find(hold => hold.HitboxData.Type == HitboxType.GRAB);
-                if(existsGrab != null)
-                { 
-                    this.m_hurtList.Insert(0,existsGrab);
-                    this.m_hurtList.RemoveRange(1,this.m_hurtList.Count - 1);
+                if (existsGrab != null)
+                {
+                    this.m_hurtList.Insert(0, existsGrab);
+                    this.m_hurtList.RemoveRange(1, this.m_hurtList.Count - 1);
                     this.m_hurtList.Add(toAdd);
                 }
-                else{
+                else
+                {
                     //add to list of hitboxes to process
                     this.m_hurtList.Add(toAdd);
                 }
@@ -468,7 +469,7 @@ namespace FightingGameEngine.Gameplay
                 }
             }
 
-            
+
 
 
             return ret;

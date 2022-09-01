@@ -7,7 +7,7 @@ namespace FightingGameEngine.Gameplay
 
         private HurtboxData m_data;
 
-        private void ActivateBox(HurtboxData newData)
+        private void ActivateBox(in HurtboxData newData)
         {
             this.m_data = newData;
 
@@ -18,7 +18,7 @@ namespace FightingGameEngine.Gameplay
         }
 
 
-        protected override void CheckDataFromFrame(object sender, FrameData data)
+        protected override void CheckDataFromFrame(object sender,in FrameData data)
         {
             //get the data for quick 
             if (data == null) { this.DeactivateBox(); return; }
@@ -41,7 +41,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //called by hitboxes interacting with this to hit the owner
-        public HitIndicator HurtThisBox(HitInfo boxData)
+        public HitIndicator HurtThisBox(in HitInfo boxData)
         {
             var ret = this.Owner.AddHitboxToQuery(boxData);
             return ret;

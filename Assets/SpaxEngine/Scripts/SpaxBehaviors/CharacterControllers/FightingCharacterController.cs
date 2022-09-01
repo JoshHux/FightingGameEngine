@@ -24,15 +24,15 @@ namespace FightingGameEngine.Gameplay
         public controllers controllerToUse = controllers.pad1;
 
         //call to process the frame data
-        protected override void ProcessFrameData(FrameData frame)
+        protected override void ProcessFrameData(in FrameData frame)
         { base.ProcessFrameData(frame); }
 
 
         //call to process transition event enums
-        protected override void ProcessTransitionEvent(TransitionEvents te)
+        protected override void ProcessTransitionEvent(in TransitionEvents te)
         {
             base.ProcessTransitionEvent(te);
-/*----- PROCESSING AUTOMATIC TURNING -----*/
+            /*----- PROCESSING AUTOMATIC TURNING -----*/
 
             //can we rotate?
             bool canRotate = EnumHelper.HasEnum((uint)te, (uint)TransitionEvents.FACE_OPPONENT);
@@ -54,7 +54,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to process the state conditions of our current state
-        protected override void ProcessStateConditions(StateConditions stateConditions)
+        protected override void ProcessStateConditions(in StateConditions stateConditions)
         {
             /*----- PROCESSING AUTOMATIC TURNING -----*/
 

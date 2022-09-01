@@ -32,7 +32,7 @@ namespace FightingGameEngine.Data
         public InputItem CurrentControllerState;
         public int FacingDir;
 
-        public GameplayState(soCharacterStatus status)
+        public GameplayState(in soCharacterStatus status)
         {
             this.CurrentStateID = status.CurrentState.StateID;
             this.PhysicsData = new PhysicsState(status.CurrentPosition, status.CurrentVelocity, status.CalcVelocity);

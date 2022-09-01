@@ -29,7 +29,7 @@ namespace FightingGameEngine.Data
         public ResourceData RequiredResources { get { return this._requiredResources; } }
 
 
-        public bool CheckTransition(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
+        public bool CheckTransition(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, in InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             var transCancels = this._cancelConditions;
             var transFlags = this._requiredTransitionFlags;
@@ -45,7 +45,7 @@ namespace FightingGameEngine.Data
             return checkInputs;
         }
 
-        private bool CheckInputs(InputItem[] playerInputs, int facingDir)
+        private bool CheckInputs(in InputItem[] playerInputs, int facingDir)
         {
 
             int playerInputLen = playerInputs.Length;
