@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FixMath.NET;
 using FlatPhysics.Contact;
+using System;
+using UnityEngine;
 
 namespace FlatPhysics
 {
@@ -44,15 +46,15 @@ namespace FlatPhysics
             }
             else if (IsStatic)
             {
-                this._staticInd += 1;
-                this.bodyList.Insert(0, body);
+                int insertInd = this._staticInd;
+                if (ind == 0) { insertInd = -1; }
+                this.bodyList.Insert(insertInd + 1, body);
             }
             //if it does not have a parent, insert the item at the beginning of the list
             else
             {
-                int insertInd = this._staticInd;
-                if (ind == 0) { insertInd = -1; }
-                this.bodyList.Insert(insertInd + 1, body);
+                this._staticInd += 1;
+                this.bodyList.Insert(0, body);
             }
         }
 
@@ -236,7 +238,6 @@ namespace FlatPhysics
                             var bFacing = bGO.Status.CurrentFacingDirection;
 
                             var bothAreDiff = (bIsAirborne ^ aIsAirborne);
-
 
                             //get the difference in x position 
                             var xOffset = bodyB.Position.x - bodyA.Position.x;
@@ -521,8 +522,8 @@ namespace FlatPhysics
 
                  //relativeVelocity = relativeVelocity.normalized * mag;
 
-                 bodyA.Impulse -= -relativeVelocity * bodyA.InvMass * aColB;
-                 bodyB.Impulse += -relativeVelocity * bodyB.InvMass * bColA;
+                 //bodyA.Impulse -= -relativeVelocity * bodyA.InvMass * aColB;
+                 //bodyB.Impulse += -relativeVelocity * bodyB.InvMass * bColA;
                  //bodyA.Move(relativeVelocity * bodyA.InvMass * aColB * ((Fix64)1 / (Fix64)60));
                  //bodyB.Move(-relativeVelocity * bodyB.InvMass * bColA * ((Fix64)1 / (Fix64)60));
                  impulse.y = 0;
