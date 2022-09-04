@@ -356,8 +356,8 @@ namespace FlatPhysics
 
             //this._linearVelocity += gravity * time;
             //this._position += this._linearVelocity * time;
-            this._position += (this._linearVelocity + this.Impulse) * time;
-            this.Impulse = new FVector2(0, 0);
+            this._position += (this._linearVelocity /*+ this.Impulse*/) * time;
+            //this.Impulse = new FVector2(0, 0);
             //this._rotation += this._rotationalVelocity * time;
 
             this.force = FVector2.zero;
