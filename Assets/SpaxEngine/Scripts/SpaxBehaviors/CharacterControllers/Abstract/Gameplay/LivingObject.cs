@@ -64,9 +64,6 @@ namespace FightingGameEngine.Gameplay
 
 
 
-            //try to transition to a new state
-            this.TryTransitionState();
-
             //tick superflash timer
             var foo = !this.status.SuperFlashTimer.IsDone() && this.TickSuperFlash();
 
@@ -151,6 +148,9 @@ namespace FightingGameEngine.Gameplay
 
         }
 
+        /**
+            Absolute LAST thing to process int the gameplay loop
+        **/
         protected override void PostUpdate()
         {
             //record the current frame's position, to be used for the next frame
@@ -158,6 +158,9 @@ namespace FightingGameEngine.Gameplay
 
 
             //Debug.Log("-PostUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
+
+            //try to transition to a new state
+            this.TryTransitionState();
 
 
             //Debug.Log("postupdate - " + this.name + " - " + i);
@@ -635,7 +638,6 @@ namespace FightingGameEngine.Gameplay
         {
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
 
-
             //set the new current state
             this.status.CurrentState = newState;
             ///process current state
@@ -652,6 +654,7 @@ namespace FightingGameEngine.Gameplay
 
             this.OnStateSet();
             //this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
+            //Debug.Log(this.gameObject.name + " Raw transition to " + newState.name + " | Current state is " + this.status.CurrentState.name);
 
             //if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "Hitstun-Air") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
@@ -736,9 +739,12 @@ namespace FightingGameEngine.Gameplay
 
         public void ApplyGameplayState(in GameplayState state)
         {
-            this.SetStateRaw(this.data.GetStateFromID(state.CurrentStateID));
+            var newCharState = this.data.GetStateFromID(state.CurrentStateID);
+            this.SetStateRaw(newCharState);
 
             this.status.ApplyGameplayState(state);
+
+            //Debug.Log("Current state is " + this.status.CurrentState.name);
         }
 
     }

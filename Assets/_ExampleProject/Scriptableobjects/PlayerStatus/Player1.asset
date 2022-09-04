@@ -39,14 +39,14 @@ MonoBehaviour:
     _stateConditions: 0
   m_currentState: {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}
   m_currentConditions: 114
-  m_transitionFlags: 1
+  m_transitionFlags: 1073741825
   m_cancelFlags: 4294967295
   m_currentFacing: -1
   m_currentPosition:
     x:
-      m_rawValue: 4294967296
+      m_rawValue: -51682213842
     y:
-      m_rawValue: 14818226176
+      m_rawValue: 0
   m_currentVelocity:
     x:
       m_rawValue: 0
@@ -80,9 +80,261 @@ MonoBehaviour:
       HoldDuration: 0
       _lenientBuffer: 0
     _recordedChanges:
-    - Input: 0
-      Flags: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 12
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 17
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 14
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 22
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 9
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 5
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 8
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 14
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 19
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 2
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 36
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 2
+      _lenientBuffer: 0
+    - Input: 8192
+      Flags: 1
+      HoldDuration: 32
+      _lenientBuffer: 0
+    - Input: 8192
+      Flags: 6
       HoldDuration: 1
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 16
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 62
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 2
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 2
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 32
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 5
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 36
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 45
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 1
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 30
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 5
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 56
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 6
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 57
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 5
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 0
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 71
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 6
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 6
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 2
+      HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 22
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 10
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 15
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 53
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 6
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 8
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 2
+      HoldDuration: 3
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 5
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 21
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 7
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 16
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 25
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 8
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 14
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 2
+      HoldDuration: 0
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 1
+      HoldDuration: 4
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 1
+      HoldDuration: 26
+      _lenientBuffer: 0
+    - Input: 512
+      Flags: 6
+      HoldDuration: 9
+      _lenientBuffer: 0
+    - Input: 64
+      Flags: 2
+      HoldDuration: 68
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 16
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 18
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 61
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 13
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 15
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 17
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 10
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 98
       _lenientBuffer: 0
   _positionOffset:
     x:
@@ -93,6 +345,6 @@ MonoBehaviour:
   m_rendererInfo:
     _vfxValues: {fileID: 11400000, guid: 6c46f8405be31834aa459829c2704ce0, type: 2}
   m_currentDamageScaling:
-    m_rawValue: 0
+    m_rawValue: 4294967296
   m_storedDamageScaling:
-    m_rawValue: 0
+    m_rawValue: 4294967296

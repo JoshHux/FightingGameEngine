@@ -83,7 +83,8 @@ namespace Spax
         [Space(30)]
         [SerializeField] private soWorldRecorder _worldStates;
         [SerializeField] private bool _recordWorld;
-
+        [SerializeField] private int _replayWorldStartFrame;
+        [SerializeField] private int _recWorldFrame;
 
 
 
@@ -118,6 +119,8 @@ namespace Spax
             this._world = new FlatWorld();
             this._timeStep = (Fix64)1 / (Fix64)60;
 
+            this._recWorldFrame = 0;
+
         }
 
         void Start()
@@ -138,7 +141,7 @@ namespace Spax
 
         void Update()
         {
-            if (currentFrame == 0)
+            if (matchFrames == 0)
             {
 
                 GetLivingObjectByID(0).SetPosition(new FVector2(5, 0));
@@ -181,7 +184,20 @@ namespace Spax
 
         private void GameplayUpdate()
         {
-            if (this._recordWorld) { this._worldStates.AddWorldState(new WorldState(this.P1Status, this.P2Status)); }
+
+            //record/autoplay world
+            if (this._recordWorld)
+            {
+                if (this.matchFrames >= this._replayWorldStartFrame)
+                {
+                    this.ApplyWorldState(this._recWorldFrame);
+                    this._recWorldFrame++;
+                }
+                else
+                {
+                    this._worldStates.AddWorldState(new WorldState(this.P1Status, this.P2Status));
+                }
+            }
             InputUpdate?.Invoke();
             StateUpdate?.Invoke();
             StateCleanUpdate?.Invoke();
@@ -279,6 +295,13 @@ namespace Spax
             {
                 StartRound(-1);
             }
+        }
+
+        private void ApplyWorldState(int worldInd)
+        {
+            if (worldInd >= this._worldStates.GetWorldStateCount()) { return; }
+            this._players[0].ApplyGameplayState(this._worldStates.GetWorldState(worldInd).Player2);
+            this._players[1].ApplyGameplayState(this._worldStates.GetWorldState(worldInd).Player1);
         }
     }
 }

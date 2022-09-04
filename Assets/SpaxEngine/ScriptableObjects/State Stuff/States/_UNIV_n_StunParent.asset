@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: 0_Stun
+  m_Name: _UNIV_n_StunParent
   m_EditorClassIdentifier: 
+  _id:
+    ID: -9223372031112163755
   _parentState: {fileID: 0}
   _duration: -1
   _stateConditions: 67108864

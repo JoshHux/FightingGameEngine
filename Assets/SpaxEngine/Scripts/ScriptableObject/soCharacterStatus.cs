@@ -136,8 +136,9 @@ namespace FightingGameEngine.Data
             this.m_checkState = this._inputRecorder.BufferInput(bufferLeniency);
         }
 
-        public void ApplyGameplayState(GameplayState state)
+        public void ApplyGameplayState(in GameplayState state)
         {
+
             this.m_calcVelocity = state.PhysicsData.CalcVelocity;
             this.m_currentVelocity = state.PhysicsData.CurrentVelocity;
             this.m_currentPosition = state.PhysicsData.CurrentPosition;

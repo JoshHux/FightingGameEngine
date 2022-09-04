@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: c_HBK-ss_StunAir
   m_EditorClassIdentifier: 
   _id:
-    ID: 0
+    ID: 14114570824
   _parentState: {fileID: 0}
   _duration: 0
   _stateConditions: 67108870

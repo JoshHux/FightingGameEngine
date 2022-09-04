@@ -167,8 +167,14 @@ namespace FightingGameEngine.Gameplay
 
 
 
-            this.m_hurtList.Clear();
             this.landedStrikeThisFrame = false;
+        }
+
+        protected override void PostUpdate()
+        {
+            base.PostUpdate();
+            this.m_hurtList.Clear();
+
         }
 
         //call to process the state conditions of our current state

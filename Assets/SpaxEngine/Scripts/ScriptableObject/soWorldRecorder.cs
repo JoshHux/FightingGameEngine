@@ -19,6 +19,8 @@ namespace FightingGameEngine.Data
             return this._worldStates[i];
         }
 
+        public int GetWorldStateCount() { return this._worldStates.Count; }
+
         public void AddWorldState(WorldState newState)
         {
             this._worldStates.Add(newState);
