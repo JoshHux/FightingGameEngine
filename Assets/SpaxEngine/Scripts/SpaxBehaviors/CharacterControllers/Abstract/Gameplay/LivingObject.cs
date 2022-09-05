@@ -125,7 +125,7 @@ namespace FightingGameEngine.Gameplay
 
             //set CalcVelocity to 0 to prevent any extra changes to velocity on the next frame
             this.status.CalcVelocity = new FVector2();
-            //reset the walled flag so that it only appears on flames where we touch the wall
+            //reset the walled flag so that it only appears on frames where we touch the wall
             this.status.TransitionFlags &= (~TransitionFlags.WALLED);
 
             //if (this.name == "TestPlayer" && this.status.TotalVelocity.magnitude > 0) Debug.Log("SpaxUpdate, total velocity :: (" + this.status.TotalVelocity.x + ", " + this.status.TotalVelocity.y + ")");
@@ -716,7 +716,7 @@ namespace FightingGameEngine.Gameplay
         public int IsWalled()
         {
             var ret = (int)EnumHelper.isNotZero((uint)(this.status.TransitionFlags & TransitionFlags.WALLED));
-
+            //Debug.Log(this.gameObject.name + " checking walled :: " + ret + " | " + (this.status.TransitionFlags & TransitionFlags.WALLED));
             return ret;
         }
 

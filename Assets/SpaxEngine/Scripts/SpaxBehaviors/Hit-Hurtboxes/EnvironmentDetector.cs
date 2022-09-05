@@ -31,7 +31,7 @@ namespace FightingGameEngine.Gameplay
         //if we are not overlapping with an object, nothing is added to curColliding
         private void OnFlatOverlap(in ContactData c)
         {
-            //UnityEngine.Debug.Log("walled");
+            //UnityEngine.Debug.Log("walled " + this.gameObject.name);
             this._owner.SetWalled(1);
         }
 
