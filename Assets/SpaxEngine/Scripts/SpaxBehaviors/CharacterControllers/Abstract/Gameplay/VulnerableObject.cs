@@ -8,13 +8,16 @@ using FixMath.NET;
 namespace FightingGameEngine.Gameplay
 {
     public delegate void BoxActivator(object sender, in FrameData frameData);
+    public delegate void StateAssigner(object sender, in GameplayState state);
 
     public abstract class VulnerableObject : LivingObject
     {
-        private HurtboxTrigger[] _hurtboxes;
+        protected HurtboxTrigger[] hurtboxes;
 
         //delgate that is called to activate hit/hurtboxes, we pass the hitbox triggers the frame data to know whether or not to activate
         public BoxActivator OnFrameReached;
+        //delegate that is called to assign hit/hurtbox states, we pass the gameplay state to the triggers to get them prepped with the right data
+        public StateAssigner OnGameStateSet;
 
         public int Facing { get { return this.status.CurrentFacingDirection; } }
 
@@ -25,12 +28,12 @@ namespace FightingGameEngine.Gameplay
             //find the parent of all hurtboxes
             GameObject hurtHolder = ObjectFinder.FindChildWithTag(this.gameObject, "HurtboxContainer");
             //stor all of the hurtboxes
-            this._hurtboxes = hurtHolder.GetComponentsInChildren<HurtboxTrigger>();
+            this.hurtboxes = hurtHolder.GetComponentsInChildren<HurtboxTrigger>();
             //initialize all hurtboxes
-            int len = _hurtboxes.Length;
+            int len = this.hurtboxes.Length;
             for (int i = 0; i < len; i++)
             {
-                HurtboxTrigger box = this._hurtboxes[i];
+                HurtboxTrigger box = this.hurtboxes[i];
                 //set the trigger index for each box
                 box.SetTriggerIndex(i);
                 box.SetTriggerAllegiance(this.status.Allegiance);
@@ -475,6 +478,17 @@ namespace FightingGameEngine.Gameplay
             return ret;
         }
 
+        //gets the first hurtbox in a list, helpful for hitbox stuff
+        public HurtboxTrigger GetHurtbox(int i) { return this.hurtboxes[i]; }
+        public override CharStateInfo GetCharacterInfo()
+        {
+            return new CharStateInfo(this.status, new HitboxTrigger[8], this.hurtboxes);
+        }
+
+        protected override void OnApplyGameState(in GameplayState state)
+        {
+            this.OnGameStateSet?.Invoke(this, state);
+        }
 
     }
 }

@@ -18,26 +18,37 @@ namespace FightingGameEngine.Gameplay
         }
 
 
-        protected override void CheckDataFromFrame(object sender,in FrameData data)
+        protected override void CheckDataFromFrame(object sender, in FrameData data)
         {
             //get the data for quick 
             if (data == null) { this.DeactivateBox(); return; }
-            var boxdata = data.GetHurtbox(this.triggerIndex);
+            var boxData = data.GetHurtbox(this.triggerIndex);
+            this.SetData(boxData);
+
+        }
+
+        protected override void ApplyGameState(object sender, in GameplayState state)
+        {
+            this.SetData(state.HurtboxStates.GetValue(this.triggerIndex));
+        }
+
+
+        public override void DeactivateBox()
+        {
+            this.CommonDeactivateBox();
+        }
+
+        private void SetData(in HurtboxData boxData)
+        {
             //valid or invalid boxdata, checks if dimensions are valid
-            bool isValid = boxdata.Dimensions.sqrMagnitude > 0;
+            bool isValid = boxData.Dimensions.sqrMagnitude > 0;
 
             //if invalid data, don't
             if (!isValid)
             {
                 return;
             }
-            this.ActivateBox(boxdata);
-
-        }
-
-        public override void DeactivateBox()
-        {
-            this.CommonDeactivateBox();
+            this.ActivateBox(boxData);
         }
 
         //called by hitboxes interacting with this to hit the owner
@@ -46,5 +57,9 @@ namespace FightingGameEngine.Gameplay
             var ret = this.Owner.AddHitboxToQuery(boxData);
             return ret;
         }
+
+        public HurtboxData GetHurtboxData() { return this.m_data; }
+
+
     }
 }

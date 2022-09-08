@@ -90,3 +90,9 @@ MonoBehaviour:
     y:
       m_rawValue: 0
   m_checkState: 1
+  m_rendererInfo:
+    _vfxValues: {fileID: 0}
+  m_currentDamageScaling:
+    m_rawValue: 0
+  m_storedDamageScaling:
+    m_rawValue: 0

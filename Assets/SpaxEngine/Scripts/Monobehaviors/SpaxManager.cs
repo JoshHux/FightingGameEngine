@@ -181,7 +181,11 @@ namespace Spax
 
         private void GameplayUpdate()
         {
-            if (this._recordWorld) { this._worldStates.AddWorldState(new WorldState(this.P1Status, this.P2Status)); }
+            if (this._recordWorld)
+            {
+                CharStateInfo[] hold = new CharStateInfo[] { this._players[0].GetCharacterInfo(), this._players[1].GetCharacterInfo() };
+                this._worldStates.AddWorldState(new WorldState(hold));
+            }
             InputUpdate?.Invoke();
             StateUpdate?.Invoke();
             StateCleanUpdate?.Invoke();

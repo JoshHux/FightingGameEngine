@@ -739,6 +739,16 @@ namespace FightingGameEngine.Gameplay
             this.SetStateRaw(this.data.GetStateFromID(state.CurrentStateID));
 
             this.status.ApplyGameplayState(state);
+
+            this.OnApplyGameState(state);
+        }
+
+        //extra things that need to be called when we set the gameplay state
+        protected virtual void OnApplyGameState(in GameplayState state) { }
+
+        public virtual CharStateInfo GetCharacterInfo()
+        {
+            return new CharStateInfo(this.status, new HitboxTrigger[8], new HurtboxTrigger[8]);
         }
 
     }

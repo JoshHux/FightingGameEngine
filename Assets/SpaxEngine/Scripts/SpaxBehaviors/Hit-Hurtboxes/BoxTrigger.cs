@@ -28,6 +28,7 @@ namespace FightingGameEngine.Gameplay
 
             //add our own activator event when we reached a frame and may activate this box trigger
             this._owner.OnFrameReached += CheckDataFromFrame;
+            this._owner.OnGameStateSet += ApplyGameState;
         }
 
 
@@ -35,6 +36,7 @@ namespace FightingGameEngine.Gameplay
         void OnDestroy()
         {
             this._owner.OnFrameReached -= CheckDataFromFrame;
+            this._owner.OnGameStateSet -= ApplyGameState;
 
         }
 
@@ -69,9 +71,12 @@ namespace FightingGameEngine.Gameplay
             this.allegiance = newA;
         }
 
+        public int GetTriggerIndex() { return this.triggerIndex; }
+
         public virtual bool IsActive() { return this._trigger.Awake; }
 
-        protected abstract void CheckDataFromFrame(object sender,in FrameData data);
+        protected abstract void CheckDataFromFrame(object sender, in FrameData data);
+        protected abstract void ApplyGameState(object sender, in GameplayState state);
         public abstract void DeactivateBox();
     }
 }

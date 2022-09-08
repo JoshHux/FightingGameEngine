@@ -142,12 +142,14 @@ namespace FightingGameEngine.Gameplay
                 //we landed a strike
                 this.landedStrikeThisFrame = grabbed == 0 && rawHit > 0;
 
-                if(comboed == 0){
+                if (comboed == 0)
+                {
                     this.status.CurrentDamageScaling = 1;
                 }
 
                 //multiply hitbox's scaling with stored scaling for every box that isn't blocked
-                if(blocked == 0){
+                if (blocked == 0)
+                {
                     this.status.StoredDamageScaling *= hold.HitboxData.ForcedProration;
                 }
 
@@ -183,7 +185,13 @@ namespace FightingGameEngine.Gameplay
             this.status.StoredDamageScaling = 1;
         }
 
+        //gets the first hurtbox in a list, helpful for hitbox stuff
+        public HitboxTrigger GetHitbox(int i) { return this._hitboxes[i]; }
 
+        public override CharStateInfo GetCharacterInfo()
+        {
+            return new CharStateInfo(this.status, this._hitboxes, this.hurtboxes);
+        }
 
     }
 }

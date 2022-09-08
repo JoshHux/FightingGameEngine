@@ -53,16 +53,52 @@ namespace FightingGameEngine.Gameplay
             if (data == null) { this.DeactivateBox(); return; }
             //UnityEngine.Debug.Log((data == null));
             //get the data for quick and easy access
-            var boxdata = data.GetHitbox(this.triggerIndex);
-            //valid or invalid boxdata, checks if durationis nonzero
-            bool isValid = boxdata.IsValid();
+            var boxData = data.GetHitbox(this.triggerIndex);
+            this.SetData(boxData);
+        }
 
-            //if invalid data, don't
-            if (!isValid)
+        protected override void ApplyGameState(object sender, in GameplayState state)
+        {
+            //setting new hitboxTrigger information, deactivate to throw away any data we had previously
+            this.DeactivateBox();
+
+            //get the box here
+            var hold = state.HitboxStates.GetValue(this.triggerIndex);
+            this.SetData(hold.CurrentData);
+            this._activeTimer = new FrameTimer(hold.TimerInfo.EndTime, hold.TimerInfo.TimeElapsed);
+
+            //set WasColliding information
+            int i = 0;
+            int len = this.m_wasColliding.Count;
+
+            //instance of manager
+            var manager = Spax.SpaxManager.Instance;
+            while (i < len)
             {
-                return;
+                //current state info we're looking at
+                var info = hold.WasColliding.GetValue(i);
+
+                //if the ID of the character is -1, then we don't care about any other object
+                //  this is because of how we added elements to the list, we can just break here
+                if (info.GetValue(0) == -1) { break; }
+
+                //get the character by the ID
+                var character = manager.GetLivingObjectByID(info.GetValue(0));
+                //get the box we want to add
+                var trigInd = info.GetValue(1);
+                var absTrigInd = UnityEngine.Mathf.Abs(trigInd);
+
+                BoxTrigger toAdd = (character as VulnerableObject).GetHurtbox(absTrigInd);
+
+                if (trigInd < 0)
+                {
+                    toAdd = (character as CombatObject).GetHitbox(absTrigInd);
+                }
+
+                this.m_wasColliding.Add(toAdd);
+
+                i++;
             }
-            this.ActivateBox(boxdata);
         }
 
         public override void DeactivateBox()
@@ -137,6 +173,8 @@ namespace FightingGameEngine.Gameplay
                 //if object was in neither list
                 if (okayAdd)
                 {
+                    //if we're at the limit of 16 objects, drop the first one added
+                    if (this.m_wasColliding.Count >= 16) { this.m_wasColliding.RemoveAt(0); }
                     //add new object to curColliding
                     this._curColliding.Add(possibleAddition);
                     //UnityEngine.Debug.Log("okay to add");
@@ -279,6 +317,21 @@ namespace FightingGameEngine.Gameplay
             return ret;
         }
 
+        private void SetData(in HitboxData boxData)
+        {
+            //valid or invalid boxdata, checks if durationis nonzero
+            bool isValid = boxData.IsValid();
 
+            //if invalid data, don't
+            if (!isValid)
+            {
+                return;
+            }
+            this.ActivateBox(boxData);
+        }
+
+        public HitboxData GetHitboxData() { return this.m_data; }
+        public FrameTimer GetTimer() { return this._activeTimer; }
+        public List<BoxTrigger> GetWasCol() { return this.m_wasColliding; }
     }
 }
