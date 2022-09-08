@@ -744,7 +744,6 @@ namespace FightingGameEngine.Gameplay
 
             this.status.ApplyGameplayState(state);
 
-<<<<<<< HEAD
             this.OnApplyGameState(state);
         }
 
@@ -754,9 +753,6 @@ namespace FightingGameEngine.Gameplay
         public virtual CharStateInfo GetCharacterInfo()
         {
             return new CharStateInfo(this.status, new HitboxTrigger[8], new HurtboxTrigger[8]);
-=======
-            //Debug.Log("Current state is " + this.status.CurrentState.name);
->>>>>>> 4f68bd82702990db55bf2b8a825010d2413909d6
         }
 
     }
