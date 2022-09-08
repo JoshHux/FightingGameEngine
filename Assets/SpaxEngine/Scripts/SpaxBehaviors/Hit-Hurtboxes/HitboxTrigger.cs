@@ -42,8 +42,8 @@ namespace FightingGameEngine.Gameplay
             this._activeTimer = new FrameTimer(this.m_data.Duration);
 
             //reset collision list
-            this._curColliding.Clear();
-            this.m_wasColliding.Clear();
+            //this._curColliding.Clear();
+            //this.m_wasColliding.Clear();
 
             this.CommonActivateBox(newPos, newDim);
         }
@@ -174,7 +174,7 @@ namespace FightingGameEngine.Gameplay
                 if (okayAdd)
                 {
                     //if we're at the limit of 16 objects, drop the first one added
-                    if (this.m_wasColliding.Count >= 16) { this.m_wasColliding.RemoveAt(0); }
+                    if (this._curColliding.Count >= 16) { this._curColliding.RemoveAt(0); }
                     //add new object to curColliding
                     this._curColliding.Add(possibleAddition);
                     //UnityEngine.Debug.Log("okay to add");
@@ -298,7 +298,9 @@ namespace FightingGameEngine.Gameplay
                 }
 
                 //the list of objects in curColliding are now the list of wasColliding
-                this.m_wasColliding = new List<BoxTrigger>(this._curColliding);
+                this.m_wasColliding.AddRange(diffColliders);
+                int diffLen = 16 - this.m_wasColliding.Count;
+                if (diffLen > 0) { this.m_wasColliding.RemoveRange(0, diffLen); }
                 //clear the list of boxes we are currently colliding with
                 this._curColliding.Clear();
             }

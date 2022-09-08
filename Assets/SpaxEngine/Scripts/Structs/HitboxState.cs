@@ -47,7 +47,7 @@ namespace FightingGameEngine.Data
                     }
 
                     this.WasColliding.SetValue(i, toAdd);
-                    if (i == 0 && box.Owner.Status.PlayerID == 0) { UnityEngine.Debug.Log(i + " :: " + this.WasColliding._0._0 + " | " + this.WasColliding._0._1 + " |||| " + toAdd._0 + " | " + toAdd._1); }
+                    //if (i == 0 && box.Owner.Status.PlayerID == 0) { UnityEngine.Debug.Log(len + " ||| " + i + " :: " + this.WasColliding._0._0 + " | " + this.WasColliding._0._1 + " |||| " + toAdd._0 + " | " + toAdd._1); }
                     i++;
                 }
 

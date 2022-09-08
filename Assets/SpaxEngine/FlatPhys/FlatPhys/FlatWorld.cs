@@ -257,7 +257,7 @@ namespace FlatPhysics
 
                             //get the difference in x position 
                             var xOffset = bodyB.Position.x - bodyA.Position.x;
-                            Debug.Log(aIsWalled + " , " + bIsWalled + " | " + aIsAirborne + " , " + bIsAirborne);
+                            //Debug.Log(aIsWalled + " , " + bIsWalled + " | " + aIsAirborne + " , " + bIsAirborne);
 
                             inCorner = aIsWalled | bIsWalled;
                             if (bothAreDiff > 0 && inCorner > 0)
