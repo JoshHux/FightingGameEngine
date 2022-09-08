@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stun-Grounded
   m_EditorClassIdentifier: 
   _id:
-    ID: 0
+    ID: 31159566657
   _parentState: {fileID: 0}
   _duration: 0
   _stateConditions: 67108880

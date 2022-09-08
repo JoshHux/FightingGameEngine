@@ -64,9 +64,6 @@ namespace FightingGameEngine.Gameplay
 
 
 
-            //try to transition to a new state
-            this.TryTransitionState();
-
             //tick superflash timer
             var foo = !this.status.SuperFlashTimer.IsDone() && this.TickSuperFlash();
 
@@ -128,7 +125,7 @@ namespace FightingGameEngine.Gameplay
 
             //set CalcVelocity to 0 to prevent any extra changes to velocity on the next frame
             this.status.CalcVelocity = new FVector2();
-            //reset the walled flag so that it only appears on flames where we touch the wall
+            //reset the walled flag so that it only appears on frames where we touch the wall
             this.status.TransitionFlags &= (~TransitionFlags.WALLED);
 
             //if (this.name == "TestPlayer" && this.status.TotalVelocity.magnitude > 0) Debug.Log("SpaxUpdate, total velocity :: (" + this.status.TotalVelocity.x + ", " + this.status.TotalVelocity.y + ")");
@@ -151,6 +148,9 @@ namespace FightingGameEngine.Gameplay
 
         }
 
+        /**
+            Absolute LAST thing to process int the gameplay loop
+        **/
         protected override void PostUpdate()
         {
             //record the current frame's position, to be used for the next frame
@@ -158,6 +158,9 @@ namespace FightingGameEngine.Gameplay
 
 
             //Debug.Log("-PostUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
+
+            //try to transition to a new state
+            this.TryTransitionState();
 
 
             //Debug.Log("postupdate - " + this.name + " - " + i);
@@ -635,7 +638,6 @@ namespace FightingGameEngine.Gameplay
         {
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
 
-
             //set the new current state
             this.status.CurrentState = newState;
             ///process current state
@@ -652,6 +654,7 @@ namespace FightingGameEngine.Gameplay
 
             this.OnStateSet();
             //this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
+            //Debug.Log(this.gameObject.name + " Raw transition to " + newState.name + " | Current state is " + this.status.CurrentState.name);
 
             //if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "Hitstun-Air") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
@@ -713,7 +716,7 @@ namespace FightingGameEngine.Gameplay
         public int IsWalled()
         {
             var ret = (int)EnumHelper.isNotZero((uint)(this.status.TransitionFlags & TransitionFlags.WALLED));
-
+            //Debug.Log(this.gameObject.name + " checking walled :: " + ret + " | " + (this.status.TransitionFlags & TransitionFlags.WALLED));
             return ret;
         }
 
@@ -736,10 +739,12 @@ namespace FightingGameEngine.Gameplay
 
         public void ApplyGameplayState(in GameplayState state)
         {
-            this.SetStateRaw(this.data.GetStateFromID(state.CurrentStateID));
+            var newCharState = this.data.GetStateFromID(state.CurrentStateID);
+            this.SetStateRaw(newCharState);
 
             this.status.ApplyGameplayState(state);
 
+<<<<<<< HEAD
             this.OnApplyGameState(state);
         }
 
@@ -749,6 +754,9 @@ namespace FightingGameEngine.Gameplay
         public virtual CharStateInfo GetCharacterInfo()
         {
             return new CharStateInfo(this.status, new HitboxTrigger[8], new HurtboxTrigger[8]);
+=======
+            //Debug.Log("Current state is " + this.status.CurrentState.name);
+>>>>>>> 4f68bd82702990db55bf2b8a825010d2413909d6
         }
 
     }

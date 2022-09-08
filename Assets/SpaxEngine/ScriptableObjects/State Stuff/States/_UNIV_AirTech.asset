@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
-  m_Name: ThrowTech
+  m_Name: _UNIV_AirTech
   m_EditorClassIdentifier: 
+  _id:
+    ID: -9223372018227261867
   _parentState: {fileID: 0}
   _duration: 10
-  _stateConditions: 16
+  _stateConditions: 64
   _toggleState: 0
   _cancels: 0
   _toggleCancel: 0
-  _enterEvents: 0
+  _enterEvents: 7
   _exitEvents: 0
   _transitions:
   - _targetState: {fileID: 0}
@@ -46,9 +48,9 @@ MonoBehaviour:
     _setVelocity: 1
     _appliedVelocity:
       x:
-        m_rawValue: -42949672960
+        m_rawValue: -21474836480
       y:
-        m_rawValue: 0
+        m_rawValue: 8589934592
     _setGravity: 0
     _appliedGravity:
       m_rawValue: 0
@@ -131,6 +133,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox1:
         Duration: 0
         UniversalStateCause: 0
@@ -193,6 +196,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox2:
         Duration: 0
         UniversalStateCause: 0
@@ -255,6 +259,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox3:
         Duration: 0
         UniversalStateCause: 0
@@ -317,6 +322,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox4:
         Duration: 0
         UniversalStateCause: 0
@@ -379,6 +385,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox5:
         Duration: 0
         UniversalStateCause: 0
@@ -441,6 +448,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox6:
         Duration: 0
         UniversalStateCause: 0
@@ -503,6 +511,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox7:
         Duration: 0
         UniversalStateCause: 0
@@ -565,6 +574,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox8:
         Duration: 0
         UniversalStateCause: 0
@@ -627,6 +637,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
       Hitbox9:
         Duration: 0
         UniversalStateCause: 0
@@ -689,6 +700,7 @@ MonoBehaviour:
         OnHitCancel: 0
         OnCounterHitCancel: 0
         OnBlockedHitCancel: 0
+        Hitspark: 0
     _hurtboxes:
       Hurtbox0:
         Position:
@@ -803,10 +815,24 @@ MonoBehaviour:
     _projectiles: []
   _animation:
   - _atFrame: 1
-    _animationName: Tech-Grab
+    _animationName: AirTech
     _animationSpeed:
-      m_rawValue: 4294967296
+      m_rawValue: 0
     _skipIfSameName: 0
     _startFrame: 0
     _soundFx: 
-    _vfx: 
+    _vfx: 0
+    _vfxPosition:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _vfxRotation:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
