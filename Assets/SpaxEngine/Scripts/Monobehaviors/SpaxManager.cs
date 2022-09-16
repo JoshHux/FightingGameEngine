@@ -184,10 +184,10 @@ namespace Spax
 
         private void GameplayUpdate()
         {
-
-            //record/autoplay world
             if (this._recordWorld)
             {
+
+
                 if (this.matchFrames >= this._replayWorldStartFrame)
                 {
                     this.ApplyWorldState(this._recWorldFrame);
@@ -195,7 +195,8 @@ namespace Spax
                 }
                 else
                 {
-                    this._worldStates.AddWorldState(new WorldState(this.P1Status, this.P2Status));
+                    CharStateInfo[] hold = new CharStateInfo[] { this._players[0].GetCharacterInfo(), this._players[1].GetCharacterInfo() };
+                    this._worldStates.AddWorldState(new WorldState(hold));
                 }
             }
             InputUpdate?.Invoke();

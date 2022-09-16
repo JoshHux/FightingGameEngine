@@ -160,8 +160,6 @@ namespace FightingGameEngine.Data
             this.m_conditionTimer = new ConditionTimer(state.PersistTimer.EndTime, state.PersistTimer.TimeElapsed, state.PersistSttCond);
         }
 
-        public GameplayState GetGameplayState() { return new GameplayState(this); }
-
         public bool InHitstop { get { return !this.m_stopTimer.IsDone(); } }
     }
 }

@@ -1,5 +1,6 @@
 using FixMath.NET;
 using FightingGameEngine.Enum;
+using FightingGameEngine.Gameplay;
 namespace FightingGameEngine.Data
 {
 
@@ -33,8 +34,16 @@ namespace FightingGameEngine.Data
         public InputItem CurrentControllerState;
         public int FacingDir;
 
-        public GameplayState(in soCharacterStatus status)
+        public Arr8<HitboxState> HitboxStates;
+        public Arr8<HurtboxData> HurtboxStates;
+
+        public GameplayState(in CharStateInfo info)
         {
+            //get the info from the parameter
+            soCharacterStatus status = info.GetStatus();
+            HitboxTrigger[] hitboxes = info.GetHitboxes();
+            HurtboxTrigger[] hurtboxes = info.GetHurtboxes();
+
             this.CurrentStateID = status.CurrentState.StateID;
             this.PhysicsData = new PhysicsState(status.CurrentPosition, status.CurrentVelocity, status.CalcVelocity);
             this.CurrentStateConditions = status.CurrentStateConditions;
@@ -57,6 +66,44 @@ namespace FightingGameEngine.Data
             this.WallBounceScaling = status.WallBounceScaling;
             this.CurrentControllerState = status.CurrentControllerState;
             this.FacingDir = status.CurrentFacingDirection;
+
+            //set the hitbox states
+            this.HitboxStates = new Arr8<HitboxState>();
+            //HitboxState has builtin protection in can hitboxes is null
+            this.HitboxStates.SetValue(0, new HitboxState(hitboxes[0]));
+            this.HitboxStates.SetValue(1, new HitboxState(hitboxes[1]));
+            this.HitboxStates.SetValue(2, new HitboxState(hitboxes[2]));
+            this.HitboxStates.SetValue(3, new HitboxState(hitboxes[3]));
+            this.HitboxStates.SetValue(4, new HitboxState(hitboxes[4]));
+            this.HitboxStates.SetValue(5, new HitboxState(hitboxes[5]));
+            this.HitboxStates.SetValue(6, new HitboxState(hitboxes[6]));
+            this.HitboxStates.SetValue(7, new HitboxState(hitboxes[7]));
+
+            //set the hurtbox states
+            this.HurtboxStates = new Arr8<HurtboxData>();
+            //if we get an array of empty objects
+            if (hurtboxes[0] != null)
+            {
+                this.HurtboxStates.SetValue(0, hurtboxes[0].GetHurtboxData());
+                this.HurtboxStates.SetValue(1, hurtboxes[1].GetHurtboxData());
+                this.HurtboxStates.SetValue(2, hurtboxes[2].GetHurtboxData());
+                this.HurtboxStates.SetValue(3, hurtboxes[3].GetHurtboxData());
+                this.HurtboxStates.SetValue(4, hurtboxes[4].GetHurtboxData());
+                this.HurtboxStates.SetValue(5, hurtboxes[5].GetHurtboxData());
+                this.HurtboxStates.SetValue(6, hurtboxes[6].GetHurtboxData());
+                this.HurtboxStates.SetValue(7, hurtboxes[7].GetHurtboxData());
+            }
+            else
+            {
+                this.HurtboxStates.SetValue(0, new HurtboxData());
+                this.HurtboxStates.SetValue(1, new HurtboxData());
+                this.HurtboxStates.SetValue(2, new HurtboxData());
+                this.HurtboxStates.SetValue(3, new HurtboxData());
+                this.HurtboxStates.SetValue(4, new HurtboxData());
+                this.HurtboxStates.SetValue(5, new HurtboxData());
+                this.HurtboxStates.SetValue(6, new HurtboxData());
+                this.HurtboxStates.SetValue(7, new HurtboxData());
+            }
         }
     }
 }
