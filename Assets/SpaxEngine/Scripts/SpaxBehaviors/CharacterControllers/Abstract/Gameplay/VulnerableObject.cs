@@ -88,7 +88,9 @@ namespace FightingGameEngine.Gameplay
 
                     //if (blocked > 0) { Debug.Log("blocked hit"); }
                     //add transition flag to let the status know we got hit
-                    this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.GOT_HIT | (TransitionFlags)((int)TransitionFlags.BLOCKED_HIT * blocked);
+                    this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.GOT_HIT | (TransitionFlags)((int)TransitionFlags.BLOCKED_HIT * blocked) | (TransitionFlags)((int)TransitionFlags.UNBLOCKED_HIT * (blocked ^ 1));
+
+                    //Debug.Log("blocked? " + ((this.status.TransitionFlags & TransitionFlags.UNBLOCKED_HIT) > 0));
 
                     //knockback/postion offset value (for grabs)
                     var groundedPhysVal = boxData.GroundedKnockback;
@@ -158,7 +160,16 @@ namespace FightingGameEngine.Gameplay
                 i++;
             }
 
+            //set the transition info to hold onto into the next frame
+            //first item is the target universal state
+            this.status.SetTransitionInfoVal(0, univTargetState);
+            //second item is the duration of stun
+            this.status.SetTransitionInfoVal(1, totalStun);
+            //Debug.Log("stun val :: " + this.status.TransitionInfo.GetValue(1));
+
+
             //DON'T transition if we're going into hit/blockstun with 0 totalstun
+            /*
             if (univTargetState > -1 && !(univTargetState == 0 && totalStun <= 0))
             {
                 this.TryTransitionUniversalState(univTargetState);
@@ -167,7 +178,7 @@ namespace FightingGameEngine.Gameplay
                 this.Status.StateTimer = new FrameTimer(sttDur);
                 //Debug.Log(this.status.CurrentState + " " + totalStun + " " + sttDur);
             }
-
+            */
 
 
             this.landedStrikeThisFrame = false;

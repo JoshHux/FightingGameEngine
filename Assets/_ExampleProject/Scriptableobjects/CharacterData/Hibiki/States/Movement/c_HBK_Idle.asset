@@ -16,7 +16,7 @@ MonoBehaviour:
     ID: 0
   _parentState: {fileID: 0}
   _duration: 0
-  _stateConditions: 8388725
+  _stateConditions: 117
   _toggleState: 0
   _cancels: 4294967295
   _toggleCancel: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
     - Input: 16
       Flags: 536870912
       HoldDuration: 0
+      UnlenientTime: 0
       _lenientBuffer: 0
     _requiredTransitionFlags: 1
     _transitionEvents: 0
@@ -75,6 +76,7 @@ MonoBehaviour:
     - Input: 8
       Flags: 536870912
       HoldDuration: 0
+      UnlenientTime: 0
       _lenientBuffer: 0
     _requiredTransitionFlags: 1
     _transitionEvents: 0

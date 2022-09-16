@@ -50,6 +50,8 @@ namespace FightingGameEngine.Data
         //damage scaling for combos
         [SerializeField] private Fix64 m_currentDamageScaling;
         [SerializeField] private Fix64 m_storedDamageScaling;
+        //extra transition info we might need
+        [SerializeField] private Arr8<int> _transitionInfo;
 
 
         public int Allegiance { get { return this._allegiance; } set { this._allegiance = value; } }
@@ -118,6 +120,7 @@ namespace FightingGameEngine.Data
 
         public Fix64 CurrentDamageScaling { get { return this.m_currentDamageScaling; } set { this.m_currentDamageScaling = value; } }
         public Fix64 StoredDamageScaling { get { return this.m_storedDamageScaling; } set { this.m_storedDamageScaling = value; } }
+        public Arr8<int> TransitionInfo { get { return this._transitionInfo; } set { this._transitionInfo = value; } }
 
         //gets the total velocity that will be assigned to the rigidbody
         public FVector2 TotalVelocity
@@ -129,6 +132,7 @@ namespace FightingGameEngine.Data
             }
         }
 
+        public void SetTransitionInfoVal(int ind, int val) { this._transitionInfo.SetValue(ind, val); }
         //only really here to initialize the InputRecorder, at least for now
         public void Initialize() { this._inputRecorder = new InputRecorder(); }
         public void ResetLeniency() { this._inputRecorder.ResetLeniency(); }
@@ -153,6 +157,7 @@ namespace FightingGameEngine.Data
             this.m_currentGravity = state.CurrentGravity;
             this.m_gravityScaling = state.GravityScaling;
             this.m_currentResources = state.CurrentResources;
+            this._transitionInfo = state.TransitionInfo;
 
             this.m_stateTimer = new FrameTimer(state.StateTimer.EndTime, state.StateTimer.TimeElapsed);
             this.m_stopTimer = new FrameTimer(state.StopTimer.EndTime, state.StopTimer.TimeElapsed);

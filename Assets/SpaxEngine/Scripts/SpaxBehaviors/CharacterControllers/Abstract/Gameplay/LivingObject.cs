@@ -40,6 +40,16 @@ namespace FightingGameEngine.Gameplay
             this.status.CurrentGravity = this.data.Mass;
             this.status.GravityScaling = 1;
             this.status.CurrentFacingDirection = -1;
+
+            //default values for the extra transition info
+            this.status.SetTransitionInfoVal(0, -1);
+            this.status.SetTransitionInfoVal(1, -1);
+            this.status.SetTransitionInfoVal(2, -1);
+            this.status.SetTransitionInfoVal(3, -1);
+            this.status.SetTransitionInfoVal(4, -1);
+            this.status.SetTransitionInfoVal(5, -1);
+            this.status.SetTransitionInfoVal(6, -1);
+            this.status.SetTransitionInfoVal(7, -1);
         }
 
         protected override void OnStart()
@@ -71,7 +81,26 @@ namespace FightingGameEngine.Gameplay
             //tick the stop timer
             bool inHitstop = this.status.StopTimer.TickTimer();
             //if we're in hitstop, don't tick timer
-            if (inHitstop) { return; }
+            if (inHitstop)
+            {
+                //if we're in hitstop, let's see if we need to transition to something like a hitstun state
+                //try transitioning to a universal state
+                var univTargetState = this.status.TransitionInfo.GetValue(0);
+                var totalStun = this.status.TransitionInfo.GetValue(1);
+                //Debug.Log(this.gameObject.name + " second check :: " + ((this.status.TransitionFlags & TransitionFlags.UNBLOCKED_HIT) > 0) + " " + univTargetState + " " + totalStun);
+                if (univTargetState > -1 && !(univTargetState == 0 && totalStun <= 0))
+                {
+                    this.TryTransitionUniversalState(univTargetState);
+                    //set stun duration
+                    int sttDur = (this.status.CurrentState.Duration == 0) ? totalStun : this.status.CurrentState.Duration;
+                    this.Status.StateTimer = new FrameTimer(sttDur);
+                    //Debug.Log(this.status.CurrentState + " " + totalStun + " " + sttDur);
+                }
+                return;
+            }
+            //try to transition to a new state
+            this.TryTransitionState();
+
 
             //tick the state timer after possible new state assignment anything else
             bool stateComplete = !this.status.StateTimer.TickTimer();
@@ -159,9 +188,6 @@ namespace FightingGameEngine.Gameplay
 
 
             //Debug.Log("-PostUpdate, _rb velocity :: (" + this._rb.Velocity.x + ", " + this._rb.Velocity.y + ")");
-
-            //try to transition to a new state
-            this.TryTransitionState();
 
 
             //Debug.Log("postupdate - " + this.name + " - " + i);
@@ -457,21 +483,28 @@ namespace FightingGameEngine.Gameplay
                 //this.status.CurrentVelocity = new FVector2(this.status.TotalVelocity.x, 0);
             }
 
+
             var trnFlags = this.status.TransitionFlags;
             var curCan = this.status.CancelFlags;
             var curRsrc = this.status.CurrentResources;
             var curInpt = this.status.Inputs;
             var curFacing = this.status.CurrentFacingDirection;
             var trans = this.status.CurrentState.CheckTransitions(trnFlags, curCan, curRsrc, curInpt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
+            //flags that the transition we want to use SHOULD have
+            var reqFlags = trnFlags & TransitionFlags.REQ_FLAGS;
+
+            //Debug.Log(this.gameObject.name + " zero check :: " + ((reqFlags & TransitionFlags.REQ_FLAGS) > 0));
 
 
             //don't check the state for transitions anymore
             //this.status.CheckState = false;
             //if it's null, no transition to process
-            if (trans == null)
+            //also, check to make sure that this transition we found has the flags we want to see
+            if (trans == null || ((!this.status.InHitstop) && (reqFlags != (trans.RequiredTransitionFlags & TransitionFlags.REQ_FLAGS))))
             {
                 //check the move list in the data instead
                 trans = this.data.CheckMoveList(trnFlags, curCan, curRsrc, curInpt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
+                //Debug.Log(this.gameObject.name + " first check :: " + this.status.TransitionInfo.GetValue(0) + " " + this.status.TransitionInfo.GetValue(1));
 
                 //if (trans == null)
                 //{
@@ -479,7 +512,24 @@ namespace FightingGameEngine.Gameplay
                 //}
 
                 //if trans is still null, we end the check
-                if (trans == null) { /*Debug.Log("failed to find transition");*/ return; }
+                //we check the required flags, but only if we're NOT in hitstop, since we are already checking that in StateUpdate
+                if (trans == null || (reqFlags != (trans.RequiredTransitionFlags & TransitionFlags.REQ_FLAGS)))
+                {
+                    if (this.status.InHitstop) { return; }
+                    //try transitioning to a universal state
+                    var univTargetState = this.status.TransitionInfo.GetValue(0);
+                    var totalStun = this.status.TransitionInfo.GetValue(1);
+                    //Debug.Log(this.gameObject.name + " second check :: " + ((this.status.TransitionFlags & TransitionFlags.UNBLOCKED_HIT) > 0) + " " + univTargetState + " " + totalStun);
+                    if (univTargetState > -1 && !(univTargetState == 0 && totalStun <= 0))
+                    {
+                        this.TryTransitionUniversalState(univTargetState);
+                        //set stun duration
+                        int sttDur = (this.status.CurrentState.Duration == 0) ? totalStun : this.status.CurrentState.Duration;
+                        this.Status.StateTimer = new FrameTimer(sttDur);
+                        //Debug.Log(this.status.CurrentState + " " + totalStun + " " + sttDur);
+                    }
+                    return;
+                }
 
                 //Debug.Log("found transition in movelist - " + trans.TargetState.name);
             }
@@ -628,11 +678,10 @@ namespace FightingGameEngine.Gameplay
             //assign the current cancel conditions
             this.status.CancelFlags = newState.CancelConditions;
             //remove the state end transition flag
-            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT) * isNonNodeState));
+            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT | TransitionFlags.UNBLOCKED_HIT) * isNonNodeState));
 
             this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
 
-            this.OnStateSet();
             //if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "Hitstun-Air") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state timer in setstate is - " + this.status.StateTimer.TimeElapsed + "/" + this.status.StateTimer.EndTime); }
@@ -656,7 +705,7 @@ namespace FightingGameEngine.Gameplay
             //assign the current cancel conditions
             this.status.CancelFlags = newState.CancelConditions;
             //remove the state end transition flag
-            this.status.TransitionFlags = (TransitionFlags)((int)this.status.TransitionFlags & ~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT)));
+            this.status.TransitionFlags = (TransitionFlags)((int)this.status.TransitionFlags & ~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT | TransitionFlags.UNBLOCKED_HIT)));
 
             this.OnStateSet();
             //this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);

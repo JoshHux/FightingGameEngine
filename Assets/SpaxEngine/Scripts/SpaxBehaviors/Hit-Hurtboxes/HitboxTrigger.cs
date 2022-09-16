@@ -118,7 +118,12 @@ namespace FightingGameEngine.Gameplay
         {
             //only continue if we are active
             bool dontContinue = !this.IsActive();
-            if (dontContinue) { return; }
+            if (dontContinue)
+            {
+                //deactivate the box, just in case
+                this.DeactivateBox();
+                return;
+            }
 
             //the frigidbody we might add to the currently colliding list
 
@@ -296,11 +301,13 @@ namespace FightingGameEngine.Gameplay
 
                     i++;
                 }
-
                 //the list of objects in curColliding are now the list of wasColliding
                 this.m_wasColliding.AddRange(diffColliders);
-                int diffLen = 16 - this.m_wasColliding.Count;
-                if (diffLen > 0) { this.m_wasColliding.RemoveRange(0, diffLen); }
+                int diffLen = this.m_wasColliding.Count - 16;
+                if (diffLen > 0 && this.m_wasColliding.Count > 0)
+                {
+                    this.m_wasColliding.RemoveRange(0, UnityEngine.Mathf.Abs(diffLen));
+                }
                 //clear the list of boxes we are currently colliding with
                 this._curColliding.Clear();
             }

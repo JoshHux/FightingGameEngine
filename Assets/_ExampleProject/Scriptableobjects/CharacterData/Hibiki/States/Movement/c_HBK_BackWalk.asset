@@ -33,6 +33,7 @@ MonoBehaviour:
     - Input: 8
       Flags: 1610612736
       HoldDuration: 0
+      UnlenientTime: 0
       _lenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 0

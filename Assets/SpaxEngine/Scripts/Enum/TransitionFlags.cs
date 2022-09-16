@@ -16,7 +16,12 @@ namespace FightingGameEngine.Enum
         LANDED_HIT = 1 << 5,
         //when a character blocks a hit
         BLOCKED_HIT = GOT_HIT | 1 << 6,
+        //when a character doesn't block a hit
+        UNBLOCKED_HIT =  1 << 7,
         //when a character's current state ends
         STATE_END = 1 << 30,
+
+        //flags that should be required for a transition to have
+        REQ_FLAGS=UNBLOCKED_HIT,
     }
 }
