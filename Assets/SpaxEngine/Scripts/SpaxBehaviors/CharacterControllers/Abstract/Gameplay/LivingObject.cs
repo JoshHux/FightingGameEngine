@@ -38,6 +38,7 @@ namespace FightingGameEngine.Gameplay
             //assign default values from character's data
             this.status.CurrentHP = this.data.MaxResources.Health;
             this.status.CurrentGravity = this.data.Mass;
+            this.status.GravityScaling = 1;
             this.status.CurrentFacingDirection = -1;
         }
 
@@ -366,8 +367,13 @@ namespace FightingGameEngine.Gameplay
             if (applyGrav)
             {
                 //UnityEngine.Debug.Log("applying gravity");
+
+                //whether or not we are in hitstun
+                int inStun = EnumHelper.HasEnumInt((uint)stateConditions, (uint)StateConditions.STUN_STATE);
+                int notStun = inStun ^ 1;
+
                 //grab the current gravity for easy reference
-                var grav = this.status.CurrentGravity;
+                var grav = (this.status.CurrentGravity * notStun + this.data.JuggleMass * inStun) * this.status.GravityScaling;
 
                 var applyingVel = new FVector2(0, -grav);
 

@@ -20,6 +20,7 @@ namespace FightingGameEngine.Data
         public CancelConditions CancelFlags;
         public ResourceData CurrentResources;
         public Fix64 CurrentGravity;
+        public Fix64 GravityScaling;
         public Fix64 CurrentProration;
         public Fix64 StoredProration;
         public int CurrentComboCount;
@@ -46,6 +47,7 @@ namespace FightingGameEngine.Data
             this.TransitionFlags = status.TransitionFlags;
             this.CurrentResources = status.CurrentResources;
             this.CurrentGravity = status.CurrentGravity;
+            this.GravityScaling = status.GravityScaling;
             this.CurrentProration = status.CurrentDamageScaling;
             this.StoredProration = status.StoredDamageScaling;
             this.CurrentComboCount = status.CurrentComboCount;

@@ -24,6 +24,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private soStateData[] _stateList;
         [SerializeField] private List<TransitionData> _moveList;
         public Fix64 Mass { get { return this._mass; } }
+        public Fix64 JuggleMass { get { return this._juggleMass; } }
         public Fix64 Friction { get { return this._friction; } }
         public Fix64 WalkAccel { get { return this._walkAccel; } }
         public Fix64 WalkMaxSpd { get { return this._walkMaxSpd; } }

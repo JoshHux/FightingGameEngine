@@ -18,7 +18,7 @@ namespace FightingGameEngine.Gameplay
         SpaxManager manager;
         Gamepad pad1, pad2;
         Keyboard keyboard;
-        
+
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -138,14 +138,15 @@ namespace FightingGameEngine.Gameplay
         private void BufferInput()
         {
             //whether to add extra buffer leniency to the input to buffer aerials curing prejump
-            bool bufferLeniency = EnumHelper.HasEnum((uint)this.status.TotalStateConditions, (uint)StateConditions.BUFFER_INPUT);
+            bool bufferLeniency = this.status.InHitstop || EnumHelper.HasEnum((uint)this.status.TotalStateConditions, (uint)StateConditions.BUFFER_INPUT);
             //adds a new input, check if state can transition
             //buffers the current controller state, saved in the recorder itself
             this.status.BufferInput(bufferLeniency);
         }
 
         #region Input Recorder
-        private void RecordInputsEachFrame(InputEnum command) {
+        private void RecordInputsEachFrame(InputEnum command)
+        {
             if (cont.inputMode == inputMod.Record)
             {
                 cont.inputDateToRecordAndPlay.frameCommands.Add(command.ToString());
@@ -170,7 +171,8 @@ namespace FightingGameEngine.Gameplay
                 }
             }
         }
-        private void SimulateRecordPlayInputs() {
+        private void SimulateRecordPlayInputs()
+        {
             var curInput = this.status.CurrentControllerState;
             RecordInputsEachFrame(curInput.Input);
             PlayInputEachFrame(curInput.Input);
@@ -178,7 +180,8 @@ namespace FightingGameEngine.Gameplay
         #endregion
 
         #region Multi  Controllers Handling
-        private void ManageControllers() {
+        private void ManageControllers()
+        {
             InputSystem.onDeviceChange +=
             (device, change) =>
             {
@@ -209,7 +212,8 @@ namespace FightingGameEngine.Gameplay
             pad2 = Gamepad.all.Count > 1 ? Gamepad.all[1] : null;
             keyboard = Keyboard.current;
         }
-        private void ReadInputsFromController1() {
+        private void ReadInputsFromController1()
+        {
             if (pad1 == null)
             {
                 return;
@@ -324,7 +328,8 @@ namespace FightingGameEngine.Gameplay
             }
             #endregion
         }
-        private void ReadInputsFromKeyboardP1() {
+        private void ReadInputsFromKeyboardP1()
+        {
             if (keyboard == null)
             {
                 return;
@@ -467,4 +472,4 @@ namespace FightingGameEngine.Gameplay
     }
 }
 public enum inputMod { None, Record, Play }
-public enum controllers {pad1, pad2, KeyboardP1, KeyboardP2 }
+public enum controllers { pad1, pad2, KeyboardP1, KeyboardP2 }

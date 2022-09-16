@@ -9,18 +9,21 @@ namespace FightingGameEngine.Data
         public InputEnum Input;
         public InputFlags Flags;
         public int HoldDuration;
+        //tells how long this input has been unlenient for, only matters for first input
+        public int UnlenientTime;
         //bool that tells whther or not we should ignore the buffer time when checking the input
         //only matters for the SECOND item in the input array
         //[UnityEngine.HideInInspector]
         public bool _lenientBuffer;
 
-        public bool LenientBuffer { get { return this._lenientBuffer; } }
+        public bool LenientBuffer { get { return this._lenientBuffer; } set { this._lenientBuffer = value; } }
 
         public InputItem(InputEnum input)
         {
             this.Input = input;
             this.Flags = 0;
             this.HoldDuration = 0;
+            this.UnlenientTime = 0;
             this._lenientBuffer = false;
         }
 
@@ -29,7 +32,8 @@ namespace FightingGameEngine.Data
             this.Input = input;
             this.Flags = flags;
             this.HoldDuration = 0;
-            this._lenientBuffer = lenBuf;
+                       this.UnlenientTime = 0;
+ this._lenientBuffer = lenBuf;
         }
 
         public InputItem(InputEnum input, InputFlags flags, bool lenBuf, int holdDur)
@@ -37,7 +41,8 @@ namespace FightingGameEngine.Data
             this.Input = input;
             this.Flags = flags;
             this.HoldDuration = holdDur;
-            this._lenientBuffer = lenBuf;
+                       this.UnlenientTime = 0;
+ this._lenientBuffer = lenBuf;
         }
 
         //returns true if the x-axis is being pressed
@@ -62,6 +67,21 @@ namespace FightingGameEngine.Data
 
             return ret;
         }
+        //returns -1 or 1 depending on x-axis
+        public int Y()
+        {
+            //returns 1 if input has either left or right input
+            //negX is -1 because we add posX and negX for the return
+            int negY = -1 * (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.Y_NEGATIVE));
+            int posY = (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.Y_POSITIVE));
+
+            //posX and negX both cannot have a nonzero value because of input stuff
+            //so one has to be 0, so the total will be positive if right input and negative if right input
+            var ret = negY + posY;
+
+            return ret;
+        }
+
 
         //returns the set of InputEnum that are lost from this InputItem to the other InputItem
         public InputEnum GetInputsLost(InputItem other)

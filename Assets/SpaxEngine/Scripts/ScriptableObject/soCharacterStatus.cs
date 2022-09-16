@@ -30,6 +30,7 @@ namespace FightingGameEngine.Data
         //druing SpaxUpdate, body velocity = currentvelocity + calcvelocity
         [SerializeField] private FVector2 m_calcVelocity;
         [SerializeField] private Fix64 m_currentGravity;
+        [SerializeField] private Fix64 m_gravityScaling;
         [SerializeField] private Fix64 m_currentProration;
         [SerializeField] private int m_comboCount;
 
@@ -95,6 +96,7 @@ namespace FightingGameEngine.Data
         public FVector2 CurrentVelocity { get { return this.m_currentVelocity; } set { this.m_currentVelocity = value; } }
         public FVector2 CalcVelocity { get { return this.m_calcVelocity; } set { this.m_calcVelocity = value; } }
         public Fix64 CurrentGravity { get { return this.m_currentGravity; } set { this.m_currentGravity = value; } }
+        public Fix64 GravityScaling { get { return this.m_gravityScaling; } set { this.m_gravityScaling = value; } }
         public Fix64 CurrentProration { get { return this.m_currentProration; } set { this.m_currentProration = value; } }
         public int CurrentComboCount { get { return this.m_comboCount; } set { this.m_comboCount = value; } }
 
@@ -149,6 +151,7 @@ namespace FightingGameEngine.Data
             this.m_currentDamageScaling = state.CurrentProration;
             this.m_currentFacing = state.FacingDir;
             this.m_currentGravity = state.CurrentGravity;
+            this.m_gravityScaling = state.GravityScaling;
             this.m_currentResources = state.CurrentResources;
 
             this.m_stateTimer = new FrameTimer(state.StateTimer.EndTime, state.StateTimer.TimeElapsed);

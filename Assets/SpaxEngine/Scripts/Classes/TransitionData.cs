@@ -107,10 +107,12 @@ namespace FightingGameEngine.Data
                     //add the amount of frames the player lingered on this input
                     sinceLastMatch += curPlayerItem.HoldDuration;
                 }
-                //else
-                //{
-                //    Debug.Log("skipping this input's duration " + i + " | " + curPlayerItem.LenientBuffer + " | " + curPlayerItem.Input + " | " + curPlayerItem.Flags + " | " + curPlayerItem.HoldDuration);
-                //}
+                //we instead use this item's unlenient time, just in case an item that was lenient that should become unlelient doesn't give infinite buffer
+                else
+                {
+                    sinceLastMatch += curPlayerItem.UnlenientTime;
+                    //    Debug.Log("skipping this input's duration " + i + " | " + curPlayerItem.LenientBuffer + " | " + curPlayerItem.Input + " | " + curPlayerItem.Flags + " | " + curPlayerItem.HoldDuration);
+                }
 
                 //     check if there's a hold durations
                 bool reqHold = (reqHoldDur > 0);
