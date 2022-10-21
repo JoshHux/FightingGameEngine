@@ -244,6 +244,13 @@ namespace FightingGameEngine.Gameplay
             {
                 this.TryTransitionState();
             }
+            //IF the duration is 0, AND there's an extra transition info that isn't 0, then we assign that as out new duration
+            //this is to check for a scenario where we want to have a "stun state" without going through the universal states (IE. Blockstun)
+            else if (targetState.Duration == 0 && (this.status.TransitionInfo.GetValue(1) > 0))
+            {
+
+                this.Status.StateTimer = new FrameTimer(this.status.TransitionInfo.GetValue(1));
+            }
 
         }
 
@@ -666,10 +673,10 @@ namespace FightingGameEngine.Gameplay
             var replaceDuration = transferDuration ^ 1;
             var oldStateDuration = this.status.StateTimer.EndTime;
 */
-            //set the new current state
-            this.status.CurrentState = newState;
             ///process current state
             this.ProcessTransitionEvent(this.status.CurrentState.ExitEvents);
+            //set the new current state
+            this.status.CurrentState = newState;
             //start the new state timer
             int stateDuration = (this.status.CurrentState.Duration);// * replaceDuration) + (oldStateDuration * transferDuration);
             this.status.StateTimer = new FrameTimer(stateDuration);

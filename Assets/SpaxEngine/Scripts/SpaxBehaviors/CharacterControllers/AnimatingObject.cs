@@ -12,12 +12,14 @@ namespace FightingGameEngine.Gameplay
         [SerializeField] private soCharacterStatus _status;
         [SerializeField] private soCharacterData _data;
         [SerializeField, ReadOnly] private Animator _animator;
+        [SerializeField, ReadOnly] private float _animSpeed;
 
         protected override void OnStart()
         {
             base.OnStart();
 
             this._animator = ObjectFinder.FindChildWithTag(this.gameObject, "RenderingContainer").GetComponentInChildren<Animator>();
+            this._animSpeed = 1f;
         }
 
         protected override void PreRenderUpdate() { }
@@ -35,7 +37,10 @@ namespace FightingGameEngine.Gameplay
                 int isHitstopNonzero = (int)EnumHelper.isNotZero((uint)this._status.StopTimer.TimeElapsed) * isStunState;
                 timeInState = Mathf.Max(timeInState, isHitstopNonzero);
             }
-            else { this._animator.speed = 1; }
+            else
+            {
+                this._animator.speed = this._animSpeed;
+            }
 
 
             AnimationFrameData frame = this._status.CurrentState.GetAnimationAt(timeInState);
@@ -54,19 +59,20 @@ namespace FightingGameEngine.Gameplay
             var newScale = new Vector3(facingDir, rendererScale.y, rendererScale.z);
             this.transform.localScale = newScale;
 
-            if(this._status.RendererInfo.VFXID >= 0){
+            if (this._status.RendererInfo.VFXID >= 0)
+            {
                 //convert player position to Vector3
                 Vector3 playerPos = new Vector3((float)this._status.CurrentPosition.x, (float)this._status.CurrentPosition.y, 0);
                 //shortcut
-                RendererInfo ri = this._status.RendererInfo; 
+                RendererInfo ri = this._status.RendererInfo;
                 print(this._status);
                 Instantiate(ri.VFXValues.VFXList[ri.VFXID], ri.VFXPos, Quaternion.identity);
-                this._status.RendererInfo.VFXID = -1; 
+                this._status.RendererInfo.VFXID = -1;
             }
-            
+
         }
-        protected override void PostRenderUpdate() 
-        { 
+        protected override void PostRenderUpdate()
+        {
             print("post render");
             this._status.RendererInfo = new RendererInfo(-1, Vector3.zero);
         }
@@ -79,6 +85,8 @@ namespace FightingGameEngine.Gameplay
             {
                 //do we ignore this animation name if it's the same as the current one?
                 bool ignoreSameName = afd.SkipIfSameName;
+                //default animation speed
+                this._animSpeed = 1f;
 
                 //get currently playing animation's info
                 var animStateinfo = this._animator.GetCurrentAnimatorStateInfo(0);
@@ -101,7 +109,9 @@ namespace FightingGameEngine.Gameplay
 
                     //assign the new animation state
                     this._animator.PlayInFixedTime(afd.AnimationName, 0, startTime);
-                    this._animator.speed = (float)afd.AnimationSpeed;
+                    this._animSpeed = (float)afd.AnimationSpeed;
+                    //this._animator.speed = (float)afd.AnimationSpeed;
+
 
 
                 }

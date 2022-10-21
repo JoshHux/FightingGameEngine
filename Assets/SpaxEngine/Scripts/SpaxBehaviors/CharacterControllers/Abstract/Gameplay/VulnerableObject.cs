@@ -206,11 +206,11 @@ namespace FightingGameEngine.Gameplay
             //ground bounce count
             int wallBounces = this.status.WallBounces * walled;
 
+
+            base.ProcessStateConditions(stateConditions);
             //get the current physics velocity for bouncing
             //new velocity that will be reassigned to the current velocity
             var newVel = this.status.CurrentVelocity;
-
-            base.ProcessStateConditions(stateConditions);
 
             //TODO: see if we can make this branchless
             //  MAYBE: check to make sure we only wall bounce when airborne
