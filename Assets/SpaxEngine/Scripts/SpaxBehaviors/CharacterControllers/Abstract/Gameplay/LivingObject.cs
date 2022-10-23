@@ -467,7 +467,11 @@ namespace FightingGameEngine.Gameplay
 
         }
 
-        protected virtual void OnStateSet() { }
+        protected virtual void OnStateSet()
+        {
+            //restore gravity
+            this.status.CurrentGravity = this.data.Mass;
+        }
 
         //call to process try to transition the state
         protected void TryTransitionState()
