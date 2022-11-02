@@ -15,8 +15,10 @@ namespace FightingGameEngine.Data
 
         //location to put vfx, 0.5 lerp between hitbox and contacking box position
         private Vector3 _contactLoc;
-        //parent object of box we're colliding with
-        private VulnerableObject _otherOwner;
+        //parent object of box hurt
+        private VulnerableObject _hurtCharacter;
+        //parent object of box hit
+        private CombatObject _hitCharacter;
 
         private Fix64 _currentDamageScaling;
 
@@ -24,23 +26,24 @@ namespace FightingGameEngine.Data
         public HitboxData HitboxData { get { return this._hitboxData; } set { this._hitboxData = value; } }
         public HitIndicator Indicator { get { return this._indicator; } set { this._indicator = value; } }
         public Vector3 ContactLoc { get { return this._contactLoc; } set { this._contactLoc = value; } }
-        public VulnerableObject OtherOwner { get { return this._otherOwner; } set { this._otherOwner = value; } }
+        public VulnerableObject HurtCharacter { get { return this._hurtCharacter; } set { this._hurtCharacter = value; } }
+        public CombatObject HitCharacter { get { return this._hitCharacter; } set { this._hitCharacter = value; } }
         public Fix64 CurrentDamageScaling { get { return this._currentDamageScaling; } set { this._currentDamageScaling = value; } }
 
-        public HitInfo(HitboxData hd, HitIndicator hi, Vector3 cl, VulnerableObject vu)
+        public HitInfo(HitboxData hd, HitIndicator hi, Vector3 cl, VulnerableObject huo, CombatObject hio)
         {
             this._hitboxData = hd;
             this._indicator = hi;
             this._contactLoc = cl;
-            this._otherOwner = vu;
+            this._hurtCharacter = huo;
+            this._hitCharacter = hio;
+            this._currentDamageScaling = 0;
         }
-
-        public HitInfo(HitboxData hd, HitIndicator hi, Vector3 cl, VulnerableObject vu, Fix64 cds)
+        public HitInfo(HitboxData hd, HitIndicator hi, Vector3 cl, VulnerableObject vu, VulnerableObject huo, CombatObject hio, Fix64 cds)
         {
             this._hitboxData = hd;
             this._indicator = hi;
             this._contactLoc = cl;
-            this._otherOwner = vu;
             this._currentDamageScaling = cds;
         }
     }

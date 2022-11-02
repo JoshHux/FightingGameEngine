@@ -267,7 +267,7 @@ namespace FightingGameEngine.Gameplay
 
                     //the hitInfo object to add to the return list
                     //replace indicator and object parameter later, put like this for now for stuff in the hit object
-                    var toAdd = new HitInfo(this.m_data, indicator, lerpPos, this.Owner);
+                    var toAdd = new HitInfo(this.m_data, indicator, lerpPos, boxOwner, this.Owner as CombatObject);
 
                     //switch case based on box type
                     switch (box)
@@ -296,8 +296,6 @@ namespace FightingGameEngine.Gameplay
 
                     //replace indicator value with the right value
                     toAdd.Indicator = indicator;
-                    //replace with correct vulnerableObject
-                    toAdd.OtherOwner = boxOwner;
 
                     i++;
                 }

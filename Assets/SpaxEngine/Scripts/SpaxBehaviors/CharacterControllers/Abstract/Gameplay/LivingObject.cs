@@ -772,6 +772,15 @@ namespace FightingGameEngine.Gameplay
             //Debug.Log("current resources :: " + this.status.CurrentResources.Resource1 + " | " + this.data.MaxResources.Resource1);
         }
 
+        public FVector2 get_position()
+        {
+            //we add the width in the opposite direction so that we prevent the opponent change direction
+            //if WE'RE in the corner
+            var ret = this.status.CurrentPosition - (new FVector2(0, this.status.CurrentFacingDirection * this._rb.Width / 2) * this.IsWalled());
+
+            return ret;
+        }
+
         public int IsAirborne()
         {
             var ret = (int)EnumHelper.isNotZero((uint)(this.status.TotalStateConditions & StateConditions.AIRBORNE));
@@ -812,6 +821,10 @@ namespace FightingGameEngine.Gameplay
 
             this.OnApplyGameState(state);
         }
+
+        //functions to be called by the projectile 
+        public virtual void ProjDestroyed() { }
+        public virtual void ProjRegisterHit(HitInfo info) { }
 
         //extra things that need to be called when we set the gameplay state
         protected virtual void OnApplyGameState(in GameplayState state) { }

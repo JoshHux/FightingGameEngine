@@ -94,9 +94,9 @@ namespace FightingGameEngine.Gameplay
 
                     //knockback/postion offset value (for grabs)
                     var groundedPhysVal = boxData.GroundedKnockback;
-                    groundedPhysVal.x = groundedPhysVal.x * hold.OtherOwner.Facing;
+                    groundedPhysVal.x = groundedPhysVal.x * hold.HitCharacter.Facing;
                     var airbornePhysVal = boxData.AirborneKnockback;
-                    airbornePhysVal.x = airbornePhysVal.x * hold.OtherOwner.Facing;
+                    airbornePhysVal.x = airbornePhysVal.x * hold.HitCharacter.Facing;
 
                     //remove the accumulated velocity so far
                     this.status.CurrentVelocity = new FVector2(0, 0);
@@ -105,7 +105,7 @@ namespace FightingGameEngine.Gameplay
                     if (isGrabbed)
                     {
                         //position of grabber
-                        var grabberPosition = hold.OtherOwner.FlatPosition;
+                        var grabberPosition = hold.HitCharacter.FlatPosition;
 
                         var newPosition = grabberPosition + groundedPhysVal;
 
@@ -113,7 +113,7 @@ namespace FightingGameEngine.Gameplay
 
                         //set proper facing direction
                         //what is the difference between our x position and their x position?
-                        var diffPos = hold.OtherOwner.FlatPosition.x - this.status.CurrentPosition.x;
+                        var diffPos = hold.HitCharacter.FlatPosition.x - this.status.CurrentPosition.x;
 
                         //if our facing direction and the difference in position are different, then we should turn
                         bool shouldTurn = (diffPos * this.status.CurrentFacingDirection) < 0;
@@ -124,7 +124,7 @@ namespace FightingGameEngine.Gameplay
                             this.status.CurrentFacingDirection = newFacing;
                         }
                         //Debug.Log("universal transition state - " + univTargetState);
-                        Spax.SpaxManager.Instance.ResolveRepositioning(hold.OtherOwner.Body, this.Body);
+                        Spax.SpaxManager.Instance.ResolveRepositioning(hold.HitCharacter.Body, this.Body);
                     }
                     else
                     {
@@ -346,7 +346,7 @@ namespace FightingGameEngine.Gameplay
 
             //if we're blocking, check the x-position of the attacker and us to check for crossups
             //  only 1 if we got crossed up, 0 if we didn't
-            int crossup = (int)(((uint)(Fix64.Sign(boxData.OtherOwner.FlatPosition.x - this.status.CurrentPosition.x) * this.status.CurrentFacingDirection)) >> 31);
+            int crossup = (int)(((uint)(Fix64.Sign(boxData.HitCharacter.FlatPosition.x - this.status.CurrentPosition.x) * this.status.CurrentFacingDirection)) >> 31);
 
             /* SIDE TANGENT */
             /*
@@ -451,11 +451,11 @@ namespace FightingGameEngine.Gameplay
 
             //make copy of object just in case of some shallow memory access shenanigans
             //last parameter is the object that hit us (to be used later)
-            var toAdd = new HitInfo(boxData.HitboxData, ret, boxData.ContactLoc, boxData.OtherOwner);
+            var toAdd = new HitInfo(boxData.HitboxData, ret, boxData.ContactLoc, boxData.HurtCharacter, boxData.HitCharacter);
 
 
             //make sure we only are hit by the hitbox WITH THE HIGHEST priority if hit by multiple hitboxes from the same object
-            var existsTarget = this.m_hurtList.Find(o => o.OtherOwner == toAdd.OtherOwner);
+            var existsTarget = this.m_hurtList.Find(o => o.HitCharacter == toAdd.HitCharacter);
             if (existsTarget == null)
             {
                 //Debug.Log("add to list");

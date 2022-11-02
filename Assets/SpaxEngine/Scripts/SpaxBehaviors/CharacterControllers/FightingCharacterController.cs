@@ -9,7 +9,7 @@ namespace FightingGameEngine.Gameplay
 {
     public class FightingCharacterController : ControllableObject
     {
-        [SerializeField] private FRigidbody _other;
+        [SerializeField] private LivingObject _other;
         public int PlayerID { get { return this.status.PlayerID; } }
 
         protected override void StateCleanUpdate() { }
@@ -40,10 +40,10 @@ namespace FightingGameEngine.Gameplay
             //TODO: When transporting this to 3d, replace this calculation with a 3d math
 
             //what is the difference between our x position and their x position?
-            var diffPos = this._other.Position.x - this.status.CurrentPosition.x;
+            var diffPos = this._other.get_position().x - this.status.CurrentPosition.x;
 
             //if our facing direction and the difference in position are different, then we should turn
-            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) < 0);
+            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) <= 0);
 
             if (shouldTurn)
             {
@@ -64,10 +64,10 @@ namespace FightingGameEngine.Gameplay
             //TODO: When transporting this to 3d, replace this calculation with a 3d math
 
             //what is the difference between our x position and their x position?
-            var diffPos = this._other.Position.x - this.status.CurrentPosition.x;
+            var diffPos = this._other.get_position().x - this.status.CurrentPosition.x;
 
             //if our facing direction and the difference in position are different, then we should turn
-            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) < 0);
+            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) <= 0);
 
             if (shouldTurn)
             {

@@ -83,7 +83,7 @@ namespace FightingGameEngine.Gameplay
             while (i < len)
             {
                 var hold = hitInfo[i];
-                var hitTarget = hold.OtherOwner;
+                var hitTarget = hold.HurtCharacter;
 
                 //only process if HitInfo has a non-whiff indicator
                 bool notWhiff = hold.Indicator > 0;
@@ -93,7 +93,7 @@ namespace FightingGameEngine.Gameplay
 
                     //TODO: check if we got a blocked or clean hit
 
-                    var existsTarget = processList.Find(o => o.OtherOwner == hitTarget);
+                    var existsTarget = processList.Find(o => o.HurtCharacter == hitTarget);
 
                     if (existsTarget == null)
                     {
