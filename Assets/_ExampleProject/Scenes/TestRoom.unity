@@ -1457,7 +1457,7 @@ MonoBehaviour:
   status: {fileID: 11400000, guid: 7c1ff47a453c88f4ba6ec17d8dbae044, type: 2}
   actions: {fileID: -944628639613478452, guid: 8c47bb0ab1ab45e418c7916162600bc4, type: 3}
   _canControl: 1
-  _other: {fileID: 4162488699245833606}
+  _other: {fileID: 4162488699245833607}
   inputMode: 0
   inputDateToRecordAndPlay: {fileID: 11400000, guid: daeb9ee8b1cb06b4ea2dcebbd5cc56d1, type: 2}
   controllerToUse: 3
@@ -1493,7 +1493,7 @@ MonoBehaviour:
   _collidesWith: 0
   drawedBox: {fileID: 6580086804919254037, guid: 640821540e696ba498cb367bf6c77c1b, type: 3}
   _width:
-    m_rawValue: 4294967296
+    m_rawValue: 8589934592
   _height:
     m_rawValue: 8589934592
 --- !u!4 &1129726889
@@ -1504,7 +1504,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1129726885}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.5, y: 3.9, z: 0}
+  m_LocalPosition: {x: 13.8, y: 3.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 499039021}
@@ -1513,7 +1513,7 @@ Transform:
   - {fileID: 112831158}
   - {fileID: 1907167822}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1158052532
 GameObject:
@@ -1647,7 +1647,7 @@ MonoBehaviour:
   _collidesWith: 0
   drawedBox: {fileID: 6580086804919254037, guid: 640821540e696ba498cb367bf6c77c1b, type: 3}
   _width:
-    m_rawValue: 42949672960
+    m_rawValue: 85899345920
   _height:
     m_rawValue: 429496729600
 --- !u!23 &1161846079
@@ -1707,8 +1707,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1161846077}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: -5, z: 0}
-  m_LocalScale: {x: 10, y: 100, z: 1}
+  m_LocalPosition: {x: 25, y: -5, z: 0}
+  m_LocalScale: {x: 20, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -1964,6 +1964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1388420132}
   - component: {fileID: 1388420133}
+  - component: {fileID: 1388420131}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1971,6 +1972,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1388420131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388420130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cacef322408b024e9c07511fcd87fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1388420132
 Transform:
   m_ObjectHideFlags: 0
@@ -2016,7 +2029,7 @@ MonoBehaviour:
   currentFrameText: {fileID: 1634890856}
   paused: 0
   _worldStates: {fileID: 11400000, guid: 2506935478f0f4b419df22d846778764, type: 2}
-  _recordWorld: 1
+  _recordWorld: 0
   _replayWorldStartFrame: 2147483647
   _recWorldFrame: 0
 --- !u!1 &1429810720
@@ -3640,7 +3653,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4162488699245833601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 4.450137, z: 0}
+  m_LocalPosition: {x: -12, y: 4.450137, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4162488699778231023}
@@ -3649,7 +3662,7 @@ Transform:
   - {fileID: 4162488699136517994}
   - {fileID: 1470037748}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4162488699245833606
 MonoBehaviour:
@@ -3671,16 +3684,16 @@ MonoBehaviour:
     m_rawValue: 4294967296
   _position:
     x:
-      m_rawValue: 0
+      m_rawValue: 24373940224
     y:
-      m_rawValue: 0
+      m_rawValue: 2147483648
   _velocity:
     x:
       m_rawValue: 0
     y:
       m_rawValue: 0
-  _thisLayer: 0
-  _collidesWith: 0
+  _thisLayer: 64
+  _collidesWith: 73
   drawedBox: {fileID: 6580086804919254037, guid: 640821540e696ba498cb367bf6c77c1b, type: 3}
   _width:
     m_rawValue: 4294967296
@@ -3702,7 +3715,7 @@ MonoBehaviour:
   status: {fileID: 11400000, guid: 3c40efbeb82fb074597f72f624b18477, type: 2}
   actions: {fileID: -944628639613478452, guid: 8c47bb0ab1ab45e418c7916162600bc4, type: 3}
   _canControl: 1
-  _other: {fileID: 1129726888}
+  _other: {fileID: 1129726887}
   inputMode: 0
   inputDateToRecordAndPlay: {fileID: 11400000, guid: ef8d9b46c4666ae4db54f074fe6f4f04, type: 2}
   controllerToUse: 2

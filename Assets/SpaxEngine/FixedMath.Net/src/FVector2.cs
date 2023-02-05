@@ -65,6 +65,14 @@ namespace FixMath.NET
                 return new FVector2(this.x / magnitude, this.y / magnitude);
             }
         }
+        public FVector2 tangent
+        {
+            get
+            {
+                
+                return new FVector2(-this.y , this.x);
+            }
+        }
 
         public FVector2(Fix64 x, Fix64 y)
         {

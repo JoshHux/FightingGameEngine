@@ -20,6 +20,7 @@ namespace FlatPhysics
         private bool _awake;
         private bool _concave;
 
+        private int _bodyID;
         private FVector2 _position;
         private FVector2 _localPosition;
         private FVector2 _linearVelocity;
@@ -101,6 +102,13 @@ namespace FlatPhysics
             set { this._awake = value; }
         }
 
+        public int BodyID
+        {
+            get { return this._bodyID; }
+            set { this._bodyID = value; }
+        }
+
+
         public FVector2 Position
         {
             get { return this._position; }
@@ -126,7 +134,11 @@ namespace FlatPhysics
         public FVector2 LinearVelocity
         {
             get { return this._linearVelocity; }
-            internal set { this._linearVelocity = value; }
+            internal set
+            {
+                if (this.IsStatic) { return; }
+                this._linearVelocity = value;
+            }
         }
 
         public event OverlapEventHandler OnOverlap
@@ -282,62 +294,16 @@ namespace FlatPhysics
 
         public FlatAABB GetAABB()
         {
-            //if (this.aabbUpdateRequired)
-            //{
-            /* Fix64 minX = Fix64.MaxValue;
-             Fix64 minY = Fix64.MaxValue;
-             Fix64 maxX = Fix64.MinValue;
-             Fix64 maxY = Fix64.MinValue;
-
-             if (this.ShapeType is ShapeType.Box)
-             {
-                 /*
-                 FVector2[] vertices = this.GetTransformedVertices();
-
-                 for (int i = 0; i < vertices.Length; i++)
-                 {
-                     FVector2 v = vertices[i];
-
-                     if (v.x < minX) { minX = v.x; }
-                     if (v.x > maxX) { maxX = v.x; }
-                     if (v.y < minY) { minY = v.y; }
-                     if (v.y > maxY) { maxY = v.y; }
-                 }
-
-                 /*var wid = this.Width / 2;
-                 var hei = this.Height / 2;
-
-
-                 minX = this.position.x - wid;
-                 maxX = this.position.x + wid;
-
-                 minY = this.position.y - hei;
-                 maxY = this.position.y + hei;
-                 return this._shape.GetAABB(this.position);
-             }
-             else if (this.ShapeType is ShapeType.Circle)
-             {
-                 /*
-                 minX = this.position.x - this.Radius;
-                 minY = this.position.y - this.Radius;
-                 maxX = this.position.x + this.Radius;
-                 maxY = this.position.y + this.Radius;
-
-                 return this._shape.GetAABB(this.position);
-             }
-             else
-             {
-                 throw new Exception("Unknown ShapeType.");
-             }
-
-             this.aabb = new FlatAABB(minX, minY, maxX, maxY);*/
-            this.aabb = this._shape.GetAABB(this._position);
+            this.aabb = this._shape.GetAABB(this._position, this._linearVelocity);
             //}
 
 
             //this.aabbUpdateRequired = false;
             return this.aabb;
         }
+
+        public FlatAABB GetBox(){return this._shape.GetAABB(this._position, FVector2.zero);
+            }
 
         internal void Step(Fix64 time, FVector2 gravity, int iterations)
         {
@@ -356,7 +322,7 @@ namespace FlatPhysics
 
             //this._linearVelocity += gravity * time;
             //this._position += this._linearVelocity * time;
-            this._position += (this._linearVelocity /*+ this.Impulse*/) * time;
+            this._position += this._linearVelocity  * time;
             //this.Impulse = new FVector2(0, 0);
             //this._rotation += this._rotationalVelocity * time;
 
@@ -378,6 +344,7 @@ namespace FlatPhysics
 
         public void Move(FVector2 amount)
         {
+            if (this.IsStatic) { return; }
             this._position += amount;
             //this.transformUpdateRequired = true;
             //this.aabbUpdateRequired = true;

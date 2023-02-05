@@ -25,11 +25,14 @@ MonoBehaviour:
     Resource6: 0
     Resource7: 0
   m_stateTimer:
-    _timeElapsed: 8
-    _endTime: 24
+    _timeElapsed: 0
+    _endTime: 0
   m_stopTimer:
     _timeElapsed: 0
-    _endTime: 8
+    _endTime: 0
+  m_installTimer:
+    _timeElapsed: 0
+    _endTime: 0
   m_superFlashTimer:
     _timeElapsed: 0
     _endTime: 0
@@ -37,14 +40,14 @@ MonoBehaviour:
     _timeElapsed: 0
     _endTime: 0
     _stateConditions: 0
-  m_currentState: {fileID: 11400000, guid: f3417d8c53e28bb478307f80383868f8, type: 2}
-  m_currentConditions: 0
-  m_transitionFlags: 33
-  m_cancelFlags: 0
+  m_currentState: {fileID: 11400000, guid: cc539300c2b617e4e9d821d81ddd7365, type: 2}
+  m_currentConditions: 113
+  m_transitionFlags: 1073741825
+  m_cancelFlags: 4294967295
   m_currentFacing: -1
   m_currentPosition:
     x:
-      m_rawValue: -14316557520
+      m_rawValue: 21474836480
     y:
       m_rawValue: 0
   m_currentVelocity:
@@ -72,43 +75,23 @@ MonoBehaviour:
     m_rawValue: 0
   _inputRecorder:
     _controllerState:
-      Input: 2
+      Input: 0
       Flags: 0
       HoldDuration: 0
       UnlenientTime: 0
       _lenientBuffer: 0
     _previousControllerState:
-      Input: 2
+      Input: 0
       Flags: 0
       HoldDuration: 0
       UnlenientTime: 0
       _lenientBuffer: 0
     _recordedChanges:
-    - Input: 8
-      Flags: 1
-      HoldDuration: 16
-      UnlenientTime: 16
+    - Input: 0
+      Flags: 0
+      HoldDuration: 4
+      UnlenientTime: 4
       _lenientBuffer: 0
-    - Input: 8
-      Flags: 6
-      HoldDuration: 40
-      UnlenientTime: 40
-      _lenientBuffer: 0
-    - Input: 2
-      Flags: 1
-      HoldDuration: 29
-      UnlenientTime: 29
-      _lenientBuffer: 0
-    - Input: 512
-      Flags: 1
-      HoldDuration: 9
-      UnlenientTime: 9
-      _lenientBuffer: 0
-    - Input: 512
-      Flags: 6
-      HoldDuration: 1
-      UnlenientTime: 0
-      _lenientBuffer: 1
   _positionOffset:
     x:
       m_rawValue: 0
@@ -120,11 +103,11 @@ MonoBehaviour:
   m_currentDamageScaling:
     m_rawValue: 4294967296
   m_storedDamageScaling:
-    m_rawValue: 0
+    m_rawValue: 4294967296
   _transitionInfo:
     _0: -1
     _1: 0
-    _2: -1
+    _2: 0
     _3: -1
     _4: -1
     _5: -1

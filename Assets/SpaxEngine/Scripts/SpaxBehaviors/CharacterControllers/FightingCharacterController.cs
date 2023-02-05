@@ -25,7 +25,9 @@ namespace FightingGameEngine.Gameplay
 
         //call to process the frame data
         protected override void ProcessFrameData(in FrameData frame)
-        { base.ProcessFrameData(frame); }
+        {
+            base.ProcessFrameData(frame);
+        }
 
 
         //call to process transition event enums
@@ -116,6 +118,12 @@ namespace FightingGameEngine.Gameplay
 
             /*----- PROCESSING ACTIVE PUSHBOX -----*/
             this.Body.ActivePushbox = !EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.INACTIVE_PUSHBOX);
+        }
+
+        //fires when state is changed
+        protected override void OnStateSet()
+        {
+            base.OnStateSet();
         }
     }
 }

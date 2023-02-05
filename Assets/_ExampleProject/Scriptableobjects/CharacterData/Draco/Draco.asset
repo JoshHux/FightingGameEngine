@@ -40,9 +40,9 @@ MonoBehaviour:
   _friction:
     m_rawValue: 4294967296
   _walkAccel:
-    m_rawValue: 42949672960
+    m_rawValue: 429496729600
   _walkMaxSpd:
-    m_rawValue: 85899345920
+    m_rawValue: 429496729600
   _runAccel:
     m_rawValue: 429496729600
   _runMaxSpd:

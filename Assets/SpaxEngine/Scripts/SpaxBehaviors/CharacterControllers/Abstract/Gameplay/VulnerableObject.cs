@@ -104,6 +104,9 @@ namespace FightingGameEngine.Gameplay
 
                     if (isGrabbed)
                     {
+                        //we got grabbed, reset armor
+                        this.status.SetTransitionInfoVal(2, 0);
+
                         //position of grabber
                         var grabberPosition = hold.HitCharacter.FlatPosition;
 
@@ -134,11 +137,38 @@ namespace FightingGameEngine.Gameplay
                         kb = (groundedPhysVal * grounded) + (airbornePhysVal * airborne);
                         //Debug.Log("grounded - " + grounded + " | airborne - " + airborne + " | knockback - " + ((groundedPhysVal * grounded) + (airbornePhysVal * airborne)).x + " , " + ((groundedPhysVal * grounded) + (airbornePhysVal * airborne)).y);
 
+                        //COALATE ALL THIS DATA AND APPLY IT AFTER THE LOOP
                         //set bounce data
                         this.status.GroundBounces = boxData.GroundBounces;
                         this.status.GroundBounceScaling = boxData.GroundBounceMultiplier;
                         this.status.WallBounces = boxData.WallBounces;
                         this.status.WallBounceScaling = boxData.WallBounceMultiplier;
+
+                        //do we have armor?
+                        int armorHits = this.status.TransitionInfo.GetValue(2);
+                        //if we are armored
+                        if (armorHits > 0)
+                        {
+                            //cancel bouncing
+                            this.status.GroundBounces = 0;
+                            this.status.GroundBounceScaling = 0;
+                            this.status.WallBounces = 0;
+                            this.status.WallBounceScaling = 0;
+
+                            //reset knockback
+                            kb = FVector2.zero;
+
+                            //reset transition flags
+                            this.status.TransitionFlags = this.status.TransitionFlags & ~(TransitionFlags.GOT_HIT | (TransitionFlags)((int)TransitionFlags.BLOCKED_HIT * blocked) | (TransitionFlags)((int)TransitionFlags.UNBLOCKED_HIT * (blocked ^ 1)));
+
+                            //reset universal state, so we don't transition out of the current state
+                            univTargetState = -1;
+                            totalStun = 0;
+
+                            //subtract a hit of armor
+                            this.status.SetTransitionInfoVal(2, armorHits - 1);
+                        }
+
                     }
 
                     //set hitstop
@@ -253,6 +283,10 @@ namespace FightingGameEngine.Gameplay
             //call the delegate and pass the frame in, the boxes will take care of the rest
             //the way that we set this up, we don't need to call this from CombatObject because the HitboxTrigger objects will also have their hooks in this delegate
             this.OnFrameReached?.Invoke(this, frame);
+
+
+            /*----- PROCESSING SUPER ARMOR -----*/
+            this.status.SetTransitionInfoVal(2, frame.ArmorHits);
         }
 
         //call to process transition event enums
@@ -270,6 +304,12 @@ namespace FightingGameEngine.Gameplay
 
                 grabber.TryTransitionUniversalState(1);
             }
+
+            if (EnumHelper.HasEnum((uint)te, (uint)TransitionEvents.EXIT_STUN))
+            {
+                this.status.CurrentDamageScaling = 1;
+                this.status.StoredDamageScaling = 1;
+            }
         }
 
         //fires when state is changed
@@ -277,6 +317,8 @@ namespace FightingGameEngine.Gameplay
         {
             base.OnStateSet();
             this.OnFrameReached?.Invoke(this, null);
+            //reset number of armored hits
+            this.status.SetTransitionInfoVal(2, 0);
         }
 
 
@@ -408,45 +450,6 @@ namespace FightingGameEngine.Gameplay
             //add combo flag
             ret |= (HitIndicator)((int)HitIndicator.COMBO * inStun);
 
-
-
-            /*if (isProj > 0 && projInvuln > 0)
-                        {
-                            ret = HitIndicator.WHIFF;
-                        }
-                        else
-            if (((isStrike > 0) || (isStrikeGrab > 0)) && (strikeInvuln > 0))
-            {
-                ret = HitIndicator.WHIFF;
-            }
-            else
-            if (isGrab > 0)
-            {
-                //IF it's a strike-grab AND we don't have strike invuln
-                //  THEN we get grabbed
-                if ((isStrikeGrab > 0) && (strikeInvuln == 0))
-                {
-                    ret |= HitIndicator.GRABBED;
-                }
-                else if (grabInvuln > 0)
-                {
-                    //Debug.Log("INVULN WHIFF");
-                    ret = HitIndicator.WHIFF;
-                }
-                else if (EnumHelper.HasEnum((uint)grabType, (uint)airOrGround, true) && !EnumHelper.HasEnum((uint)this.status.TotalStateConditions, (uint)StateConditions.STUN_STATE))
-                {
-                    //Debug.Log(grabType + " " + airOrGround);
-                    ret |= HitIndicator.GRABBED;
-                }
-                else
-                {
-                    //Debug.Log("ELSE WHIFF");
-                    ret = HitIndicator.WHIFF;
-                }
-            }*/
-            //Debug.Log(grabType + " " + (hitboxType & HitboxType.GRAB) + " | " + airOrGround);
-            //Debug.Log(grabMult + " = " + rawGrab + " & " + (grabInvuln | inStun | (grabLocMatch ^ 1)));
-            //Debug.Log(ret);
 
 
             //make copy of object just in case of some shallow memory access shenanigans

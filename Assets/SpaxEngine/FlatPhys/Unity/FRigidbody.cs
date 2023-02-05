@@ -7,6 +7,7 @@ namespace FlatPhysics.Unity
     public abstract class FRigidbody : MonoBehaviour
     {
         protected FlatBody _rb;
+        private int _bodyID=-1;
 
         protected enum col { Red, Green, Yellow, Cyan, Blue }
         [SerializeField] protected col boxColor = col.Blue;
@@ -33,6 +34,10 @@ namespace FlatPhysics.Unity
                 }
                 return this._rb;
             }
+        }
+        public int BodyID
+        {
+            get { return this._rb.BodyID; }
         }
 
         public FVector2 Velocity

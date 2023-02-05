@@ -21,13 +21,15 @@ namespace FightingGameEngine.Gameplay
         public FlatPhysics.FlatBody Body { get { return this._rb.Body; } }
         public FVector2 FlatPosition { get { return this._rb.Position; } }
 
-        protected override void OnAwake()
+        //call to reset this character's status
+        public virtual void ResetStatus()
         {
-            base.OnAwake();
+            //this.gameObject.name += this.gameObject.transform.position.x;
             //initialize the timers
             this.status.StateTimer = new FrameTimer();
             this.status.StopTimer = new FrameTimer();
             this.status.SuperFlashTimer = new FrameTimer();
+            this.status.InstallTimer = new FrameTimer();
             this.status.ConditionTimer = new ConditionTimer();
 
             //set default data for the status
@@ -41,6 +43,10 @@ namespace FightingGameEngine.Gameplay
             this.status.GravityScaling = 1;
             this.status.CurrentFacingDirection = -1;
 
+            //default values for transition flags
+            this.status.TransitionFlags = 0;
+
+
             //default values for the extra transition info
             this.status.SetTransitionInfoVal(0, -1);
             this.status.SetTransitionInfoVal(1, -1);
@@ -50,6 +56,25 @@ namespace FightingGameEngine.Gameplay
             this.status.SetTransitionInfoVal(5, -1);
             this.status.SetTransitionInfoVal(6, -1);
             this.status.SetTransitionInfoVal(7, -1);
+
+            //get the default state
+            var defaultState = this.data.StateList[0];
+            //set the default state
+            this.SetStateRaw(defaultState);
+
+            Debug.Log(this.gameObject.name + " " + this.status.StopTimer.EndTime);
+
+            //set starting resources
+            this.status.CurrentResources = this.data.StartingResources;
+            //print(this.status.PlayerID);
+
+        }
+
+
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+            this.ResetStatus();
         }
 
         protected override void OnStart()
@@ -356,7 +381,7 @@ namespace FightingGameEngine.Gameplay
             }
 
             /*----- PROCESSING SUPERFLASH -----*/
-            this.status.SuperFlashTimer = new FrameTimer(frame.SuperFlashDuration);
+            this.StartSuperFlash(frame.SuperFlashDuration);
 
             /*----- PROCESSING PROJECTILE SPAWNING -----*/
             if (frame.HasProjectile())
@@ -607,6 +632,9 @@ namespace FightingGameEngine.Gameplay
         //TODO: 
         private void StartSuperFlash(int duration)
         {
+            //will not fire superflash if no duration is given
+            //keeps superflash even if state is changed
+            if (duration <= 0) { return; }
 
             //set the other players to "hitstop"
             //manager instance
@@ -618,11 +646,19 @@ namespace FightingGameEngine.Gameplay
                 if (i != this.status.PlayerID)
                 {
                     var other = managerInstance.GetLivingObjectByID(i);
-                    other.StartStopTimer(duration);
+                    if (other != null)
+                    {
+                        //start our superflash by stopping others movement
+                        other.StartStopTimer(duration);
+                    }
                 }
-                i++;
             }
+            i++;
+
+            //everything is prepped, start our superflash
+            this.status.SuperFlashTimer = new FrameTimer(duration);
         }
+
 
 
         //call when you want to tick the SuperFlashTimer

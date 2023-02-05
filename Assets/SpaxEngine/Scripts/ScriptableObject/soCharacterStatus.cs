@@ -16,6 +16,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private ResourceData m_currentResources;
         [SerializeField] private FrameTimer m_stateTimer;
         [SerializeField] private FrameTimer m_stopTimer;
+        [SerializeField] private FrameTimer m_installTimer;
         [SerializeField] private FrameTimer m_superFlashTimer;
         [SerializeField] private ConditionTimer m_conditionTimer;
         [SerializeField] private soStateData m_currentState;
@@ -60,6 +61,7 @@ namespace FightingGameEngine.Data
         public int CurrentFacingDirection { get { return this.m_currentFacing; } set { this.m_currentFacing = value; } }
         public FrameTimer StateTimer { get { return this.m_stateTimer; } set { this.m_stateTimer = value; } }
         public FrameTimer StopTimer { get { return this.m_stopTimer; } set { this.m_stopTimer = value; } }
+        public FrameTimer InstallTimer { get { return this.m_installTimer; } set { this.m_installTimer = value; } }
         public FrameTimer SuperFlashTimer { get { return this.m_superFlashTimer; } set { this.m_superFlashTimer = value; } }
         public ConditionTimer ConditionTimer { get { return this.m_conditionTimer; } set { this.m_conditionTimer = value; } }
         public soStateData CurrentState { get { return this.m_currentState; } set { this.m_currentState = value; } }
@@ -120,6 +122,11 @@ namespace FightingGameEngine.Data
 
         public Fix64 CurrentDamageScaling { get { return this.m_currentDamageScaling; } set { this.m_currentDamageScaling = value; } }
         public Fix64 StoredDamageScaling { get { return this.m_storedDamageScaling; } set { this.m_storedDamageScaling = value; } }
+        /*
+        0:target universal state when hit
+        1:total duration of stun when hit
+        2:total amount of armor
+        */
         public Arr8<int> TransitionInfo { get { return this._transitionInfo; } set { this._transitionInfo = value; } }
 
         //gets the total velocity that will be assigned to the rigidbody

@@ -6,6 +6,6 @@ namespace FlatPhysics.Shapes
 
     public abstract class Shape
     {
-        public abstract FlatAABB GetAABB(FVector2 position);
+        public abstract FlatAABB GetAABB(FVector2 position, FVector2 velocity);
     }
 }

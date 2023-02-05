@@ -15,8 +15,8 @@ MonoBehaviour:
   _id:
     ID: 0
   _parentState: {fileID: 0}
-  _duration: 0
-  _stateConditions: 117
+  _duration: 2
+  _stateConditions: 113
   _toggleState: 0
   _cancels: 4294967295
   _toggleCancel: 0
@@ -91,14 +91,16 @@ MonoBehaviour:
       Resource6: 0
       Resource7: 0
   _frames:
-  - _atFrame: 0
+  - _atFrame: 1
     _superFlashDuration: 0
+    _armorHits: 1
     _setVelocity: 1
     _appliedVelocity:
       x:
         m_rawValue: 0
       y:
         m_rawValue: 0
+    _triggerInstall: 0
     _setGravity: 0
     _appliedGravity:
       m_rawValue: 0
