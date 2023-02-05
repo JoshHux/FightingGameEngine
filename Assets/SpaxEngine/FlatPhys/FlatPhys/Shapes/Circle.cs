@@ -18,7 +18,7 @@ namespace FlatPhysics.Shapes
         {
             this._radius = rad;
         }
-        public override FlatAABB GetAABB(FVector2 position, FVector2 velocity)
+        public override FlatAABB GetAABB(FVector2 position, FVector2 velocity, Fix64 padding)
         {
             //get box modifier via velocity
             //sign masks

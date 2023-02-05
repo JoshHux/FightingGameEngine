@@ -35,13 +35,13 @@ namespace FlatPhysics
                 // the lines are co-linear
                 // check if they overlap
                 // todo: calculate intersection point
-                UnityEngine.Debug.Log("colinear");
+                //UnityEngine.Debug.Log("colinear");
                 return Fix64.MaxValue;
             }
             if (denominator == 0)
             {
                 // lines are parallel
-                UnityEngine.Debug.Log("parallel");
+                //UnityEngine.Debug.Log("parallel");
                 return Fix64.MaxValue;
             }
 
@@ -51,7 +51,7 @@ namespace FlatPhysics
             {
                 return t;
             }
-            UnityEngine.Debug.Log("misc | u :: " + u + " | t :: " + t);
+            //UnityEngine.Debug.Log("misc | u :: " + u + " | t :: " + t);
             return Fix64.MaxValue;
         }
 

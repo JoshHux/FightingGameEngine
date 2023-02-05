@@ -25,7 +25,7 @@ namespace FlatPhysics.Shapes
             this._width = wd;
             this._height = ht;
         }
-        public override FlatAABB GetAABB(FVector2 position, FVector2 velocity)
+        public override FlatAABB GetAABB(FVector2 position, FVector2 velocity, Fix64 padding)
         {
             //get box modifier via velocity
             //sign masks
@@ -56,29 +56,30 @@ namespace FlatPhysics.Shapes
 
             //modify the dimensions by respective positive/negative mask
 
-            var minX = position.x - wd + negXmod;
-            var minY = position.y - ht + negYmod;
+            //adding some padding to objects to make sure that they don't miss out on objects close by
+            var minX = position.x - wd - padding + negXmod;
+            var minY = position.y - ht - padding + negYmod;
             //var minY = position.y;
-            var maxX = position.x + wd + posXmod;
-            var maxY = position.y + ht + posYmod;
+            var maxX = position.x + wd + padding + posXmod;
+            var maxY = position.y + ht + padding + posYmod;
             //var maxY = position.y + (ht * 2);
 
             var ret = new FlatAABB(minX, minY, maxX, maxY);
 
-/*
-             if (Width == 1)
-             {
-                 Debug.Log("vel = " + velocity.x + ", " + velocity.y);
-                 Debug.Log("negxmask " + negXmod);
-                 Debug.Log("posxmask " + posXmod);
-                 Debug.Log("negxmask " + negYmod);
-                 Debug.Log("posxmask " + posYmod);
-                 Debug.Log("max = " + maxX + ", " + maxY);
-                 Debug.Log("min = " + minX + ", " + minY);
-                 Debug.Log("max = " + ret.Max.x + ", " + ret.Max.y);
-                 Debug.Log("min = " + ret.Min.x + ", " + ret.Min.y);
-             }
-*/
+            /*
+                         if (Width == 1)
+                         {
+                             Debug.Log("vel = " + velocity.x + ", " + velocity.y);
+                             Debug.Log("negxmask " + negXmod);
+                             Debug.Log("posxmask " + posXmod);
+                             Debug.Log("negxmask " + negYmod);
+                             Debug.Log("posxmask " + posYmod);
+                             Debug.Log("max = " + maxX + ", " + maxY);
+                             Debug.Log("min = " + minX + ", " + minY);
+                             Debug.Log("max = " + ret.Max.x + ", " + ret.Max.y);
+                             Debug.Log("min = " + ret.Min.x + ", " + ret.Min.y);
+                         }
+            */
             return ret;
         }
     }

@@ -294,7 +294,7 @@ namespace FlatPhysics
 
         public FlatAABB GetAABB()
         {
-            this.aabb = this._shape.GetAABB(this._position, this._linearVelocity);
+            this.aabb = this._shape.GetAABB(this._position, this._linearVelocity, 1);
             //}
 
 
@@ -302,8 +302,10 @@ namespace FlatPhysics
             return this.aabb;
         }
 
-        public FlatAABB GetBox(){return this._shape.GetAABB(this._position, FVector2.zero);
-            }
+        public FlatAABB GetBox()
+        {
+            return this._shape.GetAABB(this._position, FVector2.zero, 0);
+        }
 
         internal void Step(Fix64 time, FVector2 gravity, int iterations)
         {
@@ -322,7 +324,7 @@ namespace FlatPhysics
 
             //this._linearVelocity += gravity * time;
             //this._position += this._linearVelocity * time;
-            this._position += this._linearVelocity  * time;
+            this._position += this._linearVelocity * time;
             //this.Impulse = new FVector2(0, 0);
             //this._rotation += this._rotationalVelocity * time;
 

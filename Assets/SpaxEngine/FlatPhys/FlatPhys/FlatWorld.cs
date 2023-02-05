@@ -239,7 +239,7 @@ namespace FlatPhysics
 
                     //if (bothPushBoxes)
                     //{
-                    //Debug.Log("discrete | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
+                    Debug.Log("discrete | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
                     //Debug.Log("avel - " + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y);
                     //Debug.Log("bvel - " + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y);
                     //Debug.Log("apos - " + bodyA.Position.x + ", " + bodyA.Position.y);
@@ -311,7 +311,7 @@ namespace FlatPhysics
                 }
             }
 
-            //Debug.Log("====================================================");
+            Debug.Log("====================================================");
 
             // Movement step
 
