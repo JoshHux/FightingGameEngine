@@ -21,6 +21,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private Fix64 _runMaxSpd;
         [SerializeField] private Fix64 _fallMaxSpd;
         [SerializeField] private soVFXValues _vfxValues;
+        [SerializeField] private GameObject[] _projectiles;
         [SerializeField] private soStateData[] _stateList;
         [SerializeField] private List<TransitionData> _moveList;
         public Fix64 Mass { get { return this._mass; } }
@@ -34,6 +35,7 @@ namespace FightingGameEngine.Data
         public soVFXValues VFXValues { get { return this._vfxValues; } }
         public ResourceData StartingResources { get { return this._startingResources; } }
         public ResourceData MaxResources { get { return this._maxResources; } }
+        public GameObject[] Projectiles { get { return this._projectiles; } }
         public soStateData[] StateList { get { return this._stateList; } }
         public TransitionData[] MoveList { get { return this._moveList.ToArray(); } }
 

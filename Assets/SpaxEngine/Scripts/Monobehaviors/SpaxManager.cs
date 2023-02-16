@@ -88,6 +88,7 @@ namespace Spax
 
 
 
+        public List<int> bodyids;
         void Awake()
         {
             Instance = this;
@@ -139,7 +140,7 @@ namespace Spax
             }
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (matchFrames == 0)
             {
@@ -213,6 +214,9 @@ namespace Spax
             HurtQueryUpdate?.Invoke();
             PostUpdate?.Invoke();
             PrepRender?.Invoke();
+
+            
+            this.bodyids = this._world.GetBodyIds();
         }
         private void RendererUpdate()
         {

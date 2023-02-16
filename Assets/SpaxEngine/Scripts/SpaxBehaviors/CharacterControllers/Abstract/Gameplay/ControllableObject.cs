@@ -360,7 +360,7 @@ namespace FightingGameEngine.Gameplay
             {
                 ApplyInput(new Vector2(), InputEnum.Y, true, false);
             }
-            if (keyboard.hKey.isPressed)
+            if (keyboard.jKey.isPressed)
             {
                 ApplyInput(new Vector2(), InputEnum.A, false, false);
             }
@@ -368,7 +368,7 @@ namespace FightingGameEngine.Gameplay
             {
                 ApplyInput(new Vector2(), InputEnum.A, true, false);
             }
-            if (keyboard.jKey.isPressed)
+            if (keyboard.kKey.isPressed)
             {
                 ApplyInput(new Vector2(), InputEnum.B, false, false);
             }
@@ -376,13 +376,21 @@ namespace FightingGameEngine.Gameplay
             {
                 ApplyInput(new Vector2(), InputEnum.B, true, false);
             }
-            if (keyboard.kKey.isPressed)
+            if (keyboard.lKey.isPressed)
             {
-                ApplyInput(new Vector2(), InputEnum.X, false, false);
+                ApplyInput(new Vector2(), InputEnum.C, false, false);
             }
             else
             {
-                ApplyInput(new Vector2(), InputEnum.X, true, false);
+                ApplyInput(new Vector2(), InputEnum.C, true, false);
+            }
+            if (keyboard.semicolonKey.isPressed)
+            {
+                ApplyInput(new Vector2(), InputEnum.D, false, false);
+            }
+            else
+            {
+                ApplyInput(new Vector2(), InputEnum.D, true, false);
             }
             #endregion
         }

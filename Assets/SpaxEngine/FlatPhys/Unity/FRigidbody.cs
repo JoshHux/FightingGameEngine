@@ -7,7 +7,7 @@ namespace FlatPhysics.Unity
     public abstract class FRigidbody : MonoBehaviour
     {
         protected FlatBody _rb;
-        private int _bodyID=-1;
+        private int _bodyID = -1;
 
         protected enum col { Red, Green, Yellow, Cyan, Blue }
         [SerializeField] protected col boxColor = col.Blue;
@@ -118,7 +118,7 @@ namespace FlatPhysics.Unity
             if (tempDrawedBox == null)
             {
                 tempDrawedBox = Instantiate(drawedBox, GameObject.FindGameObjectWithTag("DrawBoxContainer").transform);
-                tempDrawedBox.name =this.gameObject.transform.root.name + "/" + this.gameObject.name + "-DrawBox";
+                tempDrawedBox.name = this.gameObject.transform.root.name + "/" + this.gameObject.name + "-DrawBox";
             }
             else
             {
@@ -173,7 +173,7 @@ namespace FlatPhysics.Unity
                 this._velocity = this.Body.LinearVelocity;
                 this._position = this.Body.Position;
 
-                DrawBoxesInRunTime(new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f), new Vector3((float)this._rb.Width, (float)this._rb.Height, 1f));
+                if (this.drawedBox != null) DrawBoxesInRunTime(new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f), new Vector3((float)this._rb.Width, (float)this._rb.Height, 1f));
             }
         }
 

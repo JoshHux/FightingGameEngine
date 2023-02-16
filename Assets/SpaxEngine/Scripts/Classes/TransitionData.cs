@@ -28,6 +28,18 @@ namespace FightingGameEngine.Data
         public TransitionFlags RequiredTransitionFlags { get { return this._requiredTransitionFlags; } }
         public ResourceData RequiredResources { get { return this._requiredResources; } }
 
+        public TransitionData(soStateData targetState)
+        {
+            this._targetState = targetState;
+            this._targetStateIndex = -1;
+            this._targetUniversalStateIndex = -1;
+            this._minimumHeight=0;
+
+            this._cancelConditions=0;
+             this._requiredTransitionFlags=0;
+            this._requiredResources=new ResourceData();
+        }
+
 
         public bool CheckTransition(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, in InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {

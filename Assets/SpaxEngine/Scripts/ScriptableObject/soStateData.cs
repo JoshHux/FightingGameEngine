@@ -12,7 +12,13 @@ namespace FightingGameEngine.Data
     {
         [SerializeField] private StateID _id;
         [SerializeField] private soStateData _parentState;
+
+        [SerializeField] private bool inheritTrans_ = true;
+        [SerializeField] private bool inheritCond_ = true;
+        [SerializeField] private bool inheritCancel_ = true;
+
         [SerializeField] private int _duration;
+        [SerializeField] private bool loop_ = false;
         [SerializeField] private StateConditions _stateConditions;
         [SerializeField] private StateConditions _toggleState;
         [SerializeField] private CancelConditions _cancels;
@@ -35,7 +41,7 @@ namespace FightingGameEngine.Data
             {
                 var ret = new List<TransitionData>(this._transitions);
 
-                var getParent = this._parentState != null && !EnumHelper.HasEnum((uint)this.StateConditions, (uint)StateConditions.NO_PARENT_TRANS);
+                var getParent = this._parentState != null && this.inheritTrans_;
                 if (getParent)
                 {
                     ret.AddRange(this._parentState.Transitions);
@@ -50,7 +56,7 @@ namespace FightingGameEngine.Data
             {
                 var ret = this._stateConditions;
                 //do we look at parent conditions?
-                bool canLookAtParent = !EnumHelper.HasEnum((uint)ret, (uint)StateConditions.NO_PARENT_COND);
+                bool canLookAtParent = this.inheritCond_;
                 //if we do, do we have a parent?
                 bool getParentCond = canLookAtParent && (this._parentState != null);
 
@@ -71,7 +77,7 @@ namespace FightingGameEngine.Data
             {
                 var ret = this._cancels;
                 //do we look at parent conditions?
-                bool canLookAtParent = !EnumHelper.HasEnum((uint)ret, (uint)StateConditions.NO_PARENT_CANCEL);
+                bool canLookAtParent = this.inheritCancel_;
                 //if we do, do we have a parent?
                 bool getParentCond = canLookAtParent && (this._parentState != null);
 
@@ -94,6 +100,12 @@ namespace FightingGameEngine.Data
             return ret;
         }
         
+        public bool GetLoop()
+        {
+
+            return this.loop_;
+        }
+
 #if UNITY_EDITOR
         public void SetStateID(int index, string charName)
         {

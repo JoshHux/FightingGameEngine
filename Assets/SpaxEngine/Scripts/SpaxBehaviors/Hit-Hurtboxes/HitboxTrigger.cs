@@ -285,6 +285,8 @@ namespace FightingGameEngine.Gameplay
                             //TODO: conduct experiments in Xrd regarding to what happens to opponent who stops blocking a still active hitbox
                             //  if the character gets hit, remove box from curColliding if hitIndicator has the BLOCKED flag, makes it so that we can hit them on the next frame
                             indicator = hurtbox.HurtThisBox(toAdd);
+                            //UnityEngine.Debug.Log(hurtbox.GetHurtboxData().Dimensions.x + ", " + hurtbox.GetHurtboxData().Dimensions.y + " | " + hurtbox.GetHurtboxData().Position.x + ", " + hurtbox.GetHurtboxData().Position.y);
+                            //UnityEngine.Debug.Log("     " + hurtbox.Trigger.Body.Width + ", " + hurtbox.Trigger.Body.Height + " | " + hurtbox.Trigger.Body.Position.x + ", " + hurtbox.Trigger.Body.Position.y);
                             break;
                         default:
                             UnityEngine.Debug.LogError("Hitbox has detected invalid box class");

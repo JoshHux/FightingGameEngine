@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9567d0122b99c224cbf02ade5fac0263, type: 3}
+  m_Name: Atalan
+  m_EditorClassIdentifier: 
+  _charName: ATLN
+  _startingResources:
+    Health: 600
+    Meter: 0
+    Burst: 0
+    Pressure: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+    Resource4: 0
+    Resource5: 0
+  _maxResources:
+    Health: 600
+    Meter: 0
+    Burst: 0
+    Pressure: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+    Resource4: 0
+    Resource5: 0
+  _mass:
+    m_rawValue: 4294967296
+  _juggleMass:
+    m_rawValue: 8589934592
+  _friction:
+    m_rawValue: 4294967296
+  _walkAccel:
+    m_rawValue: 42949672960
+  _walkMaxSpd:
+    m_rawValue: 42949672960
+  _runAccel:
+    m_rawValue: 42949672960
+  _runMaxSpd:
+    m_rawValue: 42949672960
+  _fallMaxSpd:
+    m_rawValue: 429496729600
+  _vfxValues: {fileID: 11400000, guid: 709b13fa2b5bd6e498a9201d6ac13773, type: 2}
+  _projectiles:
+  - {fileID: 8149638484012318637, guid: e00d8598ef6ab224996947e941ca1135, type: 3}
+  _stateList:
+  - {fileID: 11400000, guid: 8212e9bb68510564e8f1ee3e12d2115b, type: 2}
+  - {fileID: 11400000, guid: 9eb9351bacb0f624b81d4396e3db9200, type: 2}
+  _moveList:
+  - _targetState: {fileID: 11400000, guid: 39ef2cb073d379c459ae3605b69c06fc, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 8192
+    _requiredInputs:
+    - Input: 256
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 4
+      Flags: 2
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 2
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+  - _targetState: {fileID: 11400000, guid: 8fade4eda3f96fb4383c2e127826da6d, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 33554432
+    _requiredInputs:
+    - Input: 256
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+  - _targetState: {fileID: 11400000, guid: 8dcc53e2205e146489b51436516a8cfd, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 67108864
+    _requiredInputs:
+    - Input: 512
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+  - _targetState: {fileID: 11400000, guid: bf23b5d65152e114ca8ce8111bc1b764, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 134217728
+    _requiredInputs:
+    - Input: 1024
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+  - _targetState: {fileID: 11400000, guid: 2d53337daee5cab4e82c7dcbfa39253e, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 268435456
+    _requiredInputs:
+    - Input: 2048
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+  - _targetState: {fileID: 11400000, guid: 6cc9fdb4ad536e749be050681077579d, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 2
+    _requiredInputs:
+    - Input: 4096
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0

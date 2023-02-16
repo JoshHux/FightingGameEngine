@@ -26,6 +26,8 @@ namespace FightingGameEngine.Gameplay
             this._trigger = this.GetComponent<FBox>();
             this._owner = this.transform.parent.GetComponentInParent<VulnerableObject>();
 
+            //set rb to sleep
+            this._trigger.Body.Awake = false;
             //add our own activator event when we reached a frame and may activate this box trigger
             this._owner.OnFrameReached += CheckDataFromFrame;
             this._owner.OnGameStateSet += ApplyGameState;

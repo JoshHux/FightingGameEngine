@@ -229,7 +229,9 @@ namespace FightingGameEngine.Gameplay
             //if it's null, go to default state
             if (targetState == null)
             {
-                if (trans.TargetUniversalStateIndex < 0)
+                //we want to automatically go to the default airborne or grounded state
+                //  IF we either have a valid index OR there is not valid Universal state index
+                if (trans.TargetStateIndex > -1 || trans.TargetUniversalStateIndex < 0)
                 {
                     //are we airborne right now?
                     bool airborne = EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)TransitionFlags.AIRBORNE);
@@ -384,7 +386,8 @@ namespace FightingGameEngine.Gameplay
             this.StartSuperFlash(frame.SuperFlashDuration);
 
             /*----- PROCESSING PROJECTILE SPAWNING -----*/
-            if (frame.HasProjectile())
+            int projLen = this.data.Projectiles.Length;
+            if (frame.HasProjectile() && projLen > -1)
             {
                 var projectiles = frame.Projectiles;
                 int facing = this.status.CurrentFacingDirection;
@@ -393,18 +396,21 @@ namespace FightingGameEngine.Gameplay
                 while (i < len)
                 {
                     var projectileData = projectiles[i];
-                    var obj = projectileData.Projectile;
-                    var rot = projectileData.SpawnRotation;
-                    var pos = new FVector2(projectileData.SpawnOffset.x * facing, projectileData.SpawnOffset.x);
+                    if (projectileData.ProjectileInd < projLen && projectileData.ProjectileInd > -1)
+                    {
+                        var obj = this.data.Projectiles[projectileData.ProjectileInd];
+                        var rot = projectileData.SpawnRotation;
+                        var pos = new FVector2(projectileData.RelativePos.x * facing, projectileData.RelativePos.y);
 
-                    //actually instantiate the object
-                    var go = (GameObject)Instantiate(obj, this.transform.position, this.transform.rotation);
+                        //actually instantiate the object
+                        var go = (GameObject)Instantiate(obj, this.transform.position, this.transform.rotation);
 
-                    //if(go==null){Debug.Log("go is null");}
-                    var goRb = go.GetComponent<FBox>();
-                    //if(go==null){Debug.Log("goRb is null");}
+                        if(go==null){Debug.Log("go is null");}
+                        var goRb = go.GetComponent<FBox>();
+                        //if(go==null){Debug.Log("goRb is null");}
 
-                    //goRb.Position = pos;
+                        goRb.Body.Position = pos + this._rb.Position;
+                    }
                     i++;
                 }
             }
@@ -563,8 +569,18 @@ namespace FightingGameEngine.Gameplay
                         int sttDur = (this.status.CurrentState.Duration == 0) ? totalStun : this.status.CurrentState.Duration;
                         this.Status.StateTimer = new FrameTimer(sttDur);
                         //Debug.Log(this.status.CurrentState + " " + totalStun + " " + sttDur);
+                        return;
                     }
-                    return;
+                    //all else fails, we loop the state
+                    else if (EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)TransitionFlags.STATE_END) && this.status.CurrentState.GetLoop())
+                    {
+                        trans = new TransitionData(this.status.CurrentState);
+                    }
+                    //put the return in the else statement to so we can possibly send a transition to the looping state
+                    else
+                    {
+                        return;
+                    }
                 }
 
                 //Debug.Log("found transition in movelist - " + trans.TargetState.name);

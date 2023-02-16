@@ -17,19 +17,19 @@ MonoBehaviour:
   m_currentResources:
     Health: 600
     Meter: 0
+    Burst: 0
+    Pressure: 0
     Resource1: 0
     Resource2: 0
     Resource3: 0
     Resource4: 0
     Resource5: 0
-    Resource6: 0
-    Resource7: 0
   m_stateTimer:
     _timeElapsed: 2
     _endTime: 2
   m_stopTimer:
-    _timeElapsed: 0
-    _endTime: 0
+    _timeElapsed: 10
+    _endTime: 10
   m_installTimer:
     _timeElapsed: 0
     _endTime: 0
@@ -42,12 +42,12 @@ MonoBehaviour:
     _stateConditions: 0
   m_currentState: {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
   m_currentConditions: 113
-  m_transitionFlags: 1073741825
+  m_transitionFlags: 1073741833
   m_cancelFlags: 4294967295
   m_currentFacing: 1
   m_currentPosition:
     x:
-      m_rawValue: -21474836480
+      m_rawValue: -37419902508
     y:
       m_rawValue: 0
   m_currentVelocity:
@@ -89,8 +89,8 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 0
       Flags: 0
-      HoldDuration: 4
-      UnlenientTime: 4
+      HoldDuration: 679
+      UnlenientTime: 609
       _lenientBuffer: 0
   _positionOffset:
     x:
@@ -107,7 +107,7 @@ MonoBehaviour:
   _transitionInfo:
     _0: -1
     _1: 0
-    _2: 1
+    _2: 0
     _3: -1
     _4: -1
     _5: -1

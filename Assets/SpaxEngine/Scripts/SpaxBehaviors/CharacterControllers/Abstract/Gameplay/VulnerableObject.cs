@@ -180,7 +180,7 @@ namespace FightingGameEngine.Gameplay
                     //set hitspark
                     this.status.RendererInfo.VFXID = boxData.Hitspark;
                     this.status.RendererInfo.VFXPos = hold.ContactLoc;
-                    print(hold.ContactLoc);
+                    //print(hold.ContactLoc);
                 }
 
                 // deal damage            

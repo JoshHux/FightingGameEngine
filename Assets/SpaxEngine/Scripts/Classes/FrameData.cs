@@ -25,6 +25,8 @@ namespace FightingGameEngine.Data
         [SerializeField] private ResourceData _resourceChange;
         [SerializeField] private HitboxHolder _hitboxes;
         [SerializeField] private HurtboxHolder _hurtboxes;
+        //whether or not we spawn a projectile on this frame
+        [SerializeField] private bool _spawnProjectiles = false;
         [SerializeField] private ProjectileEvent[] _projectiles;
 
         //the minimum atframe value should be 1, if 0, then it's invalid
@@ -50,7 +52,7 @@ namespace FightingGameEngine.Data
         public bool HasProjectile()
         {
             var ret = this._projectiles.Length > 0;
-            return ret;
+            return this._spawnProjectiles && ret;
         }
 
         //returns the hitboxdata at index i, returns the first hitbox data if out of bounds

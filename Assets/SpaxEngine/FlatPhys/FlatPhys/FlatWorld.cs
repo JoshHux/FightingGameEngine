@@ -74,6 +74,26 @@ namespace FlatPhysics
 
         }
 
+
+        public FlatBody FindBody(FlatPhysics.Unity.FRigidbody go)
+        {
+            //if(this.bodyList.Find(o => o.GameObject == null)!=null){Debug.Log("null go objects found");}
+            return this.bodyList.Find(o => o.BodyID == go.BodyID);
+        }
+
+        public List<int> GetBodyIds()
+        {
+            var ret = new List<int>();
+            foreach (var b in this.bodyList)
+            {
+                ret.Add(b.BodyID);
+            }
+
+            ret.Sort();
+            return ret;
+        }
+
+
         public bool RemoveBody(FlatBody body)
         {
             return this.bodyList.Remove(body);
@@ -116,6 +136,9 @@ namespace FlatPhysics
                 if (check)
                     hold.StepParent();
             }*/
+            //if two pushboxes collide, we want to query their collision again after static objects have collided just in case
+            var dynamicPairs = new List<BroadPhasePairs>();
+            int staticCol = 0;
 
             // broad phase, find pairs of bodies what MIGHT collide
 
@@ -190,24 +213,29 @@ namespace FlatPhysics
                         if (bodyA.IsPushbox && bodyB.IsPushbox)
                         {
                             broadPhaseList.Insert(0, toAdd);
+                            dynamicPairs.Add(toAdd);
                         }
                         else
                         {
                             broadPhaseList.Add(toAdd);
                         }
+
+                        if (bodyA.IsStatic || bodyB.IsStatic)
+                        {
+                            staticCol += 1;
+                        }
                     }
                 }
             }
 
-            //cull duplicates
-            //broadPhaseList = broadPhaseList.Distinct().ToList();
-
-
+            if (dynamicPairs.Count > 0 && broadPhaseList.Count - staticCol > 1) { broadPhaseList.InsertRange(staticCol + 1, dynamicPairs); }
+            else
+            if (dynamicPairs.Count > 0 && broadPhaseList.Count - staticCol > 0) { broadPhaseList.AddRange(dynamicPairs); }
             //Narrow Phase
             int nLen = broadPhaseList.Count;
-            var colList = "";
+            //var colList = "";
 
-            for (int i = 0; i < nLen; i++)
+            for (int i = 0; i < broadPhaseList.Count; i++)
             {
                 var hold = broadPhaseList[i];
 
@@ -218,7 +246,7 @@ namespace FlatPhysics
                 var bodyA = hold.BodyA;
                 var bodyB = hold.BodyB;
                 //debug
-                colList += bodyA.GameObject.name + ", " + bodyB.GameObject.name + "\n";
+                //colList += bodyA.GameObject.name + ", " + bodyB.GameObject.name + "\n";
 
                 var bCola = hold.BColA;
                 var aColb = hold.AColB;
@@ -228,29 +256,52 @@ namespace FlatPhysics
                 //pushbox unique collision stuff only needs to happen when both boxes are pushboxes
                 var bothPushBoxes = bodyB.IsPushbox && bodyA.IsPushbox;
 
+                //if (i == staticCol + 1 && bothPushBoxes)
+                //{ Debug.Log("checking additional col " + i + ", " + staticCol + " | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name); }
                 //if we do collide
                 if (collide)
                 {
+                    if (bodyA.IsTrigger && bodyB.IsTrigger)
+                    {
+                        depth = 0;
+                        normal = FVector2.zero;
+                        //Debug.Log("discrete | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
+                    }
                     var offset = normal * depth;
                     //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
                     var trueOffsetB = offset * bCola;
                     //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
                     var trueOffsetA = -offset * aColb;
 
-                    //if (bothPushBoxes)
-                    //{
-                    Debug.Log("discrete | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
                     //Debug.Log("avel - " + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y);
                     //Debug.Log("bvel - " + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y);
                     //Debug.Log("apos - " + bodyA.Position.x + ", " + bodyA.Position.y);
                     //Debug.Log("bpos - " + bodyB.Position.x + ", " + bodyB.Position.y);
                     //Debug.Log("normal :: " + normal.x + ", " + normal.y);
-                    //}
+
+                    //if (bothPushBoxes)
+                    //{//}
 
                     //{
-                    bodyB.Move(trueOffsetB);
-                    bodyA.Move(trueOffsetA);
-                    this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false);
+
+
+                    int aInCorner = 1;
+                    int bInCorner = 1;
+                    if (dynamicPairs.Count > 0 && i == staticCol + 1 && bothPushBoxes)
+                    {
+                        //continue;
+                        aInCorner = Fix64.Sign(Fix64.Abs(bodyA.LinearVelocity.x));
+                        bInCorner = Fix64.Sign(Fix64.Abs(bodyB.LinearVelocity.x));
+                        //Debug.Log("checking additional col " + i + ", " + staticCol + " | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
+
+                        if (aInCorner != 0 && bInCorner != 0) { continue; }
+                    }
+
+                    bodyB.Move(trueOffsetB * bInCorner);
+                    bodyA.Move(trueOffsetA * aInCorner);
+
+
+                    this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false, aInCorner, bInCorner);
 
 
                     //if we are able to collide, call the respective callback
@@ -277,7 +328,12 @@ namespace FlatPhysics
                         //if (colTime > 0)
                         //if (bothPushBoxes)
                         //{
-                        Debug.Log("swept: " + colTime + " | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
+
+                        if (bodyA.IsTrigger && bodyB.IsTrigger)
+                        {
+                            continue;
+                            //Debug.Log("swept: " + colTime + " | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
+                        }
                         //Debug.Log("avel - " + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y);
                         //Debug.Log("bvel - " + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y);
                         //Debug.Log("apos - " + bodyA.Position.x + ", " + bodyA.Position.y);
@@ -290,9 +346,20 @@ namespace FlatPhysics
                         //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
                         var trueOffsetA = -offset * aColb;
                         //{
+
+                        int aInCorner = 1;
+                        int bInCorner = 1;
+                        if (dynamicPairs.Count > 0 && i == staticCol + 1 && bothPushBoxes)
+                        {
+                            aInCorner = Fix64.Sign(Fix64.Abs(bodyA.LinearVelocity.x));
+                            bInCorner = Fix64.Sign(Fix64.Abs(bodyB.LinearVelocity.x));
+                            //Debug.Log("checking additional col " + i + ", " + staticCol + " | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
+
+                            if (aInCorner != 0 && bInCorner != 0) { continue; }
+                        }
                         bodyB.Move(bodyB.LinearVelocity * time * colTime);
                         bodyA.Move(bodyA.LinearVelocity * time * colTime);
-                        this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false);
+                        this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false, aInCorner, bInCorner);
 
 
                         //if we are able to collide, call the respective callback
@@ -311,7 +378,132 @@ namespace FlatPhysics
                 }
             }
 
-            Debug.Log("====================================================");
+            /*
+            //insearts dynamic pairs aafter statics
+            int dlen = dynamicPairs.Count();
+            for (int i = 0; i < dlen; i++)
+            {
+                break;
+                var hold = dynamicPairs[i];
+
+                //whether or not we can and do collide
+                FVector2 normal = new FVector2();
+                Fix64 depth = 0;
+
+                var bodyA = hold.BodyA;
+                var bodyB = hold.BodyB;
+                //debug
+                //colList += bodyA.GameObject.name + ", " + bodyB.GameObject.name + "\n";
+
+                var bCola = hold.BColA;
+                var aColb = hold.AColB;
+                bool collide = this.Collide(bodyA, bodyB, out normal, out depth);
+
+
+                //pushbox unique collision stuff only needs to happen when both boxes are pushboxes
+                var bothPushBoxes = bodyB.IsPushbox && bodyA.IsPushbox;
+
+                //if we do collide
+                if (collide)
+                {
+                    var offset = normal * depth;
+                    //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
+                    var trueOffsetB = offset * bCola;
+                    //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
+                    var trueOffsetA = -offset * aColb;
+
+                    //Debug.Log("discrete | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
+                    //Debug.Log("avel - " + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y);
+                    //Debug.Log("bvel - " + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y);
+                    //Debug.Log("apos - " + bodyA.Position.x + ", " + bodyA.Position.y);
+                    //Debug.Log("bpos - " + bodyB.Position.x + ", " + bodyB.Position.y);
+                    //Debug.Log("normal :: " + normal.x + ", " + normal.y);
+
+                    //if (bothPushBoxes)
+                    //{//}
+
+                    //{
+
+
+                    int aInCorner = Fix64.Sign(Fix64.Abs(bodyA.LinearVelocity.x));
+                    int bInCorner = Fix64.Sign(Fix64.Abs(bodyB.LinearVelocity.x));
+
+                    if (aInCorner != 0 && bInCorner != 0) { continue; }
+
+                    bodyB.Move(trueOffsetB * bInCorner);
+                    bodyA.Move(trueOffsetA * aInCorner);
+
+
+                    this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false, aInCorner, bInCorner);
+
+
+                    //if we are able to collide, call the respective callback
+                    if (aColb > 0)
+                    {
+                        var c = new ContactData(FVector2.zero, bodyB.GameObject);
+                        bodyA.OnColOverlap(c);
+                    }
+                    if (bCola > 0)
+                    {
+                        var c = new ContactData(FVector2.zero, bodyA.GameObject);
+                        bodyB.OnColOverlap(c);
+                    }
+                }//we didn't collide
+                else
+                {
+                    //swept collision
+                    var colTime = this.SweptCollide(bodyA, bodyB, out normal, out depth);
+                    if (colTime < Fix64.MaxValue)
+                    {
+                        //Debug.Log("max: " + bodyB.GetAABB().Max.x + ", " + bodyB.GetAABB().Max.y);
+                        //Debug.Log("min: " + bodyB.GetAABB().Min.x + ", " + bodyB.GetAABB().Min.y);
+
+                        //if (colTime > 0)
+                        //if (bothPushBoxes)
+                        //{
+                        //Debug.Log("swept: " + colTime + " | " + bodyA.GameObject.name + " - " + bodyB.GameObject.name);
+                        //Debug.Log("avel - " + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y);
+                        //Debug.Log("bvel - " + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y);
+                        //Debug.Log("apos - " + bodyA.Position.x + ", " + bodyA.Position.y);
+                        //Debug.Log("bpos - " + bodyB.Position.x + ", " + bodyB.Position.y);
+                        //Debug.Log("normal :: " + normal.x + ", " + normal.y);
+                        //}
+                        var offset = normal * depth;
+                        //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
+                        var trueOffsetB = offset * bCola;
+                        //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
+                        var trueOffsetA = -offset * aColb;
+                        //{
+
+                        int aInCorner = Fix64.Sign(Fix64.Abs(bodyA.LinearVelocity.x));
+                        int bInCorner = Fix64.Sign(Fix64.Abs(bodyB.LinearVelocity.x));
+
+                        if (aInCorner != 0 && bInCorner != 0) { continue; }
+
+                        bodyB.Move(bodyB.LinearVelocity * time * colTime);
+                        bodyA.Move(bodyA.LinearVelocity * time * colTime);
+
+                        this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false, aInCorner, bInCorner);
+
+
+                        //if we are able to collide, call the respective callback
+                        if (aColb > 0)
+                        {
+                            var c = new ContactData(FVector2.zero, bodyB.GameObject);
+                            bodyA.OnColOverlap(c);
+                        }
+                        if (bCola > 0)
+                        {
+                            var c = new ContactData(FVector2.zero, bodyA.GameObject);
+                            bodyB.OnColOverlap(c);
+                        }
+                    }
+
+                }
+            }
+            */
+
+            //Debug.Log("====================================================");
 
             // Movement step
 
@@ -440,8 +632,8 @@ namespace FlatPhysics
                     else
                     {
                         body1.Move(trueOffsetB);
-
                     }
+
 
                     //}
 
@@ -453,9 +645,9 @@ namespace FlatPhysics
             }
         }
 
-        public void ResolveCollision(FlatBody bodyA, FlatBody bodyB, FVector2 normal, Fix64 depth, int aColB, int bColA, bool bothActivePushboxes, int inCorner = 0)
+        public void ResolveCollision(FlatBody bodyA, FlatBody bodyB, FVector2 normal, Fix64 depth, int aColB, int bColA, bool bothActivePushboxes, int aInCorner = 1, int bInCorner = 1)
         {
-            FVector2 relativeVelocity = bodyB.LinearVelocity - bodyA.LinearVelocity;
+            FVector2 relativeVelocity = bodyB.LinearVelocity * bInCorner - bodyA.LinearVelocity * aInCorner;
 
             //if (bodyA.GameObject.name == "TestPlayer" && bodyA.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyA, velocity :: (" + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y + ")");
             //if (bodyB.GameObject.name == "TestPlayer" && bodyB.LinearVelocity.magnitude > 0) UnityEngine.Debug.Log("- bodyB, velocity :: (" + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y + ")");
@@ -468,7 +660,7 @@ namespace FlatPhysics
             Fix64 e = 0;//Fix64.Min(1, 1);
 
             Fix64 j = -(1 + e) * FVector2.Dot(relativeVelocity, normal);
-            j /= bodyA.InvMass + bodyB.InvMass;
+            j /= bodyA.InvMass * aInCorner + bodyB.InvMass * bInCorner;
 
             FVector2 impulse = j * normal;
 
@@ -477,8 +669,8 @@ namespace FlatPhysics
 
             //Debug.Log("a- " + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y);
             //Debug.Log("b- " + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y);
-            bodyA.LinearVelocity -= impulse * bodyA.InvMass * aColB;
-            bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA;
+            bodyA.LinearVelocity -= impulse * bodyA.InvMass * aColB * aInCorner;
+            bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA * bInCorner;
             //Debug.Log(impulse.x + ", " + impulse.y);
             //Debug.Log("a- " + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y);
             //Debug.Log("b- " + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y);
@@ -535,9 +727,9 @@ namespace FlatPhysics
 
             // ray-cast the relativeMotion vector against the Minkowski AABB
             var h = md.getRayIntersectionFraction(FVector2.zero, relativeMotion);
-            Debug.Log("relative motion :: " + relativeMotion.x + ", " + relativeMotion.y);
-            Debug.Log("md :: " + md.Min.x + ", " + md.Min.y+" ; "+md.Max.x + ", " + md.Max.y);
-            Debug.Log(h);
+            //Debug.Log("relative motion :: " + relativeMotion.x + ", " + relativeMotion.y);
+            //Debug.Log("md :: " + md.Min.x + ", " + md.Min.y + " ; " + md.Max.x + ", " + md.Max.y);
+            //Debug.Log(h);
 
             // check to see if a collision will happen this frame
             // getRayIntersectionFraction returns Math.POSITIVE_INFINITY if there is no intersection

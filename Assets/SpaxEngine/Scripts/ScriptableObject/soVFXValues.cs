@@ -9,7 +9,7 @@ namespace FightingGameEngine.Data
     public class soVFXValues : ScriptableObject
     {
         [SerializeField] private List<GameObject> _vfxList;
-        public GameObject[] VFXList { get { return this._vfxList.ToArray(); } }
+        public  List<GameObject> VFXList { get { return this._vfxList; } }
 
     }
 }

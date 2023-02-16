@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
+  m_Name: cATLN_JumpPre
+  m_EditorClassIdentifier: 
+  _id:
+    ID: 0
+  _parentState: {fileID: 0}
+  inheritTrans_: 0
+  inheritCond_: 0
+  inheritCancel_: 0
+  _duration: 5
+  loop_: 0
+  _stateConditions: 22
+  _toggleState: 0
+  _cancels: 0
+  _toggleCancel: 0
+  _enterEvents: 0
+  _exitEvents: 0
+  _transitions:
+  - _targetState: {fileID: 11400000, guid: 422b404c42272e44a83d962a48dbc87b, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredInputs: []
+    _requiredTransitionFlags: 1073741824
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  _frames: []
+  _animation:
+  - _atFrame: 1
+    _animationName: JumpPre
+    _animationSpeed:
+      m_rawValue: 4294967296
+    _skipIfSameName: 0
+    _startFrame: 0
+    _soundFx: 
+    _vfx: 0
+    _vfxPosition:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _vfxRotation:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0

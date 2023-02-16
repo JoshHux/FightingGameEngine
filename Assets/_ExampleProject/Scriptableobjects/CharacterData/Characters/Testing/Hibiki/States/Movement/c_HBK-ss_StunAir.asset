@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
+  m_Name: c_HBK-ss_StunAir
+  m_EditorClassIdentifier: 
+  _id:
+    ID: 14114570824
+  _parentState: {fileID: 0}
+  inheritTrans_: 0
+  inheritCond_: 0
+  inheritCancel_: 0
+  _duration: 0
+  _stateConditions: 67108870
+  _toggleState: 0
+  _cancels: 0
+  _toggleCancel: 0
+  _enterEvents: 0
+  _exitEvents: 0
+  _transitions:
+  - _targetState: {fileID: 0}
+    _targetStateIndex: -1
+    _targetUniversalStateIndex: 3
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredInputs:
+    - Input: 65280
+      Flags: 268435456
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1073741826
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 0}
+    _targetStateIndex: 1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredInputs: []
+    _requiredTransitionFlags: 1073741824
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  - _targetState: {fileID: 11400000, guid: a97ed7c3067b6a249b79af25d7edf77c, type: 2}
+    _targetStateIndex: -1
+    _targetUniversalStateIndex: -1
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredInputs: []
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+      Resource6: 0
+      Resource7: 0
+  _frames: []
+  _animation:
+  - _atFrame: 1
+    _animationName: Hitstun-Air
+    _animationSpeed:
+      m_rawValue: 4294967296
+    _skipIfSameName: 0
+    _startFrame: 0
+    _soundFx: 
+    _vfx: -1
+    _vfxPosition:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _vfxRotation:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0

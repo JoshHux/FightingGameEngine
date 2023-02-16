@@ -15,6 +15,11 @@ namespace FightingGameEngine.Gameplay
             var newDim = this.m_data.Dimensions;
 
             this.CommonActivateBox(newPos, newDim);
+
+            if (newData.Dimensions.x == 0 || newData.Dimensions.y == 0)
+            {
+                this.CommonDeactivateBox();
+            }
         }
 
 

@@ -33,7 +33,14 @@ namespace FlatPhysics
         private FlatBody _parent;
 
         public readonly Fix64 Mass;
-        public readonly Fix64 InvMass;
+        public Fix64 InvMass
+        {
+            get
+            {
+                if (this.IsStatic || (false && this.livingObject != null && this.livingObject.IsWalled() > 0)) { return 0; }
+                return 1 / this.Mass;
+            }
+        }
         public readonly Fix64 Restitution;
 
         public readonly bool IsStatic;
@@ -111,8 +118,19 @@ namespace FlatPhysics
 
         public FVector2 Position
         {
-            get { return this._position; }
-            set { this._position = value; }
+            get
+            {
+                if (this._parent != null) { return this.LocalPosition + this._parent.Position; }
+                return this._position;
+            }
+            set
+            {
+                if (this._parent != null) { this.LocalPosition = value - this._parent.Position; }
+                else
+                {
+                    this._position = value;
+                }
+            }
         }
 
         public FlatBody Parent
@@ -197,14 +215,6 @@ namespace FlatPhysics
             //have it be null to start out with, guarentees null if no parent
             this._parent = null;
 
-            if (!this.IsStatic)
-            {
-                this.InvMass = 1 / this.Mass;
-            }
-            else
-            {
-                this.InvMass = 0;
-            }
 
             if (this.IsPushbox) { this.livingObject = this.GameObject.GetComponent<LivingObject>(); }
 
@@ -279,7 +289,7 @@ namespace FlatPhysics
         {
             //if (this.transformUpdateRequired)
             //{
-            FlatTransform transform = new FlatTransform(this._position, this._rotation);
+            FlatTransform transform = new FlatTransform(this.Position, this._rotation);
 
             for (int i = 0; i < this.vertices.Length; i++)
             {
@@ -294,7 +304,9 @@ namespace FlatPhysics
 
         public FlatAABB GetAABB()
         {
-            this.aabb = this._shape.GetAABB(this._position, this._linearVelocity, 1);
+            var offset = new FVector2();
+            if (this.Parent != null) { offset = this._parent._linearVelocity; }
+            this.aabb = this._shape.GetAABB(this.Position, this._linearVelocity + offset, 1);
             //}
 
 
@@ -304,7 +316,7 @@ namespace FlatPhysics
 
         public FlatAABB GetBox()
         {
-            return this._shape.GetAABB(this._position, FVector2.zero, 0);
+            return this._shape.GetAABB(this.Position, FVector2.zero, 0);
         }
 
         internal void Step(Fix64 time, FVector2 gravity, int iterations)
@@ -321,6 +333,7 @@ namespace FlatPhysics
 
             //FVector2 acceleration = this.force / this.Mass;
             //this._linearVelocity += acceleration * time;
+            if (this.HasParent()) { return; }
 
             //this._linearVelocity += gravity * time;
             //this._position += this._linearVelocity * time;
@@ -333,7 +346,7 @@ namespace FlatPhysics
             //this.aabbUpdateRequired = true;
 
             //if we have a parent, step based on parent
-            if (this.HasParent()) { this.StepParent(); }
+            //if (this.HasParent()) { this.StepParent(); }
 
         }
 
@@ -347,14 +360,14 @@ namespace FlatPhysics
         public void Move(FVector2 amount)
         {
             if (this.IsStatic) { return; }
-            this._position += amount;
+            this.Position += amount;
             //this.transformUpdateRequired = true;
             //this.aabbUpdateRequired = true;
         }
 
         public void MoveTo(FVector2 position)
         {
-            this._position = position;
+            this.Position = position;
             //this.transformUpdateRequired = true;
             //this.aabbUpdateRequired = true;
         }

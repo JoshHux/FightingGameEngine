@@ -65,7 +65,7 @@ namespace FightingGameEngine.Gameplay
                 Vector3 playerPos = new Vector3((float)this._status.CurrentPosition.x, (float)this._status.CurrentPosition.y, 0);
                 //shortcut
                 RendererInfo ri = this._status.RendererInfo;
-                print(this._status);
+                //print(this._status);
                 Instantiate(ri.VFXValues.VFXList[ri.VFXID], ri.VFXPos, Quaternion.identity);
                 this._status.RendererInfo.VFXID = -1;
             }
@@ -118,7 +118,7 @@ namespace FightingGameEngine.Gameplay
 
             }
 
-            if (afd.VFX >= 0)
+            if (afd.VFX >= 0 && this._data.VFXValues.VFXList.Count > 0)
             {
                 Vector3 spawnPos = new Vector3((float)afd.VFXPosition.x, (float)afd.VFXPosition.y, (float)afd.VFXPosition.z);
                 Vector3 playerPos = new Vector3((float)this._status.CurrentPosition.x, (float)this._status.CurrentPosition.y, 0);
