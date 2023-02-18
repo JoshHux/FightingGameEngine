@@ -306,7 +306,7 @@ namespace FlatPhysics
         {
             var offset = new FVector2();
             if (this.Parent != null) { offset = this._parent._linearVelocity; }
-            this.aabb = this._shape.GetAABB(this.Position, this._linearVelocity + offset, 1);
+            this.aabb = this._shape.GetAABB(this.Position, (this._linearVelocity + offset) * ((Fix64)1 / (Fix64)60), 1);
             //}
 
 
@@ -359,7 +359,7 @@ namespace FlatPhysics
 
         public void Move(FVector2 amount)
         {
-            if (this.IsStatic) { return; }
+            if (this.IsStatic || this.IsTrigger) { return; }
             this.Position += amount;
             //this.transformUpdateRequired = true;
             //this.aabbUpdateRequired = true;

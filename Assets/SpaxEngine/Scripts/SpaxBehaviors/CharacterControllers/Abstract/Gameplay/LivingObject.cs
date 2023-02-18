@@ -62,7 +62,7 @@ namespace FightingGameEngine.Gameplay
             //set the default state
             this.SetStateRaw(defaultState);
 
-            Debug.Log(this.gameObject.name + " " + this.status.StopTimer.EndTime);
+            //Debug.Log(this.gameObject.name + " " + this.status.StopTimer.EndTime);
 
             //set starting resources
             this.status.CurrentResources = this.data.StartingResources;

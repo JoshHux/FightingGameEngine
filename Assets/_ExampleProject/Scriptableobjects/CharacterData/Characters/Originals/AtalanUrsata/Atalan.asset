@@ -28,7 +28,7 @@ MonoBehaviour:
     Meter: 0
     Burst: 0
     Pressure: 0
-    Resource1: 0
+    Resource1: 3
     Resource2: 0
     Resource3: 0
     Resource4: 0
@@ -56,6 +56,45 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8212e9bb68510564e8f1ee3e12d2115b, type: 2}
   - {fileID: 11400000, guid: 9eb9351bacb0f624b81d4396e3db9200, type: 2}
   _moveList:
+  - _targetState: {fileID: 11400000, guid: ec39a840d918d664086be2238226c486, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 8192
+    _requiredInputs:
+    - Input: 2048
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 1
+      Flags: 2
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 2
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
   - _targetState: {fileID: 11400000, guid: 39ef2cb073d379c459ae3605b69c06fc, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0

@@ -78,12 +78,12 @@ namespace FlatPhysics.Unity
                 Vector3 pos = new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f);
                 Vector3 dim = new Vector3((float)this._rb.Width, (float)this._rb.Height, 1f);
 
-                //if (this.transform.parent != null)
-                //{
-                //    pos = new Vector3((float)(aabbMin.x + ((aabbMax.x - aabbMin.x) / 2)), (float)(aabbMin.y + ((aabbMax.y - aabbMin.y) / 2)), 0f);
-                //    dim = new Vector3((float)(aabbMax.x - aabbMin.x), (float)(aabbMax.y - aabbMin.y), 1f);
-                //Debug.Log((aabbMax.x - aabbMin.x));
-                //}
+                if (this.transform.parent != null)
+                {
+                    pos = new Vector3((float)(aabbMin.x + ((aabbMax.x - aabbMin.x) / 2)), (float)(aabbMin.y + ((aabbMax.y - aabbMin.y) / 2)), 0f);
+                    dim = new Vector3((float)(aabbMax.x - aabbMin.x), (float)(aabbMax.y - aabbMin.y), 1f);
+                    //    Debug.Log((aabbMax.x - aabbMin.x));
+                }
                 Gizmos.matrix = Matrix4x4.TRS(pos, transform.rotation, Vector3.one);
                 Gizmos.DrawWireCube(Vector2.zero, dim);
             }
