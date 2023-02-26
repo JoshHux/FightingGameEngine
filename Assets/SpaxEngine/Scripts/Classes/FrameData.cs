@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using FixMath.NET;
+using FightingGameEngine.Commands;
 using FightingGameEngine.Enum;
 namespace FightingGameEngine.Data
 {
@@ -12,6 +14,9 @@ namespace FightingGameEngine.Data
         [SerializeField] private int _armorHits;
         [SerializeField] private bool _setVelocity;
         [SerializeField] private FVector2 _appliedVelocity;
+        //should we teleport?
+        [SerializeField] private TeleportMode _teleport;
+        [SerializeField] private FVector2 _teleportPos;
         [SerializeField] private bool _triggerInstall;
 
         //whether or not we change the gravity of the character
@@ -28,6 +33,7 @@ namespace FightingGameEngine.Data
         //whether or not we spawn a projectile on this frame
         [SerializeField] private bool _spawnProjectiles = false;
         [SerializeField] private ProjectileEvent[] _projectiles;
+        [SerializeField] private List<ICommand> _events;
 
         //the minimum atframe value should be 1, if 0, then it's invalid
         public int AtFrame { get { return this._atFrame; } }
@@ -37,6 +43,8 @@ namespace FightingGameEngine.Data
         public bool TriggerInstall { get { return this._triggerInstall; } }
         public bool SetVelocity { get { return this._setVelocity; } }
         public FVector2 AppliedVelocity { get { return this._appliedVelocity; } }
+        public TeleportMode Teleport { get { return this._teleport; } }
+        public FVector2 TeleportPos { get { return this._teleportPos; } }
         public bool SetGravity { get { return this._setGravity; } }
         public Fix64 AppliedGravity { get { return this._appliedGravity; } }
 
@@ -47,6 +55,13 @@ namespace FightingGameEngine.Data
         public ResourceData ResourceChange { get { return this._resourceChange; } }
         public FrameEventData TimerEvent { get { return this._timerEvents; } }
         public ProjectileEvent[] Projectiles { get { return this._projectiles; } }
+
+        public FrameData(int f) { this._atFrame = f; }
+
+        public void SetEvents(List<ICommand> lst)
+        {
+            this._events = lst;
+        }
 
         //returns whether or not this frame has a projectiles to spawn
         public bool HasProjectile()
@@ -76,5 +91,7 @@ namespace FightingGameEngine.Data
             //return the value set to ret
             return ret;
         }
+
+        public List<ICommand> get_events() { return this._events; }
     }
 }

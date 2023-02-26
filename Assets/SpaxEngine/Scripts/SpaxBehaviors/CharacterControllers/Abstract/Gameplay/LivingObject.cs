@@ -1,16 +1,22 @@
 using UnityEngine;
 using FixMath.NET;
 using FlatPhysics.Unity;
+using FightingGameEngine.Commands;
 using FightingGameEngine.Data;
 using FightingGameEngine.Enum;
+using FightingGameEngine.ObjectPooler;
 
 namespace FightingGameEngine.Gameplay
 {
+    public delegate void StateChanged(object sender);
+
     public abstract class LivingObject : GameplayBehavior
     {
 
         //rigidbody of the character
         private FBox _rb;
+        //invoker for state events
+        private FrameCommandInvoker _invoker;
         //data of our character
         [SerializeField] protected soCharacterData data;
         //current status of this character
@@ -20,6 +26,9 @@ namespace FightingGameEngine.Gameplay
         public soCharacterStatus Status { get { return this.status; } }
         public FlatPhysics.FlatBody Body { get { return this._rb.Body; } }
         public FVector2 FlatPosition { get { return this._rb.Position; } }
+
+        //delegate to signal observers that we changed our state
+        public StateChanged OnStateChanged;
 
         //call to reset this character's status
         public virtual void ResetStatus()
@@ -75,6 +84,7 @@ namespace FightingGameEngine.Gameplay
         {
             base.OnAwake();
             this.ResetStatus();
+            this._invoker = new FrameCommandInvoker();
         }
 
         protected override void OnStart()
@@ -90,6 +100,8 @@ namespace FightingGameEngine.Gameplay
 
             //set starting resources
             this.status.CurrentResources = this.data.StartingResources;
+
+            ObjectPool.Instance.MakePool(this.status.PlayerID, this.data.Projectiles);
 
         }
 
@@ -123,6 +135,7 @@ namespace FightingGameEngine.Gameplay
                 }
                 return;
             }
+
             //try to transition to a new state
             this.TryTransitionState();
 
@@ -174,6 +187,7 @@ namespace FightingGameEngine.Gameplay
             //Debug.Log("spaxupdate - " +this.status.TotalVelocity.x+" | calc - "+this.status.CalcVelocity.x+" | cur - "+this.status.CurrentVelocity.x);
 
             //apply the total velocity to the rigidbody
+            //reassign the new position to the rigidbody
             this._rb.Velocity = this.status.TotalVelocity;
             this._rb.Position = this.status.CurrentPosition;
 
@@ -386,8 +400,7 @@ namespace FightingGameEngine.Gameplay
             this.StartSuperFlash(frame.SuperFlashDuration);
 
             /*----- PROCESSING PROJECTILE SPAWNING -----*/
-            int projLen = this.data.Projectiles.Length;
-            if (frame.HasProjectile() && projLen > -1)
+            if (frame.HasProjectile())
             {
                 var projectiles = frame.Projectiles;
                 int facing = this.status.CurrentFacingDirection;
@@ -396,16 +409,16 @@ namespace FightingGameEngine.Gameplay
                 while (i < len)
                 {
                     var projectileData = projectiles[i];
-                    if (projectileData.ProjectileInd < projLen && projectileData.ProjectileInd > -1)
+                    var obj = this.data.Projectiles[projectileData.ProjectileInd].get_pooled_object();
+                    if (projectileData.ProjectileInd < 8 && projectileData.ProjectileInd > -1 && obj != null)
                     {
-                        var obj = this.data.Projectiles[projectileData.ProjectileInd];
                         var rot = projectileData.SpawnRotation;
                         var pos = new FVector2(projectileData.RelativePos.x * facing, projectileData.RelativePos.y);
 
                         //actually instantiate the object
                         var go = (GameObject)Instantiate(obj, this.transform.position, this.transform.rotation);
 
-                        if(go==null){Debug.Log("go is null");}
+                        if (go == null) { Debug.Log("go is null"); }
                         var goRb = go.GetComponent<FBox>();
                         //if(go==null){Debug.Log("goRb is null");}
 
@@ -423,27 +436,26 @@ namespace FightingGameEngine.Gameplay
 
             /*----- PROCESSING GRAVITY APPLICATION -----*/
             //we want to apply gravity?
-            bool wantApplyGrav = EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.APPLY_GRAVITY);
+            int wantApplyGrav = EnumHelper.HasEnumInt((uint)stateConditions, (uint)StateConditions.APPLY_GRAVITY);
             //only apply gravity ONLY if WE ALSO don't have STALL_GRAVITY
-            bool applyGrav = wantApplyGrav && !EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.STALL_GRAVITY);
+            int applyGrav = wantApplyGrav & (1 ^ EnumHelper.HasEnumInt((uint)stateConditions, (uint)StateConditions.STALL_GRAVITY));
 
             //we want to apply gravity
-            if (applyGrav)
-            {
-                //UnityEngine.Debug.Log("applying gravity");
 
-                //whether or not we are in hitstun
-                int inStun = EnumHelper.HasEnumInt((uint)stateConditions, (uint)StateConditions.STUN_STATE);
-                int notStun = inStun ^ 1;
+            //UnityEngine.Debug.Log("applying gravity");
 
-                //grab the current gravity for easy reference
-                var grav = (this.status.CurrentGravity * notStun + this.data.JuggleMass * inStun) * this.status.GravityScaling;
+            //whether or not we are in hitstun
+            int inStun = EnumHelper.HasEnumInt((uint)stateConditions, (uint)StateConditions.STUN_STATE);
+            int notStun = inStun ^ 1;
 
-                var applyingVel = new FVector2(0, -grav);
+            //grab the current gravity for easy reference
+            var grav = (this.status.CurrentGravity * notStun + this.data.JuggleMass * inStun) * this.status.GravityScaling;
 
-                //set to CurrentVelocity
-                this.status.CalcVelocity += applyingVel;
-            }
+            var applyingVel = new FVector2(0, -grav) * applyGrav;
+
+            //set to CurrentVelocity
+            this.status.CalcVelocity += applyingVel;
+
 
 
 
@@ -502,19 +514,19 @@ namespace FightingGameEngine.Gameplay
         {
             //restore gravity
             this.status.CurrentGravity = this.data.Mass;
+
+            this.OnStateChanged?.Invoke(this);
         }
 
         //call to process try to transition the state
         protected void TryTransitionState()
         {
 
-            //if (this.status.CurrentState.name == "c_HBK_StunAir") Debug.Log("checking airborne " + (this.status.CurrentPosition.y) + " " + (this.status.CurrentVelocity.y) + "  |  " + (this.status.CurrentPosition.y - (this._rb.Height / 2) > 0) + " " + (this.status.CurrentVelocity.y > 0));
-
             //simple check if we're airborne
-            if ((this.status.CurrentPosition.y > 0) || (this.status.CurrentVelocity.y > 0))
+            if ((this.status.CurrentPosition.y > 0) || (this.status.CurrentVelocity.y > 0) || (this.status.CurrentStateConditions & StateConditions.AIRBORNE) > 0)
             {
                 //make status think it's airborne
-                //Debug.Log("becoming airborne " + (this.status.CurrentPosition.y  > 0) ) + " " + (this.status.CurrentVelocity.y > 0));
+                //Debug.Log("becoming airborne " + (this.status.CurrentPosition.y < -3) + " " + (this.status.CurrentVelocity.y > 0));
                 this.status.TransitionFlags = (~TransitionFlags.GROUNDED) & (this.status.TransitionFlags | TransitionFlags.AIRBORNE);
             }
             else
@@ -524,7 +536,6 @@ namespace FightingGameEngine.Gameplay
                 this.status.TransitionFlags = (~TransitionFlags.AIRBORNE) & (this.status.TransitionFlags | TransitionFlags.GROUNDED);
                 //this.status.CurrentVelocity = new FVector2(this.status.TotalVelocity.x, 0);
             }
-
 
             var trnFlags = this.status.TransitionFlags;
             var curCan = this.status.CancelFlags;
@@ -595,21 +606,7 @@ namespace FightingGameEngine.Gameplay
 
         protected void TryTransitionUniversalState(int universalStateInd = -1)
         {
-            //simple check if we're airborne
-            if ((this.status.CurrentPosition.y > 0) || (this.status.CurrentVelocity.y > 0))
-            {
-                //make status think it's airborne
-                //Debug.Log("becoming airborne " + (this.status.CurrentPosition.y < -3) + " " + (this.status.CurrentVelocity.y > 0));
-                this.status.TransitionFlags = (~TransitionFlags.GROUNDED) & (this.status.TransitionFlags | TransitionFlags.AIRBORNE);
-            }
-            else
-            {
-                //make character think it's grounded
-                //Debug.Log("becoming grounded ");
-                this.status.TransitionFlags = (~TransitionFlags.AIRBORNE) & (this.status.TransitionFlags | TransitionFlags.GROUNDED);
-                //this.status.CurrentVelocity = new FVector2(this.status.TotalVelocity.x, 0);
-            }
-
+            //simple 
             var trnFlags = this.status.TransitionFlags;
             var curCan = this.status.CancelFlags;
             var curRsrc = this.status.CurrentResources;
@@ -731,18 +728,7 @@ namespace FightingGameEngine.Gameplay
 */
             ///process current state
             this.ProcessTransitionEvent(this.status.CurrentState.ExitEvents);
-            //set the new current state
-            this.status.CurrentState = newState;
-            //start the new state timer
-            int stateDuration = (this.status.CurrentState.Duration);// * replaceDuration) + (oldStateDuration * transferDuration);
-            this.status.StateTimer = new FrameTimer(stateDuration);
-            //assign the current state conditions
-            this.status.CurrentStateConditions = newState.StateConditions;
-            //assign the current cancel conditions
-            this.status.CancelFlags = newState.CancelConditions;
-            //remove the state end transition flag
-            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT | TransitionFlags.UNBLOCKED_HIT) * isNonNodeState));
-
+            this.SetStateRaw(newState);
             this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
 
             //if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
@@ -752,7 +738,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to set the state without any consideration about transition events or transfering stun
-        protected void SetStateRaw(in soStateData newState)
+        protected void SetStateRaw(in soStateData newState, int isNonNodeState = 1)
         {
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
 
@@ -768,7 +754,8 @@ namespace FightingGameEngine.Gameplay
             //assign the current cancel conditions
             this.status.CancelFlags = newState.CancelConditions;
             //remove the state end transition flag
-            this.status.TransitionFlags = (TransitionFlags)((int)this.status.TransitionFlags & ~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT | TransitionFlags.UNBLOCKED_HIT)));
+
+            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT | TransitionFlags.UNBLOCKED_HIT) * isNonNodeState));
 
             this.OnStateSet();
             //this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);

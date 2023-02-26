@@ -5,8 +5,15 @@ using FightingGameEngine.Enum;
 
 namespace FightingGameEngine.Gameplay
 {
+
+    public delegate void HitBoxActivator(object sender, in HitboxHolder evnt);
     public abstract class CombatObject : VulnerableObject
     {
+
+
+        //delgate that is called to activate hit/hurtboxes, we pass the hitbox triggers the frame data to know whether or not to activate
+        public HitBoxActivator OnHitFrameReached;
+
         private HitboxTrigger[] _hitboxes;
         public override void ResetStatus()
         {
@@ -142,6 +149,8 @@ namespace FightingGameEngine.Gameplay
                 int grabbed = (int)EnumHelper.isNotZero((uint)(hitIndicator & HitIndicator.GRABBED));
                 //is it a combo hit?
                 int comboed = (int)EnumHelper.isNotZero((uint)(hitIndicator & HitIndicator.COMBO));
+                //is it a counter hit?
+                int countered = (int)EnumHelper.isNotZero((uint)(hitIndicator & HitIndicator.COUNTER_HIT)) * (blocked ^ 1);
                 //unblocked hit
                 int rawHit = blocked ^ 1;
                 //we landed a strike
@@ -160,7 +169,7 @@ namespace FightingGameEngine.Gameplay
 
 
                 //set hitstop
-                int potenHitstop = hold.HitboxData.Hitstop * rawHit + hold.HitboxData.BlockStop * blocked;
+                int potenHitstop = hold.HitboxData.Hitstop * rawHit + hold.HitboxData.BlockStop * blocked + hold.HitboxData.CounterStopMod * countered;
                 this.SetStopTimer(potenHitstop);
 
                 this.AddCurrentResources(hold.HitboxData.ResourceChange);
@@ -192,6 +201,9 @@ namespace FightingGameEngine.Gameplay
 
         //gets the first hurtbox in a list, helpful for hitbox stuff
         public HitboxTrigger GetHitbox(int i) { return this._hitboxes[i]; }
+
+        //call to activate a set of hurtboxes
+        public void ActivateHitboxes(HitboxHolder boxes) { this.OnHitFrameReached?.Invoke(this, boxes); }
 
         public override CharStateInfo GetCharacterInfo()
         {

@@ -7,6 +7,21 @@ namespace FightingGameEngine.Gameplay
 
         private HurtboxData m_data;
 
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            //add our own activator event when we reached a frame and may activate this box trigger
+            this.Owner.OnHurtFrameReached += CheckDataFromFrame;
+        }
+
+
+
+        void OnDestroy()
+        {
+            this.Owner.OnHurtFrameReached -= CheckDataFromFrame;
+        }
+
         private void ActivateBox(in HurtboxData newData)
         {
             this.m_data = newData;
@@ -23,13 +38,11 @@ namespace FightingGameEngine.Gameplay
         }
 
 
-        protected override void CheckDataFromFrame(object sender, in FrameData data)
+        private void CheckDataFromFrame(object sender, in HurtboxHolder data)
         {
-            //get the data for quick 
-            if (data == null) { this.DeactivateBox(); return; }
+            //if (data == null) { this.DeactivateBox(); return; }
             var boxData = data.GetHurtbox(this.triggerIndex);
             this.SetData(boxData);
-
         }
 
         protected override void ApplyGameState(object sender, in GameplayState state)
@@ -38,7 +51,7 @@ namespace FightingGameEngine.Gameplay
         }
 
 
-        public override void DeactivateBox()
+        public override void DeactivateBox(object sender)
         {
             this.CommonDeactivateBox();
         }

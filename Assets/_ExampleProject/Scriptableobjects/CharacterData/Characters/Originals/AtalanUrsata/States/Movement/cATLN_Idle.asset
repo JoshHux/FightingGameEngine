@@ -44,13 +44,13 @@ MonoBehaviour:
     _requiredResources:
       Health: 0
       Meter: 0
+      Burst: 0
+      Pressure: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
       Resource4: 0
       Resource5: 0
-      Resource6: 0
-      Resource7: 0
   - _targetState: {fileID: 11400000, guid: 3cdbc76c3c687a54388f54ae5d8d379e, type: 2}
     _targetStateIndex: -1
     _targetUniversalStateIndex: -1
@@ -68,13 +68,13 @@ MonoBehaviour:
     _requiredResources:
       Health: 0
       Meter: 0
+      Burst: 0
+      Pressure: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
       Resource4: 0
       Resource5: 0
-      Resource6: 0
-      Resource7: 0
   - _targetState: {fileID: 11400000, guid: 9eb9351bacb0f624b81d4396e3db9200, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0
@@ -87,13 +87,13 @@ MonoBehaviour:
     _requiredResources:
       Health: 0
       Meter: 0
+      Burst: 0
+      Pressure: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
       Resource4: 0
       Resource5: 0
-      Resource6: 0
-      Resource7: 0
   _frames: []
   _animation:
   - _atFrame: 1

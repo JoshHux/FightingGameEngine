@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FixMath.NET;
 using FightingGameEngine.Enum;
+using FightingGameEngine.ObjectPooler;
 namespace FightingGameEngine.Data
 {
 
@@ -12,6 +13,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private string _charName = "AAAA";
         [SerializeField] private ResourceData _startingResources;
         [SerializeField] private ResourceData _maxResources;
+        [SerializeField] private Fix64 _guts;
         [SerializeField] private Fix64 _mass;
         [SerializeField] private Fix64 _juggleMass;
         [SerializeField] private Fix64 _friction;
@@ -21,9 +23,12 @@ namespace FightingGameEngine.Data
         [SerializeField] private Fix64 _runMaxSpd;
         [SerializeField] private Fix64 _fallMaxSpd;
         [SerializeField] private soVFXValues _vfxValues;
-        [SerializeField] private GameObject[] _projectiles;
         [SerializeField] private soStateData[] _stateList;
         [SerializeField] private List<TransitionData> _moveList;
+        //Info on projectiles
+        [SerializeField] private Arr8ObjPoolerWrapper _projectiles;
+
+        public Fix64 Guts { get { return this._guts; } }
         public Fix64 Mass { get { return this._mass; } }
         public Fix64 JuggleMass { get { return this._juggleMass; } }
         public Fix64 Friction { get { return this._friction; } }
@@ -35,7 +40,7 @@ namespace FightingGameEngine.Data
         public soVFXValues VFXValues { get { return this._vfxValues; } }
         public ResourceData StartingResources { get { return this._startingResources; } }
         public ResourceData MaxResources { get { return this._maxResources; } }
-        public GameObject[] Projectiles { get { return this._projectiles; } }
+        public Arr8<PoolItem> Projectiles { get { return this._projectiles.get_arr8(); } }
         public soStateData[] StateList { get { return this._stateList; } }
         public TransitionData[] MoveList { get { return this._moveList.ToArray(); } }
 
@@ -61,34 +66,13 @@ namespace FightingGameEngine.Data
                 i++;
             }
         }
+
+        public void ApplyEditorPoolItems() { this._projectiles.ApplyGuiVal(); }
 #endif
 
         public TransitionData CheckMoveList(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
-            //Debug.Log("checking movelist");
-            /* int i = 0;
-             int len = this._moveList.Length;
-             while (i < len)
-             {
-                 var hold = this._moveList[i];
-
-                 bool check = hold.CheckTransition(curFlags, curCan, curResources, playerInputs);
-
-                 //if (i == 1)
-                 //{
-                 //Debug.Log(i + " " + checkCancels + " " + checkFlags + " " + checkResources + " " + checkInputs);
-                 //}
-
-                 if (check)
-                 {
-                     ret = hold;
-                     //Debug.Log("passed transition to " + hold.TargetState.name);
-                     break;
-                 }
-
-                 i++;
-             }*/
             ret = this._moveList.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir, yVel, yPos));
 
             //if (ret != null && ret.TargetState != null && ret.TargetState.name == "Grab-Back") { Debug.Log("found it"); }
@@ -111,6 +95,7 @@ namespace FightingGameEngine.Data
 
             return null;
         }
+
 
     }
 }

@@ -13,6 +13,7 @@ namespace FightingGameEngine.Enum
         AUTO_TURN = 1 << 6,
         INACTIVE_PUSHBOX = 1 << 7,
 
+        COUNTER_HIT = 1 << 18,
         ON_THE_GROUND = 1 << 19,
         INVULNERABLE_PROJECTILE = 1 << 20,
         INVULNERABLE_STRIKE = 1 << 21,

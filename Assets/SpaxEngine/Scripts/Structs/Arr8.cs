@@ -14,6 +14,16 @@ namespace FightingGameEngine.Data
         public T _5;
         public T _6;
         public T _7;
+
+
+        //https://stackoverflow.com/questions/424669/how-do-i-overload-the-operator-in-c-sharp
+        public T this[int key]
+        {
+            get => GetValue(key);
+            set => SetValue(key, value);
+        }
+
+
         public T GetValue(int i)
         {
             T ret = this._0;

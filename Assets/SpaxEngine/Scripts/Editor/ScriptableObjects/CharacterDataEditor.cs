@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using FightingGameEngine.Data;
@@ -18,6 +16,7 @@ namespace FightingGameEngine.UnityInspector
             {
                 charData.AssignStateID();
             }
+            charData.ApplyEditorPoolItems();
         }
     }
 }

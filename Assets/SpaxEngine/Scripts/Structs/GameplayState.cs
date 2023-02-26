@@ -37,6 +37,7 @@ namespace FightingGameEngine.Data
         public Arr8<HitboxState> HitboxStates;
         public Arr8<HurtboxData> HurtboxStates;
         public Arr8<int> TransitionInfo;
+        public Arr8<int> ProjectileInfo;
 
         public GameplayState(in CharStateInfo info)
         {
@@ -68,6 +69,7 @@ namespace FightingGameEngine.Data
             this.CurrentControllerState = status.CurrentControllerState;
             this.FacingDir = status.CurrentFacingDirection;
             this.TransitionInfo = status.TransitionInfo;
+            this.ProjectileInfo = status.CurProjectiles;
 
             //set the hitbox states
             this.HitboxStates = new Arr8<HitboxState>();

@@ -37,6 +37,12 @@ MonoBehaviour:
         m_rawValue: 0
       y:
         m_rawValue: 0
+    _teleport: 0
+    _teleportPos:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
     _triggerInstall: 0
     _setGravity: 0
     _appliedGravity:
@@ -61,6 +67,7 @@ MonoBehaviour:
       Hitbox0:
         Duration: 2
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 1
         Position:
           x:
@@ -75,15 +82,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 10
         MinHitstun: 0
         BlockStun: 10
         Hitstop: 10
         BlockStop: 10
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 42949672960
@@ -124,6 +133,7 @@ MonoBehaviour:
       Hitbox1:
         Duration: 0
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 0
         Position:
           x:
@@ -138,15 +148,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 0
@@ -187,6 +199,7 @@ MonoBehaviour:
       Hitbox2:
         Duration: 0
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 0
         Position:
           x:
@@ -201,15 +214,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 0
@@ -250,6 +265,7 @@ MonoBehaviour:
       Hitbox3:
         Duration: 0
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 0
         Position:
           x:
@@ -264,15 +280,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 0
@@ -313,6 +331,7 @@ MonoBehaviour:
       Hitbox4:
         Duration: 0
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 0
         Position:
           x:
@@ -327,15 +346,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 0
@@ -376,6 +397,7 @@ MonoBehaviour:
       Hitbox5:
         Duration: 0
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 0
         Position:
           x:
@@ -390,15 +412,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 0
@@ -439,6 +463,7 @@ MonoBehaviour:
       Hitbox6:
         Duration: 0
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 0
         Position:
           x:
@@ -453,15 +478,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 0
@@ -502,6 +529,7 @@ MonoBehaviour:
       Hitbox7:
         Duration: 0
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 0
         Position:
           x:
@@ -516,15 +544,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 0
@@ -565,6 +595,7 @@ MonoBehaviour:
       Hitbox8:
         Duration: 0
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 0
         Position:
           x:
@@ -579,15 +610,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 0
@@ -628,6 +661,7 @@ MonoBehaviour:
       Hitbox9:
         Duration: 0
         UniversalStateCause: 0
+        CounterStateCause: 0
         Type: 0
         Position:
           x:
@@ -642,15 +676,17 @@ MonoBehaviour:
         Priority: 0
         Damage: 0
         ChipDamage: 0
+        MinDamage: 0
         Hitstun: 0
         MinHitstun: 0
         BlockStun: 0
         Hitstop: 0
         BlockStop: 0
-        MinDamage: 0
         UntechTime: 0
         CrouchStunMod: 0
+        CounterUntechMod: 0
         CounterStunMod: 0
+        CounterStopMod: 0
         GroundedKnockback:
           x:
             m_rawValue: 0

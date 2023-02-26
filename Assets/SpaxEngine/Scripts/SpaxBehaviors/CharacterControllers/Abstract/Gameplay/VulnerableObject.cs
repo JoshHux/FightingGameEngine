@@ -7,7 +7,7 @@ using FixMath.NET;
 
 namespace FightingGameEngine.Gameplay
 {
-    public delegate void BoxActivator(object sender, in FrameData frameData);
+    public delegate void HurtBoxActivator(object sender, in HurtboxHolder evnt);
     public delegate void StateAssigner(object sender, in GameplayState state);
 
     public abstract class VulnerableObject : LivingObject
@@ -15,7 +15,7 @@ namespace FightingGameEngine.Gameplay
         protected HurtboxTrigger[] hurtboxes;
 
         //delgate that is called to activate hit/hurtboxes, we pass the hitbox triggers the frame data to know whether or not to activate
-        public BoxActivator OnFrameReached;
+        public HurtBoxActivator OnHurtFrameReached;
         //delegate that is called to assign hit/hurtbox states, we pass the gameplay state to the triggers to get them prepped with the right data
         public StateAssigner OnGameStateSet;
 
@@ -58,6 +58,9 @@ namespace FightingGameEngine.Gameplay
             int univTargetState = -1;
             int totalStun = 0;
 
+            //are we airborne?
+            int airborne = this.IsAirborne();
+
             while (i < len)
             {
                 var hold = this.m_hurtList[i];
@@ -66,6 +69,7 @@ namespace FightingGameEngine.Gameplay
 
                 //were we grabbed?
                 bool isGrabbed = EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.GRABBED);
+                int grabbed = EnumHelper.HasEnumInt((uint)hold.Indicator, (uint)HitIndicator.GRABBED);
 
                 //is this a non-whiff?
                 bool notWhiff = hold.Indicator > 0;
@@ -77,14 +81,19 @@ namespace FightingGameEngine.Gameplay
 
                     //did we block the hit?
                     int blocked = (int)EnumHelper.isNotZero((uint)(hold.Indicator & HitIndicator.BLOCKED));
+                    //did we get counter hit?
+                    int counter = (int)EnumHelper.isNotZero((uint)(hold.Indicator & HitIndicator.COUNTER_HIT));
                     //unblocked hit
                     int rawHit = blocked ^ 1;
 
                     //Debug.Log("processing hit");
 
                     //set universal target state
-                    univTargetState = boxData.UniversalStateCause;
-                    totalStun = boxData.Hitstun * rawHit + boxData.BlockStun * blocked;
+                    //  we want the original hit cause if it's grab BECAUSE the state grabs cause should ignore counterhits
+                    univTargetState = boxData.UniversalStateCause * (counter ^ 1) + boxData.CounterStateCause * counter * (grabbed ^ 1);
+
+                    //hitstun for grounded, untech time for airborne, also add stun mod if it's a coutnerhit
+                    totalStun = (boxData.Hitstun * (airborne ^ 1) + boxData.UntechTime * airborne) * rawHit + boxData.BlockStun * blocked + counter * (boxData.Hitstun * (airborne ^ 1) + boxData.UntechTime * airborne);
 
                     //if (blocked > 0) { Debug.Log("blocked hit"); }
                     //add transition flag to let the status know we got hit
@@ -131,7 +140,6 @@ namespace FightingGameEngine.Gameplay
                     }
                     else
                     {
-                        int airborne = this.IsAirborne();
                         int grounded = airborne ^ 1;
                         //Velocity in hitstop will be restored based on CurrentVelocity
                         kb = (groundedPhysVal * grounded) + (airbornePhysVal * airborne);
@@ -282,7 +290,7 @@ namespace FightingGameEngine.Gameplay
             /*----- ACTIVATING HURTBOXES -----*/
             //call the delegate and pass the frame in, the boxes will take care of the rest
             //the way that we set this up, we don't need to call this from CombatObject because the HitboxTrigger objects will also have their hooks in this delegate
-            this.OnFrameReached?.Invoke(this, frame);
+            //this.OnFrameReached?.Invoke(this, frame);
 
 
             /*----- PROCESSING SUPER ARMOR -----*/
@@ -316,7 +324,7 @@ namespace FightingGameEngine.Gameplay
         protected override void OnStateSet()
         {
             base.OnStateSet();
-            this.OnFrameReached?.Invoke(this, null);
+            //this.OnHurtFrameReached?.Invoke(this, new HurtboxHolder());
             //reset number of armored hits
             this.status.SetTransitionInfoVal(2, 0);
         }
@@ -500,6 +508,9 @@ namespace FightingGameEngine.Gameplay
 
         //gets the first hurtbox in a list, helpful for hitbox stuff
         public HurtboxTrigger GetHurtbox(int i) { return this.hurtboxes[i]; }
+
+        //call to activate a set of hurtboxes
+        public void ActivateHurtboxes(HurtboxHolder boxes) { this.OnHurtFrameReached?.Invoke(this, boxes); }
         public override CharStateInfo GetCharacterInfo()
         {
             return new CharStateInfo(this.status, new HitboxTrigger[8], this.hurtboxes);

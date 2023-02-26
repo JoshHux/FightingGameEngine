@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FixMath.NET;
 using FightingGameEngine.Enum;
+using FightingGameEngine.ObjectPooler;
 namespace FightingGameEngine.Data
 {
 
@@ -53,6 +54,9 @@ namespace FightingGameEngine.Data
         [SerializeField] private Fix64 m_storedDamageScaling;
         //extra transition info we might need
         [SerializeField] private Arr8<int> _transitionInfo;
+        //Info on projectiles
+        //Keeps track of how many of which projectile are active
+        [SerializeField] private Arr8<int> _curProjectiles;
 
 
         public int Allegiance { get { return this._allegiance; } set { this._allegiance = value; } }
@@ -128,6 +132,7 @@ namespace FightingGameEngine.Data
         2:total amount of armor
         */
         public Arr8<int> TransitionInfo { get { return this._transitionInfo; } set { this._transitionInfo = value; } }
+        public Arr8<int> CurProjectiles { get { return this._curProjectiles; } }
 
         //gets the total velocity that will be assigned to the rigidbody
         public FVector2 TotalVelocity
@@ -165,6 +170,7 @@ namespace FightingGameEngine.Data
             this.m_gravityScaling = state.GravityScaling;
             this.m_currentResources = state.CurrentResources;
             this._transitionInfo = state.TransitionInfo;
+            this._curProjectiles = state.ProjectileInfo;
 
             this.m_stateTimer = new FrameTimer(state.StateTimer.EndTime, state.StateTimer.TimeElapsed);
             this.m_stopTimer = new FrameTimer(state.StopTimer.EndTime, state.StopTimer.TimeElapsed);

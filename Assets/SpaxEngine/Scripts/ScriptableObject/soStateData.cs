@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FixMath.NET;
 using FightingGameEngine.Enum;
+using FightingGameEngine.Commands;
 
 namespace FightingGameEngine.Data
 {
@@ -26,6 +27,16 @@ namespace FightingGameEngine.Data
         [SerializeField] private TransitionEvents _enterEvents;
         [SerializeField] private TransitionEvents _exitEvents;
         [SerializeField] private List<TransitionData> _transitions;
+        [SerializeField] private List<HitboxHolder> _hitboxSets;
+        [SerializeField] private List<HurtboxHolder> _hurtboxSets;
+
+        //we only want this to be here during development
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        [TextArea(3, 10)]
+        [SerializeField] private string _program;
+#endif
+
+
         [SerializeField] private List<FrameData> _frames;
         [SerializeField] private List<AnimationFrameData> _animation;
 
@@ -99,7 +110,7 @@ namespace FightingGameEngine.Data
 
             return ret;
         }
-        
+
         public bool GetLoop()
         {
 
@@ -165,5 +176,27 @@ namespace FightingGameEngine.Data
         }
 
 
+        public HitboxHolder GetHitboxSet(int i)
+        {
+            var ret = this._hitboxSets[i];
+            return ret;
+        }
+
+        public HurtboxHolder GetHurtboxSet(int i)
+        {
+            var ret = this._hurtboxSets[i];
+            return ret;
+        }
+
+        public int get_hit_set_len() { return this._hitboxSets.Count; }
+        public int get_hurt_set_len() { return this._hurtboxSets.Count; }
+
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        public void Compile()
+        {
+            JackScriptCompiler.CompileString(this._program, this);
+        }
+#endif
     }
 }

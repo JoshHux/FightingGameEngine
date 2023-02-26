@@ -44,13 +44,13 @@ MonoBehaviour:
     _requiredResources:
       Health: 0
       Meter: 0
+      Burst: 0
+      Pressure: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
       Resource4: 0
       Resource5: 0
-      Resource6: 0
-      Resource7: 0
   _frames: []
   _animation:
   - _atFrame: 1

@@ -349,11 +349,6 @@ namespace FlatPhysics
                         //Debug.Log("bpos - " + bodyB.Position.x + ", " + bodyB.Position.y);
                         //Debug.Log("normal :: " + normal.x + ", " + normal.y);
                         //}
-                        var offset = normal * depth;
-                        //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
-                        var trueOffsetB = offset * bCola;
-                        //will equal offset if bodyB can collide with bodyA, otherwise, it equals 0
-                        var trueOffsetA = -offset * aColb;
                         //{
 
                         //additional dynamic pair check, are the dynamic objects still colliding with each other?

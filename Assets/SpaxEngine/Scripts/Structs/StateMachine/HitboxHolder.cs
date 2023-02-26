@@ -14,6 +14,14 @@ namespace FightingGameEngine.Data
         public HitboxData Hitbox8;
         public HitboxData Hitbox9;
 
+        
+
+        //https://stackoverflow.com/questions/424669/how-do-i-overload-the-operator-in-c-sharp
+        public HitboxData this[int key]
+        {
+            get => GetHitbox(key);
+        }
+
         public HitboxData GetHitbox(int i)
         {
             //default value is the first hitbox

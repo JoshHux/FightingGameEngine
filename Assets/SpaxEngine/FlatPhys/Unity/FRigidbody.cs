@@ -7,7 +7,7 @@ namespace FlatPhysics.Unity
     public abstract class FRigidbody : MonoBehaviour
     {
         protected FlatBody _rb;
-        private int _bodyID = -1;
+        [SerializeField, ReadOnly] private int _bodyID = -1;
 
         protected enum col { Red, Green, Yellow, Cyan, Blue }
         [SerializeField] protected col boxColor = col.Blue;
@@ -37,7 +37,7 @@ namespace FlatPhysics.Unity
         }
         public int BodyID
         {
-            get { return this._rb.BodyID; }
+            get { return this._bodyID; }
         }
 
         public FVector2 Velocity
@@ -45,6 +45,7 @@ namespace FlatPhysics.Unity
             get { return this._rb.LinearVelocity; }
             set { this._rb.LinearVelocity = value; }
         }
+        //position on the Unity end should read the position from the bottom of the box
         public FVector2 Position
         {
             get { return this._rb.Position + new FVector2(0, -this._rb.Height / 2); }
@@ -73,6 +74,14 @@ namespace FlatPhysics.Unity
 
         private void StartPhys()
         {
+            var found = SpaxManager.Instance.FindBody(this);
+            if (found != null)
+            {
+                this._rb = found;
+                //
+                //Debug.Log("found");
+                return;
+            }
             //CollisionLayer layer = FlatWorldMono.instance.GetCollisions(this.gameObject.layer);
             CollisionLayer layer = SpaxManager.Instance.GetCollisions(this.gameObject.layer);
             //Debug.Log(this.gameObject.layer);
@@ -111,6 +120,7 @@ namespace FlatPhysics.Unity
 
             this._thisLayer = this.Body.Layer;
             this._collidesWith = this.Body.CollidesWith;
+            this._bodyID = this._rb.BodyID;
         }
 
         private void DrawBoxesInRunTime(Vector3 pos, Vector3 dim)

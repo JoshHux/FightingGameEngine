@@ -28,11 +28,13 @@ MonoBehaviour:
     Meter: 0
     Burst: 0
     Pressure: 0
-    Resource1: 3
-    Resource2: 0
+    Resource1: 0
+    Resource2: 2
     Resource3: 0
     Resource4: 0
     Resource5: 0
+  _guts:
+    m_rawValue: 0
   _mass:
     m_rawValue: 4294967296
   _juggleMass:
@@ -50,8 +52,6 @@ MonoBehaviour:
   _fallMaxSpd:
     m_rawValue: 429496729600
   _vfxValues: {fileID: 11400000, guid: 709b13fa2b5bd6e498a9201d6ac13773, type: 2}
-  _projectiles:
-  - {fileID: 8149638484012318637, guid: e00d8598ef6ab224996947e941ca1135, type: 3}
   _stateList:
   - {fileID: 11400000, guid: 8212e9bb68510564e8f1ee3e12d2115b, type: 2}
   - {fileID: 11400000, guid: 9eb9351bacb0f624b81d4396e3db9200, type: 2}
@@ -92,6 +92,84 @@ MonoBehaviour:
       Pressure: 0
       Resource1: 0
       Resource2: 0
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+  - _targetState: {fileID: 11400000, guid: af88765fdbfa0db43b5be10e90b88e1e, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 8192
+    _requiredInputs:
+    - Input: 256
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 4
+      Flags: 2
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 2
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Resource1: 0
+      Resource2: 2
+      Resource3: 0
+      Resource4: 0
+      Resource5: 0
+  - _targetState: {fileID: 11400000, guid: 39ef2cb073d379c459ae3605b69c06fc, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 8192
+    _requiredInputs:
+    - Input: 256
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 4
+      Flags: 2
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 2
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Resource1: 0
+      Resource2: 1
       Resource3: 0
       Resource4: 0
       Resource5: 0
@@ -254,3 +332,36 @@ MonoBehaviour:
       Resource3: 0
       Resource4: 0
       Resource5: 0
+  _projectiles:
+    _0:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _1:
+      _pooledObject: {fileID: 8149638484012318637, guid: e00d8598ef6ab224996947e941ca1135, type: 3}
+      _maxAmount: 3
+      _activeCount: 0
+    _2:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _3:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _4:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _5:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _6:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _7:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0

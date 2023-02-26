@@ -24,11 +24,15 @@ namespace FightingGameEngine.Gameplay
             base.OnStart();
 
             this.Trigger.Body.OnOverlap += this.OnFlatOverlap;
+
+            //add our own activator event when we reached a frame and may activate this box trigger
+            (this.Owner as CombatObject).OnHitFrameReached += CheckDataFromFrame;
         }
 
         void OnDestroy()
         {
             this.Trigger.Body.OnOverlap -= this.OnFlatOverlap;
+            (this.Owner as CombatObject).OnHitFrameReached -= CheckDataFromFrame;
 
         }
 
@@ -48,9 +52,9 @@ namespace FightingGameEngine.Gameplay
             this.CommonActivateBox(newPos, newDim);
         }
 
-        protected override void CheckDataFromFrame(object sender, in FrameData data)
+        private void CheckDataFromFrame(object sender, in HitboxHolder data)
         {
-            if (data == null) { this.DeactivateBox(); return; }
+            //if (data == null) { this.DeactivateBox(); return; }
             //UnityEngine.Debug.Log((data == null));
             //get the data for quick and easy access
             var boxData = data.GetHitbox(this.triggerIndex);
@@ -60,7 +64,7 @@ namespace FightingGameEngine.Gameplay
         protected override void ApplyGameState(object sender, in GameplayState state)
         {
             //setting new hitboxTrigger information, deactivate to throw away any data we had previously
-            this.DeactivateBox();
+            this.DeactivateBox(this);
 
             //get the box here
             var hold = state.HitboxStates.GetValue(this.triggerIndex);
@@ -101,7 +105,7 @@ namespace FightingGameEngine.Gameplay
             }
         }
 
-        public override void DeactivateBox()
+        public override void DeactivateBox(object sender)
         {
             this.CommonDeactivateBox();
             //clear the lists of bodies, so that we can start out our next activation with a clean slate
@@ -121,7 +125,7 @@ namespace FightingGameEngine.Gameplay
             if (dontContinue)
             {
                 //deactivate the box, just in case
-                this.DeactivateBox();
+                this.DeactivateBox(this);
                 return;
             }
 

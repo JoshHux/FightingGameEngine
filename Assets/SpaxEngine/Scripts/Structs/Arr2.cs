@@ -7,8 +7,15 @@ namespace FightingGameEngine.Data
     public struct Arr2<T>
     {
         public T _0;
-        public T _1; 
-        
+        public T _1;
+
+        //https://stackoverflow.com/questions/424669/how-do-i-overload-the-operator-in-c-sharp
+        public T this[int key]
+        {
+            get => GetValue(key);
+            set => SetValue(key, value);
+        }
+
         public T GetValue(int i)
         {
             T ret = this._0;

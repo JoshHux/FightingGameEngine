@@ -157,6 +157,16 @@ namespace Spax
                 if (Input.GetKeyDown("u"))
                 {
                     GameplayUpdate();
+                    GameplayUpdate();
+                    GameplayUpdate();
+                    GameplayUpdate();
+                    GameplayUpdate();
+                    GameplayUpdate();
+                    GameplayUpdate();
+                    GameplayUpdate();
+                    GameplayUpdate();
+
+
                     RendererUpdate();
                     currentFrame++;
                     matchFrames++;
@@ -168,6 +178,14 @@ namespace Spax
                 {
                     paused = true;
                 }
+                //GameplayUpdate();
+                //GameplayUpdate();
+                //GameplayUpdate();
+                //GameplayUpdate();
+                //GameplayUpdate();
+                //GameplayUpdate();
+                //GameplayUpdate();
+                //GameplayUpdate();
                 GameplayUpdate();
                 RendererUpdate();
                 currentFrame++;
@@ -215,7 +233,7 @@ namespace Spax
             PostUpdate?.Invoke();
             PrepRender?.Invoke();
 
-            
+
             this.bodyids = this._world.GetBodyIds();
         }
         private void RendererUpdate()
@@ -245,6 +263,11 @@ namespace Spax
             this._world.RemoveBody(rb.Body);
         }
 
+        public FlatBody FindBody(FRigidbody rb)
+        {
+            //Debug.Log("adding " + rb.name + " " + (rb.Body == null));
+            return this._world.FindBody(rb);
+        }
         public void ResolveRepositioning(FlatBody body1, FlatBody body2)
         {
             this._world.ResolveAgainstAllStatic(body1, body2);

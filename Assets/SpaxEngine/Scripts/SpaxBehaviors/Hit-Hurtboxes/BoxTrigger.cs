@@ -29,16 +29,21 @@ namespace FightingGameEngine.Gameplay
             //set rb to sleep
             this._trigger.Body.Awake = false;
             //add our own activator event when we reached a frame and may activate this box trigger
-            this._owner.OnFrameReached += CheckDataFromFrame;
+            //this._owner.OnFrameReached += CheckDataFromFrame;
             this._owner.OnGameStateSet += ApplyGameState;
+
+            //player state changed, we should deactivate
+            this._owner.OnStateChanged += DeactivateBox;
+
         }
 
 
 
         void OnDestroy()
         {
-            this._owner.OnFrameReached -= CheckDataFromFrame;
+            //this._owner.OnFrameReached -= CheckDataFromFrame;
             this._owner.OnGameStateSet -= ApplyGameState;
+            this._owner.OnStateChanged -= DeactivateBox;
 
         }
 
@@ -77,8 +82,7 @@ namespace FightingGameEngine.Gameplay
 
         public virtual bool IsActive() { return this._trigger.Awake; }
 
-        protected abstract void CheckDataFromFrame(object sender, in FrameData data);
         protected abstract void ApplyGameState(object sender, in GameplayState state);
-        public abstract void DeactivateBox();
+        public abstract void DeactivateBox(object sender);
     }
 }

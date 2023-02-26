@@ -15,7 +15,11 @@ MonoBehaviour:
   _id:
     ID: -9223372031112163755
   _parentState: {fileID: 0}
+  inheritTrans_: 1
+  inheritCond_: 1
+  inheritCancel_: 1
   _duration: -1
+  loop_: 0
   _stateConditions: 67108864
   _toggleState: 0
   _cancels: 0
@@ -35,13 +39,13 @@ MonoBehaviour:
     _requiredResources:
       Health: 0
       Meter: 0
+      Burst: 0
+      Pressure: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
       Resource4: 0
       Resource5: 0
-      Resource6: 0
-      Resource7: 0
   - _targetState: {fileID: 0}
     _targetStateIndex: 3
     _targetUniversalStateIndex: -1
@@ -54,13 +58,13 @@ MonoBehaviour:
     _requiredResources:
       Health: 0
       Meter: 0
+      Burst: 0
+      Pressure: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
       Resource4: 0
       Resource5: 0
-      Resource6: 0
-      Resource7: 0
   - _targetState: {fileID: 0}
     _targetStateIndex: 2
     _targetUniversalStateIndex: -1
@@ -73,12 +77,12 @@ MonoBehaviour:
     _requiredResources:
       Health: 0
       Meter: 0
+      Burst: 0
+      Pressure: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
       Resource4: 0
       Resource5: 0
-      Resource6: 0
-      Resource7: 0
   _frames: []
   _animation: []

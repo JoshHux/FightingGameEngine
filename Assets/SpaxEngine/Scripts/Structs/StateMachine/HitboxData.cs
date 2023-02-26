@@ -7,6 +7,7 @@ namespace FightingGameEngine.Data
     {
         public int Duration;
         public int UniversalStateCause;
+        public int CounterStateCause;
         public HitboxType Type;
         public FVector2 Position;
         public FVector2 Dimensions;
@@ -18,6 +19,9 @@ namespace FightingGameEngine.Data
         //basic stun and damage values
         public int Damage;
         public int ChipDamage;
+        public int MinDamage;
+
+        //stun values
         public int Hitstun;
         //minimum hitstun value, only really useful with "cinematic" attacks like grabs or supers
         public int MinHitstun;
@@ -26,10 +30,13 @@ namespace FightingGameEngine.Data
         public int BlockStop;
 
         //special values, like air untech time
-        public int MinDamage;
         public int UntechTime;
         public int CrouchStunMod;
+
+        //counter hit modifications
+        public int CounterUntechMod;
         public int CounterStunMod;
+        public int CounterStopMod;
 
         //values that interact with the opponent aside from damage and stun
 
