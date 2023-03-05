@@ -12,6 +12,7 @@ namespace FightingGameEngine.Data
 
         [SerializeField] private string _charName = "AAAA";
         [SerializeField] private ResourceData _startingResources;
+        [SerializeField] private ResourceData _minResources;
         [SerializeField] private ResourceData _maxResources;
         [SerializeField] private Fix64 _guts;
         [SerializeField] private Fix64 _mass;
@@ -39,6 +40,7 @@ namespace FightingGameEngine.Data
         public Fix64 FallMaxSpd { get { return this._fallMaxSpd; } }
         public soVFXValues VFXValues { get { return this._vfxValues; } }
         public ResourceData StartingResources { get { return this._startingResources; } }
+        public ResourceData MinResources { get { return this._minResources; } }
         public ResourceData MaxResources { get { return this._maxResources; } }
         public Arr8<PoolItem> Projectiles { get { return this._projectiles.get_arr8(); } }
         public soStateData[] StateList { get { return this._stateList; } }

@@ -18,21 +18,33 @@ MonoBehaviour:
     Meter: 0
     Burst: 0
     Pressure: 0
+    Airjumps: 0
+    Airdashes: 0
     Resource1: 0
     Resource2: 0
     Resource3: 0
-    Resource4: 0
-    Resource5: 0
+  _minResources:
+    Health: 0
+    Meter: 0
+    Burst: 0
+    Pressure: 0
+    Airjumps: 0
+    Airdashes: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
   _maxResources:
     Health: 600
     Meter: 0
     Burst: 0
     Pressure: 0
+    Airjumps: 0
+    Airdashes: 0
     Resource1: 0
     Resource2: 0
     Resource3: 0
-    Resource4: 0
-    Resource5: 0
+  _guts:
+    m_rawValue: 0
   _mass:
     m_rawValue: 4294967296
   _juggleMass:
@@ -50,7 +62,6 @@ MonoBehaviour:
   _fallMaxSpd:
     m_rawValue: 429496729600
   _vfxValues: {fileID: 11400000, guid: 6c46f8405be31834aa459829c2704ce0, type: 2}
-  _projectiles: []
   _stateList:
   - {fileID: 11400000, guid: 23cc7a250c74153429de26e0c5b9d3e1, type: 2}
   - {fileID: 11400000, guid: ba7c73755bfcc564693137e4a5ca47e4, type: 2}
@@ -98,11 +109,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: 5f9b7d7fee279bf4699b608f21869253, type: 2}
     _targetStateIndex: -1
     _targetUniversalStateIndex: -1
@@ -137,11 +148,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: ee5a285aef9236e4e98f19362c03abf4, type: 2}
     _targetStateIndex: -1
     _targetUniversalStateIndex: -1
@@ -161,11 +172,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: ec4ccaf1bf851684d83ea02ec74ec191, type: 2}
     _targetStateIndex: -1
     _targetUniversalStateIndex: -1
@@ -190,11 +201,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: c406a419fbe823544ab82f9033798bb7, type: 2}
     _targetStateIndex: -1
     _targetUniversalStateIndex: -1
@@ -214,11 +225,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: b0db58909e93d1043922300730fdbb0e, type: 2}
     _targetStateIndex: -1
     _targetUniversalStateIndex: -1
@@ -248,11 +259,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: 7644e2bb656dda24c9e77be374861d70, type: 2}
     _targetStateIndex: -1
     _targetUniversalStateIndex: -1
@@ -272,11 +283,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: af6272e58bd260a409a2749ef7c370d9, type: 2}
     _targetStateIndex: -1
     _targetUniversalStateIndex: -1
@@ -296,8 +307,41 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
+  _projectiles:
+    _0:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _1:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _2:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _3:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _4:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _5:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _6:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _7:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0

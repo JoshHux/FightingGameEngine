@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using FixMath.NET;
 using FightingGameEngine.Enum;
@@ -33,11 +35,12 @@ namespace FightingGameEngine.Data
         //we only want this to be here during development
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         [TextArea(3, 10)]
-        [SerializeField] private string _program;
+        [SerializeField] private string _script;
+        private string _savedScript;
 #endif
 
 
-        [SerializeField] private List<FrameData> _frames;
+        private List<FrameData> _frames;
         [SerializeField] private List<AnimationFrameData> _animation;
 
         public StateID StateID { get { return this._id; } }
@@ -103,6 +106,24 @@ namespace FightingGameEngine.Data
             }
         }
 
+#if UNITY_EDITOR
+        //cleaning up bad state frames
+        void OnValidate()
+        {/*
+            //we're ending with the actual count of the frames becuase we want to change the length of the list, so we want to end with the length
+            for (int i = 0; i < this._frames.Count; i++)
+            {
+                if (this._frames[i] == null)
+                {
+                    this._frames.RemoveAt(i);
+                    //we decrement here to check the frame that replaces the one we removed
+                    i--;
+                }
+            }*/
+        }
+#endif
+
+
         //we have a parent state only if we aren't our parent's state
         public bool HasParent()
         {
@@ -134,7 +155,11 @@ namespace FightingGameEngine.Data
 
         public FrameData GetFrameAt(int f)
         {
+
+            if (this._frames == null) { return null; }
+            //Debug.Log(this.name + " | " + this._frames.Count);
             var ret = this._frames.Find(v => v.AtFrame == f);
+
 
             return ret;
         }
@@ -149,28 +174,7 @@ namespace FightingGameEngine.Data
         public TransitionData CheckTransitions(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
-            /*
-                        int i = 0;
-                        int len = this._transitions.Count;
-                        while (i < len)
-                        {
-                            var hold = this._transitions[i];
-                            bool check = hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir);
 
-
-                            //if (EnumHelper.HasEnum((uint)transFlags, (uint)TransitionFlags.GROUNDED, true))
-                            //    Debug.Log(i + " " + checkCancels + " " + checkFlags + " " + checkResources + " " + checkInputs);
-
-                            if (check)
-                            {
-                                ret = hold;
-                                return ret;
-
-                            }
-
-                            i++;
-                        }
-            */
             ret = this.Transitions.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir, yVel, yPos));
             return ret;
         }
@@ -188,6 +192,8 @@ namespace FightingGameEngine.Data
             return ret;
         }
 
+        public void set_frames(List<FrameData> f) { this._frames = f; }
+
         public int get_hit_set_len() { return this._hitboxSets.Count; }
         public int get_hurt_set_len() { return this._hurtboxSets.Count; }
 
@@ -195,7 +201,65 @@ namespace FightingGameEngine.Data
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         public void Compile()
         {
-            JackScriptCompiler.CompileString(this._program, this);
+            //check the current script against the saved one, see if there's a difference
+            //only want to check against non-whitespaces
+            var cur = Regex.Replace(this._script, @"\t|\n|\r|\r\n", "");
+            var save = Regex.Replace(this._savedScript, @"\t|\n|\r|\r\n", "");
+            //don't want to waste time recomiling the same script
+            if (cur == save)
+            {
+                Debug.Log("nothing different!");
+                //return;
+            }
+
+            //nothing to compile, clear out frames list
+            if (cur == "")
+            {
+                this._frames = new List<FrameData>();
+                return;
+            }
+
+            var frames = new List<FrameData>();
+
+            try
+            {
+                frames = JackScriptCompiler.CompileString(this._script, this);
+            }
+            catch (Exception)
+            {
+                Debug.LogError(this.name + " | There was a compile error!");
+                throw;
+            }
+
+            this._frames = new List<FrameData>();
+            //we got the frames, now just add them to our dictionary (if it doesn't already exist)
+            int i = 0;
+            int len = frames.Count;
+
+            //if we don't have any frames, clear the dictionary
+            if (len == 0)
+            {
+                this._frames.Clear();
+                return;
+            }
+
+            while (i < len)
+            {
+                var frame = frames[i];
+
+                var hold = this._frames.Find(v => v.AtFrame == frame.AtFrame);
+
+                this._frames.Add(frame);
+
+
+                //Debug.Log(this._frames[this._frames.IndexOf(frame)].get_events().Count);
+
+                i++;
+            }
+            //it's different, save the new one
+            this._savedScript = this._script;
+
+
         }
 #endif
     }

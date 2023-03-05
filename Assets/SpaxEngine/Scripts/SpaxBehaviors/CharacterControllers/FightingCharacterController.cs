@@ -23,24 +23,6 @@ namespace FightingGameEngine.Gameplay
         //For multiples Controllers
         public controllers controllerToUse = controllers.pad1;
 
-        //call to process the frame data
-        protected override void ProcessFrameData(in FrameData frame)
-        {
-            base.ProcessFrameData(frame);
-
-            if (frame.Teleport > 0)
-            {
-                //we want to teleport, is the target position player or opponent relative?
-                int pRel = (int)frame.Teleport & 1;
-                int oRel = (int)((((uint)frame.Teleport) & 2) >> 1);
-
-                var targetPos = pRel * (this.status.CurrentPosition + frame.TeleportPos) + oRel * (this._other.get_position() + frame.TeleportPos);
-
-                //set the new position
-                this.status.CurrentPosition = targetPos;
-            }
-        }
-
 
         //call to process transition event enums
         protected override void ProcessTransitionEvent(in TransitionEvents te)
@@ -136,6 +118,12 @@ namespace FightingGameEngine.Gameplay
         protected override void OnStateSet()
         {
             base.OnStateSet();
+        }
+
+
+        public LivingObject get_other()
+        {
+            return this._other;
         }
     }
 }

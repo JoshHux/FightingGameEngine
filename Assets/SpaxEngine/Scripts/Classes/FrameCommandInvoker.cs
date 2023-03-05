@@ -13,23 +13,31 @@ namespace FightingGameEngine.Commands
 
         public void set_comn_queue(List<ICommand> lst)
         {
-            this._cmndQueue = lst;
+            this._cmndQueue = new List<ICommand>(lst);
         }
 
         public void ExecuteCommands(in LivingObject lobj)
         {
+            int len = this._cmndQueue.Count;
+            //UnityEngine.Debug.Log(len);
+
+            if (len == 0) { return; }
+
             var status = lobj.Status;
             var data = lobj.Data;
 
             int i = 0;
-            int len = this._cmndQueue.Count;
 
             do
             {
-                this._cmndQueue[i].Execute(lobj, lobj.Status, lobj.Data);
+                var hold = this._cmndQueue[i];
+                //UnityEngine.Debug.Log(hold.GetType());
+                hold.Execute(lobj, lobj.Status, lobj.Data);
 
                 i++;
             } while (i < len);
+
+            this._cmndQueue.Clear();
 
         }
     }

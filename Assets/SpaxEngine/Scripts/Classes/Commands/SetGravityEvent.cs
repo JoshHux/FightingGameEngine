@@ -1,22 +1,21 @@
+using FixMath.NET;
 using FightingGameEngine.Gameplay;
 using FightingGameEngine.Data;
-
 
 namespace FightingGameEngine.Commands
 {
     [System.Serializable]
-    public class SetHitboxEvent : ICommand
+    public class SetGravityEvent : ICommand
     {
-        private HitboxHolder _data;
-        public SetHitboxEvent(HitboxHolder data)
+        private Fix64 _g;
+        public SetGravityEvent(Fix64 g)
         {
-            this._data = data;
+            this._g = g;
         }
 
         public void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
         {
-            //UnityEngine.Debug.Log("here we are!");
-            (lobj as CombatObject).ActivateHitboxes(this._data);
+            lobj.Status.CurrentGravity = this._g;
         }
     }
 }

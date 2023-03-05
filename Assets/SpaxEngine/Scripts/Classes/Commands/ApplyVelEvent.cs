@@ -1,22 +1,22 @@
+using FixMath.NET;
 using FightingGameEngine.Gameplay;
 using FightingGameEngine.Data;
-
 
 namespace FightingGameEngine.Commands
 {
     [System.Serializable]
-    public class SetHitboxEvent : ICommand
+    public class ApplyVelEvent : ICommand
     {
-        private HitboxHolder _data;
-        public SetHitboxEvent(HitboxHolder data)
+        private FVector2 _vel;
+
+        public ApplyVelEvent(FVector2 vel)
         {
-            this._data = data;
+            this._vel = vel;
         }
 
         public void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
         {
-            //UnityEngine.Debug.Log("here we are!");
-            (lobj as CombatObject).ActivateHitboxes(this._data);
+            status.CalcVelocity += this._vel;
         }
     }
 }

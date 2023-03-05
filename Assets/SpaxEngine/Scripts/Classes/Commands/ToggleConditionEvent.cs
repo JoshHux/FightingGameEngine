@@ -1,22 +1,21 @@
 using FightingGameEngine.Gameplay;
 using FightingGameEngine.Data;
-
+using FightingGameEngine.Enum;
 
 namespace FightingGameEngine.Commands
 {
     [System.Serializable]
-    public class SetHitboxEvent : ICommand
+    public class ToggleConditionEvent : ICommand
     {
-        private HitboxHolder _data;
-        public SetHitboxEvent(HitboxHolder data)
+        private StateConditions _cond;
+        public ToggleConditionEvent(StateConditions c)
         {
-            this._data = data;
+            this._cond = c;
         }
 
         public void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
         {
-            //UnityEngine.Debug.Log("here we are!");
-            (lobj as CombatObject).ActivateHitboxes(this._data);
+            lobj.Status.CurrentStateConditions ^= this._cond;
         }
     }
 }

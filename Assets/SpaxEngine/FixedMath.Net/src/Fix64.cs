@@ -1248,5 +1248,33 @@ namespace FixMath.NET
             }
             return a;
         }
+
+
+        /// <summary>
+        /// Used to parse string into fix64 directly
+        /// </summary>
+        public static Fix64 Parse(string s)
+        {
+
+            //split decimals and whole
+            var nums = s.Split('.');
+            //the first string is whole numbers
+            var whole = new Fix64(Int32.Parse(nums[0]));
+            //check if there are decimals to parse
+            if (nums.Length > 1)
+            {
+                //the second string is decimals
+                var decimals = new Fix64(Int32.Parse(nums[1]));
+
+                //now we get how far the 10 power is
+                //the length of the decimal string is equal to the nonegative power of the decimals
+                var tens = Fix64.Pow(new Fix64(10), -nums[1].Length);
+
+                whole += decimals * tens;
+            }
+
+            return whole;
+
+        }
     }
 }

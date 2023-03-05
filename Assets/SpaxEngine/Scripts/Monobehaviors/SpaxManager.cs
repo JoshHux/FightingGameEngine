@@ -156,14 +156,14 @@ namespace Spax
                 }
                 if (Input.GetKeyDown("u"))
                 {
-                    GameplayUpdate();
-                    GameplayUpdate();
-                    GameplayUpdate();
-                    GameplayUpdate();
-                    GameplayUpdate();
-                    GameplayUpdate();
-                    GameplayUpdate();
-                    GameplayUpdate();
+                    //GameplayUpdate();
+                    //GameplayUpdate();
+                    //GameplayUpdate();
+                    //GameplayUpdate();
+                    //GameplayUpdate();
+                    //GameplayUpdate();
+                    //GameplayUpdate();
+                    //GameplayUpdate();
                     GameplayUpdate();
 
 

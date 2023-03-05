@@ -1,22 +1,20 @@
 using FightingGameEngine.Gameplay;
 using FightingGameEngine.Data;
 
-
 namespace FightingGameEngine.Commands
 {
     [System.Serializable]
-    public class SetHitboxEvent : ICommand
+    public class ArmorEvent : ICommand
     {
-        private HitboxHolder _data;
-        public SetHitboxEvent(HitboxHolder data)
+        private int _armorHits;
+        public ArmorEvent(int a)
         {
-            this._data = data;
+            this._armorHits = a;
         }
 
         public void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
         {
-            //UnityEngine.Debug.Log("here we are!");
-            (lobj as CombatObject).ActivateHitboxes(this._data);
+            (lobj as VulnerableObject).set_armor_hits(this._armorHits);
         }
     }
 }

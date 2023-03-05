@@ -19,6 +19,7 @@ MonoBehaviour:
   inheritCond_: 1
   inheritCancel_: 1
   _duration: 0
+  loop_: 0
   _stateConditions: 536870944
   _toggleState: 0
   _cancels: 0
@@ -43,13 +44,16 @@ MonoBehaviour:
     _requiredResources:
       Health: 0
       Meter: 0
+      Burst: 0
+      Pressure: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
       Resource4: 0
       Resource5: 0
-      Resource6: 0
-      Resource7: 0
+  _hitboxSets: []
+  _hurtboxSets: []
+  _program: 
   _frames: []
   _animation:
   - _atFrame: 0
@@ -74,3 +78,5 @@ MonoBehaviour:
         m_rawValue: 0
       z:
         m_rawValue: 0
+  references:
+    version: 1

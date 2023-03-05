@@ -13,7 +13,7 @@ public class Arr8Drawer : PropertyDrawer
 
         // Draw fields - pass GUIContent.none to each so they are drawn without labels
 
-        position.height=EditorGUIUtility.singleLineHeight;
+        position.height = EditorGUIUtility.singleLineHeight;
 
         EditorGUI.PropertyField(position, property.FindPropertyRelative("_0"), GUIContent.none, true);
         position.y += h;
@@ -35,13 +35,14 @@ public class Arr8Drawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 
-        public override float GetPropertyHeight (SerializedProperty property, GUIContent label) {
- 
- 
-        float totalHeight = (EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing)*8;
- 
-        
- 
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+
+
+        float totalHeight = (EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing) * 8;
+
+
+
         return totalHeight;
     }
 }

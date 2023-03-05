@@ -1,22 +1,21 @@
 using FightingGameEngine.Gameplay;
 using FightingGameEngine.Data;
-
+using FightingGameEngine.Enum;
 
 namespace FightingGameEngine.Commands
 {
     [System.Serializable]
-    public class SetHitboxEvent : ICommand
+    public class ToggleCancelEvent : ICommand
     {
-        private HitboxHolder _data;
-        public SetHitboxEvent(HitboxHolder data)
+        private CancelConditions _cancel;
+        public ToggleCancelEvent(CancelConditions c)
         {
-            this._data = data;
+            this._cancel = c;
         }
 
         public void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
         {
-            //UnityEngine.Debug.Log("here we are!");
-            (lobj as CombatObject).ActivateHitboxes(this._data);
+            lobj.Status.CancelFlags ^= this._cancel;
         }
     }
 }

@@ -1,22 +1,21 @@
 using FightingGameEngine.Gameplay;
 using FightingGameEngine.Data;
 
-
 namespace FightingGameEngine.Commands
 {
     [System.Serializable]
-    public class SetHitboxEvent : ICommand
+    public class ApplyRsrcEvent : ICommand
     {
-        private HitboxHolder _data;
-        public SetHitboxEvent(HitboxHolder data)
+        private ResourceData _resources;
+        public ApplyRsrcEvent(ResourceData rs)
         {
-            this._data = data;
+            this._resources = rs;
         }
 
         public void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
         {
-            //UnityEngine.Debug.Log("here we are!");
-            (lobj as CombatObject).ActivateHitboxes(this._data);
+            //UnityEngine.Debug.Log("adding rsrc");
+            lobj.AddCurrentResources(this._resources);
         }
     }
 }

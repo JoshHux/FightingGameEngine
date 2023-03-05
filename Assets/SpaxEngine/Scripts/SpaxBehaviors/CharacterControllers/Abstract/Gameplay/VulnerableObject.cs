@@ -281,22 +281,6 @@ namespace FightingGameEngine.Gameplay
             this.status.CurrentVelocity = newVel;
 
         }
-        //call to process the frame data
-        protected override void ProcessFrameData(in FrameData frame)
-        {
-            //call base version
-            base.ProcessFrameData(frame);
-
-            /*----- ACTIVATING HURTBOXES -----*/
-            //call the delegate and pass the frame in, the boxes will take care of the rest
-            //the way that we set this up, we don't need to call this from CombatObject because the HitboxTrigger objects will also have their hooks in this delegate
-            //this.OnFrameReached?.Invoke(this, frame);
-
-
-            /*----- PROCESSING SUPER ARMOR -----*/
-            this.status.SetTransitionInfoVal(2, frame.ArmorHits);
-        }
-
         //call to process transition event enums
         protected override void ProcessTransitionEvent(in TransitionEvents te)
         {
@@ -511,6 +495,12 @@ namespace FightingGameEngine.Gameplay
 
         //call to activate a set of hurtboxes
         public void ActivateHurtboxes(HurtboxHolder boxes) { this.OnHurtFrameReached?.Invoke(this, boxes); }
+
+        public void set_armor_hits(int a)
+        {
+            this.status.SetTransitionInfoVal(2, a);
+        }
+
         public override CharStateInfo GetCharacterInfo()
         {
             return new CharStateInfo(this.status, new HitboxTrigger[8], this.hurtboxes);

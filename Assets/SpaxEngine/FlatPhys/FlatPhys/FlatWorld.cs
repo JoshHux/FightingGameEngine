@@ -96,6 +96,7 @@ namespace FlatPhysics
 
         public bool RemoveBody(FlatBody body)
         {
+            if (!this.bodyList.Contains(body)) { return true; }
             return this.bodyList.Remove(body);
         }
 
@@ -650,7 +651,6 @@ namespace FlatPhysics
 
                     normal = new FVector2(0, Fix64.Sign(normal.y));
                 }
-                ZzzLog.Instance.SetTxt(normal.x + ", " + normal.y);
                 //Debug.Log(normal.x + ", " + normal.y);
                 //bodyA.LinearVelocity = FVector2.Dot(bodyA.LinearVelocity, tangent) * tangent;
                 //bodyB.LinearVelocity = FVector2.Dot(bodyB.LinearVelocity, tangent) * tangent;

@@ -163,8 +163,14 @@ namespace FightingGameEngine.Gameplay
             //if the frame is not null
             if (frameAt != null)
             {
+                //UnityEngine.Debug.Log(this.status.CurrentState.name);
                 //process we found
-                this.ProcessFrameData(frameAt);
+                if (frameAt.get_events() != null)
+                {
+                    //UnityEngine.Debug.Log(this.status.CurrentState.name);
+                    this._invoker.set_comn_queue(frameAt.get_events());
+                    this._invoker.ExecuteCommands(this);
+                }
             }
 
         }
@@ -277,8 +283,8 @@ namespace FightingGameEngine.Gameplay
 
             //we process this transition event outside of the standard function
             //  this is because we want to access the transition's resources
-            var changeInResources = trans.RequiredResources * (int)EnumHelper.isNotZero((uint)(trans.TransitionEvents & TransitionEvents.ADD_RESOURCES));
-            this.AddCurrentResources(changeInResources);
+            //var changeInResources = trans.RequiredResources * (int)EnumHelper.isNotZero((uint)(trans.TransitionEvents & TransitionEvents.ADD_RESOURCES));
+            //this.AddCurrentResources(changeInResources);
 
             //check if it's a nodestate, if it is, try to transition out of it
             if (targetState.Duration < 0)
@@ -329,104 +335,6 @@ namespace FightingGameEngine.Gameplay
             this.status.CurrentFacingDirection = this.status.CurrentFacingDirection * ((flipDir * -1) + ((flipDir ^ 1) * 1));
 
             //this.status.ResetLeniency();
-
-        }
-
-        //call to process the frame data
-        protected virtual void ProcessFrameData(in FrameData frame)
-        {
-            /*----- PROCESSING STATE CONDITIONS -----*/
-            this.status.CurrentStateConditions ^= frame.ToggleConditions;
-            this.status.CancelFlags ^= frame.ToggleCancels;
-
-            /*----- PROCESSING APPLIED VELOCITY -----*/
-            //get the velocity we want to apply
-            var appliedVel = frame.AppliedVelocity;
-
-            //do we want to hard set the velocity instead?
-            bool setVel = frame.SetVelocity;
-            //we want to set the velocity instead of adding it
-            if (setVel)
-            {
-                //set the calc and current velcoties to 0, that way when we add it below, it sums to appliedVel
-                this.status.CalcVelocity = new FVector2();
-                this.status.CurrentVelocity = new FVector2();
-            }
-
-            //if (appliedVel.magnitude > 0) { Debug.Log("applying velocity"); }
-
-            //hold the CalcVelocity here for easy reference
-            var holdVel = this.status.CalcVelocity;
-
-            //add the applied velocity to the calc velocity
-            this.status.CalcVelocity = holdVel + appliedVel;
-
-
-            /*----- PROCESSING APPLIED GRAVITY -----*/
-            bool changeGrav = frame.SetGravity;
-            //we want to change gravity
-            if (changeGrav) { this.status.CurrentGravity = frame.AppliedGravity; }
-
-            //if (this.status.CalcVelocity.magnitude > 0) { Debug.Log(this.status.CurrentState.name + " - " + this.status.StateTimer.TimeElapsed + " - " + frame.AtFrame + " - (" + this.status.CalcVelocity.x + ", " + this.status.CalcVelocity.y + ")"); }
-
-
-            /*----- PROCESSING RESOURCE CHANGE -----*/
-            //resource change on this frame
-            var rChange = frame.ResourceChange;
-            //add current resources
-            this.AddCurrentResources(rChange);
-
-
-            /*----- PROCESSING TIMER EVENT -----*/
-            var timerEvent = frame.TimerEvent;
-
-            //do we have a nonzero duration for this timer?
-            var isNonzero = (int)EnumHelper.isNotZero((uint)timerEvent.Duration);
-
-            if (isNonzero > 0)
-            {
-                //parameters we put into the timer
-                var endTime = timerEvent.Duration * isNonzero;
-                var addedStateConditions = (StateConditions)((int)timerEvent.StateConditions * isNonzero);
-
-                //get new timer
-                var newCondTimer = new ConditionTimer(endTime, addedStateConditions);
-
-                //set the new timer
-                this.status.ConditionTimer = newCondTimer;
-            }
-
-            /*----- PROCESSING SUPERFLASH -----*/
-            this.StartSuperFlash(frame.SuperFlashDuration);
-
-            /*----- PROCESSING PROJECTILE SPAWNING -----*/
-            if (frame.HasProjectile())
-            {
-                var projectiles = frame.Projectiles;
-                int facing = this.status.CurrentFacingDirection;
-                int len = projectiles.Length;
-                int i = 0;
-                while (i < len)
-                {
-                    var projectileData = projectiles[i];
-                    var obj = this.data.Projectiles[projectileData.ProjectileInd].get_pooled_object();
-                    if (projectileData.ProjectileInd < 8 && projectileData.ProjectileInd > -1 && obj != null)
-                    {
-                        var rot = projectileData.SpawnRotation;
-                        var pos = new FVector2(projectileData.RelativePos.x * facing, projectileData.RelativePos.y);
-
-                        //actually instantiate the object
-                        var go = (GameObject)Instantiate(obj, this.transform.position, this.transform.rotation);
-
-                        if (go == null) { Debug.Log("go is null"); }
-                        var goRb = go.GetComponent<FBox>();
-                        //if(go==null){Debug.Log("goRb is null");}
-
-                        goRb.Body.Position = pos + this._rb.Position;
-                    }
-                    i++;
-                }
-            }
 
         }
 
@@ -643,7 +551,7 @@ namespace FightingGameEngine.Gameplay
 
         //TODO: notify renderer that superflash has occured
         //TODO: 
-        private void StartSuperFlash(int duration)
+        public void StartSuperFlash(int duration)
         {
             //will not fire superflash if no duration is given
             //keeps superflash even if state is changed
@@ -797,18 +705,23 @@ namespace FightingGameEngine.Gameplay
 
         }
 
-        protected void SetCurrentResources(in ResourceData newResources)
+        public void SetCurrentResources(in ResourceData newResources)
         {
-            this.status.CurrentResources = newResources.SetMin(this.data.MaxResources);
-            //this.status.CurrentResources.SetMin(this.data.MaxResources);
+            //maybe replace this with wrapper for resources that we can use to pick and choose what values to set?
+
+            //we don't want to set our resources to negative, so min to 0
+            var newSet = this.status.CurrentResources.FilterNeg(newResources);
+
+            newSet = ResourceData.Min(newSet, this.data.MaxResources);
+            this.status.CurrentResources = ResourceData.Max(newSet, this.data.MinResources);
         }
 
-        protected void AddCurrentResources(in ResourceData newResources)
+        public void AddCurrentResources(in ResourceData newResources)
         {
             var potenResources = newResources + this.status.CurrentResources;
-            //Debug.Log("adding resources");
-            this.status.CurrentResources = potenResources.SetMin(this.data.MaxResources);
-            //Debug.Log("current resources :: " + this.status.CurrentResources.Resource1 + " | " + this.data.MaxResources.Resource1);
+            potenResources = ResourceData.Min(potenResources, this.data.MaxResources);
+            this.status.CurrentResources = ResourceData.Max(potenResources, this.data.MinResources);
+            //Debug.Log("adding "+this.status.CurrentResources.Resource1);
         }
 
         public FVector2 get_position()
@@ -819,6 +732,7 @@ namespace FightingGameEngine.Gameplay
 
             return ret;
         }
+
 
         public int IsAirborne()
         {
@@ -859,6 +773,35 @@ namespace FightingGameEngine.Gameplay
             this.status.ApplyGameplayState(state);
 
             this.OnApplyGameState(state);
+        }
+
+        public void SpawnProjectile(int p, FVector2 pos, Fix64 rot)
+        {
+            int facing = this.status.CurrentFacingDirection;
+
+            var obj = this.data.Projectiles[p].get_pooled_object();
+            if (p < 8 && p > -1 && obj != null)
+            {
+                pos = new FVector2(pos.x * facing, pos.y);
+
+                //actually instantiate the object
+                var go = (GameObject)Instantiate(obj, this.transform.position, this.transform.rotation);
+
+                if (go == null) { Debug.Log("go is null"); }
+                var goRb = go.GetComponent<FBox>();
+                //if(go==null){Debug.Log("goRb is null");}
+
+                goRb.Body.Position = pos + this._rb.Position;
+            }
+        }
+
+        public void StartCondTimer(int dur, StateConditions cond)
+        {
+            //get new timer
+            var newCondTimer = new ConditionTimer(dur, cond);
+
+            //set the new timer
+            this.status.ConditionTimer = newCondTimer;
         }
 
         //functions to be called by the projectile 

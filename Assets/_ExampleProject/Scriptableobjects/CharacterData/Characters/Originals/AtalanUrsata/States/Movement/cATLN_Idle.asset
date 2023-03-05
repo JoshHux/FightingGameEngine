@@ -94,6 +94,9 @@ MonoBehaviour:
       Resource3: 0
       Resource4: 0
       Resource5: 0
+  _hitboxSets: []
+  _hurtboxSets: []
+  _program: 
   _frames: []
   _animation:
   - _atFrame: 1
@@ -118,3 +121,5 @@ MonoBehaviour:
         m_rawValue: 0
       z:
         m_rawValue: 0
+  references:
+    version: 1

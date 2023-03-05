@@ -22,7 +22,10 @@ namespace FightingGameEngine.Commands
     public static class JackScriptCompiler
     {
 
-        private static FuncInfo[] commands = { new FuncInfo("SetHitboxes", 1), new FuncInfo("SetHurtboxes", 1), new FuncInfo("SetVel", 1) };
+        private static FuncInfo[] commands = {
+            new FuncInfo("SetHitboxes", 1), new FuncInfo("SetHurtboxes", 1), new FuncInfo("SetVel", 1), new FuncInfo("ApplyVel", 1),new FuncInfo("SetRsrc", 9), new FuncInfo("ApplyRsrc", 9),
+            new FuncInfo("Teleport", 2),new FuncInfo("SuperFlash", 1),new FuncInfo("SetGrav", 1),new FuncInfo("ToggleCond", 1),new FuncInfo("ToggleCancel", 1),new FuncInfo("SetArmor", 1),
+            new FuncInfo("SpawnProjectile", 3),new FuncInfo("CondTimer", 2) };
 
         public static List<FrameData> CompileString(in string str, in soStateData state)
         {
@@ -37,7 +40,7 @@ namespace FightingGameEngine.Commands
             {
                 //get rid of special characters, get to that sweet, sweet, non-white-character string!
                 //https://stackoverflow.com/questions/4140723/how-to-remove-new-line-characters-from-a-string
-                var ln = Regex.Replace(line, @"\t|\n|\r", "");
+                var ln = Regex.Replace(line, @"\t|\n|\r|( )", "");
 
                 //UnityEngine.Debug.Log(ln);
 
@@ -86,10 +89,10 @@ namespace FightingGameEngine.Commands
                     var toAdd = JackScriptCompiler.InterperateLine(ln, state, i);
                     if (toAdd == null) { UnityEngine.Debug.LogError("Line " + i + " in " + state.name + ":\nFunction not found in: " + ln); }
 
-                    if (toAdd is SetHitboxEvent)
-                        UnityEngine.Debug.Log("added hitbox event");
-                    else if (toAdd is SetHurtboxEvent)
-                        UnityEngine.Debug.Log("added hurtbox event");
+                    //if (toAdd is SetHitboxEvent)
+                    //    UnityEngine.Debug.Log("added hitbox event");
+                    //else if (toAdd is SetHurtboxEvent)
+                    //    UnityEngine.Debug.Log("added hurtbox event");
 
                     cmd.Add(toAdd);
                 }
@@ -117,11 +120,71 @@ namespace FightingGameEngine.Commands
 
             //the parameters of the function as a list of strings
             var funcParams = strParam.Split(',');
+
+            //concatonate arrays into a single strings
+            var paramHolder = new List<string>();
+            int i = 0;
+            int len = funcParams.Length;
+
+            //  what're we currently looking for
+            bool arrMode = false;
+            while (i < len)
+            {
+                var hold = funcParams[i];
+
+                if ((arrMode && hold.StartsWith("[")) || (!arrMode && hold.EndsWith("]") && !hold.StartsWith("[")))
+                {
+                    throw new ArgumentException("Line " + lnNum + " in " + state.name + ":\nArray of values not found!");
+                }
+                //start of array, add substring
+                else if (hold.StartsWith("["))
+                {
+                    //corner case, there's only 1 element in the array
+                    if (hold.EndsWith("]"))
+                    {
+                        paramHolder.Add(hold.Substring(1, hold.Length - 2));
+                    }
+                    else
+                    {
+                        paramHolder.Add(hold.Substring(1));
+                        arrMode = true;
+                    }
+                }
+                else
+                {
+                    //add to the last element
+                    if (arrMode)
+                    {
+                        //start with assuming normal string
+                        var add = hold;
+
+                        //end of array, add the substring to the most recent element
+                        if (hold.EndsWith("]"))
+                        {
+                            add = hold.Substring(0, hold.Length - 1);
+                            arrMode = false;
+                        }
+
+                        paramHolder[paramHolder.Count - 1] += "," + add;
+                    }
+                    else
+                    {
+                        paramHolder.Add(hold);
+                    }
+                }
+
+                i++;
+            }
+
+            //reassign our things
+            funcParams = paramHolder.ToArray();
+
+
             //number of parameters to debug with
             int paramNum = funcParams.Length;
 
-            int i = 0;
-            int len = JackScriptCompiler.commands.Length;
+            i = 0;
+            len = JackScriptCompiler.commands.Length;
 
             do
             {
@@ -130,9 +193,11 @@ namespace FightingGameEngine.Commands
 
                 if (ln.StartsWith(nm))
                 {
-                    if (paramNum != pn) { JackScriptCompiler.ThrowParamNumError(nm, state.name, lnNum, pn, paramNum); }
+                    if (paramNum != -1 && paramNum != pn) { JackScriptCompiler.ThrowParamNumError(nm, state.name, lnNum, pn, paramNum); }
+
                     var method = typeof(CommandFactory).GetMethod(nm);
                     return (ICommand)method.Invoke(null, new object[] { funcParams, state, lnNum });
+                    //return CommandFactory.SetHitboxes(funcParams, state, lnNum);
                 }
 
                 i++;
@@ -143,7 +208,7 @@ namespace FightingGameEngine.Commands
 
         }
 
-        private static void ThrowParamNumError(in string func, in string stateName, int lnNum, int correctNum, int foundNum) { UnityEngine.Debug.LogError("Line " + lnNum + " in " + stateName + ":\nFunction " + func + " has too few or too many parameter(s), should have " + correctNum + ", found " + foundNum); }
+        private static void ThrowParamNumError(in string func, in string stateName, int lnNum, int correctNum, int foundNum) { throw new ArgumentException("Line " + lnNum + " in " + stateName + ":\nFunction " + func + " has too few or too many parameter(s), should have " + correctNum + ", found " + foundNum); }
     }
 }
 

@@ -18,21 +18,31 @@ MonoBehaviour:
     Meter: 0
     Burst: 0
     Pressure: 0
+    Airjumps: 0
+    Airdashes: 0
     Resource1: 0
     Resource2: 0
     Resource3: 0
-    Resource4: 0
-    Resource5: 0
+  _minResources:
+    Health: 0
+    Meter: 0
+    Burst: 0
+    Pressure: 0
+    Airjumps: 0
+    Airdashes: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
   _maxResources:
     Health: 600
     Meter: 0
     Burst: 0
     Pressure: 0
-    Resource1: 0
-    Resource2: 2
+    Airjumps: 0
+    Airdashes: 0
+    Resource1: 2
+    Resource2: 0
     Resource3: 0
-    Resource4: 0
-    Resource5: 0
   _guts:
     m_rawValue: 0
   _mass:
@@ -90,11 +100,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: af88765fdbfa0db43b5be10e90b88e1e, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0
@@ -129,11 +139,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
-      Resource1: 0
-      Resource2: 2
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 2
+      Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: 39ef2cb073d379c459ae3605b69c06fc, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0
@@ -168,11 +178,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
-      Resource1: 0
-      Resource2: 1
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 1
+      Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: 39ef2cb073d379c459ae3605b69c06fc, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0
@@ -207,11 +217,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: 8fade4eda3f96fb4383c2e127826da6d, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0
@@ -231,11 +241,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: 8dcc53e2205e146489b51436516a8cfd, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0
@@ -255,11 +265,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: bf23b5d65152e114ca8ce8111bc1b764, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0
@@ -279,11 +289,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: 2d53337daee5cab4e82c7dcbfa39253e, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0
@@ -303,11 +313,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 11400000, guid: 6cc9fdb4ad536e749be050681077579d, type: 2}
     _targetStateIndex: 0
     _targetUniversalStateIndex: 0
@@ -327,11 +337,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   _projectiles:
     _0:
       _pooledObject: {fileID: 0}

@@ -19,11 +19,11 @@ MonoBehaviour:
     Meter: 0
     Burst: 0
     Pressure: 0
+    Airjumps: 0
+    Airdashes: 0
     Resource1: 0
     Resource2: 0
     Resource3: 0
-    Resource4: 0
-    Resource5: 0
   m_stateTimer:
     _timeElapsed: 2
     _endTime: 2
@@ -89,8 +89,8 @@ MonoBehaviour:
     _recordedChanges:
     - Input: 0
       Flags: 0
-      HoldDuration: 1161
-      UnlenientTime: 1161
+      HoldDuration: 367
+      UnlenientTime: 367
       _lenientBuffer: 0
   _positionOffset:
     x:
