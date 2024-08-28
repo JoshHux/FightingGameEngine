@@ -17,17 +17,20 @@ MonoBehaviour:
   m_currentResources:
     Health: 1
     Meter: 0
+    Burst: 0
+    Pressure: 0
+    Airjumps: 0
+    Airdashes: 0
     Resource1: 0
     Resource2: 0
     Resource3: 0
-    Resource4: 0
-    Resource5: 0
-    Resource6: 0
-    Resource7: 0
   m_stateTimer:
     _timeElapsed: 103
     _endTime: 200
   m_stopTimer:
+    _timeElapsed: 0
+    _endTime: 0
+  m_installTimer:
     _timeElapsed: 0
     _endTime: 0
   m_superFlashTimer:
@@ -59,6 +62,8 @@ MonoBehaviour:
       m_rawValue: 0
   m_currentGravity:
     m_rawValue: 0
+  m_gravityScaling:
+    m_rawValue: 0
   m_currentProration:
     m_rawValue: 0
   m_comboCount: 0
@@ -73,16 +78,19 @@ MonoBehaviour:
       Input: 0
       Flags: 0
       HoldDuration: 0
+      UnlenientTime: 0
       _lenientBuffer: 0
     _previousControllerState:
       Input: 0
       Flags: 0
       HoldDuration: 0
+      UnlenientTime: 0
       _lenientBuffer: 0
     _recordedChanges:
     - Input: 0
       Flags: 0
       HoldDuration: 0
+      UnlenientTime: 0
       _lenientBuffer: 0
   _positionOffset:
     x:
@@ -96,3 +104,21 @@ MonoBehaviour:
     m_rawValue: 0
   m_storedDamageScaling:
     m_rawValue: 0
+  _transitionInfo:
+    _0: 0
+    _1: 0
+    _2: 0
+    _3: 0
+    _4: 0
+    _5: 0
+    _6: 0
+    _7: 0
+  _curProjectiles:
+    _0: 0
+    _1: 0
+    _2: 0
+    _3: 0
+    _4: 0
+    _5: 0
+    _6: 0
+    _7: 0

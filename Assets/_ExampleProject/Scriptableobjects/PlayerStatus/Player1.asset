@@ -25,8 +25,8 @@ MonoBehaviour:
     Resource2: 0
     Resource3: 0
   m_stateTimer:
-    _timeElapsed: 1
-    _endTime: 42
+    _timeElapsed: 56
+    _endTime: 200
   m_stopTimer:
     _timeElapsed: 0
     _endTime: 0
@@ -40,10 +40,10 @@ MonoBehaviour:
     _timeElapsed: 0
     _endTime: 0
     _stateConditions: 0
-  m_currentState: {fileID: 11400000, guid: 2d53337daee5cab4e82c7dcbfa39253e, type: 2}
-  m_currentConditions: 21
+  m_currentState: {fileID: 11400000, guid: 8212e9bb68510564e8f1ee3e12d2115b, type: 2}
+  m_currentConditions: 85
   m_transitionFlags: 1
-  m_cancelFlags: 0
+  m_cancelFlags: 2147483646
   m_currentFacing: -1
   m_currentPosition:
     x:
@@ -75,22 +75,57 @@ MonoBehaviour:
     m_rawValue: 0
   _inputRecorder:
     _controllerState:
-      Input: 2048
+      Input: 0
       Flags: 0
       HoldDuration: 0
       UnlenientTime: 0
       _lenientBuffer: 0
     _previousControllerState:
-      Input: 2048
+      Input: 0
       Flags: 0
       HoldDuration: 0
       UnlenientTime: 0
       _lenientBuffer: 0
     _recordedChanges:
-    - Input: 2048
+    - Input: 4096
       Flags: 1
-      HoldDuration: 1
-      UnlenientTime: 1
+      HoldDuration: 8
+      UnlenientTime: 8
+      _lenientBuffer: 0
+    - Input: 4096
+      Flags: 6
+      HoldDuration: 49
+      UnlenientTime: 49
+      _lenientBuffer: 0
+    - Input: 4096
+      Flags: 5
+      HoldDuration: 7
+      UnlenientTime: 7
+      _lenientBuffer: 0
+    - Input: 4096
+      Flags: 6
+      HoldDuration: 44
+      UnlenientTime: 44
+      _lenientBuffer: 0
+    - Input: 4096
+      Flags: 5
+      HoldDuration: 7
+      UnlenientTime: 7
+      _lenientBuffer: 0
+    - Input: 4096
+      Flags: 6
+      HoldDuration: 49
+      UnlenientTime: 49
+      _lenientBuffer: 0
+    - Input: 4096
+      Flags: 5
+      HoldDuration: 8
+      UnlenientTime: 8
+      _lenientBuffer: 0
+    - Input: 4096
+      Flags: 6
+      HoldDuration: 62
+      UnlenientTime: 62
       _lenientBuffer: 0
   _positionOffset:
     x:

@@ -49,7 +49,6 @@ MonoBehaviour:
   _hitboxSets: []
   _hurtboxSets: []
   _script: 
-  _frames: []
   _animation:
   - _atFrame: 1
     _animationName: JumpPeak
@@ -73,5 +72,3 @@ MonoBehaviour:
         m_rawValue: 0
       z:
         m_rawValue: 0
-  references:
-    version: 1

@@ -1820,7 +1820,7 @@ MonoBehaviour:
   _collidesWith: 0
   drawedBox: {fileID: 6580086804919254037, guid: 640821540e696ba498cb367bf6c77c1b, type: 3}
   _width:
-    m_rawValue: 4724464128
+    m_rawValue: 9019430912
   _height:
     m_rawValue: 4294967296
 --- !u!1 &766337889

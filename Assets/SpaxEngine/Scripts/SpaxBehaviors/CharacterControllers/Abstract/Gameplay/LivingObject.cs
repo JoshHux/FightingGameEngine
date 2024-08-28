@@ -431,7 +431,7 @@ namespace FightingGameEngine.Gameplay
         {
 
             //simple check if we're airborne
-            if ((this.status.CurrentPosition.y > 0) || (this.status.CurrentVelocity.y > 0) || (this.status.CurrentStateConditions & StateConditions.AIRBORNE) > 0)
+            if ((this.status.CurrentPosition.y > 1) || (this.status.CurrentVelocity.y > 0))// || (this.status.CurrentStateConditions & StateConditions.AIRBORNE) > 0)
             {
                 //make status think it's airborne
                 //Debug.Log("becoming airborne " + (this.status.CurrentPosition.y < -3) + " " + (this.status.CurrentVelocity.y > 0));
@@ -758,6 +758,16 @@ namespace FightingGameEngine.Gameplay
         public void SetWalled(int done)
         {
             this.status.TransitionFlags |= (TransitionFlags)((int)TransitionFlags.WALLED * done);
+        }
+
+
+        public void SetGrounded(int done)
+        {
+            TransitionFlags removeGroundedMask = (~(TransitionFlags)((int)TransitionFlags.GROUNDED * (done ^ 1)));
+            TransitionFlags removeAirborneMask = (~(TransitionFlags)((int)TransitionFlags.AIRBORNE * done));
+            this.status.TransitionFlags &= removeAirborneMask & removeGroundedMask;
+            this.status.TransitionFlags |= (TransitionFlags)((int)TransitionFlags.GROUNDED * done) | (TransitionFlags)((int)TransitionFlags.AIRBORNE * (done ^ 1));
+            UnityEngine.Debug.Log((TransitionFlags)((int)TransitionFlags.GROUNDED * done) | (TransitionFlags)((int)TransitionFlags.AIRBORNE * (done ^ 1)));
         }
 
         public void StartStopTimer(int dur)
