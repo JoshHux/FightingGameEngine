@@ -1,6 +1,6 @@
 ## With Assistance From
 
-Vecderg (UI programming and general assistance), JackTR55555 (dev tools and input system)
+Vecderg (UI programming and physics systems), JackTR55555 (dev tools and input system)
 
 ## What is this?
 
