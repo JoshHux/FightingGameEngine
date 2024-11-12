@@ -94,6 +94,9 @@ namespace FightingGameEngine.Commands
                     //else if (toAdd is SetHurtboxEvent)
                     //    UnityEngine.Debug.Log("added hurtbox event");
 
+
+                    //UnityEngine.Debug.Log(toAdd.GetType());
+
                     cmd.Add(toAdd);
                 }
                 i++;
@@ -196,6 +199,7 @@ namespace FightingGameEngine.Commands
                     if (paramNum != -1 && paramNum != pn) { JackScriptCompiler.ThrowParamNumError(nm, state.name, lnNum, pn, paramNum); }
 
                     var method = typeof(CommandFactory).GetMethod(nm);
+
                     return (ICommand)method.Invoke(null, new object[] { funcParams, state, lnNum });
                     //return CommandFactory.SetHitboxes(funcParams, state, lnNum);
                 }

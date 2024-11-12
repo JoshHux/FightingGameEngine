@@ -95,8 +95,118 @@ MonoBehaviour:
       Resource2: 0
       Resource3: 0
   _hitboxSets: []
-  _hurtboxSets: []
-  _script: 
+  _hurtboxSets:
+  - Hurtbox0:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 12884901888
+        y:
+          m_rawValue: 12884901888
+    Hurtbox1:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox2:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox3:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox4:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox5:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox6:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox7:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox8:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox9:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+  _script: "if(frame==1)\n\tSetHurtboxes(0)"
   _animation:
   - _atFrame: 1
     _animationName: Idle

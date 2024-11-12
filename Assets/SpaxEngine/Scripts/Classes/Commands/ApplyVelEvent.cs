@@ -17,6 +17,7 @@ namespace FightingGameEngine.Commands
         public void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
         {
             status.CalcVelocity += this._vel;
+            UnityEngine.Debug.Log(this._vel.x);
         }
     }
 }

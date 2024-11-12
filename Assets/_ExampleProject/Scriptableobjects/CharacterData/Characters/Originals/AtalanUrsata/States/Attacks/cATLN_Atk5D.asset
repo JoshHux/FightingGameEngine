@@ -35,14 +35,14 @@ MonoBehaviour:
       Type: 1
       Position:
         x:
-          m_rawValue: 4294967296
+          m_rawValue: 8589934592
         y:
-          m_rawValue: 4294967296
+          m_rawValue: 8589934592
       Dimensions:
         x:
-          m_rawValue: 4294967296
+          m_rawValue: 8589934592
         y:
-          m_rawValue: 4294967296
+          m_rawValue: 17179869184
       Priority: 0
       Damage: 0
       ChipDamage: 0
@@ -799,7 +799,7 @@ MonoBehaviour:
           m_rawValue: 0
         y:
           m_rawValue: 0
-  _script: 
+  _script: "if(frame==15)\n\tSetHitboxes(0)"
   _animation:
   - _atFrame: 1
     _animationName: Atk_5D

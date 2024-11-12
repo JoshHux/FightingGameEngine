@@ -25,7 +25,7 @@ MonoBehaviour:
     Resource2: 0
     Resource3: 0
   m_stateTimer:
-    _timeElapsed: 56
+    _timeElapsed: 135
     _endTime: 200
   m_stopTimer:
     _timeElapsed: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_currentFacing: -1
   m_currentPosition:
     x:
-      m_rawValue: 21474836480
+      m_rawValue: 31496427520
     y:
       m_rawValue: 0
   m_currentVelocity:
@@ -87,45 +87,75 @@ MonoBehaviour:
       UnlenientTime: 0
       _lenientBuffer: 0
     _recordedChanges:
-    - Input: 4096
+    - Input: 256
+      Flags: 1
+      HoldDuration: 10
+      UnlenientTime: 10
+      _lenientBuffer: 0
+    - Input: 256
+      Flags: 6
+      HoldDuration: 17
+      UnlenientTime: 17
+      _lenientBuffer: 0
+    - Input: 512
       Flags: 1
       HoldDuration: 8
       UnlenientTime: 8
       _lenientBuffer: 0
-    - Input: 4096
+    - Input: 512
       Flags: 6
-      HoldDuration: 49
-      UnlenientTime: 49
+      HoldDuration: 21
+      UnlenientTime: 21
       _lenientBuffer: 0
-    - Input: 4096
-      Flags: 5
-      HoldDuration: 7
-      UnlenientTime: 7
-      _lenientBuffer: 0
-    - Input: 4096
-      Flags: 6
-      HoldDuration: 44
-      UnlenientTime: 44
-      _lenientBuffer: 0
-    - Input: 4096
-      Flags: 5
-      HoldDuration: 7
-      UnlenientTime: 7
-      _lenientBuffer: 0
-    - Input: 4096
-      Flags: 6
-      HoldDuration: 49
-      UnlenientTime: 49
-      _lenientBuffer: 0
-    - Input: 4096
-      Flags: 5
+    - Input: 1024
+      Flags: 1
       HoldDuration: 8
       UnlenientTime: 8
       _lenientBuffer: 0
-    - Input: 4096
+    - Input: 1024
       Flags: 6
-      HoldDuration: 62
-      UnlenientTime: 62
+      HoldDuration: 79
+      UnlenientTime: 79
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 1
+      HoldDuration: 9
+      UnlenientTime: 9
+      _lenientBuffer: 0
+    - Input: 8
+      Flags: 6
+      HoldDuration: 12
+      UnlenientTime: 12
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 1
+      HoldDuration: 7
+      UnlenientTime: 7
+      _lenientBuffer: 0
+    - Input: 2
+      Flags: 6
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 4
+      Flags: 1
+      HoldDuration: 3
+      UnlenientTime: 3
+      _lenientBuffer: 0
+    - Input: 4
+      Flags: 6
+      HoldDuration: 0
+      UnlenientTime: 0
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 1
+      HoldDuration: 23
+      UnlenientTime: 23
+      _lenientBuffer: 0
+    - Input: 16
+      Flags: 6
+      HoldDuration: 3535
+      UnlenientTime: 3535
       _lenientBuffer: 0
   _positionOffset:
     x:

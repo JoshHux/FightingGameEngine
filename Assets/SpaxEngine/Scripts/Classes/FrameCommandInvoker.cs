@@ -31,7 +31,7 @@ namespace FightingGameEngine.Commands
             do
             {
                 var hold = this._cmndQueue[i];
-                //UnityEngine.Debug.Log(hold.GetType());
+                UnityEngine.Debug.Log(hold.GetType());
                 hold.Execute(lobj, lobj.Status, lobj.Data);
 
                 i++;

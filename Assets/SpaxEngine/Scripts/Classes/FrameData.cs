@@ -3,6 +3,10 @@ using UnityEngine;
 using FixMath.NET;
 using FightingGameEngine.Commands;
 using FightingGameEngine.Enum;
+using System.IO;
+using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+ 
 namespace FightingGameEngine.Data
 {
     [System.Serializable]
@@ -26,7 +30,7 @@ namespace FightingGameEngine.Data
 
         public void SetEvents(List<ICommand> lst)
         {
-            this._events = lst;
+            this._events = new List<ICommand>(lst);
         }
 
         public List<ICommand> get_events()

@@ -46,7 +46,7 @@ namespace FightingGameEngine.Commands
             if (dim.Length > 2) { throw new ArgumentException("Line " + lnNum + " in " + state.name + ":\nToo many dimensions!"); }
 
             FVector2 vel = new FVector2(Fix64.Parse(dim[0]), Fix64.Parse(dim[1]));
-
+            //UnityEngine.Debug.Log(vel.x);
             return new ApplyVelEvent(vel);
         }
 

@@ -41,11 +41,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 0}
     _targetStateIndex: 3
     _targetUniversalStateIndex: -1
@@ -60,11 +60,11 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
   - _targetState: {fileID: 0}
     _targetStateIndex: 2
     _targetUniversalStateIndex: -1
@@ -79,10 +79,12 @@ MonoBehaviour:
       Meter: 0
       Burst: 0
       Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
-  _frames: []
+  _hitboxSets: []
+  _hurtboxSets: []
+  _script: if()
   _animation: []

@@ -16,6 +16,7 @@ namespace FightingGameEngine.Commands
         public void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
         {
             //UnityEngine.Debug.Log("here we are!");
+            //UnityEngine.Debug.Log(this._data.Hitbox0.Duration);
             (lobj as CombatObject).ActivateHitboxes(this._data);
         }
     }
