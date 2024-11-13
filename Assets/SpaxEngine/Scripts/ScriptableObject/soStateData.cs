@@ -201,6 +201,8 @@ namespace FightingGameEngine.Data
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         public void Compile()
         {
+            if (this._script == null) { this._script = ""; }
+            if (this._savedScript == null) { this._savedScript = ""; }
             //check the current script against the saved one, see if there's a difference
             //only want to check against non-whitespaces
             var cur = Regex.Replace(this._script, @"\t|\n|\r|\r\n", "");

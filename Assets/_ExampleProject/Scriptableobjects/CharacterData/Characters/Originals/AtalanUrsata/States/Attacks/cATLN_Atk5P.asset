@@ -688,8 +688,118 @@ MonoBehaviour:
       OnCounterHitCancel: 0
       OnBlockedHitCancel: 0
       Hitspark: 0
-  _hurtboxSets: []
-  _script: "if(frame==2)\n\tApplyVel([10,0]);\nif(frame==5)\n\tSetHitboxes(0);"
+  _hurtboxSets:
+  - Hurtbox0:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 8589934592
+      Dimensions:
+        x:
+          m_rawValue: 8589934592
+        y:
+          m_rawValue: 17179869184
+    Hurtbox1:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox2:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox3:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox4:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox5:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox6:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox7:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox8:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox9:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+  _script: "if(frame==1)\n\tSetHurtboxes(0)\nif(frame==2)\n\tApplyVel([10,0]);\nif(frame==5)\n\tSetHitboxes(0);"
   _animation:
   - _atFrame: 1
     _animationName: Atk_5A

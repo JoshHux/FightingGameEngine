@@ -1,12 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using FixMath.NET;
 using FightingGameEngine.Commands;
-using FightingGameEngine.Enum;
-using System.IO;
-using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
- 
+
 namespace FightingGameEngine.Data
 {
     [System.Serializable]
@@ -30,6 +25,7 @@ namespace FightingGameEngine.Data
 
         public void SetEvents(List<ICommand> lst)
         {
+            //deep copy so that the next frame's commands don't override the previous one's
             this._events = new List<ICommand>(lst);
         }
 

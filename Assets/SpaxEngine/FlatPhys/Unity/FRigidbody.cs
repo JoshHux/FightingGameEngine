@@ -123,6 +123,7 @@ namespace FlatPhysics.Unity
             this._bodyID = this._rb.BodyID;
         }
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         private void DrawBoxesInRunTime(Vector3 pos, Vector3 dim)
         {
             if (tempDrawedBox == null)
@@ -171,9 +172,16 @@ namespace FlatPhysics.Unity
                         default:
                             break;
                     }
+
+
+                    if (!this._rb.Awake)
+                    {
+                        tempDrawedBox.transform.GetChild(i).GetComponent<SpriteRenderer>().color = Color.clear;
+                    }
                 }
             }
         }
+#endif
 
         void Update()
         {
@@ -183,7 +191,9 @@ namespace FlatPhysics.Unity
                 this._velocity = this.Body.LinearVelocity;
                 this._position = this.Body.Position;
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
                 if (this.drawedBox != null) DrawBoxesInRunTime(new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f), new Vector3((float)this._rb.Width, (float)this._rb.Height, 1f));
+#endif
             }
         }
 

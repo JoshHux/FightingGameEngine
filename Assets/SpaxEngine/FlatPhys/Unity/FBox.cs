@@ -44,6 +44,7 @@ namespace FlatPhysics.Unity
             //FlatWorldMono.instance.AddBody(this);
         }
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         private void OnDrawGizmos()
         {
             switch (boxColor)
@@ -66,7 +67,6 @@ namespace FlatPhysics.Unity
                 default:
                     break;
             }
-
             // if (this.transform.parent != null)
             //    {
             //        Gizmos.color=Color.magenta;
@@ -96,5 +96,6 @@ namespace FlatPhysics.Unity
                 Gizmos.DrawWireCube(Vector2.zero, dim);
             }
         }
+#endif
     }
 }
