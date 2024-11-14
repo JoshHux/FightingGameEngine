@@ -5,6 +5,7 @@ Vecderg (UI programming and physics systems), JackTR55555 (dev tools and input s
 ## What is this?
 
 This is a project where I attempted to make an in-depth fighting game engine in Unity. Given that the alternative to making a fighting game is UFE, I wanted to make something more accessible and deeper, with more freedom and customization
+![](doc/gifs/example.png)
 
 The project uses a fixed-point physics system, allowing for across-the-board determinism. Basically, I'm gonna implement rollback into this thing.
 
