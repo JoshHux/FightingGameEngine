@@ -12,7 +12,7 @@ The main backbone of this system is a state machine (what a surprise) but with a
 ![](doc/images/transitions.png)
 
 There is some scripting involved, however. As part of an effort to mimic the Arc Systemworks's BB script, the frames can be individually scripted for changes relating to the state machine or for gameplay, such as setting hit/hurtbox dimesions, manipulating resources, changing velocity, etc.\
-![](doc/images/scripting.png)
+![](doc/images/scripting(2).png)
 
 The physics is a heavily modified version of:
 
