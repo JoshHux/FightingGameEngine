@@ -194,6 +194,7 @@ namespace Spax
             currentFrameText.text = currentFrame.ToString();
 
             _roundTimer.text = ((int)(maxTime - ((Fix64)matchFrames / secondFrames))).ToString();
+            if(this.paused){_roundTimer.text +="\nFRAME BY FRAME MODE";}
 
             if ((Fix64)matchFrames / secondFrames >= maxTime)
             {
