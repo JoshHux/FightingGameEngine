@@ -4,7 +4,7 @@ Vecderg (UI programming and physics systems), JackTR55555 (dev tools and input s
 
 ## What is this?
 
-This is a project where I attempted to make an in-depth fighting game engine in Unity. Given that the alternative to making a fighting game is UFE, I wanted to make something more accessible and deeper, with more freedom and customization
+This is a project where I attempted to make an in-depth fighting game engine in Unity (currently for 2020.3.34). Given that the alternative to making a fighting game is UFE, I wanted to make something more accessible and deeper, with more freedom and customization
 
 ![](doc/gifs/example.gif)
 
@@ -33,8 +33,6 @@ Animations and other rendering related characteristics are also handled in the s
 
 The physics is a heavily modified version of: ![Flat Physics](https://github.com/twobitcoder101/FlatPhysics)
 
-
-
 ## Current Status: Pre-Alpha
 
 The Current Status of this engine is still in the preliminary stages of development.
@@ -46,6 +44,7 @@ Plans to continue are still up in the air as my life updates, not abandoned, but
 - Fixing charge inputs, holding down inputs is still being worked on and will be fixed in the future.
 - Making the rendering portion of states also be scriptable like the frames.
 - Rollback netcode and save-state-based features such as replays, training mode dummies, etc are the next big milestone.
+- Updating for more recent versions of Unity, not a priority but will make it more accessible for more people.
 - PROPER DOCUMENTATION, if you're using this as a starting point, sorry to say but no documentation yet! A wiki is planned to come in the future, however.
 
 ## Getting Started
