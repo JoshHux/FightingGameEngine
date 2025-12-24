@@ -799,7 +799,7 @@ MonoBehaviour:
           m_rawValue: 0
         y:
           m_rawValue: 0
-  _script: "if(frame==15)\n\tSetHitboxes(0)"
+  _script: "if(frame==5)\n\tApplyVel([20,0])\nif(frame==15)\n\tSetHitboxes(0)\n\tSetVel([0,0])"
   _animation:
   - _atFrame: 1
     _animationName: Atk_5D

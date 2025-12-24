@@ -19,12 +19,15 @@ MonoBehaviour:
   inheritCond_: 1
   inheritCancel_: 1
   _duration: 0
-  _stateConditions: 1
+  loop_: 0
+  _stateConditions: 5
   _toggleState: 0
   _cancels: 0
   _toggleCancel: 0
   _enterEvents: 0
   _exitEvents: 0
   _transitions: []
-  _frames: []
+  _hitboxSets: []
+  _hurtboxSets: []
+  _script: 
   _animation: []

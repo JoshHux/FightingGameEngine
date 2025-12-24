@@ -6,7 +6,8 @@ namespace FightingGameEngine.Data
     [System.Serializable]
     public struct InputItem
     {
-        public InputEnum Input;
+        public InputEnum PressedInput;
+        public InputEnum ReleasedInput;
         public InputFlags Flags;
         public int HoldDuration;
         //tells how long this input has been unlenient for, only matters for first input
