@@ -7,8 +7,8 @@ namespace FightingGameEngine.Commands
     [System.Serializable]
     public class CondTimerEvent : ICommand
     {
-        int _dur;
-        StateConditions _cond;
+        [UnityEngine.SerializeField] int _dur;
+        [UnityEngine.SerializeField] StateConditions _cond;
 
         public CondTimerEvent(int d, StateConditions c)
         {

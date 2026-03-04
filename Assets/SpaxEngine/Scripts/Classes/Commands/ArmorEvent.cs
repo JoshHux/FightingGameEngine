@@ -6,7 +6,7 @@ namespace FightingGameEngine.Commands
     [System.Serializable]
     public class ArmorEvent : ICommand
     {
-        private int _armorHits;
+        [UnityEngine.SerializeField] private int _armorHits;
         public ArmorEvent(int a)
         {
             this._armorHits = a;

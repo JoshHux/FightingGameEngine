@@ -7,7 +7,7 @@ namespace FightingGameEngine.Commands
     [System.Serializable]
     public class SetGravityEvent : ICommand
     {
-        private Fix64 _g;
+        [UnityEngine.SerializeField] private Fix64 _g;
         public SetGravityEvent(Fix64 g)
         {
             this._g = g;

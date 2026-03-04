@@ -6,7 +6,7 @@ namespace FightingGameEngine.Commands
 {
     public class SetHurtboxEvent : ICommand
     {
-        private HurtboxHolder _data;
+        [UnityEngine.SerializeField] private HurtboxHolder _data;
         public SetHurtboxEvent(HurtboxHolder data)
         {
             this._data = data;

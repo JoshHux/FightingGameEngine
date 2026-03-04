@@ -33,12 +33,13 @@ MonoBehaviour:
     _minimumHeight:
       m_rawValue: 0
     _cancelConditions: 0
-    _requiredInputs:
-    - Input: 16
-      Flags: 536870912
+    _requiredControllerState:
+      PressedInput: 16
+      ReleasedInput: 0
+      Flags: 0
       HoldDuration: 0
       UnlenientTime: 0
-      _lenientBuffer: 0
+    _requiredInputs: []
     _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
@@ -57,12 +58,13 @@ MonoBehaviour:
     _minimumHeight:
       m_rawValue: 0
     _cancelConditions: 0
-    _requiredInputs:
-    - Input: 8
-      Flags: 536870912
+    _requiredControllerState:
+      PressedInput: 8
+      ReleasedInput: 0
+      Flags: 0
       HoldDuration: 0
       UnlenientTime: 0
-      _lenientBuffer: 0
+    _requiredInputs: []
     _requiredTransitionFlags: 1
     _transitionEvents: 0
     _requiredResources:
@@ -81,6 +83,12 @@ MonoBehaviour:
     _minimumHeight:
       m_rawValue: 0
     _cancelConditions: 0
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
     _requiredInputs: []
     _requiredTransitionFlags: 2
     _transitionEvents: 0

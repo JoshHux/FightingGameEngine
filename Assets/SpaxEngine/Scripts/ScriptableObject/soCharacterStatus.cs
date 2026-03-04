@@ -119,7 +119,7 @@ namespace FightingGameEngine.Data
         //public bool CheckState { get { return this.m_checkState; } set { this.m_checkState = value; } }
 
         //for easy access from the InputRecorder object
-        public InputItem CurrentControllerState { get { return this._inputRecorder.CurrentControllerState; } set { this._inputRecorder.CurrentControllerState = value; } }
+        public InputSnapshot CurrentControllerState { get { return this._inputRecorder.CurrentControllerState; } set { this._inputRecorder.CurrentControllerState = value; } }
         public InputItem[] Inputs { get { return this._inputRecorder.GetInputs(); } }
 
         public RendererInfo RendererInfo { get { return this.m_rendererInfo; } set { this.m_rendererInfo = value; } }

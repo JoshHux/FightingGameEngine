@@ -6,7 +6,7 @@ namespace FightingGameEngine
 
     public class soStaticValues : ScriptableObject
     {
-        [SerializeField] private int _inputBuffer = 3;
+        [SerializeField] private int _inputBuffer = 5;
         [SerializeField] private int _inputLeniency = 10;
 
         public int InputBuffer { get { return this._inputBuffer; } }

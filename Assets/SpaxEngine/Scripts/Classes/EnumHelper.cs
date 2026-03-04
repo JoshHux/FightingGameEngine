@@ -12,6 +12,8 @@ namespace FightingGameEngine.Enum
         //otherwise, it will only check for if any of the enum exists in val
         public static bool HasEnum(uint val, uint compare, bool strict)
         {
+
+            if (compare == 0) { return true; }
             if (strict)
             {
                 return (val & compare) == compare;
@@ -47,6 +49,56 @@ namespace FightingGameEngine.Enum
         public static uint isNotZero(uint n)
         { // unsigned is safer for bit operations
             return ((n | (~n + 1)) >> 31) & 1;
+        }
+
+        //SPECIFICALLY for InputEnum, flips to the correct direction depending on the input int
+        //  -1 for looking left and 1 for looking right
+        public static InputEnum FaceDir(int dir, InputEnum inputEnum)
+        {
+
+            //if dir is negative, this is 1
+            uint dirIsNeg = ((uint)dir) >> 31;
+
+            //direction component of input
+            var inputDir = inputEnum & InputEnum.DIRECTIONS;
+
+            //gets the X-bits we want to check
+            var xDir = inputDir & InputEnum.X_NONZERO;
+
+            //step 1: xor directions 7,9 ; 4,6 ; 1,3
+            var xorXUp = (xDir & InputEnum.X_NONZERO_UP) ^ InputEnum.X_NONZERO_UP;
+            var xorXMid = (xDir & InputEnum.X_NONZERO_MID) ^ InputEnum.X_NONZERO_MID;
+            var xorXLow = (xDir & InputEnum.X_NONZERO_LOW) ^ InputEnum.X_NONZERO_LOW;
+            //step 2: divide by original respective x-nonzero values
+            //      if the xor resulted in a bit getting lost, dividing by what was xor-ed would result in 0
+            var divXUp = ((uint)xorXUp / (uint)InputEnum.X_NONZERO_UP);
+            var divXMid = ((uint)xorXMid / (uint)InputEnum.X_NONZERO_MID);
+            var divXLow = ((uint)xorXLow / (uint)InputEnum.X_NONZERO_LOW);
+            //step 3: xor all the divided values by 1
+            //      this is so that, for the divisions that resulted in 1, they become 0 and 0 becomes 1
+            var multXUp = (uint)divXUp ^ 1;
+            var multXMid = (uint)divXMid ^ 1;
+            var multXLow = (uint)divXLow ^ 1;
+            //step 4: multiply the xor in step 1 with the respective values we find in step 4
+            //      this is so that we only keep the parts of the x-nonzero mask that lost bits (AKA the bits we want to flip along the y axis)
+            var partXUp = (InputEnum)((uint)InputEnum.X_NONZERO_UP * multXUp);
+            var partXMid = (InputEnum)((uint)InputEnum.X_NONZERO_MID * multXMid);
+            var partXLow = (InputEnum)((uint)InputEnum.X_NONZERO_LOW * multXLow);
+
+
+            //step 5: construct the final mask
+            var dirMask = partXUp | partXMid | partXLow;
+
+            //if the direction is positive, multiply by 0 and the mask does nothing
+            var finalMask = (InputEnum)((uint)dirMask * dirIsNeg);
+
+            //xor the final mask (directions 8,5,2 all end up with the mask as 0, so they don't effect the end direction)
+            var newDir = inputDir ^ finalMask;
+            var ret = (inputEnum & InputEnum.BUTTONS) | newDir;
+
+
+
+            return ret;
         }
     }
 }

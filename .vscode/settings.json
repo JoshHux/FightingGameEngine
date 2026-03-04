@@ -52,5 +52,5 @@
         "Temp/": true
     },
     "dotnet.preferCSharpExtension": true,
-    "dotnet.defaultSolution": "FightingGameEngine.sln"
+    "dotnet.defaultSolution": "FightingGameEngine.slnx"
 }

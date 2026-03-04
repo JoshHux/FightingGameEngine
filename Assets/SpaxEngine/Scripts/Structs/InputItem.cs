@@ -15,41 +15,40 @@ namespace FightingGameEngine.Data
         //bool that tells whther or not we should ignore the buffer time when checking the input
         //only matters for the SECOND item in the input array
         //[UnityEngine.HideInInspector]
-        public bool _lenientBuffer;
 
-        public bool LenientBuffer { get { return this._lenientBuffer; } set { this._lenientBuffer = value; } }
 
-        public InputItem(InputEnum input)
+        public InputItem(InputEnum pressedInput, InputEnum releasedInput)
         {
-            this.Input = input;
+            this.PressedInput = pressedInput;
+            this.ReleasedInput = releasedInput;
             this.Flags = 0;
             this.HoldDuration = 0;
             this.UnlenientTime = 0;
-            this._lenientBuffer = false;
         }
 
-        public InputItem(InputEnum input, InputFlags flags, bool lenBuf)
+        public InputItem(InputEnum pressedInput, InputEnum releasedInput, InputFlags flags)
         {
-            this.Input = input;
-            this.Flags = flags;
+
+            this.PressedInput = pressedInput;
+            this.ReleasedInput = releasedInput; this.Flags = flags;
             this.HoldDuration = 0;
-                       this.UnlenientTime = 0;
- this._lenientBuffer = lenBuf;
+            this.UnlenientTime = 0;
         }
 
-        public InputItem(InputEnum input, InputFlags flags, bool lenBuf, int holdDur)
+        public InputItem(InputEnum pressedInput, InputEnum releasedInput, InputFlags flags, int holdDur)
         {
-            this.Input = input;
+
+            this.PressedInput = pressedInput;
+            this.ReleasedInput = releasedInput;
             this.Flags = flags;
             this.HoldDuration = holdDur;
-                       this.UnlenientTime = 0;
- this._lenientBuffer = lenBuf;
+            this.UnlenientTime = 0;
         }
 
         //returns true if the x-axis is being pressed
         public bool WantsToMove()
         {
-            var ret = EnumHelper.HasEnum((uint)this.Input, (uint)InputEnum.X_NONZERO);
+            var ret = false;//EnumHelper.HasEnum((uint)this.Input, (uint)InputEnum.X_NONZERO);
 
             return ret;
         }
@@ -59,49 +58,52 @@ namespace FightingGameEngine.Data
         {
             //returns 1 if input has either left or right input
             //negX is -1 because we add posX and negX for the return
-            int negX = -1 * (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.X_NEGATIVE));
-            int posX = (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.X_POSITIVE));
+            //int negX = -1 * (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.X_NEGATIVE));
+            //int posX = (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.X_POSITIVE));
 
             //posX and negX both cannot have a nonzero value because of input stuff
             //so one has to be 0, so the total will be positive if right input and negative if right input
-            var ret = negX + posX;
+            //var ret = negX + posX;
 
-            return ret;
+            //return ret;
+            return 0;
         }
         //returns -1 or 1 depending on x-axis
         public int Y()
         {
             //returns 1 if input has either left or right input
             //negX is -1 because we add posX and negX for the return
-            int negY = -1 * (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.Y_NEGATIVE));
-            int posY = (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.Y_POSITIVE));
+            //int negY = -1 * (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.Y_NEGATIVE));
+            //int posY = (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.Y_POSITIVE));
 
             //posX and negX both cannot have a nonzero value because of input stuff
             //so one has to be 0, so the total will be positive if right input and negative if right input
-            var ret = negY + posY;
+            //var ret = negY + posY;
 
-            return ret;
+            //return ret;
+            return 0;
         }
 
 
         //returns the set of InputEnum that are lost from this InputItem to the other InputItem
         public InputEnum GetInputsLost(InputItem other)
         {
-            var otherEnum = other.Input;
+            //var otherEnum = other.Input;
 
             //get the differences in the enum
-            var diff = this.Input ^ otherEnum;
+            //var diff = this.Input ^ otherEnum;
 
             //AND the differences so that we ONLY get the inputs that were lost from THIS Input Item's perspective
-            var ret = diff & this.Input;
+            //var ret = diff & this.Input;
 
-            return ret;
-
+            //return ret;
+            return 0;
         }
 
         //returns an input item with a L/R possibly flipped
-        public InputItem GetDirection(int dir)
+        public InputItem FaceDir(int dir)
         {
+            /*
             //if dir is negative, this is 1
             uint dirIsNeg = ((uint)dir) >> 31;
 
@@ -147,6 +149,11 @@ namespace FightingGameEngine.Data
             var ret = new InputItem(newInput, this.Flags, this.LenientBuffer, this.HoldDuration);
 
             return ret;
+            */
+
+            return new InputItem(EnumHelper.FaceDir(dir, this.PressedInput), EnumHelper.FaceDir(dir, this.ReleasedInput), this.Flags, this.HoldDuration);
         }
+
+
     }
 }

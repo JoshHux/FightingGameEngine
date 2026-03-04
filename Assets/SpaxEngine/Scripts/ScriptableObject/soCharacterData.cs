@@ -72,10 +72,10 @@ namespace FightingGameEngine.Data
         public void ApplyEditorPoolItems() { this._projectiles.ApplyGuiVal(); }
 #endif
 
-        public TransitionData CheckMoveList(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
+        public TransitionData CheckMoveList(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, InputSnapshot curSnapshot, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
-            ret = this._moveList.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir, yVel, yPos));
+            ret = this._moveList.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, curSnapshot, facingDir, yVel, yPos));
 
             //if (ret != null && ret.TargetState != null && ret.TargetState.name == "Grab-Back") { Debug.Log("found it"); }
 

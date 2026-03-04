@@ -13,7 +13,7 @@ namespace FightingGameEngine.Commands
             this._cancel = c;
         }
 
-        public void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
+        public  void Execute(in LivingObject lobj, in soCharacterStatus status, in soCharacterData data)
         {
             lobj.Status.CancelFlags ^= this._cancel;
         }

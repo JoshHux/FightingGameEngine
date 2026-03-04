@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e48cd7a731c5d545bb812b36421eda4, type: 3}
   m_Name: StaticValues
   m_EditorClassIdentifier: 
-  _inputBuffer: 3
-  _inputLeniency: 15
+  _inputBuffer: 5
+  _inputLeniency: 10

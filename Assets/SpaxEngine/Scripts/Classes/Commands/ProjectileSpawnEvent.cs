@@ -7,10 +7,10 @@ namespace FightingGameEngine.Commands
     [System.Serializable]
     public class ProjectileSpawnEvent : ICommand
     {
-        int _p;
-        FVector2 _pos;
-        Fix64 _rot;
-        
+        [UnityEngine.SerializeField] int _p;
+        [UnityEngine.SerializeField] FVector2 _pos;
+        [UnityEngine.SerializeField] Fix64 _rot;
+
         public ProjectileSpawnEvent(int p, FVector2 pos, Fix64 rot)
         {
             this._p = p;

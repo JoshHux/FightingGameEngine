@@ -104,8 +104,8 @@ namespace FightingGameEngine.Gameplay
                 //"current" controller state, for easy reference
                 var curInput = this.status.CurrentControllerState;
                 //getting the buttons only for later refrence
-                var curInputBtn = curInput.Input & InputEnum.BUTTONS;
-                var finalDir = curInput.Input & InputEnum.DIRECTIONS;
+                var curInputBtn = curInput.InputStates & InputEnum.BUTTONS;
+                var finalDir = curInput.InputStates & InputEnum.DIRECTIONS;
                 if (direction)
                 {
                     //get the x-direction from dir, X_ZERO is the default so we only need to check negative or positive values
@@ -128,7 +128,7 @@ namespace FightingGameEngine.Gameplay
                 var finalInput = finalDir | curInputBtn;
 
                 //new InputItem we assign as the CurrentControllerState
-                var newCurState = new InputItem(finalInput);
+                var newCurState = new InputSnapshot(finalInput);
 
                 //assign new CurrentControllerState
                 this.status.CurrentControllerState = newCurState;
@@ -163,7 +163,7 @@ namespace FightingGameEngine.Gameplay
                         command = (InputEnum)System.Enum.Parse(typeof(InputEnum), cont.inputDateToRecordAndPlay.frameCommands[manager.currentFrame]);
 
                         //new InputItem we assign as the CurrentControllerState
-                        var newCurState = new InputItem(command);
+                        var newCurState = new InputSnapshot(command);
 
                         //assign new CurrentControllerState
                         this.status.CurrentControllerState = newCurState;
@@ -174,8 +174,8 @@ namespace FightingGameEngine.Gameplay
         private void SimulateRecordPlayInputs()
         {
             var curInput = this.status.CurrentControllerState;
-            RecordInputsEachFrame(curInput.Input);
-            PlayInputEachFrame(curInput.Input);
+            RecordInputsEachFrame(curInput.InputStates);
+            PlayInputEachFrame(curInput.InputStates);
         }
         #endregion
 

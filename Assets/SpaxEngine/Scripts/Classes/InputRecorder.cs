@@ -8,32 +8,34 @@ namespace FightingGameEngine.Data
     public class InputRecorder
     {
         //current controller state, yet to be buffered
-        [SerializeField] private InputItem _controllerState;
+        [SerializeField] private InputSnapshot _controllerState;
         //last controller state that was buffered
-        [SerializeField] private InputItem _previousControllerState;
-        [SerializeField] private List<InputItem> _recordedChanges;
+        [SerializeField] private InputSnapshot _previousControllerState;
+        [SerializeField] private List<InputSnapshot> _recordedInputs;
+
+        [SerializeField] private List<InputItem> _debugInputs;
 
         private int _lenLimit = 200;
 
-        public InputItem CurrentControllerState { get { return this._controllerState; } set { this._controllerState = value; } }
+        public InputSnapshot CurrentControllerState { get { return this._controllerState; } set { this._controllerState = value; } }
 
         public InputRecorder()
         {
-            this._controllerState = new InputItem();
-            this._previousControllerState = new InputItem();
-            this._recordedChanges = new List<InputItem>();
+            this._controllerState = new InputSnapshot();
+            this._previousControllerState = new InputSnapshot();
+            this._recordedInputs = new List<InputSnapshot>();
             //add default value to list, needs at least 1 element to make buffer behave
-            this._recordedChanges.Add(new InputItem());
+            this._recordedInputs.Add(new InputSnapshot());
         }
 
         public void ResetLeniency()
         {
-            int lastInd = this._recordedChanges.Count - 1;
-            var toReplace = this._recordedChanges[lastInd];
+            int lastInd = this._recordedInputs.Count - 1;
+            var toReplace = this._recordedInputs[lastInd];
 
-            var newThing = new InputItem(toReplace.Input, toReplace.Flags, false, toReplace.HoldDuration);
+            var newThing = new InputSnapshot(toReplace.InputStates, toReplace.HoldDuration);
 
-            this._recordedChanges[lastInd] = newThing;
+            this._recordedInputs[lastInd] = newThing;
         }
 
         //returns true if new element is added to vector or if the framesHeld on that element is <=leniencey
@@ -45,81 +47,29 @@ namespace FightingGameEngine.Data
 
             //get the last buffered change
             //index of last buffered
-            int recordedLen = this._recordedChanges.Count;
+            int recordedLen = this._recordedInputs.Count;
             int lastInd = recordedLen - 1;
-            var lastBuffered = this._recordedChanges[lastInd];
+            var lastBuffered = this._recordedInputs[lastInd];
             //InputEnum of last buffered input changes
-            var lastEnum = lastBuffered.Input;
+            var lastEnum = lastBuffered.InputStates;
 
-            //get inputs released
-            var releasedInputs = this._previousControllerState.GetInputsLost(this._controllerState);
+            //buffer last input
+            bool checkControllerState = lastEnum == this._controllerState.InputStates;
 
-            //if there were inputs released
-            if (releasedInputs != 0)
+            if (!checkControllerState)
             {
-                //get whether or not we the previous buffered change is the same as this one
-                var noChangeFlag = (InputFlags)(EnumHelper.HasEnumInt((uint)releasedInputs, (uint)lastEnum) << 2);
-                //total flags we apply to the new InputItem to be buffered, released tag since we're releasing this input
-                var totalFlags = noChangeFlag | InputFlags.RELEASED;
-
-                //the InputItem to add
-                //var toAdd = new InputItem(releasedInputs, totalFlags, false);
-                var toAdd = new InputItem(releasedInputs, totalFlags, bufferLeniency);
-
-                //if too meany inputs remove oldest item
-                //if no input was in last enum, remove last enum
-
-                if ((this._recordedChanges.Count >= this._lenLimit) || (lastEnum == 0)) { this._recordedChanges.RemoveAt(0); lastInd -= 1; }
-
-
-                //add the new changes to the end of the list
-                this._recordedChanges.Add(toAdd);
-
-                //added new changes, assign new lastBuffered (useful for future)
-                lastBuffered = toAdd;
-
-                //increment lastInd, USEFUL LATER
-                lastInd += 1;
-
-                //change the lastEnum, since we just added the last input changes
-                lastEnum = releasedInputs;
+                this._recordedInputs.Add(new InputSnapshot(this._controllerState.InputStates));
+                lastBuffered = this._recordedInputs[lastInd];
             }
 
-            //get inputs released
-            var pressedInputs = this._controllerState.GetInputsLost(this._previousControllerState);
-
-            //if there were inputs pressed
-            if (pressedInputs != 0)
-            {
-                //get whether or not we the previous buffered change is the same as this one
-                var noChangeFlag = (InputFlags)(EnumHelper.HasEnumInt((uint)pressedInputs, (uint)lastEnum) << 2);
-                //total flags we apply to the new InputItem to be buffered, released tag since we're releasing this input
-                var totalFlags = noChangeFlag | InputFlags.PRESSED;
-
-                //the InputItem to add
-                //var toAdd = new InputItem(pressedInputs, totalFlags, false);
-                var toAdd = new InputItem(pressedInputs, totalFlags, bufferLeniency);
-
-                if ((this._recordedChanges.Count >= this._lenLimit) || (lastEnum == 0)) { this._recordedChanges.RemoveAt(0); lastInd -= 1; }
-
-
-                //add the new changes to the end of the list
-                this._recordedChanges.Add(toAdd);
-
-                //increment lastInd, USEFUL LATER
-                lastInd += 1;
-
-                //added new changes, assign new lastBuffered (useful for future)
-                lastBuffered = toAdd;
-            }
             //lastBuffered.LenientBuffer = bufferLeniency;
 
             //increment the hold duration of the last item in the list
             //don't ask why I'm doing it like this, I don't even want to know, I'm tired
             lastBuffered.HoldDuration += 1;
             //if we're in a situation where we shouldn't be lenient to inputs, increase unlenient time
-            if (!bufferLeniency) { lastBuffered.UnlenientTime += 1; }
-            this._recordedChanges[lastInd] = lastBuffered;
+            //if (!bufferLeniency) { lastBuffered.HoldDuration += 1; }
+            this._recordedInputs[lastInd] = lastBuffered;
 
             //TODO: *IF* processing inputs takes too long, add method here to hard limit the number of input changes we have 
 
@@ -130,11 +80,10 @@ namespace FightingGameEngine.Data
             //  last added element has a hold duration LESS than the static input leniency
             //  OR the last added element has LenientBuffer set to true
             bool durCheck = lastBuffered.HoldDuration < Spax.SpaxManager.Instance.StaticValues.InputBuffer;
-            bool leniencyCheck = lastBuffered.LenientBuffer;
+            bool leniencyCheck = true;// lastBuffered.LenientBuffer;
 
             //FINALLY, we set the or condition and return
-            var ret = durCheck || leniencyCheck;
-
+            var ret = durCheck;
             return ret;
         }
 
@@ -142,45 +91,88 @@ namespace FightingGameEngine.Data
         public InputItem[] GetInputs()
         {
             var controllerState = this._controllerState;
-            //controller state should only have the CHECK_CONTROLLER flag
-            controllerState.Flags = InputFlags.CHECK_CONTROLLER;
 
 
-            //check if we should return the rest of the inputs
-            bool sendInputs = true;
-            int lastInd = this._recordedChanges.Count - 1;
-            int secondLastInd = lastInd - 1;
+            /*
+                        //use the list of snapshots to figure out the list of changes
+                        //controller state should only have the CHECK_CONTROLLER flag
+                        controllerState.Flags = InputFlags.CHECK_CONTROLLER;
 
-            if (lastInd > 0)
-            {
-                var firstItem = this._recordedChanges[lastInd];
-                var secondItem = this._recordedChanges[secondLastInd];
 
-                int inputBufferLeniency = Spax.SpaxManager.Instance.StaticValues.InputBuffer;
+                        //check if we should return the rest of the inputs
+                        bool sendInputs = true;
+                        int lastInd = this._recordedInputs.Count - 1;
+                        int secondLastInd = lastInd - 1;
 
-                sendInputs = (firstItem.HoldDuration <= inputBufferLeniency) || (firstItem.LenientBuffer && (secondItem.HoldDuration <= inputBufferLeniency));
-            }
+                        if (lastInd > 0)
+                        {
+                            var firstItem = this._recordedInputs[lastInd];
+                            var secondItem = this._recordedInputs[secondLastInd];
+
+                            int inputBufferLeniency = Spax.SpaxManager.Instance.StaticValues.InputBuffer;
+
+                            sendInputs = (firstItem.HoldDuration <= inputBufferLeniency) || (firstItem.LenientBuffer && (secondItem.HoldDuration <= inputBufferLeniency));
+                        }*/
 
             //list to return
             var hold = new List<InputItem>();
 
             //if we want to send inputs
-            if (sendInputs)
-            {
-                //copy the list into a seperate list, this so we can add the controller state to the end, flip it and turn it into an array
-                hold = new List<InputItem>(this._recordedChanges);
-            }
+            //if (sendInputs)
+            //{
+            //iterate through and find the differences
+            //copy the list into a seperate list, this so we can add the controller state to the end, flip it and turn it into an array
+            //hold = new List<InputItem>(this._recordedInputs);
+            //}
 
-            //Debug.Log(hold.Count);
+            //start from the most recent input and go backwards
+            int i = this._recordedInputs.Count - 2;
+            /*
+                        if (i == -1)
+                        {
+                            var toAdd = InputSnapshot.DiffFromNew(this._recordedInputs[0], new InputSnapshot());
+                            toAdd.HoldDuration = this._recordedInputs[i].HoldDuration;
+                            hold.Add(toAdd);
+
+                        }
+                        else
+                        {
+                            */
+            InputItem prevItem = new InputItem();
+
+            while (i >= 0)
+            {
+                var toAdd = InputSnapshot.DiffFromNew(this._recordedInputs[i], this._recordedInputs[i + 1]);
+                //to edit later just need a way to check to uninterrupted inputs
+                if (toAdd.PressedInput == prevItem.ReleasedInput || toAdd.ReleasedInput == prevItem.PressedInput)
+                {
+                    toAdd.Flags |= InputFlags.NO_INTERRUPT;
+                }
+
+                //how long has it been since the change?
+                //  answer: as long as the new input has been around
+                toAdd.HoldDuration = this._recordedInputs[i + 1].HoldDuration;
+
+                //if ((uint)this._recordedInputs[i].InputStates == 0) { toAdd.HoldDuration = this._recordedInputs[i].HoldDuration; }
+
+                hold.Add(toAdd);
+                prevItem = toAdd;
+
+                i--;
+            }
+            //}
+            //if (hold.Count > 0) { Debug.Log(hold[0].HoldDuration); }
 
             //add the controller state to the end
-            hold.Add(controllerState);
+            //hold.Add(controllerState);
 
             //reverse the order of hold
-            hold.Reverse();
+            //hold.Reverse();
 
             //now, turn it into an array and return
             var ret = hold.ToArray();
+
+            this._debugInputs = hold;
 
 
             return ret;

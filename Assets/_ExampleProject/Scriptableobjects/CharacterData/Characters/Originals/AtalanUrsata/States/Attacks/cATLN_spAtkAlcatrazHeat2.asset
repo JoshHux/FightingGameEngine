@@ -30,9 +30,6 @@ MonoBehaviour:
   _hitboxSets: []
   _hurtboxSets: []
   _script: 
-  _frames:
-  - id: 0
-  - id: 0
   _animation:
   - _atFrame: 1
     _animationName: spAtk_AlcHeat
@@ -56,7 +53,3 @@ MonoBehaviour:
         m_rawValue: 0
       z:
         m_rawValue: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: , ns: , asm: }

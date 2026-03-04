@@ -449,8 +449,9 @@ namespace FightingGameEngine.Gameplay
             var curCan = this.status.CancelFlags;
             var curRsrc = this.status.CurrentResources;
             var curInpt = this.status.Inputs;
+            var curCtrlStt = this.status.CurrentControllerState;
             var curFacing = this.status.CurrentFacingDirection;
-            var trans = this.status.CurrentState.CheckTransitions(trnFlags, curCan, curRsrc, curInpt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
+            var trans = this.status.CurrentState.CheckTransitions(trnFlags, curCan, curRsrc, curInpt, curCtrlStt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
             //flags that the transition we want to use SHOULD have
             var reqFlags = trnFlags & TransitionFlags.REQ_FLAGS;
 
@@ -464,7 +465,7 @@ namespace FightingGameEngine.Gameplay
             if (trans == null || ((!this.status.InHitstop) && (reqFlags != (trans.RequiredTransitionFlags & TransitionFlags.REQ_FLAGS))))
             {
                 //check the move list in the data instead
-                trans = this.data.CheckMoveList(trnFlags, curCan, curRsrc, curInpt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
+                trans = this.data.CheckMoveList(trnFlags, curCan, curRsrc, curInpt, curCtrlStt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
                 //Debug.Log(this.gameObject.name + " first check :: " + this.status.TransitionInfo.GetValue(0) + " " + this.status.TransitionInfo.GetValue(1));
 
                 //if (trans == null)
@@ -519,11 +520,12 @@ namespace FightingGameEngine.Gameplay
             var curCan = this.status.CancelFlags;
             var curRsrc = this.status.CurrentResources;
             var curInpt = this.status.Inputs;
+            var curCtrlStt = this.status.CurrentControllerState;
             var curFacing = this.status.CurrentFacingDirection;
 
             var universalStateList = Spax.SpaxManager.Instance.UniversalStates;
 
-            var trans = universalStateList.CheckTransition(universalStateInd, trnFlags, curCan, curRsrc, curInpt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
+            var trans = universalStateList.CheckTransition(universalStateInd, trnFlags, curCan, curRsrc, curInpt, curCtrlStt, curFacing, this.status.TotalVelocity.y, this.status.CurrentPosition.y);
 
             //if (universalStateInd == 2) { Debug.Log(trans.TargetState.name); }
 

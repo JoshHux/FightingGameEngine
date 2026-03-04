@@ -31,6 +31,14 @@ namespace FightingGameEngine.Data
 
         public List<ICommand> get_events()
         {
+            int i = 0;
+
+            while (i < this._events.Count)
+            {
+                Debug.Log(this._events[i]);
+
+                i++;
+            }
 
             return this._events;
         }

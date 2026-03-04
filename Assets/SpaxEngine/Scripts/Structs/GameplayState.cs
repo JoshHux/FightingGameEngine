@@ -31,7 +31,7 @@ namespace FightingGameEngine.Data
         public Fix64 GroundBounceScaling;
         public int WallBounces;
         public Fix64 WallBounceScaling;
-        public InputItem CurrentControllerState;
+        public InputSnapshot CurrentControllerState;
         public int FacingDir;
 
         public Arr8<HitboxState> HitboxStates;

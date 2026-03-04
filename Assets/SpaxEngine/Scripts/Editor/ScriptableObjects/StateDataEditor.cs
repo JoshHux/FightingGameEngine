@@ -15,6 +15,7 @@ namespace FightingGameEngine.UnityInspector
             if (GUILayout.Button("Compile Program"))
             {
                 charData.Compile();
+                AssetDatabase.SaveAssets();
             }
         }
     }

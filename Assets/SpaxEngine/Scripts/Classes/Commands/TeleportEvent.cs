@@ -8,8 +8,8 @@ namespace FightingGameEngine.Commands
     [System.Serializable]
     public class TeleportEvent : ICommand
     {
-        private FVector2 _pos;
-        private TeleportMode _mode;
+        [UnityEngine.SerializeField] private FVector2 _pos;
+        [UnityEngine.SerializeField] private TeleportMode _mode;
         public TeleportEvent(FVector2 p, TeleportMode m)
         {
             this._pos = p;

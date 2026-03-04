@@ -40,7 +40,7 @@ namespace FightingGameEngine.Data
 #endif
 
 
-        private List<FrameData> _frames;
+        [SerializeField] private List<FrameData> _frames;
         [SerializeField] private List<AnimationFrameData> _animation;
 
         public StateID StateID { get { return this._id; } }
@@ -171,11 +171,11 @@ namespace FightingGameEngine.Data
             return ret;
         }
 
-        public TransitionData CheckTransitions(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
+        public TransitionData CheckTransitions(TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, InputSnapshot curSnapshot, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
 
-            ret = this.Transitions.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir, yVel, yPos));
+            ret = this.Transitions.Find(hold => hold.CheckTransition(curFlags, curCan, curResources, playerInputs, curSnapshot, facingDir, yVel, yPos));
             return ret;
         }
 

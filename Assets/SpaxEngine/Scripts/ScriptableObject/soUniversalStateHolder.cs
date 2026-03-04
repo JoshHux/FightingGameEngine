@@ -34,7 +34,7 @@ namespace FightingGameEngine.Data
         }
 #endif
         //check the transition to specific state
-        public TransitionData CheckTransition(int targetStateIndex, TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, int facingDir, Fix64 yVel, Fix64 yPos)
+        public TransitionData CheckTransition(int targetStateIndex, TransitionFlags curFlags, CancelConditions curCan, ResourceData curResources, InputItem[] playerInputs, InputSnapshot curSnapshot, int facingDir, Fix64 yVel, Fix64 yPos)
         {
             TransitionData ret = null;
             TransitionData potenTrans = this._stateList[targetStateIndex];
@@ -61,7 +61,7 @@ namespace FightingGameEngine.Data
                 i++;
             }
 */
-            bool gotTransition = potenTrans.CheckTransition(curFlags, curCan, curResources, playerInputs, facingDir, yVel, yPos);
+            bool gotTransition = potenTrans.CheckTransition(curFlags, curCan, curResources, playerInputs, curSnapshot, facingDir, yVel, yPos);
 
             if (gotTransition)
             {

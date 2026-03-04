@@ -7,7 +7,7 @@ namespace FightingGameEngine.Commands
     [System.Serializable]
     public class ToggleConditionEvent : ICommand
     {
-        private StateConditions _cond;
+        [UnityEngine.SerializeField] private StateConditions _cond;
         public ToggleConditionEvent(StateConditions c)
         {
             this._cond = c;

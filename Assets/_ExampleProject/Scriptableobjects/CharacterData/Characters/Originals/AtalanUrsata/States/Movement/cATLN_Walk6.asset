@@ -33,12 +33,18 @@ MonoBehaviour:
     _minimumHeight:
       m_rawValue: 0
     _cancelConditions: 0
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 16
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
     _requiredInputs:
-    - Input: 16
+    - PressedInput: 0
+      ReleasedInput: 0
       Flags: 1610612736
       HoldDuration: 0
       UnlenientTime: 0
-      _lenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 0
     _requiredResources:

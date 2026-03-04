@@ -6,7 +6,7 @@ namespace FightingGameEngine.Commands
     [System.Serializable]
     public class SuperFlashEvent : ICommand
     {
-        private int _dur;
+        [UnityEngine.SerializeField] private int _dur;
         public SuperFlashEvent(int d)
         {
             this._dur = d;

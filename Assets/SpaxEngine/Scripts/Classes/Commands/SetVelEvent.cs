@@ -6,7 +6,7 @@ namespace FightingGameEngine.Commands
 {
     public class SetVelEvent : ICommand
     {
-        private FVector2 _vel;
+        [UnityEngine.SerializeField] private FVector2 _vel;
         public SetVelEvent(FVector2 vel)
         {
             this._vel = vel;

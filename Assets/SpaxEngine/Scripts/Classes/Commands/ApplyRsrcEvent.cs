@@ -6,7 +6,7 @@ namespace FightingGameEngine.Commands
     [System.Serializable]
     public class ApplyRsrcEvent : ICommand
     {
-        private ResourceData _resources;
+        [UnityEngine.SerializeField] private ResourceData _resources;
         public ApplyRsrcEvent(ResourceData rs)
         {
             this._resources = rs;
