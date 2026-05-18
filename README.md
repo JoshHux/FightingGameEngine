@@ -8,7 +8,7 @@ Art/modeling -  spirachuu
 Sound/Music - Kacey (BunnyShark) (https://bsky.app/profile/kaceythebnuy.bsky.social)
 
 ### Using
-Modified version of FlatPhys![https://github.com/twobitcoder101/FlatPhysics]
+Modified version of FlatPhys![https://github.com/twobitcoder101/FlatPhysics](thing)
 
 ## What is this?
 
