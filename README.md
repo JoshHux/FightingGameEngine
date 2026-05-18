@@ -1,6 +1,14 @@
 ## With Assistance From
 
-Vecderg (UI programming and physics systems), JackTR55555 (dev tools and input system)
+- Vecderg (UI programming and physics systems)
+- JackTR55555 (dev tools and input system)
+ 
+###Example Project Credits
+Art/modeling -  spirachuu
+Sound/Music - Kacey (BunnyShark) (https://bsky.app/profile/kaceythebnuy.bsky.social)
+
+###Using
+Modified version of FlatPhys[https://github.com/twobitcoder101/FlatPhysics]
 
 ## What is this?
 
