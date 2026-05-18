@@ -4,7 +4,8 @@
 - JackTR55555 (dev tools and input system)
  
 ### Example Project Credits
-Art/modeling -  spirachuu /n
+Art/modeling -  spirachuu 
+
 Sound/Music - Kacey (BunnyShark) (https://bsky.app/profile/kaceythebnuy.bsky.social)
 
 ### Using
