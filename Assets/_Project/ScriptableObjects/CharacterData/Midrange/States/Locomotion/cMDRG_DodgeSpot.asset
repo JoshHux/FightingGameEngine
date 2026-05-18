@@ -1,0 +1,454 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
+  m_Name: cMDRG_DodgeSpot
+  m_EditorClassIdentifier: Assembly-CSharp::FightingGameEngine.Data.soStateData
+  _id:
+    ID: 0
+  _parentState: {fileID: 0}
+  inheritTrans_: 1
+  inheritCond_: 1
+  inheritCancel_: 1
+  _duration: 50
+  loop_: 0
+  _stateConditions: 16
+  _toggleState: 0
+  _cancels: 0
+  _toggleCancel: 0
+  _enterEvents: 3
+  _exitEvents: 0
+  _transitions:
+  - _targetState: {fileID: 11400000, guid: f44975968d6466c438dc2dca927fdd40, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs: []
+    _requiredTransitionFlags: 1073741826
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 012f3f5768a1fcb40a38ee0d25eecf8c, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs: []
+    _requiredTransitionFlags: 1073741825
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  _hitboxSets: []
+  _hurtboxSets:
+  - Hurtbox0:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 8589934592
+      Dimensions:
+        x:
+          m_rawValue: 8589934592
+        y:
+          m_rawValue: 21474836480
+    Hurtbox1:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox2:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox3:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox4:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox5:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox6:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox7:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox8:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox9:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+  - Hurtbox0:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox1:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox2:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox3:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox4:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox5:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox6:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox7:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox8:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox9:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+  _script: "if(frame==19)\n\tSetHurtboxes(1)"
+  _frames:
+  - _atFrame: 19
+    _timerEvents:
+      Duration: 0
+      CancelsConditions: 0
+      StateConditions: 0
+    _events:
+    - rid: 8179866632850505801
+  _animation:
+  - _atFrame: 1
+    _animationName: RIG THIS_002|AirDodgeSpot
+    _animationSpeed:
+      m_rawValue: 4294967296
+    _skipIfSameName: 0
+    _startFrame: 0
+    _soundFx: Dodge
+    _vfx: -1
+    _vfxPosition:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _vfxRotation:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _screenShake:
+      m_rawValue: 0
+    _shakeDuration:
+      m_rawValue: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 8179866632850505801
+      type: {class: SetHurtboxEvent, ns: FightingGameEngine.Commands, asm: Assembly-CSharp}
+      data:
+        _data:
+          Hurtbox0:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox1:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox2:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox3:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox4:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox5:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox6:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox7:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox8:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox9:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0

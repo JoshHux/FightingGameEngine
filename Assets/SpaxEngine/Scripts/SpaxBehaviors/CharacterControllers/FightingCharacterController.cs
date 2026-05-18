@@ -10,24 +10,33 @@ namespace FightingGameEngine.Gameplay
     public class FightingCharacterController : ControllableObject
     {
         [SerializeField] private LivingObject _other;
+        public LivingObject Other { set { this._other = value; } }
         public int PlayerID { get { return this.status.PlayerID; } }
+
+
+        protected override void InputUpdate()
+        {
+            base.InputUpdate();
+
+            if (this.status.CurrentControllerState.X() * this.status.WalledDirection < 0) { this.status.TransitionFlags |= TransitionFlags.WALL_JUMPING; }
+        }
 
         protected override void StateCleanUpdate() { }
         protected override void PreUpdate() { }
 
-        [Space(50)]
-        //For the input recorder
-        public inputMod inputMode = inputMod.None;
-        public InputData inputDateToRecordAndPlay;
-        [Space(50)]
-        //For multiples Controllers
-        public controllers controllerToUse = controllers.pad1;
+        protected override void SpaxUpdate()
+        {
+            base.SpaxUpdate();
+            this.status.TransitionFlags &= (TransitionFlags)(~((uint)1 << 8));
+            this.status.WalledDirection = 0;
+
+        }
 
 
         //call to process transition event enums
-        protected override void ProcessTransitionEvent(in TransitionEvents te)
+        protected override void ProcessTransitionEvent(in TransitionEvents te, in ResourceData rd)
         {
-            base.ProcessTransitionEvent(te);
+            base.ProcessTransitionEvent(te, rd);
             /*----- PROCESSING AUTOMATIC TURNING -----*/
 
             //can we rotate?
@@ -39,7 +48,7 @@ namespace FightingGameEngine.Gameplay
             var diffPos = this._other.get_position().x - this.status.CurrentPosition.x;
 
             //if our facing direction and the difference in position are different, then we should turn
-            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) <= 0);
+            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) < 0) && !EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)TransitionFlags.WALLED) && this.IsAirborne() == 0;
 
             if (shouldTurn)
             {
@@ -63,7 +72,7 @@ namespace FightingGameEngine.Gameplay
             var diffPos = this._other.get_position().x - this.status.CurrentPosition.x;
 
             //if our facing direction and the difference in position are different, then we should turn
-            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) <= 0);
+            bool shouldTurn = canRotate && ((diffPos * this.status.CurrentFacingDirection) <= 0) && !EnumHelper.HasEnum((uint)this.status.TransitionFlags, (uint)TransitionFlags.WALLED) && this.IsAirborne() == 0;
 
             if (shouldTurn)
             {
@@ -75,6 +84,8 @@ namespace FightingGameEngine.Gameplay
             base.ProcessStateConditions(stateConditions);
 
             /*----- PROCESSING IF PLAYER MOVES -----*/
+            bool canMove = EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.CAN_MOVE);
+            bool canRun = EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.CAN_RUN, true);
 
             //current controller state
             var curConStt = this.status.CurrentControllerState;
@@ -82,13 +93,17 @@ namespace FightingGameEngine.Gameplay
             var xInput = curConStt.X();
             //max movement speed
             var maxMoveSpeed = this.data.WalkMaxSpd;
+            if (canRun) { maxMoveSpeed = this.data.RunMaxSpd; }
+
+            var acceleration = this.data.WalkAccel;
+            if (canRun) { acceleration = this.data.RunAccel; }
+
             //current x speed
             var curXvel = this.status.TotalVelocity.x;
             //difference between current x-velocity and max velocity in the direction we want to move
             var velDiff = (maxMoveSpeed * xInput) - curXvel;
 
             //can we move?
-            bool canMove = EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.CAN_MOVE);
             //so we want to move?
             bool wantToMove = canMove && (xInput != 0);
             //can we even apply any acceleration? 
@@ -100,7 +115,7 @@ namespace FightingGameEngine.Gameplay
                 //we only reach here if we need to apply acceleration
                 //acceleration is the min between the abs of the difference between max speed and current x speed AND applies movement velocity
                 var absDiff = Fix64.FastAbs(velDiff);
-                var appliedAccel = Fix64.Min(this.data.WalkAccel, absDiff) * xInput;
+                var appliedAccel = Fix64.Min(acceleration, absDiff) * xInput;
                 //Debug.Log("x input - " + xInput + " | appliedAccel " + appliedAccel + " | absDiff - " + absDiff + " | mms*x - " + (maxMoveSpeed * xInput) + " | cur xvel " + (curXvel));
 
                 //we multiply by -1 so that we negate the facing direction, we're not factoring in facing direction in this application

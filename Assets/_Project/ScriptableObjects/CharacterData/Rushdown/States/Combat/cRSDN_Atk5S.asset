@@ -1,0 +1,1906 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
+  m_Name: cRSDN_Atk5S
+  m_EditorClassIdentifier: 
+  _id:
+    ID: 0
+  _parentState: {fileID: 11400000, guid: 7aed4be8113867e4381a8876c6a59613, type: 2}
+  inheritTrans_: 1
+  inheritCond_: 1
+  inheritCancel_: 1
+  _duration: 20
+  loop_: 0
+  _stateConditions: 262164
+  _toggleState: 0
+  _cancels: 0
+  _toggleCancel: 0
+  _enterEvents: 0
+  _exitEvents: 0
+  _transitions:
+  - _targetState: {fileID: 0}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 32
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs: []
+    _requiredTransitionFlags: 161
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  _hitboxSets:
+  - Hitbox0:
+      Duration: 6
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 1
+      Position:
+        x:
+          m_rawValue: 10737418240
+        y:
+          m_rawValue: 8589934592
+      Dimensions:
+        x:
+          m_rawValue: 12884901888
+        y:
+          m_rawValue: 8589934592
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 20
+      MinHitstun: 10
+      BlockStun: 11
+      Hitstop: 10
+      BlockStop: 20
+      UntechTime: 10
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 128849018880
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 128849018880
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+    Hitbox1:
+      Duration: 0
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 0
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 0
+      MinHitstun: 0
+      BlockStun: 0
+      Hitstop: 0
+      BlockStop: 0
+      UntechTime: 0
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+    Hitbox2:
+      Duration: 0
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 0
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 0
+      MinHitstun: 0
+      BlockStun: 0
+      Hitstop: 0
+      BlockStop: 0
+      UntechTime: 0
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+    Hitbox3:
+      Duration: 0
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 0
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 0
+      MinHitstun: 0
+      BlockStun: 0
+      Hitstop: 0
+      BlockStop: 0
+      UntechTime: 0
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+    Hitbox4:
+      Duration: 0
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 0
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 0
+      MinHitstun: 0
+      BlockStun: 0
+      Hitstop: 0
+      BlockStop: 0
+      UntechTime: 0
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+    Hitbox5:
+      Duration: 0
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 0
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 0
+      MinHitstun: 0
+      BlockStun: 0
+      Hitstop: 0
+      BlockStop: 0
+      UntechTime: 0
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+    Hitbox6:
+      Duration: 0
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 0
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 0
+      MinHitstun: 0
+      BlockStun: 0
+      Hitstop: 0
+      BlockStop: 0
+      UntechTime: 0
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+    Hitbox7:
+      Duration: 0
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 0
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 0
+      MinHitstun: 0
+      BlockStun: 0
+      Hitstop: 0
+      BlockStop: 0
+      UntechTime: 0
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+    Hitbox8:
+      Duration: 0
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 0
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 0
+      MinHitstun: 0
+      BlockStun: 0
+      Hitstop: 0
+      BlockStop: 0
+      UntechTime: 0
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+    Hitbox9:
+      Duration: 0
+      UniversalStateCause: 0
+      CounterStateCause: 0
+      Type: 0
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Priority: 0
+      Damage: 0
+      ChipDamage: 0
+      MinDamage: 0
+      Hitstun: 0
+      MinHitstun: 0
+      BlockStun: 0
+      Hitstop: 0
+      BlockStop: 0
+      UntechTime: 0
+      CrouchStunMod: 0
+      CounterUntechMod: 0
+      CounterStunMod: 0
+      CounterStopMod: 0
+      GroundedKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      AirborneKnockback:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      changeHitGravity: 0
+      HitGravity:
+        m_rawValue: 0
+      GroundBounces: 0
+      GroundBounceMultiplier:
+        m_rawValue: 0
+      WallBounces: 0
+      WallBounceMultiplier:
+        m_rawValue: 0
+      InitProration:
+        m_rawValue: 0
+      ForcedProration:
+        m_rawValue: 0
+      ResourceChange:
+        Health: 0
+        Meter: 0
+        Burst: 0
+        Pressure: 0
+        Airjumps: 0
+        Airdashes: 0
+        Resource1: 0
+        Resource2: 0
+        Resource3: 0
+      OnHitCancel: 0
+      OnCounterHitCancel: 0
+      OnBlockedHitCancel: 0
+      Hitspark: 0
+  _hurtboxSets:
+  - Hurtbox0:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 6442450944
+      Dimensions:
+        x:
+          m_rawValue: 12884901888
+        y:
+          m_rawValue: 21474836480
+    Hurtbox1:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox2:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox3:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox4:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox5:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox6:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox7:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox8:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox9:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+  - Hurtbox0:
+      Position:
+        x:
+          m_rawValue: -4294967296
+        y:
+          m_rawValue: 6442450944
+      Dimensions:
+        x:
+          m_rawValue: 12884901888
+        y:
+          m_rawValue: 21474836480
+    Hurtbox1:
+      Position:
+        x:
+          m_rawValue: 9878424576
+        y:
+          m_rawValue: 8589934592
+      Dimensions:
+        x:
+          m_rawValue: 17179869184
+        y:
+          m_rawValue: 17179869184
+    Hurtbox2:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox3:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox4:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox5:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox6:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox7:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox8:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox9:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+  _script: "if(frame==1)\n\tSetHurtboxes(0)\n\tApplyVel([15,0])\nif(frame==5)\n\tSetHitboxes(0)\n\tSetHurtboxes(1)\nif(frame==11)\n\tToggleCond(COUNTER_HIT)\nif(frame==15)\n\tToggleCancel(STANCED)"
+  _frames:
+  - _atFrame: 1
+    _timerEvents:
+      Duration: 0
+      CancelsConditions: 0
+      StateConditions: 0
+    _events:
+    - rid: 6017576631719690346
+    - rid: 6017576631719690347
+  - _atFrame: 5
+    _timerEvents:
+      Duration: 0
+      CancelsConditions: 0
+      StateConditions: 0
+    _events:
+    - rid: 6017576631719690348
+    - rid: 6017576631719690349
+  - _atFrame: 11
+    _timerEvents:
+      Duration: 0
+      CancelsConditions: 0
+      StateConditions: 0
+    _events:
+    - rid: 6017576631719690350
+  - _atFrame: 15
+    _timerEvents:
+      Duration: 0
+      CancelsConditions: 0
+      StateConditions: 0
+    _events:
+    - rid: 6017576631719690351
+  _animation:
+  - _atFrame: 1
+    _animationName: RIG_001|Atk_5S
+    _animationSpeed:
+      m_rawValue: 4294967296
+    _skipIfSameName: 0
+    _startFrame: 0
+    _soundFx: 
+    _vfx: -1
+    _vfxPosition:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _vfxRotation:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _screenShake:
+      m_rawValue: 0
+    _shakeDuration:
+      m_rawValue: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 6017576631719690346
+      type: {class: SetHurtboxEvent, ns: FightingGameEngine.Commands, asm: Assembly-CSharp}
+      data:
+        _data:
+          Hurtbox0:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 6442450944
+            Dimensions:
+              x:
+                m_rawValue: 12884901888
+              y:
+                m_rawValue: 21474836480
+          Hurtbox1:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox2:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox3:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox4:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox5:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox6:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox7:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox8:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox9:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+    - rid: 6017576631719690347
+      type: {class: ApplyVelEvent, ns: FightingGameEngine.Commands, asm: Assembly-CSharp}
+      data:
+        _vel:
+          x:
+            m_rawValue: 64424509440
+          y:
+            m_rawValue: 0
+    - rid: 6017576631719690348
+      type: {class: SetHitboxEvent, ns: FightingGameEngine.Commands, asm: Assembly-CSharp}
+      data:
+        _data:
+          Hitbox0:
+            Duration: 6
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 1
+            Position:
+              x:
+                m_rawValue: 10737418240
+              y:
+                m_rawValue: 8589934592
+            Dimensions:
+              x:
+                m_rawValue: 12884901888
+              y:
+                m_rawValue: 8589934592
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 20
+            MinHitstun: 10
+            BlockStun: 11
+            Hitstop: 10
+            BlockStop: 20
+            UntechTime: 10
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 128849018880
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 128849018880
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+          Hitbox1:
+            Duration: 0
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 0
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 0
+            MinHitstun: 0
+            BlockStun: 0
+            Hitstop: 0
+            BlockStop: 0
+            UntechTime: 0
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+          Hitbox2:
+            Duration: 0
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 0
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 0
+            MinHitstun: 0
+            BlockStun: 0
+            Hitstop: 0
+            BlockStop: 0
+            UntechTime: 0
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+          Hitbox3:
+            Duration: 0
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 0
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 0
+            MinHitstun: 0
+            BlockStun: 0
+            Hitstop: 0
+            BlockStop: 0
+            UntechTime: 0
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+          Hitbox4:
+            Duration: 0
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 0
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 0
+            MinHitstun: 0
+            BlockStun: 0
+            Hitstop: 0
+            BlockStop: 0
+            UntechTime: 0
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+          Hitbox5:
+            Duration: 0
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 0
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 0
+            MinHitstun: 0
+            BlockStun: 0
+            Hitstop: 0
+            BlockStop: 0
+            UntechTime: 0
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+          Hitbox6:
+            Duration: 0
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 0
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 0
+            MinHitstun: 0
+            BlockStun: 0
+            Hitstop: 0
+            BlockStop: 0
+            UntechTime: 0
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+          Hitbox7:
+            Duration: 0
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 0
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 0
+            MinHitstun: 0
+            BlockStun: 0
+            Hitstop: 0
+            BlockStop: 0
+            UntechTime: 0
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+          Hitbox8:
+            Duration: 0
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 0
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 0
+            MinHitstun: 0
+            BlockStun: 0
+            Hitstop: 0
+            BlockStop: 0
+            UntechTime: 0
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+          Hitbox9:
+            Duration: 0
+            UniversalStateCause: 0
+            CounterStateCause: 0
+            Type: 0
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Priority: 0
+            Damage: 0
+            ChipDamage: 0
+            MinDamage: 0
+            Hitstun: 0
+            MinHitstun: 0
+            BlockStun: 0
+            Hitstop: 0
+            BlockStop: 0
+            UntechTime: 0
+            CrouchStunMod: 0
+            CounterUntechMod: 0
+            CounterStunMod: 0
+            CounterStopMod: 0
+            GroundedKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            AirborneKnockback:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            changeHitGravity: 0
+            HitGravity:
+              m_rawValue: 0
+            GroundBounces: 0
+            GroundBounceMultiplier:
+              m_rawValue: 0
+            WallBounces: 0
+            WallBounceMultiplier:
+              m_rawValue: 0
+            InitProration:
+              m_rawValue: 0
+            ForcedProration:
+              m_rawValue: 0
+            ResourceChange:
+              Health: 0
+              Meter: 0
+              Burst: 0
+              Pressure: 0
+              Airjumps: 0
+              Airdashes: 0
+              Resource1: 0
+              Resource2: 0
+              Resource3: 0
+            OnHitCancel: 0
+            OnCounterHitCancel: 0
+            OnBlockedHitCancel: 0
+            Hitspark: 0
+    - rid: 6017576631719690349
+      type: {class: SetHurtboxEvent, ns: FightingGameEngine.Commands, asm: Assembly-CSharp}
+      data:
+        _data:
+          Hurtbox0:
+            Position:
+              x:
+                m_rawValue: -4294967296
+              y:
+                m_rawValue: 6442450944
+            Dimensions:
+              x:
+                m_rawValue: 12884901888
+              y:
+                m_rawValue: 21474836480
+          Hurtbox1:
+            Position:
+              x:
+                m_rawValue: 9878424576
+              y:
+                m_rawValue: 8589934592
+            Dimensions:
+              x:
+                m_rawValue: 17179869184
+              y:
+                m_rawValue: 17179869184
+          Hurtbox2:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox3:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox4:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox5:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox6:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox7:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox8:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox9:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+    - rid: 6017576631719690350
+      type: {class: ToggleConditionEvent, ns: FightingGameEngine.Commands, asm: Assembly-CSharp}
+      data:
+        _cond: 262144
+    - rid: 6017576631719690351
+      type: {class: ToggleCancelEvent, ns: FightingGameEngine.Commands, asm: Assembly-CSharp}
+      data:
+        _cancel: 32

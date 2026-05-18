@@ -4,6 +4,7 @@ using FightingGameEngine.Data;
 
 namespace FightingGameEngine.Commands
 {
+    [System.Serializable]
     public class SetVelEvent : ICommand
     {
         [UnityEngine.SerializeField] private FVector2 _vel;

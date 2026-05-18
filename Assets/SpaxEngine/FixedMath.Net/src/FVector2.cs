@@ -19,12 +19,19 @@
 */
 using System;
 //using Newtonsoft.Json;
+using MessagePack;
 namespace FixMath.NET
 {
+    //changes:
+    // - replaces all floating point references with fixed point ones
+    // - added MessagePack compatability
     [Serializable]
+    [MessagePackObject]
+
     public struct FVector2 : IEquatable<FVector2>
     {
         public static FVector2 zero { get { return new FVector2(Fix64.Zero, Fix64.Zero); } }
+
         public static FVector2 one { get { return new FVector2(Fix64.One, Fix64.One); } }
 
         public static Fix64 Dot(FVector2 a, FVector2 b)
@@ -35,9 +42,12 @@ namespace FixMath.NET
         //public readonly Fix64 x;
         //public readonly Fix64 y;
 
+        [Key(0)]
         public Fix64 x;
+        [Key(1)]
         public Fix64 y;
         //[JsonIgnore]
+        [IgnoreMember]
         public Fix64 sqrMagnitude
         {
             get
@@ -47,6 +57,7 @@ namespace FixMath.NET
         }
 
         //[JsonIgnore]
+        [IgnoreMember]
         public Fix64 magnitude
         {
             get
@@ -56,21 +67,23 @@ namespace FixMath.NET
         }
 
         //[JsonIgnore]
+        [IgnoreMember]
         public FVector2 normalized
         {
             get
             {
                 Fix64 magnitude = this.magnitude;
-                if(magnitude==0){new FVector2(0, 0);}
+                if (magnitude == 0) { new FVector2(0, 0); }
                 return new FVector2(this.x / magnitude, this.y / magnitude);
             }
         }
+        [IgnoreMember]
         public FVector2 tangent
         {
             get
             {
-                
-                return new FVector2(-this.y , this.x);
+
+                return new FVector2(-this.y, this.x);
             }
         }
 

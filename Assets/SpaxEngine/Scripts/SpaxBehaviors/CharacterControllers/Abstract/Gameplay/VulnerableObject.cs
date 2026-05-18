@@ -23,7 +23,6 @@ namespace FightingGameEngine.Gameplay
 
         protected override void OnStart()
         {
-            base.OnStart();
 
             //find the parent of all hurtboxes
             GameObject hurtHolder = ObjectFinder.FindChildWithTag(this.gameObject, "HurtboxContainer");
@@ -44,6 +43,7 @@ namespace FightingGameEngine.Gameplay
             this.m_hurtList = new List<HitInfo>();
             //init indicator of whether or not we landed a strike
             this.landedStrikeThisFrame = false;
+            base.OnStart();
         }
 
         //ONLY HERE TO MAKE SURE THAT STRIKE-TRADES END THE STRIKE'S FAVOR
@@ -71,6 +71,14 @@ namespace FightingGameEngine.Gameplay
                 bool isGrabbed = EnumHelper.HasEnum((uint)hold.Indicator, (uint)HitIndicator.GRABBED);
                 int grabbed = EnumHelper.HasEnumInt((uint)hold.Indicator, (uint)HitIndicator.GRABBED);
 
+                //did we block the hit?
+                int blocked = (int)EnumHelper.isNotZero((uint)(hold.Indicator & HitIndicator.BLOCKED));
+                //did we get counter hit?
+                int counter = (int)EnumHelper.isNotZero((uint)(hold.Indicator & HitIndicator.COUNTER_HIT));
+                //unblocked hit
+                int rawHit = blocked ^ 1;
+
+
                 //is this a non-whiff?
                 bool notWhiff = hold.Indicator > 0;
                 bool tradedWithGrab = (isGrabbed && landedStrikeThisFrame);
@@ -79,12 +87,6 @@ namespace FightingGameEngine.Gameplay
                     //quick access to the hitbox data
                     var boxData = hold.HitboxData;
 
-                    //did we block the hit?
-                    int blocked = (int)EnumHelper.isNotZero((uint)(hold.Indicator & HitIndicator.BLOCKED));
-                    //did we get counter hit?
-                    int counter = (int)EnumHelper.isNotZero((uint)(hold.Indicator & HitIndicator.COUNTER_HIT));
-                    //unblocked hit
-                    int rawHit = blocked ^ 1;
 
                     //Debug.Log("processing hit");
 
@@ -95,14 +97,14 @@ namespace FightingGameEngine.Gameplay
                     //hitstun for grounded, untech time for airborne, also add stun mod if it's a coutnerhit
                     totalStun = (boxData.Hitstun * (airborne ^ 1) + boxData.UntechTime * airborne) * rawHit + boxData.BlockStun * blocked + counter * (boxData.Hitstun * (airborne ^ 1) + boxData.UntechTime * airborne);
 
-                    //if (blocked > 0) { Debug.Log("blocked hit"); }
+                    if (blocked > 0) { Debug.Log("blocked hit"); }
                     //add transition flag to let the status know we got hit
                     this.status.TransitionFlags = this.status.TransitionFlags | TransitionFlags.GOT_HIT | (TransitionFlags)((int)TransitionFlags.BLOCKED_HIT * blocked) | (TransitionFlags)((int)TransitionFlags.UNBLOCKED_HIT * (blocked ^ 1));
 
                     //Debug.Log("blocked? " + ((this.status.TransitionFlags & TransitionFlags.UNBLOCKED_HIT) > 0));
 
                     //knockback/postion offset value (for grabs)
-                    var groundedPhysVal = boxData.GroundedKnockback;
+                    var groundedPhysVal = (boxData.GroundedKnockback * (counter ^ 1)) + (boxData.GroundedKnockback * 3 / ((Fix64)2) * counter);
                     groundedPhysVal.x = groundedPhysVal.x * hold.HitCharacter.Facing;
                     var airbornePhysVal = boxData.AirborneKnockback;
                     airbornePhysVal.x = airbornePhysVal.x * hold.HitCharacter.Facing;
@@ -192,7 +194,7 @@ namespace FightingGameEngine.Gameplay
                 }
 
                 // deal damage            
-                this.status.CurrentHP -= (int)Fix64.Max(hold.HitboxData.Damage * hold.CurrentDamageScaling, hold.HitboxData.MinDamage);
+                this.status.CurrentHP -= ((int)Fix64.Max(hold.HitboxData.Damage * hold.CurrentDamageScaling, hold.HitboxData.MinDamage) * (blocked ^ 1)) + (hold.HitboxData.ChipDamage * blocked);
                 //this.status.CurrentHP -= boxData.HitboxData.Damage; 
 
                 i++;
@@ -220,6 +222,9 @@ namespace FightingGameEngine.Gameplay
 
 
             this.landedStrikeThisFrame = false;
+
+            this.status.RendererInfo.RelevantEvents = this.status.TransitionFlags;
+
         }
 
         protected override void PostUpdate()
@@ -282,9 +287,9 @@ namespace FightingGameEngine.Gameplay
 
         }
         //call to process transition event enums
-        protected override void ProcessTransitionEvent(in TransitionEvents te)
+        protected override void ProcessTransitionEvent(in TransitionEvents te, in ResourceData rd)
         {
-            base.ProcessTransitionEvent(te);
+            base.ProcessTransitionEvent(te, rd);
 
             /*----- PROCESSING TECHING EVENT -----*/
             bool grabTech = EnumHelper.HasEnum((uint)te, (uint)TransitionEvents.GRAB_TECH);
@@ -311,6 +316,12 @@ namespace FightingGameEngine.Gameplay
             //this.OnHurtFrameReached?.Invoke(this, new HurtboxHolder());
             //reset number of armored hits
             this.status.SetTransitionInfoVal(2, 0);
+        }
+
+        public override void ResetStatus()
+        {
+            base.ResetStatus();
+            this.DeactivateHitboxes();
         }
 
 
@@ -485,6 +496,7 @@ namespace FightingGameEngine.Gameplay
             }
 
 
+            //Debug.Log(" | knockback - " + boxData.HitboxData.GroundedKnockback.x + " , " + boxData.HitboxData.GroundedKnockback.y);
 
 
             return ret;
@@ -509,6 +521,19 @@ namespace FightingGameEngine.Gameplay
         protected override void OnApplyGameState(in GameplayState state)
         {
             this.OnGameStateSet?.Invoke(this, state);
+        }
+
+
+        private void DeactivateHitboxes()
+        {
+            this.hurtboxes[0].DeactivateBox(this);
+            this.hurtboxes[1].DeactivateBox(this);
+            this.hurtboxes[2].DeactivateBox(this);
+            this.hurtboxes[3].DeactivateBox(this);
+            this.hurtboxes[4].DeactivateBox(this);
+            this.hurtboxes[5].DeactivateBox(this);
+            this.hurtboxes[6].DeactivateBox(this);
+            this.hurtboxes[7].DeactivateBox(this);
         }
 
     }

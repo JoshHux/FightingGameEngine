@@ -1,0 +1,553 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9567d0122b99c224cbf02ade5fac0263, type: 3}
+  m_Name: Midrange
+  m_EditorClassIdentifier: Assembly-CSharp::FightingGameEngine.Data.soCharacterData
+  _charName: MDRG
+  _startingResources:
+    Health: 1
+    Meter: 0
+    Burst: 0
+    Pressure: 0
+    Airjumps: 1
+    Airdashes: 1
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+  _LandingResources:
+    Health: -1
+    Meter: -1
+    Burst: -1
+    Pressure: -1
+    Airjumps: 1
+    Airdashes: 1
+    Resource1: -1
+    Resource2: -1
+    Resource3: -1
+  _minResources:
+    Health: 0
+    Meter: 0
+    Burst: 0
+    Pressure: 0
+    Airjumps: 0
+    Airdashes: 0
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+  _maxResources:
+    Health: 1
+    Meter: 0
+    Burst: 0
+    Pressure: 0
+    Airjumps: 1
+    Airdashes: 1
+    Resource1: 0
+    Resource2: 0
+    Resource3: 0
+  _guts:
+    m_rawValue: 0
+  _mass:
+    m_rawValue: 4294967296
+  _juggleMass:
+    m_rawValue: 4294967296
+  _friction:
+    m_rawValue: 4294967296
+  _walkAccel:
+    m_rawValue: 4294967296
+  _walkMaxSpd:
+    m_rawValue: 21474836480
+  _runAccel:
+    m_rawValue: 42949672960
+  _runMaxSpd:
+    m_rawValue: 85899345920
+  _fallMaxSpd:
+    m_rawValue: 214748364800
+  _vfxValues: {fileID: 11400000, guid: f61f72dc053f82e4cb0e2edd299839b0, type: 2}
+  _stateList:
+  - {fileID: 11400000, guid: 012f3f5768a1fcb40a38ee0d25eecf8c, type: 2}
+  - {fileID: 11400000, guid: f44975968d6466c438dc2dca927fdd40, type: 2}
+  - {fileID: 11400000, guid: 2576e71ae82cb6d4996eda996c029a9d, type: 2}
+  - {fileID: 11400000, guid: d9e63cb681afa0c4aa29f4162480ef89, type: 2}
+  _moveList:
+  - _targetState: {fileID: 11400000, guid: 7189491ee1eca764d98e8821de8a0f08, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 7
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 16
+      ReleasedInput: 0
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+    - PressedInput: 0
+      ReleasedInput: 16
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: fb81e375edc52114bab876915fc15fcb, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 7
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8
+      ReleasedInput: 0
+      Flags: 1
+      HoldDuration: 0
+      UnlenientTime: 0
+    - PressedInput: 0
+      ReleasedInput: 8
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 2ca2f7a01f7d9354ba069479d75ac995, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 2
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 4096
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 266
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 03695f630a681154383773e4046fcb80, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 2
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 4096
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: be1bf485281cfed45a18a6e729573b4a, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 2
+      ReleasedInput: 0
+      Flags: 8
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: fb81e375edc52114bab876915fc15fcb, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 8
+    _requiredControllerState:
+      PressedInput: 8
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 5eedbabd4f3f111439fd8a4c79aadca6, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 8
+    _requiredControllerState:
+      PressedInput: 16
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 16574677c7c4ed64bbc6fc44debb95e7, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 4
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 2
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: c1bd1abc1bd83b249a5058f0ef937870, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 1
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 2
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 8f6728d48d3ca014db61b684f0004bea, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 33554432
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 256
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 2
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 8ae0b691458c25c49a26d68576e18535, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 33554432
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 256
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 8fbdbdcfe563e62438957ae2bc15737c, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 67108864
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 512
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 2
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 76ee4746c1299034d92be610b2b6f7c9, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 67108864
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 512
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 28dc815433f24d14cb8c058b1d49edbe, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 8
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 7
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  _projectiles:
+    _0:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _1:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _2:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _3:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _4:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _5:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _6:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+    _7:
+      _pooledObject: {fileID: 0}
+      _maxAmount: 0
+      _activeCount: 0
+  _soundList:
+  - {fileID: 8300000, guid: 32b527808dffd32458b64ef2386bdaaf, type: 3}
+  - {fileID: 8300000, guid: 3f4d3aef003a8e941a2a48c780f4c469, type: 3}
+  - {fileID: 8300000, guid: e9bf8412a6742bc4593b0ac2c8803c53, type: 3}
+  - {fileID: 8300000, guid: 26547fa1cb14faa4f8640258722120cb, type: 3}
+  - {fileID: 8300000, guid: 75bf81f62068feb4b8d193627db7df09, type: 3}
+  - {fileID: 8300000, guid: feefd76eeeaf69045874211e508c7db3, type: 3}
+  - {fileID: 8300000, guid: 3bdac22fd64b7024eab810ef0006c432, type: 3}
+  - {fileID: 8300000, guid: 53fe31aa1b731364c8151384b5a8fce7, type: 3}
+  _p2Mat: {fileID: 2100000, guid: 4eb2692a3b3dd264aac97a1bab9a3591, type: 2}

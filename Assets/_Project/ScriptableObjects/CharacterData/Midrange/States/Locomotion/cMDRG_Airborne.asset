@@ -1,0 +1,531 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eb5f0d4efaf104e9c631e77ce09001, type: 3}
+  m_Name: cMDRG_Airborne
+  m_EditorClassIdentifier: 
+  _id:
+    ID: 0
+  _parentState: {fileID: 0}
+  inheritTrans_: 0
+  inheritCond_: 0
+  inheritCancel_: 0
+  _duration: 200
+  loop_: 1
+  _stateConditions: 6
+  _toggleState: 0
+  _cancels: 4294967295
+  _toggleCancel: 0
+  _enterEvents: 0
+  _exitEvents: 0
+  _transitions:
+  - _targetState: {fileID: 11400000, guid: 16574677c7c4ed64bbc6fc44debb95e7, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 4
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 64
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 1
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 820c5521f47b7d7489db395fd78142e5, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 2
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 64
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 1
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: c1bd1abc1bd83b249a5058f0ef937870, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 1
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 64
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 1
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: f65f322b100b24e4e9d36686aa25169c, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 8
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 64
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 1
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: b554a6d1ee243c84e895721723f018af, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 16
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 64
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 1
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 03695f630a681154383773e4046fcb80, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 2
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 4096
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 67
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 1
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 25768fe1982af754da1c373e672e3712, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 4
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs:
+    - PressedInput: 8192
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredTransitionFlags: 0
+    _transitionEvents: 64
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 1
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  - _targetState: {fileID: 11400000, guid: 012f3f5768a1fcb40a38ee0d25eecf8c, type: 2}
+    _targetStateIndex: 0
+    _targetUniversalStateIndex: 0
+    _minimumHeight:
+      m_rawValue: 0
+    _cancelConditions: 0
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
+    _requiredInputs: []
+    _requiredTransitionFlags: 1
+    _transitionEvents: 0
+    _requiredResources:
+      Health: 0
+      Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
+      Resource1: 0
+      Resource2: 0
+      Resource3: 0
+  _hitboxSets: []
+  _hurtboxSets:
+  - Hurtbox0:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 12884901888
+      Dimensions:
+        x:
+          m_rawValue: 12884901888
+        y:
+          m_rawValue: 21474836480
+    Hurtbox1:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox2:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox3:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox4:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox5:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox6:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox7:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox8:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+    Hurtbox9:
+      Position:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+      Dimensions:
+        x:
+          m_rawValue: 0
+        y:
+          m_rawValue: 0
+  _script: 'if(frame==1)
+
+    SetHurtboxes(0)'
+  _frames:
+  - _atFrame: 1
+    _timerEvents:
+      Duration: 0
+      CancelsConditions: 0
+      StateConditions: 0
+    _events:
+    - rid: 6017576620809257529
+  _animation:
+  - _atFrame: 1
+    _animationName: RIG THIS_002|AirAscend
+    _animationSpeed:
+      m_rawValue: 4294967296
+    _skipIfSameName: 1
+    _startFrame: 0
+    _soundFx: 
+    _vfx: -1
+    _vfxPosition:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _vfxRotation:
+      x:
+        m_rawValue: 0
+      y:
+        m_rawValue: 0
+      z:
+        m_rawValue: 0
+    _screenShake:
+      m_rawValue: 0
+    _shakeDuration:
+      m_rawValue: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 6017576620809257529
+      type: {class: SetHurtboxEvent, ns: FightingGameEngine.Commands, asm: Assembly-CSharp}
+      data:
+        _data:
+          Hurtbox0:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 12884901888
+            Dimensions:
+              x:
+                m_rawValue: 12884901888
+              y:
+                m_rawValue: 21474836480
+          Hurtbox1:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox2:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox3:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox4:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox5:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox6:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox7:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox8:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+          Hurtbox9:
+            Position:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0
+            Dimensions:
+              x:
+                m_rawValue: 0
+              y:
+                m_rawValue: 0

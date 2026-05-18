@@ -6,6 +6,8 @@ using FlatPhysics.Filter;
 using FlatPhysics.Contact;
 using FlatPhysics.Unity;
 using FightingGameEngine.Gameplay;
+
+
 namespace FlatPhysics
 {
     public enum ShapeType
@@ -94,7 +96,7 @@ namespace FlatPhysics
         public readonly CollisionLayer CollidesWith;
         //gameobject this body corresponds to
         public readonly FRigidbody GameObject;
-        public readonly LivingObject livingObject;
+        public LivingObject livingObject;
 
 
         public readonly bool IsPushbox;
@@ -125,7 +127,10 @@ namespace FlatPhysics
             }
             set
             {
-                if (this._parent != null) { this.LocalPosition = value - this._parent.Position; }
+                if (this._parent != null)
+                {
+                    if (this.ActivePushbox) { this._parent.Position = value; } else { this.LocalPosition = value - this._parent.Position; }
+                }
                 else
                 {
                     this._position = value;
@@ -151,11 +156,20 @@ namespace FlatPhysics
 
         public FVector2 LinearVelocity
         {
-            get { return this._linearVelocity; }
+            get
+            {
+
+                if (this.ActivePushbox && this._parent != null) { return this._parent.LinearVelocity; }
+                return this._linearVelocity;
+            }
             internal set
             {
                 if (this.IsStatic) { return; }
-                this._linearVelocity = value;
+                if (this.ActivePushbox && this._parent != null) { this._parent.LinearVelocity = value; }
+                else
+                {
+                    this._linearVelocity = value;
+                }
             }
         }
 
@@ -180,6 +194,12 @@ namespace FlatPhysics
                 this._concave = value;
             }
 
+        }
+
+        //are we a collision box for ONLY colliding with the environment?
+        public bool IsSimpleCollisionBox
+        {
+            get { return this._parent == null && !this.ActivePushbox; }
         }
 
         public bool ActivePushbox;
@@ -216,7 +236,7 @@ namespace FlatPhysics
             this._parent = null;
 
 
-            if (this.IsPushbox) { this.livingObject = this.GameObject.GetComponent<LivingObject>(); }
+            if (this.IsSimpleCollisionBox || isPushbox) { this.livingObject = this.GameObject.GetComponent<LivingObject>(); }
 
             if (this.ShapeType is ShapeType.Box)
             {
@@ -248,6 +268,11 @@ namespace FlatPhysics
         public void SetParent(FlatBody newPar)
         {
             this._parent = newPar;
+
+
+            //Debug.Log(this.GameObject.name);
+            if (this.IsPushbox) { this.livingObject = this._parent.GameObject.GetComponent<LivingObject>(); }
+
         }
 
         private void CreateRectVertices()

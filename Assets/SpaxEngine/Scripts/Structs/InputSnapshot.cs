@@ -1,15 +1,17 @@
-using System.Security;
 using FightingGameEngine.Enum;
-using UnityEngine.InputSystem.EnhancedTouch;
+using MessagePack;
 
 
 namespace FightingGameEngine.Data
 {
     //state of the controller at any given point
-    [System.Serializable]
+    [System.Serializable][MessagePackObject]
+
     public struct InputSnapshot
     {
+        [Key(0)]
         public InputEnum InputStates;
+        [Key(1)]
 
         public int HoldDuration;
         public InputSnapshot(InputEnum inputs)

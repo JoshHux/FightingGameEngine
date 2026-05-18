@@ -4,6 +4,7 @@ using FightingGameEngine.Data;
 
 namespace FightingGameEngine.Commands
 {
+    [System.Serializable]
     public class SetHurtboxEvent : ICommand
     {
         [UnityEngine.SerializeField] private HurtboxHolder _data;

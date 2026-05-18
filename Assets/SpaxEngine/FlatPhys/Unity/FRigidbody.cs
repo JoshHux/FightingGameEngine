@@ -60,8 +60,8 @@ namespace FlatPhysics.Unity
 
         public bool Awake
         {
-            get { return this._rb.Awake; }
-            set { this._rb.Awake = value; }
+            get { return this.Body.Awake; }
+            set { this.Body.Awake = value; }
         }
 
         void Start()
@@ -102,6 +102,11 @@ namespace FlatPhysics.Unity
                 if (possibleParent != null)
                 {
                     possibleParent.TryGetComponent<FRigidbody>(out hold);
+                }
+                else
+                {
+                    this.transform.parent.TryGetComponent<FRigidbody>(out hold);
+
                 }
             }
 
@@ -192,7 +197,7 @@ namespace FlatPhysics.Unity
                 this._position = this.Body.Position;
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                if (this.drawedBox != null) DrawBoxesInRunTime(new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f), new Vector3((float)this._rb.Width, (float)this._rb.Height, 1f));
+                //if (this.drawedBox != null) DrawBoxesInRunTime(new Vector3((float)this._rb.Position.x, (float)this._rb.Position.y, 0f), new Vector3((float)this._rb.Width, (float)this._rb.Height, 1f));
 #endif
             }
         }

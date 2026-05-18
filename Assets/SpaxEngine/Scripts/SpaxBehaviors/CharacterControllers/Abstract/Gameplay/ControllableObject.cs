@@ -14,21 +14,29 @@ namespace FightingGameEngine.Gameplay
         [SerializeField] private InputActionAsset actions;
         [SerializeField] private bool _canControl = true;
 
-        FightingCharacterController cont;
+        //TODO: remove this, we should not refer to a child of this class AT ALL
+        //FightingCharacterController cont;
         SpaxManager manager;
         Gamepad pad1, pad2;
         Keyboard keyboard;
 
+
+        [Space(50)]
+        //For the input recorder
+        public inputMod inputMode = inputMod.None;
+        public InputData inputDateToRecordAndPlay;
+        [Space(50)]
+        //For multiples Controllers
+        public controllers controllerToUse = controllers.pad1;
         protected override void OnAwake()
         {
             base.OnAwake();
 
             manager = FindObjectOfType<SpaxManager>();
-            cont = transform.root.GetComponent<FightingCharacterController>();
 
-            if (cont.inputMode == inputMod.Record)
+            if (inputMode == inputMod.Record)
             {
-                cont.inputDateToRecordAndPlay.frameCommands.Clear();//Clear the data asset if we start recording, to avoid having more inputs than frame wich is not good, we want 1 input per frame (60 inputs/1s)
+                inputDateToRecordAndPlay.frameCommands.Clear();//Clear the data asset if we start recording, to avoid having more inputs than frame wich is not good, we want 1 input per frame (60 inputs/1s)
             }
             #region Old Input Mapping
             //init the status object, only really for the input recorder to get ready
@@ -65,10 +73,11 @@ namespace FightingGameEngine.Gameplay
 
         protected override void InputUpdate()
         {
+            if (!SpaxManager.Instance.AcceptInputs) { return; }
             //Debug.Log("input updating");
 
             ManageControllers();//It must be called before any key read attempt wether on the main update or elsewhere
-            switch (cont.controllerToUse)
+            switch (controllerToUse)
             {
                 case controllers.pad1:
                     ReadInputsFromController1();
@@ -92,7 +101,7 @@ namespace FightingGameEngine.Gameplay
 
         private void ApplyInput(UnityEngine.Vector2 dir, InputEnum input, bool released, bool direction)
         {
-            _canControl = cont.inputMode == inputMod.Play ? false : _canControl;
+            _canControl = inputMode == inputMod.Play ? false : _canControl;
 
             if (!this._canControl)
             {
@@ -147,20 +156,20 @@ namespace FightingGameEngine.Gameplay
         #region Input Recorder
         private void RecordInputsEachFrame(InputEnum command)
         {
-            if (cont.inputMode == inputMod.Record)
+            if (inputMode == inputMod.Record)
             {
-                cont.inputDateToRecordAndPlay.frameCommands.Add(command.ToString());
+                inputDateToRecordAndPlay.frameCommands.Add(command.ToString());
             }
         }
         private void PlayInputEachFrame(InputEnum command)
         {
-            if (cont.inputMode == inputMod.Play)
+            if (inputMode == inputMod.Play)
             {
                 if (manager.currentFrame > 0)
                 {
-                    if (manager.currentFrame < cont.inputDateToRecordAndPlay.frameCommands.Count)
+                    if (manager.currentFrame < inputDateToRecordAndPlay.frameCommands.Count)
                     {
-                        command = (InputEnum)System.Enum.Parse(typeof(InputEnum), cont.inputDateToRecordAndPlay.frameCommands[manager.currentFrame]);
+                        command = (InputEnum)System.Enum.Parse(typeof(InputEnum), inputDateToRecordAndPlay.frameCommands[manager.currentFrame]);
 
                         //new InputItem we assign as the CurrentControllerState
                         var newCurState = new InputSnapshot(command);
@@ -228,31 +237,15 @@ namespace FightingGameEngine.Gameplay
             #region Shoulders
             if (pad1.rightShoulder.isPressed)
             {
-                ApplyInput(new Vector2(), InputEnum.W, false, false);
+                ApplyInput(new Vector2(), InputEnum.C, false, false);
             }
             else
             {
-                ApplyInput(new Vector2(), InputEnum.W, true, false);
+                ApplyInput(new Vector2(), InputEnum.C, true, false);
             }
             #endregion
             #region Action Pad
             if (pad1.buttonNorth.isPressed)
-            {
-                ApplyInput(new Vector2(), InputEnum.Y, false, false);
-            }
-            else
-            {
-                ApplyInput(new Vector2(), InputEnum.Y, true, false);
-            }
-            if (pad1.buttonSouth.isPressed)
-            {
-                ApplyInput(new Vector2(), InputEnum.A, false, false);
-            }
-            else
-            {
-                ApplyInput(new Vector2(), InputEnum.A, true, false);
-            }
-            if (pad1.buttonEast.isPressed)
             {
                 ApplyInput(new Vector2(), InputEnum.B, false, false);
             }
@@ -260,13 +253,29 @@ namespace FightingGameEngine.Gameplay
             {
                 ApplyInput(new Vector2(), InputEnum.B, true, false);
             }
-            if (pad1.buttonWest.isPressed)
+            if (pad1.buttonSouth.isPressed)
+            {
+                ApplyInput(new Vector2(), InputEnum.W, false, false);
+            }
+            else
+            {
+                ApplyInput(new Vector2(), InputEnum.W, true, false);
+            }
+            if (pad1.buttonEast.isPressed)
             {
                 ApplyInput(new Vector2(), InputEnum.X, false, false);
             }
             else
             {
                 ApplyInput(new Vector2(), InputEnum.X, true, false);
+            }
+            if (pad1.buttonWest.isPressed)
+            {
+                ApplyInput(new Vector2(), InputEnum.A, false, false);
+            }
+            else
+            {
+                ApplyInput(new Vector2(), InputEnum.A, true, false);
             }
             #endregion
         }
@@ -286,31 +295,15 @@ namespace FightingGameEngine.Gameplay
             #region Shoulders
             if (pad2.rightShoulder.isPressed)
             {
-                ApplyInput(new Vector2(), InputEnum.W, false, false);
+                ApplyInput(new Vector2(), InputEnum.C, false, false);
             }
             else
             {
-                ApplyInput(new Vector2(), InputEnum.W, true, false);
+                ApplyInput(new Vector2(), InputEnum.C, true, false);
             }
             #endregion
             #region Action Pad
             if (pad2.buttonNorth.isPressed)
-            {
-                ApplyInput(new Vector2(), InputEnum.Y, false, false);
-            }
-            else
-            {
-                ApplyInput(new Vector2(), InputEnum.Y, true, false);
-            }
-            if (pad2.buttonSouth.isPressed)
-            {
-                ApplyInput(new Vector2(), InputEnum.A, false, false);
-            }
-            else
-            {
-                ApplyInput(new Vector2(), InputEnum.A, true, false);
-            }
-            if (pad2.buttonEast.isPressed)
             {
                 ApplyInput(new Vector2(), InputEnum.B, false, false);
             }
@@ -318,13 +311,29 @@ namespace FightingGameEngine.Gameplay
             {
                 ApplyInput(new Vector2(), InputEnum.B, true, false);
             }
-            if (pad2.buttonWest.isPressed)
+            if (pad2.buttonSouth.isPressed)
+            {
+                ApplyInput(new Vector2(), InputEnum.W, false, false);
+            }
+            else
+            {
+                ApplyInput(new Vector2(), InputEnum.W, true, false);
+            }
+            if (pad2.buttonEast.isPressed)
             {
                 ApplyInput(new Vector2(), InputEnum.X, false, false);
             }
             else
             {
                 ApplyInput(new Vector2(), InputEnum.X, true, false);
+            }
+            if (pad2.buttonWest.isPressed)
+            {
+                ApplyInput(new Vector2(), InputEnum.A, false, false);
+            }
+            else
+            {
+                ApplyInput(new Vector2(), InputEnum.A, true, false);
             }
             #endregion
         }
@@ -378,11 +387,11 @@ namespace FightingGameEngine.Gameplay
             }
             if (keyboard.lKey.isPressed)
             {
-                ApplyInput(new Vector2(), InputEnum.C, false, false);
+                ApplyInput(new Vector2(), InputEnum.X, false, false);
             }
             else
             {
-                ApplyInput(new Vector2(), InputEnum.C, true, false);
+                ApplyInput(new Vector2(), InputEnum.X, true, false);
             }
             if (keyboard.semicolonKey.isPressed)
             {
@@ -420,27 +429,27 @@ namespace FightingGameEngine.Gameplay
             #region Action Pad
             if (keyboard.numpad1Key.isPressed)
             {
-                ApplyInput(new Vector2(), InputEnum.Y, false, false);
-            }
-            else
-            {
-                ApplyInput(new Vector2(), InputEnum.Y, true, false);
-            }
-            if (keyboard.numpad2Key.isPressed)
-            {
                 ApplyInput(new Vector2(), InputEnum.A, false, false);
             }
             else
             {
                 ApplyInput(new Vector2(), InputEnum.A, true, false);
             }
-            if (keyboard.numpad3Key.isPressed)
+            if (keyboard.numpad2Key.isPressed)
             {
                 ApplyInput(new Vector2(), InputEnum.B, false, false);
             }
             else
             {
                 ApplyInput(new Vector2(), InputEnum.B, true, false);
+            }
+            if (keyboard.numpad3Key.isPressed)
+            {
+                ApplyInput(new Vector2(), InputEnum.X, false, false);
+            }
+            else
+            {
+                ApplyInput(new Vector2(), InputEnum.X, true, false);
             }
             if (keyboard.numpad4Key.isPressed)
             {

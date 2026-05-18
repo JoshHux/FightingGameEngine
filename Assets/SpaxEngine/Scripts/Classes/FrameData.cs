@@ -35,7 +35,7 @@ namespace FightingGameEngine.Data
 
             while (i < this._events.Count)
             {
-                Debug.Log(this._events[i]);
+                //Debug.Log(this._events[i]);
 
                 i++;
             }

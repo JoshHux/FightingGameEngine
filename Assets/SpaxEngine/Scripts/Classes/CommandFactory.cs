@@ -171,6 +171,28 @@ namespace FightingGameEngine.Commands
             System.Enum.TryParse<StateConditions>(parameters[0], out m);
             return new CondTimerEvent(d, m);
         }
+
+
+
+        public static PushboxSetActiveEvent SetPushboxActive(in string[] parameters, in soStateData state, int lnNum)
+        {
+
+            bool active = bool.Parse(parameters[0]);
+
+            return new PushboxSetActiveEvent(active);
+        }
+
+
+        public static SetPushboxDimensions SetBushboxDim(in string[] parameters, in soStateData state, int lnNum)
+        {
+            //get the dimensions from an array
+            var dim = parameters[0].Split(',');
+            if (dim.Length > 2) { throw new ArgumentException("Line " + lnNum + " in " + state.name + ":\nToo many dimensions!"); }
+
+            FVector2 dimensions = new FVector2(Fix64.Parse(dim[0]), Fix64.Parse(dim[1]));
+
+            return new SetPushboxDimensions(dimensions);
+        }
     }
 }
 #endif

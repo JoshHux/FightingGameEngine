@@ -229,7 +229,7 @@ namespace FightingGameEngine.Data
             }
             catch (Exception)
             {
-                Debug.LogError(this.name + " | There was a compile error!");
+                Debug.LogError(this.name + " | There was a compile error! ");
                 throw;
             }
 

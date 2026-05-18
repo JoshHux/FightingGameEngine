@@ -1,12 +1,19 @@
 using FightingGameEngine.Gameplay;
+using MessagePack;
+
 namespace FightingGameEngine.Data
 {
     [System.Serializable]
+    [MessagePackObject]
+
     public struct HitboxState
     {
+        [Key(0)]
         public HitboxData CurrentData;
+        [Key(1)]
         public TimerInfo TimerInfo;
         //player ID of entity we are colliding with
+        [Key(2)]
         public Arr16<Arr2<int>> WasColliding;
 
         public HitboxState(HitboxTrigger box)

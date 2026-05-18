@@ -10,8 +10,10 @@ namespace FightingGameEngine.Enum
         CLEAN_HITBOXES = 1 << 3,
         EXIT_STUN = 1 << 4,
         FLIP_FACING = 1 << 5,
-        ADD_RESOURCES = 1 << 6,
+        CONSUME_RESOURCES = 1 << 6,
         FACE_OPPONENT = 1 << 7,
+
+        FACE_ARENA_CENTER = 1 << 8,
 
         DODGE_RESOURCE_CHECK = 1 << 29,
         GRAB_TECH = 1 << 30,

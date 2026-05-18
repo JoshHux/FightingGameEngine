@@ -12,6 +12,7 @@ namespace FightingGameEngine.Enum
         CAN_MOVE = 1 << 5,
         AUTO_TURN = 1 << 6,
         INACTIVE_PUSHBOX = 1 << 7,
+        CAN_RUN = CAN_MOVE | 1 << 8,
 
         COUNTER_HIT = 1 << 18,
         ON_THE_GROUND = 1 << 19,

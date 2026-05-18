@@ -5,6 +5,10 @@ using FightingGameEngine.Commands;
 using FightingGameEngine.Data;
 using FightingGameEngine.Enum;
 using FightingGameEngine.ObjectPooler;
+using System.Linq;
+using System.Data.Common;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace FightingGameEngine.Gameplay
 {
@@ -12,9 +16,12 @@ namespace FightingGameEngine.Gameplay
 
     public abstract class LivingObject : GameplayBehavior
     {
-
+        private bool m_ready;
         //rigidbody of the character
         private FBox _rb;
+
+        //pushbox of the character
+        private FBox _pb;
         //invoker for state events
         private FrameCommandInvoker _invoker;
         //data of our character
@@ -23,12 +30,16 @@ namespace FightingGameEngine.Gameplay
         [SerializeField] protected soCharacterStatus status;
 
         public soCharacterData Data { get { return this.data; } }
-        public soCharacterStatus Status { get { return this.status; } }
+        public soCharacterStatus Status { get { return this.status; } set { this.status = value; } }
         public FlatPhysics.FlatBody Body { get { return this._rb.Body; } }
         public FVector2 FlatPosition { get { return this._rb.Position; } }
 
+        public bool Ready { get { return this.m_ready; } }
+
         //delegate to signal observers that we changed our state
         public StateChanged OnStateChanged;
+
+
 
         //call to reset this character's status
         public virtual void ResetStatus()
@@ -82,8 +93,8 @@ namespace FightingGameEngine.Gameplay
 
         protected override void OnAwake()
         {
+            this.m_ready = false;
             base.OnAwake();
-            this.ResetStatus();
             this._invoker = new FrameCommandInvoker();
         }
 
@@ -92,6 +103,8 @@ namespace FightingGameEngine.Gameplay
             base.OnStart();
             //get the rigidbody of the character
             this._rb = this.GetComponent<FBox>();
+            //get the rigidbody of the character
+            this._pb = this.GetComponentsInChildren<FBox>().Where(o => o.tag == "PushBox").ToArray()[0];
 
             //get the default state
             var defaultState = this.data.StateList[0];
@@ -102,6 +115,9 @@ namespace FightingGameEngine.Gameplay
             this.status.CurrentResources = this.data.StartingResources;
 
             ObjectPool.Instance.MakePool(this.status.PlayerID, this.data.Projectiles);
+
+            this.ResetStatus();
+            m_ready = true;
 
         }
 
@@ -278,8 +294,15 @@ namespace FightingGameEngine.Gameplay
             }
             //set the new state
             this.SetState(targetState);
+
+
+            //if we enter through a grounded transition, reset the landing resources
+            if (EnumHelper.HasEnum((uint)trans.RequiredTransitionFlags, (uint)TransitionFlags.GROUNDED)) { this.status.CurrentResources = this.status.CurrentResources.FilterNeg(this.data.LandingResources); }
+
+
+
             //process any transition events
-            this.ProcessTransitionEvent(trans.TransitionEvents);
+            this.ProcessTransitionEvent(trans.TransitionEvents, trans.RequiredResources);
 
             //we process this transition event outside of the standard function
             //  this is because we want to access the transition's resources
@@ -302,7 +325,7 @@ namespace FightingGameEngine.Gameplay
         }
 
         //call to process transition event enums
-        protected virtual void ProcessTransitionEvent(in TransitionEvents te)
+        protected virtual void ProcessTransitionEvent(in TransitionEvents te, in ResourceData rd)
         {
             //int result for killing x velocity, 1 for has enum, 0 for doesn't have
             int killX = EnumHelper.HasEnumInt((uint)te, (uint)TransitionEvents.KILL_X_VEL);
@@ -310,6 +333,12 @@ namespace FightingGameEngine.Gameplay
             int killY = EnumHelper.HasEnumInt((uint)te, (uint)TransitionEvents.KILL_Y_VEL);
             //int result for flipping facing direction
             int flipDir = EnumHelper.HasEnumInt((uint)te, (uint)TransitionEvents.FLIP_FACING);
+            //int result for removing the amount of conditions equal to the amoung of required resources
+            int consumeRsrc = EnumHelper.HasEnumInt((uint)te, (uint)TransitionEvents.CONSUME_RESOURCES);
+            //int result for if we shoudl face the center of the stage or not
+            int faceCenter = EnumHelper.HasEnumInt((uint)te, (uint)TransitionEvents.FACE_ARENA_CENTER);
+
+            this.status.CurrentResources -= rd * consumeRsrc;
 
 
             //int multiplier to multiply the respective velocities
@@ -331,10 +360,13 @@ namespace FightingGameEngine.Gameplay
             //reassign the mew velocity
             this.status.CurrentVelocity = newVel;
 
+            //face the center of the stage
+            if (faceCenter != 0) { this.status.CurrentFacingDirection = Fix64.Sign(-this._rb.Position.x); }
+
             //reassign the facing direction
             this.status.CurrentFacingDirection = this.status.CurrentFacingDirection * ((flipDir * -1) + ((flipDir ^ 1) * 1));
-
             //this.status.ResetLeniency();
+
 
         }
 
@@ -383,7 +415,11 @@ namespace FightingGameEngine.Gameplay
             //      than the assign max move speed, then we will still apply fricion
             //      the want to move thing applied later only is applied IF velocity along the x-axis is lower than the top move speed
             //      if the friction applied brings it below that top move speed, then the player wanting to move will do math to bring x velocity up to that max movement speed
-            bool fasterThanMax = Fix64.FastAbs(this.status.TotalVelocity.x) > this.data.WalkMaxSpd;
+            bool canRun = EnumHelper.HasEnum((uint)stateConditions, (uint)StateConditions.CAN_RUN, true);
+            var maxMoveSpeed = this.data.WalkMaxSpd;
+            if (canRun) { maxMoveSpeed = this.data.RunMaxSpd; }
+            bool fasterThanMax = Fix64.FastAbs(this.status.TotalVelocity.x) > maxMoveSpeed;
+
 
             //is the x velocity non-zero?
             bool xVelCheck = wantApplyFric && (xVel != 0);
@@ -575,8 +611,9 @@ namespace FightingGameEngine.Gameplay
                         other.StartStopTimer(duration);
                     }
                 }
+                i++;
             }
-            i++;
+            //Debug.Log("superflash is STARTING");
 
             //everything is prepped, start our superflash
             this.status.SuperFlashTimer = new FrameTimer(duration);
@@ -617,6 +654,7 @@ namespace FightingGameEngine.Gameplay
             //if a character with a higher index is in superflash, we don't tick superflash
             bool ret = !otherInSuperflash && this.status.SuperFlashTimer.TickTimer();
 
+            //Debug.Log("superflash is ticking");
             return ret;
 
         }
@@ -637,9 +675,12 @@ namespace FightingGameEngine.Gameplay
             var oldStateDuration = this.status.StateTimer.EndTime;
 */
             ///process current state
-            this.ProcessTransitionEvent(this.status.CurrentState.ExitEvents);
-            this.SetStateRaw(newState);
-            this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
+            this.ProcessTransitionEvent(this.status.CurrentState.ExitEvents, new ResourceData());
+            var isNonNode = (newState.Duration <= 0) ? 0 : 1;
+            //var isNode = 1 ^ ((int)Mathf.Sign(Mathf.Sign(newState.Duration) + 1));
+            //Debug.Log(isNode);
+            this.SetStateRaw(newState, isNonNode);
+            this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents, new ResourceData());
 
             //if (newState.name == "Stun-Grounded") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
             //if (newState.name == "Hitstun-Air") { Debug.Log("TF in setstate is - " + this.status.TransitionFlags); }
@@ -651,7 +692,7 @@ namespace FightingGameEngine.Gameplay
         protected void SetStateRaw(in soStateData newState, int isNonNodeState = 1)
         {
             //if (newState.name == "GroundedThrowHit") { Debug.Log("state duration is - " + newState.Duration); }
-
+            //Debug.Log(newState.name);
             //set the new current state
             this.status.CurrentState = newState;
             ///process current state
@@ -664,8 +705,12 @@ namespace FightingGameEngine.Gameplay
             //assign the current cancel conditions
             this.status.CancelFlags = newState.CancelConditions;
             //remove the state end transition flag
+            var isStunState = EnumHelper.HasEnumInt((uint)newState.StateConditions, (uint)StateConditions.STUN_STATE);
+            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((uint)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT | TransitionFlags.UNBLOCKED_HIT) * isNonNodeState));
+            //Debug.Log(this.status.TransitionFlags + " | " + isStunState);
+            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT | TransitionFlags.UNBLOCKED_HIT) * isStunState));
+            //Debug.Log(this.status.TransitionFlags);
 
-            this.status.TransitionFlags = this.status.TransitionFlags & ((TransitionFlags)~((int)(TransitionFlags.STATE_END | TransitionFlags.LANDED_HIT | TransitionFlags.GOT_HIT | TransitionFlags.BLOCKED_HIT | TransitionFlags.UNBLOCKED_HIT) * isNonNodeState));
 
             this.OnStateSet();
             //this.ProcessTransitionEvent(this.status.CurrentState.EnterEvents);
@@ -678,7 +723,11 @@ namespace FightingGameEngine.Gameplay
         }
 
 
-        public void SetPosition(FVector2 newPos) { this.status.CurrentPosition = newPos; }
+        public void SetPosition(FVector2 newPos)
+        {
+            if (this._rb != null) { this._rb.Position = newPos; }
+            this.status.CurrentPosition = newPos;
+        }
 
         protected void SetStopTimer(int newDur)
         {
@@ -726,6 +775,11 @@ namespace FightingGameEngine.Gameplay
             //Debug.Log("adding "+this.status.CurrentResources.Resource1);
         }
 
+        public void ResetObject()
+        {
+            this.ResetStatus();
+        }
+
         public FVector2 get_position()
         {
             //we add the width in the opposite direction so that we prevent the opponent change direction
@@ -757,9 +811,11 @@ namespace FightingGameEngine.Gameplay
         }
 
 
-        public void SetWalled(int done)
+        public void SetWalled(int done, int dir)
         {
             this.status.TransitionFlags |= (TransitionFlags)((int)TransitionFlags.WALLED * done);
+
+            this.status.WalledDirection = dir;
         }
 
 
@@ -772,17 +828,28 @@ namespace FightingGameEngine.Gameplay
             UnityEngine.Debug.Log((TransitionFlags)((int)TransitionFlags.GROUNDED * done) | (TransitionFlags)((int)TransitionFlags.AIRBORNE * (done ^ 1)));
         }
 
+        public void SetActivePushbox(bool active)
+        {
+            this._rb.Body.ActivePushbox = active;
+        }
+
+        public void SetPushboxDimensions(FVector2 newDim)
+        {
+            this._rb.Body.Height = newDim.y;
+            this._rb.Body.Width = newDim.x;
+        }
+
         public void StartStopTimer(int dur)
         {
             this.SetStopTimer(dur);
         }
 
-        public void ApplyGameplayState(in GameplayState state)
+        public void ApplyGameplayState(in GameplayState state, in List<InputSnapshot> replacementSnapshots)
         {
             var newCharState = this.data.GetStateFromID(state.CurrentStateID);
             this.SetStateRaw(newCharState);
 
-            this.status.ApplyGameplayState(state);
+            this.status.ApplyGameplayState(state, replacementSnapshots);
 
             this.OnApplyGameState(state);
         }

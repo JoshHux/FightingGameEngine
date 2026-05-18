@@ -1,7 +1,6 @@
 using UnityEngine;
 using FixMath.NET;
 using FightingGameEngine.Enum;
-using UnityEditor.Rendering;
 using System.Linq;
 
 namespace FightingGameEngine.Data
@@ -52,14 +51,18 @@ namespace FightingGameEngine.Data
             var transFlags = this._requiredTransitionFlags;
             var transRsrc = this._requiredResources;
 
-            //if (this._targetState.name == "cATLN_Walk6") { Debug.Log(curCan + " || " + transCancels); }
+
+            //if (this.TargetStateIndex == 3) { Debug.Log((TransitionFlags)curFlags + " | " + transFlags); }
 
             bool checkCancels = EnumHelper.HasEnum((uint)curCan, (uint)transCancels, true);
             bool checkFlags = checkCancels && EnumHelper.HasEnum((uint)curFlags, (uint)transFlags, true);
             bool checkHeight = checkFlags && ((this._minimumHeight == 0) || (yVel > 0 && yPos >= this._minimumHeight) || (yVel < 0));
+            //if (this.TargetStateIndex == 3) { Debug.Log(" ----- " + EnumHelper.HasEnum((uint)curFlags, (uint)transFlags, true)); }
+
             bool checkResources = checkHeight && (EnumHelper.HasEnum((uint)this._transitionEvents, (uint)TransitionEvents.DODGE_RESOURCE_CHECK) || transRsrc.Check(curResources));
-            bool checkInputs = checkResources && ((playerInputs.Length > 0) && this.CheckInputs(playerInputs, curSnapshot, facingDir));
+            bool checkInputs = checkResources && ( this.CheckInputs(playerInputs, curSnapshot, facingDir));
             //if (this._targetState.name == "cATLN_Walk6") { Debug.Log(checkInputs); }
+
             return checkInputs;
         }
 
@@ -157,9 +160,9 @@ namespace FightingGameEngine.Data
 
                 //the buffer was already check back when the input item list was made
                 //  we're checking is the input is too old, meaning that it is NOT the first player item AND is older than the leniency
-                if (((i > 0) && (sinceLastMatch > inputLeniency)) || ((i == 0) && (sinceLastMatch > inputBuffer)))
+                if (((j > 0) && (sinceLastMatch > inputLeniency)) || ((j == 0) && (sinceLastMatch > inputBuffer)))
                 {
-                    //if (this._targetState.name == "cATLN_Walk6") { Debug.Log("input too old :: " + sinceLastMatch + " / " + inputBuffer); }
+                    //if (this._targetState.name == "cRSDN_JumpPre") { Debug.Log("input too old :: " + sinceLastMatch + " / " + inputBuffer); }
 
 
                     return false;
@@ -177,6 +180,11 @@ namespace FightingGameEngine.Data
                 uint playerReleBtn = (uint)(playerInputItem.ReleasedInput & InputEnum.BUTTONS);
                 uint playerReleDir = (uint)(playerInputItem.ReleasedInput & InputEnum.DIRECTIONS);
 
+                //flags
+                uint playerFlags = (uint)playerInputItem.Flags;
+
+
+
 
                 ///===== CHECK THE INPUTS NOW =====///
                 //  check flags
@@ -184,20 +192,24 @@ namespace FightingGameEngine.Data
 
                 //check pressed inputs
                 //  buttons
-                var checkPressedBtn = EnumHelper.HasEnum((uint)playerPresBtn, (uint)reqPresBtn);
+                var checkPressedBtn = EnumHelper.HasEnum(playerPresBtn, (uint)reqPresBtn);
                 //  direction is a little weird, if we have the DIR_4WAY flag then we want to put this as a lenient input
-                var checkPressedDir = EnumHelper.HasEnum((uint)playerPresDir, (uint)reqPresDir, !pressed4Way);
+                var checkPressedDir = EnumHelper.HasEnum(playerPresDir, (uint)reqPresDir, !pressed4Way);
 
 
                 //check released inputs
                 //  buttons
-                var checkReleasedBtn = EnumHelper.HasEnum((uint)playerReleBtn, (uint)reqReleBtn);
+                var checkReleasedBtn = EnumHelper.HasEnum(playerReleBtn, (uint)reqReleBtn);
                 //  see above
-                var checkReleasedDir = EnumHelper.HasEnum((uint)playerReleDir, (uint)reqReleDir, !pressed4Way);
+                var checkReleasedDir = EnumHelper.HasEnum(playerReleDir, (uint)reqReleDir, !pressed4Way);
+
+                //check flags
+                var checkFlags = (reqFlags == 0) || EnumHelper.HasEnum(playerFlags, reqFlags, !pressed4Way);
+                //if (this._targetState.name == "cATLN_spAtkLoadUp") { Debug.Log("failed input check " + j + " :: " + reqItem.Flags + " | " + (uint)reqItem.Flags); }
 
 
                 //check if the input has passed the checks
-                var passedItemChecks = checkPressedBtn && checkPressedDir && checkReleasedBtn && checkReleasedDir;
+                var passedItemChecks = checkPressedBtn && checkPressedDir && checkReleasedBtn && checkReleasedDir && checkFlags;
 
                 if (passedItemChecks)
                 {
@@ -237,6 +249,8 @@ namespace FightingGameEngine.Data
                     //increment the player inputs ONLY IF we didn't match yet
                     //  otherwise we want to see if this frame has inputs that match other required items
                     i++;
+                    //if (this._targetState.name == "cATLN_spAtkAlcatrazHeat1") { Debug.Log("failed input check :: " + playerInputItem.ReleasedInput + " / " + reqItem.ReleasedInput); }
+
                 }
             }
             //Debug.Log("somehow failed");

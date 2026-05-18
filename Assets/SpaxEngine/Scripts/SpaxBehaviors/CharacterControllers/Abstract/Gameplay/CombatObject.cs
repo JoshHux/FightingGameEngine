@@ -21,11 +21,13 @@ namespace FightingGameEngine.Gameplay
             //reset damage scaling
             this.status.CurrentDamageScaling = 1;
             this.status.StoredDamageScaling = 1;
+
+            //
+            this.DeactivateHitboxes();
         }
 
         protected override void OnStart()
         {
-            base.OnStart();
 
             GameObject hitHolder = ObjectFinder.FindChildWithTag(this.gameObject, "HitboxContainer");
             this._hitboxes = hitHolder.GetComponentsInChildren<HitboxTrigger>();
@@ -40,6 +42,8 @@ namespace FightingGameEngine.Gameplay
                 box.SetTriggerAllegiance(this.status.Allegiance);
                 //we don't need to hook the delegate, since the boxes do it themselves on start
             }
+            base.OnStart();
+            
         }
 
         protected override void HitboxQueryUpdate()
@@ -197,6 +201,18 @@ namespace FightingGameEngine.Gameplay
             base.OnStateSet();
             this.status.CurrentDamageScaling *= this.status.StoredDamageScaling;
             this.status.StoredDamageScaling = 1;
+        }
+
+        private void DeactivateHitboxes()
+        {
+            this._hitboxes[0].DeactivateBox(this);
+            this._hitboxes[1].DeactivateBox(this);
+            this._hitboxes[2].DeactivateBox(this);
+            this._hitboxes[3].DeactivateBox(this);
+            this._hitboxes[4].DeactivateBox(this);
+            this._hitboxes[5].DeactivateBox(this);
+            this._hitboxes[6].DeactivateBox(this);
+            this._hitboxes[7].DeactivateBox(this);
         }
 
         //gets the first hurtbox in a list, helpful for hitbox stuff

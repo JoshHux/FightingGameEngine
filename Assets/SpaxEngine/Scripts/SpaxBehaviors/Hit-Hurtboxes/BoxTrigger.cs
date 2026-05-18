@@ -64,6 +64,10 @@ namespace FightingGameEngine.Gameplay
 
         protected void CommonDeactivateBox()
         {
+            if (this._trigger == null)
+            {
+                this._trigger = this.GetComponent<FBox>();
+            }
             this._trigger.Awake = false;
         }
         //should only be called once by each hit and hurtbox

@@ -1,18 +1,29 @@
+using MessagePack;
 
 namespace FightingGameEngine.Data
 {
 
     [System.Serializable]
+    [MessagePackObject]
+
     public struct Arr8<T>
     {
 
+        [Key(0)]
         public T _0;
+        [Key(1)]
         public T _1;
+        [Key(2)]
         public T _2;
+        [Key(3)]
         public T _3;
+        [Key(4)]
         public T _4;
+        [Key(5)]
         public T _5;
+        [Key(6)]
         public T _6;
+        [Key(7)]
         public T _7;
 
 

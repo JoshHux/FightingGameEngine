@@ -1,20 +1,33 @@
 using FixMath.NET;
 using UnityEngine;
+using MessagePack;
+
 namespace FightingGameEngine.Data
 {
     //represents one instance of an input
     [System.Serializable]
+    [MessagePackObject]
+
     public struct ResourceData
     {
+        [Key(0)]
         public int Health;
         //32767 is the max value for the next 8 resources
+        [Key(1)]
         public short Meter;
+        [Key(2)]
         public short Burst;
+        [Key(3)]
         public short Pressure;
+        [Key(4)]
         public short Airjumps;
+        [Key(5)]
         public short Airdashes;
+        [Key(6)]
         public short Resource1;
+        [Key(7)]
         public short Resource2;
+        [Key(8)]
         public short Resource3;
 
 
@@ -22,10 +35,10 @@ namespace FightingGameEngine.Data
         {
             this.Health = h;
             this.Meter = m;
-            this.Airjumps = r4;
-            this.Airdashes = r5;
-            this.Burst = r6;
-            this.Pressure = r7;
+            this.Burst = r4;
+            this.Pressure = r5;
+            this.Airjumps = r6;
+            this.Airdashes = r7;
             this.Resource1 = r1;
             this.Resource2 = r2;
             this.Resource3 = r3;
@@ -61,6 +74,8 @@ namespace FightingGameEngine.Data
             short r3 = (short)Mathf.Min(a.Resource1, b.Resource1);
             short r4 = (short)Mathf.Min(a.Resource2, b.Resource2);
             short r5 = (short)Mathf.Min(a.Resource3, b.Resource3);
+
+            //Debug.Log(r6);
 
             return new ResourceData(r1, r2, r6, r7, r8, r9, r3, r4, r5);
         }
@@ -100,15 +115,15 @@ namespace FightingGameEngine.Data
 
             short r1 = (short)(this.Health * (negR1) + newR.Health * (negR1 ^ 1));
             short r2 = (short)(this.Meter * (negR2) + newR.Meter * (negR2 ^ 1));
-            short r3 = (short)(this.Resource1 * (negR3) + newR.Resource1 * (negR3 ^ 1));
-            short r4 = (short)(this.Resource2 * (negR4) + newR.Resource2 * (negR4 ^ 1));
-            short r5 = (short)(this.Resource3 * (negR5) + newR.Resource3 * (negR5 ^ 1));
-            short r6 = (short)(this.Airjumps * (negR6) + newR.Airjumps * (negR6 ^ 1));
-            short r7 = (short)(this.Airdashes * (negR7) + newR.Airdashes * (negR7 ^ 1));
-            short r8 = (short)(this.Burst * (negR8) + newR.Burst * (negR8 ^ 1));
-            short r9 = (short)(this.Pressure * (negR9) + newR.Pressure * (negR9 ^ 1));
+            short r3 = (short)(this.Burst * (negR8) + newR.Burst * (negR8 ^ 1));
+            short r4 = (short)(this.Pressure * (negR9) + newR.Pressure * (negR9 ^ 1));
+            short r5 = (short)(this.Airjumps * (negR6) + newR.Airjumps * (negR6 ^ 1));
+            short r6 = (short)(this.Airdashes * (negR7) + newR.Airdashes * (negR7 ^ 1));
+            short r7 = (short)(this.Resource1 * (negR3) + newR.Resource1 * (negR3 ^ 1));
+            short r8 = (short)(this.Resource2 * (negR4) + newR.Resource2 * (negR4 ^ 1));
+            short r9 = (short)(this.Resource3 * (negR5) + newR.Resource3 * (negR5 ^ 1));
 
-            return new ResourceData(r1, r2, r6, r7, r8, r9, r3, r4, r5);
+            return new ResourceData(r1, r2, r3, r4, r5, r6, r7, r8, r9);
         }
 
 
@@ -116,15 +131,15 @@ namespace FightingGameEngine.Data
         {
             var newH = a.Health - b.Health;
             var newM = (short)(a.Meter - b.Meter);
+            var newR6 = (short)(a.Burst - b.Burst);
+            var newR7 = (short)(a.Pressure - b.Pressure);
+            var newR4 = (short)(a.Airjumps - b.Airjumps);
+            var newR5 = (short)(a.Airdashes - b.Airdashes);
             var newR1 = (short)(a.Resource1 - b.Resource1);
             var newR2 = (short)(a.Resource2 - b.Resource2);
             var newR3 = (short)(a.Resource3 - b.Resource3);
-            var newR4 = (short)(a.Airjumps - b.Airjumps);
-            var newR5 = (short)(a.Airdashes - b.Airdashes);
-            var newR6 = (short)(a.Burst - b.Burst);
-            var newR7 = (short)(a.Pressure - b.Pressure);
 
-            var ret = new ResourceData(newH, newM, newR4, newR5, newR6, newR7, newR1, newR2, newR3);
+            var ret = new ResourceData(newH, newM, newR6, newR7, newR4, newR5, newR1, newR2, newR3);
 
             return ret;
         }
@@ -133,15 +148,15 @@ namespace FightingGameEngine.Data
         {
             var newH = a.Health + b.Health;
             var newM = (short)(a.Meter + b.Meter);
+            var newR6 = (short)(a.Burst + b.Burst);
+            var newR7 = (short)(a.Pressure + b.Pressure);
+            var newR4 = (short)(a.Airjumps + b.Airjumps);
+            var newR5 = (short)(a.Airdashes + b.Airdashes);
             var newR1 = (short)(a.Resource1 + b.Resource1);
             var newR2 = (short)(a.Resource2 + b.Resource2);
             var newR3 = (short)(a.Resource3 + b.Resource3);
-            var newR4 = (short)(a.Airjumps + b.Airjumps);
-            var newR5 = (short)(a.Airdashes + b.Airdashes);
-            var newR6 = (short)(a.Burst + b.Burst);
-            var newR7 = (short)(a.Pressure + b.Pressure);
 
-            var ret = new ResourceData(newH, newM, newR4, newR5, newR6, newR7, newR1, newR2, newR3);
+            var ret = new ResourceData(newH, newM, newR6, newR7, newR4, newR5, newR1, newR2, newR3);
 
             return ret;
         }
@@ -150,15 +165,15 @@ namespace FightingGameEngine.Data
         {
             var newH = a.Health * b;
             var newM = (short)(a.Meter * b);
+            var newR6 = (short)(a.Burst * b);
+            var newR7 = (short)(a.Pressure * b);
+            var newR4 = (short)(a.Airjumps * b);
+            var newR5 = (short)(a.Airdashes * b);
             var newR1 = (short)(a.Resource1 * b);
             var newR2 = (short)(a.Resource2 * b);
             var newR3 = (short)(a.Resource3 * b);
-            var newR4 = (short)(a.Airjumps * b);
-            var newR5 = (short)(a.Airdashes * b);
-            var newR6 = (short)(a.Burst * b);
-            var newR7 = (short)(a.Pressure * b);
 
-            var ret = new ResourceData(newH, newM, newR4, newR5, newR6, newR7, newR1, newR2, newR3);
+            var ret = new ResourceData(newH, newM, newR6, newR7, newR4, newR5, newR1, newR2, newR3);
 
             return ret;
 
@@ -168,15 +183,15 @@ namespace FightingGameEngine.Data
         {
             var newH = (int)(a.Health * b);
             var newM = (short)(a.Meter * b);
+            var newR6 = (short)(a.Burst * b);
+            var newR7 = (short)(a.Pressure * b);
+            var newR4 = (short)(a.Airjumps * b);
+            var newR5 = (short)(a.Airdashes * b);
             var newR1 = (short)(a.Resource1 * b);
             var newR2 = (short)(a.Resource2 * b);
             var newR3 = (short)(a.Resource3 * b);
-            var newR4 = (short)(a.Airjumps * b);
-            var newR5 = (short)(a.Airdashes * b);
-            var newR6 = (short)(a.Burst * b);
-            var newR7 = (short)(a.Pressure * b);
 
-            var ret = new ResourceData(newH, newM, newR4, newR5, newR6, newR7, newR1, newR2, newR3);
+            var ret = new ResourceData(newH, newM, newR6, newR7, newR4, newR5, newR1, newR2, newR3);
 
             return ret;
 

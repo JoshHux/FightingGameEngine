@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+using MessagePack;
 
 namespace FixMath.NET
 {
@@ -9,12 +10,16 @@ namespace FixMath.NET
     /// Represents a Q31.32 fixed-point number.
     /// </summary>
     [Serializable]
+    [MessagePackObject]
+
     public partial struct Fix64 : IEquatable<Fix64>, IComparable<Fix64>
     {
         public const MethodImplOptions AggressiveInlining = (MethodImplOptions)256;
+        [Key(0)]
         public long m_rawValue;
 
         // Precision of this type is 2^-32, that is 2,3283064365386962890625E-10
+
         public static readonly decimal Precision = (decimal)(new Fix64(1L));//0.00000000023283064365386962890625m;
         public static readonly Fix64 MaxValue = new Fix64(MAX_VALUE);
         public static readonly Fix64 MinValue = new Fix64(MIN_VALUE);
@@ -53,9 +58,7 @@ namespace FixMath.NET
         public static int Sign(Fix64 value)
         {
             return
-                value.m_rawValue < 0 ? -1 :
-                value.m_rawValue > 0 ? 1 :
-                0;
+                value.m_rawValue < 0 ? -1 : 1;
         }
 
 
@@ -1205,6 +1208,7 @@ namespace FixMath.NET
         /// The underlying integer representation
         /// </summary>
         //[Newtonsoft.Json.JsonIgnore]
+        [IgnoreMember]
         public long RawValue => m_rawValue;
 
         /// <summary>

@@ -60,13 +60,13 @@ namespace FightingGameEngine.Gameplay
         {
             //valid or invalid boxdata, checks if dimensions are valid
             bool isValid = boxData.Dimensions.sqrMagnitude > 0;
+            this.ActivateBox(boxData);
 
             //if invalid data, don't
             if (!isValid)
             {
                 return;
             }
-            this.ActivateBox(boxData);
         }
 
         //called by hitboxes interacting with this to hit the owner

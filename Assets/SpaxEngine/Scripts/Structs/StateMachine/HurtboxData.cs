@@ -1,11 +1,14 @@
 using FixMath.NET;
+using MessagePack;
 namespace FightingGameEngine.Data
 {
     [System.Serializable]
+    [MessagePackObject]
+
     public struct HurtboxData
     {
-        public FVector2 Position;
-        public FVector2 Dimensions;
+        [Key(0)] public FVector2 Position;
+        [Key(1)] public FVector2 Dimensions;
 
     }
 }

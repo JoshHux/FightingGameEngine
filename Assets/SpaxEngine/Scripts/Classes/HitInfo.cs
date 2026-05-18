@@ -37,7 +37,7 @@ namespace FightingGameEngine.Data
             this._contactLoc = cl;
             this._hurtCharacter = huo;
             this._hitCharacter = hio;
-            this._currentDamageScaling = 0;
+            this._currentDamageScaling = 1;
         }
         public HitInfo(HitboxData hd, HitIndicator hi, Vector3 cl, VulnerableObject vu, VulnerableObject huo, CombatObject hio, Fix64 cds)
         {

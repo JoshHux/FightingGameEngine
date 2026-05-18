@@ -48,7 +48,7 @@ namespace FightingGameEngine.ObjectPooler
             for (int j = 0; j < 8; j++)
             {
                 var hold = proj[j];
-                if (hold.get_pooled_object() != null)
+                if (hold != null && hold.get_pooled_object() != null)
                 {
                     hold.DeactivatedAll();
                     if (i == 0)

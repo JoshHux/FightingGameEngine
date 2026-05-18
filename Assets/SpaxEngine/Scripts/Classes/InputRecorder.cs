@@ -19,6 +19,8 @@ namespace FightingGameEngine.Data
 
         public InputSnapshot CurrentControllerState { get { return this._controllerState; } set { this._controllerState = value; } }
 
+        public List<InputSnapshot> RecordedInputs { get { return this._recordedInputs; } set { this._recordedInputs = value; } }
+
         public InputRecorder()
         {
             this._controllerState = new InputSnapshot();
@@ -90,63 +92,30 @@ namespace FightingGameEngine.Data
         //returns the list of player inputs, with a backwards order and the current controller state as the first element
         public InputItem[] GetInputs()
         {
-            var controllerState = this._controllerState;
 
 
-            /*
-                        //use the list of snapshots to figure out the list of changes
-                        //controller state should only have the CHECK_CONTROLLER flag
-                        controllerState.Flags = InputFlags.CHECK_CONTROLLER;
 
-
-                        //check if we should return the rest of the inputs
-                        bool sendInputs = true;
-                        int lastInd = this._recordedInputs.Count - 1;
-                        int secondLastInd = lastInd - 1;
-
-                        if (lastInd > 0)
-                        {
-                            var firstItem = this._recordedInputs[lastInd];
-                            var secondItem = this._recordedInputs[secondLastInd];
-
-                            int inputBufferLeniency = Spax.SpaxManager.Instance.StaticValues.InputBuffer;
-
-                            sendInputs = (firstItem.HoldDuration <= inputBufferLeniency) || (firstItem.LenientBuffer && (secondItem.HoldDuration <= inputBufferLeniency));
-                        }*/
 
             //list to return
             var hold = new List<InputItem>();
 
-            //if we want to send inputs
-            //if (sendInputs)
-            //{
-            //iterate through and find the differences
-            //copy the list into a seperate list, this so we can add the controller state to the end, flip it and turn it into an array
-            //hold = new List<InputItem>(this._recordedInputs);
-            //}
+
 
             //start from the most recent input and go backwards
             int i = this._recordedInputs.Count - 2;
-            /*
-                        if (i == -1)
-                        {
-                            var toAdd = InputSnapshot.DiffFromNew(this._recordedInputs[0], new InputSnapshot());
-                            toAdd.HoldDuration = this._recordedInputs[i].HoldDuration;
-                            hold.Add(toAdd);
 
-                        }
-                        else
-                        {
-                            */
-            InputItem prevItem = new InputItem();
+            //this is to make sure that there are no interruptions between the most recently pressed input and the pressed input before that  
+            InputEnum prevItemPressed = 0;
+            int indexOfLastPressed = -1;
 
             while (i >= 0)
             {
                 var toAdd = InputSnapshot.DiffFromNew(this._recordedInputs[i], this._recordedInputs[i + 1]);
                 //to edit later just need a way to check to uninterrupted inputs
-                if (toAdd.PressedInput == prevItem.ReleasedInput || toAdd.ReleasedInput == prevItem.PressedInput)
+                if (0 != prevItemPressed && toAdd.PressedInput == prevItemPressed)
                 {
-                    toAdd.Flags |= InputFlags.NO_INTERRUPT;
+                    //Debug.Log("no interrupt detected :: " + prevItemPressed + " | " + toAdd.PressedInput);
+                    hold[indexOfLastPressed] = new InputItem(hold[indexOfLastPressed].PressedInput, hold[indexOfLastPressed].ReleasedInput, InputFlags.NO_INTERRUPT, hold[indexOfLastPressed].HoldDuration);
                 }
 
                 //how long has it been since the change?
@@ -156,18 +125,16 @@ namespace FightingGameEngine.Data
                 //if ((uint)this._recordedInputs[i].InputStates == 0) { toAdd.HoldDuration = this._recordedInputs[i].HoldDuration; }
 
                 hold.Add(toAdd);
-                prevItem = toAdd;
+
+                if (toAdd.PressedInput != 0)
+                {
+                    prevItemPressed = toAdd.PressedInput;
+                    indexOfLastPressed = this._recordedInputs.Count - i - 2;
+                    //Debug.Log(prevItemPressed);
+                }
 
                 i--;
             }
-            //}
-            //if (hold.Count > 0) { Debug.Log(hold[0].HoldDuration); }
-
-            //add the controller state to the end
-            //hold.Add(controllerState);
-
-            //reverse the order of hold
-            //hold.Reverse();
 
             //now, turn it into an array and return
             var ret = hold.ToArray();

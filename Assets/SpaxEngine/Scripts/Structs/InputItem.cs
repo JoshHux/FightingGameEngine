@@ -30,7 +30,8 @@ namespace FightingGameEngine.Data
         {
 
             this.PressedInput = pressedInput;
-            this.ReleasedInput = releasedInput; this.Flags = flags;
+            this.ReleasedInput = releasedInput; 
+            this.Flags = flags;
             this.HoldDuration = 0;
             this.UnlenientTime = 0;
         }
@@ -45,60 +46,6 @@ namespace FightingGameEngine.Data
             this.UnlenientTime = 0;
         }
 
-        //returns true if the x-axis is being pressed
-        public bool WantsToMove()
-        {
-            var ret = false;//EnumHelper.HasEnum((uint)this.Input, (uint)InputEnum.X_NONZERO);
-
-            return ret;
-        }
-
-        //returns -1 or 1 depending on x-axis
-        public int X()
-        {
-            //returns 1 if input has either left or right input
-            //negX is -1 because we add posX and negX for the return
-            //int negX = -1 * (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.X_NEGATIVE));
-            //int posX = (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.X_POSITIVE));
-
-            //posX and negX both cannot have a nonzero value because of input stuff
-            //so one has to be 0, so the total will be positive if right input and negative if right input
-            //var ret = negX + posX;
-
-            //return ret;
-            return 0;
-        }
-        //returns -1 or 1 depending on x-axis
-        public int Y()
-        {
-            //returns 1 if input has either left or right input
-            //negX is -1 because we add posX and negX for the return
-            //int negY = -1 * (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.Y_NEGATIVE));
-            //int posY = (int)EnumHelper.isNotZero((uint)(this.Input & InputEnum.Y_POSITIVE));
-
-            //posX and negX both cannot have a nonzero value because of input stuff
-            //so one has to be 0, so the total will be positive if right input and negative if right input
-            //var ret = negY + posY;
-
-            //return ret;
-            return 0;
-        }
-
-
-        //returns the set of InputEnum that are lost from this InputItem to the other InputItem
-        public InputEnum GetInputsLost(InputItem other)
-        {
-            //var otherEnum = other.Input;
-
-            //get the differences in the enum
-            //var diff = this.Input ^ otherEnum;
-
-            //AND the differences so that we ONLY get the inputs that were lost from THIS Input Item's perspective
-            //var ret = diff & this.Input;
-
-            //return ret;
-            return 0;
-        }
 
         //returns an input item with a L/R possibly flipped
         public InputItem FaceDir(int dir)

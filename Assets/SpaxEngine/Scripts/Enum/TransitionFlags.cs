@@ -10,6 +10,7 @@ namespace FightingGameEngine.Enum
         AIRBORNE = 1 << 1,
         //when a character makes contact with the wall
         WALLED = 1 << 3,
+        WALL_JUMPING = WALLED | 1 << 8,
         //when a character gets hit
         GOT_HIT = 1 << 4,
         //when a character lands a hit
@@ -17,11 +18,11 @@ namespace FightingGameEngine.Enum
         //when a character blocks a hit
         BLOCKED_HIT = GOT_HIT | 1 << 6,
         //when a character doesn't block a hit
-        UNBLOCKED_HIT =  1 << 7,
+        UNBLOCKED_HIT = 1 << 7,
         //when a character's current state ends
         STATE_END = 1 << 30,
 
         //flags that should be required for a transition to have
-        REQ_FLAGS=UNBLOCKED_HIT,
+        REQ_FLAGS = UNBLOCKED_HIT,
     }
 }

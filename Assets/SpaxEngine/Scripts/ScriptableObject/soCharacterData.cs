@@ -12,6 +12,8 @@ namespace FightingGameEngine.Data
 
         [SerializeField] private string _charName = "AAAA";
         [SerializeField] private ResourceData _startingResources;
+        //values that resources are set to when entering a grounded state
+        [SerializeField] private ResourceData _LandingResources;
         [SerializeField] private ResourceData _minResources;
         [SerializeField] private ResourceData _maxResources;
         [SerializeField] private Fix64 _guts;
@@ -28,6 +30,9 @@ namespace FightingGameEngine.Data
         [SerializeField] private List<TransitionData> _moveList;
         //Info on projectiles
         [SerializeField] private Arr8ObjPoolerWrapper _projectiles;
+        [SerializeField] private List<AudioClip> _soundList;
+        //placeholder until I can find/think of a better way to hanlde colors
+        [SerializeField] private Material _p2Mat;
 
         public Fix64 Guts { get { return this._guts; } }
         public Fix64 Mass { get { return this._mass; } }
@@ -40,11 +45,14 @@ namespace FightingGameEngine.Data
         public Fix64 FallMaxSpd { get { return this._fallMaxSpd; } }
         public soVFXValues VFXValues { get { return this._vfxValues; } }
         public ResourceData StartingResources { get { return this._startingResources; } }
+        public ResourceData LandingResources { get { return this._LandingResources; } }
         public ResourceData MinResources { get { return this._minResources; } }
         public ResourceData MaxResources { get { return this._maxResources; } }
         public Arr8<PoolItem> Projectiles { get { return this._projectiles.get_arr8(); } }
         public soStateData[] StateList { get { return this._stateList; } }
         public TransitionData[] MoveList { get { return this._moveList.ToArray(); } }
+        public List<AudioClip> SoundList { get { return this._soundList; } }
+        public Material P2Mat { get { return this._p2Mat; } }
 
 
 #if UNITY_EDITOR

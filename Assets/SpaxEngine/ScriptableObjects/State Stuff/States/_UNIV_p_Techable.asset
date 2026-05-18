@@ -15,7 +15,11 @@ MonoBehaviour:
   _id:
     ID: 0
   _parentState: {fileID: 0}
+  inheritTrans_: 1
+  inheritCond_: 1
+  inheritCancel_: 1
   _duration: 0
+  loop_: 0
   _stateConditions: 0
   _toggleState: 0
   _cancels: 0
@@ -29,23 +33,35 @@ MonoBehaviour:
     _minimumHeight:
       m_rawValue: 0
     _cancelConditions: 1
+    _requiredControllerState:
+      PressedInput: 0
+      ReleasedInput: 0
+      Flags: 0
+      HoldDuration: 0
+      UnlenientTime: 0
     _requiredInputs:
-    - Input: 256
+    - PressedInput: 0
+      ReleasedInput: 0
       Flags: 1
       HoldDuration: 0
       UnlenientTime: 0
-      _lenientBuffer: 0
     _requiredTransitionFlags: 0
     _transitionEvents: 1073741824
     _requiredResources:
       Health: 0
       Meter: 0
+      Burst: 0
+      Pressure: 0
+      Airjumps: 0
+      Airdashes: 0
       Resource1: 0
       Resource2: 0
       Resource3: 0
-      Resource4: 0
-      Resource5: 0
-      Resource6: 0
-      Resource7: 0
+  _hitboxSets: []
+  _hurtboxSets: []
+  _script: 
   _frames: []
   _animation: []
+  references:
+    version: 2
+    RefIds: []

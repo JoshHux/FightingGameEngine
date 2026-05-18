@@ -317,7 +317,7 @@ namespace FightingGameEngine.Gameplay
             }
 
             //tick active timer
-            this._activeTimer.TickTimer();
+            if (!this._activeTimer.TickTimer()) { this.DeactivateBox(this); }
 
             return ret.ToArray();
 

@@ -25,7 +25,7 @@ namespace FightingGameEngine.Commands
         private static FuncInfo[] commands = {
             new FuncInfo("SetHitboxes", 1), new FuncInfo("SetHurtboxes", 1), new FuncInfo("SetVel", 1), new FuncInfo("ApplyVel", 1),new FuncInfo("SetRsrc", 9), new FuncInfo("ApplyRsrc", 9),
             new FuncInfo("Teleport", 2),new FuncInfo("SuperFlash", 1),new FuncInfo("SetGrav", 1),new FuncInfo("ToggleCond", 1),new FuncInfo("ToggleCancel", 1),new FuncInfo("SetArmor", 1),
-            new FuncInfo("SpawnProjectile", 3),new FuncInfo("CondTimer", 2) };
+            new FuncInfo("SpawnProjectile", 3),new FuncInfo("CondTimer", 2), new FuncInfo("SetPushboxActive", 1), new FuncInfo("SetBushboxDim", 1) };
 
         public static List<FrameData> CompileString(in string str, in soStateData state)
         {

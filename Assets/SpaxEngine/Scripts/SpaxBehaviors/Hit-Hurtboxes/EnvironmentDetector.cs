@@ -32,7 +32,9 @@ namespace FightingGameEngine.Gameplay
         private void OnFlatOverlap(in ContactData c)
         {
             //UnityEngine.Debug.Log("walled " + this.gameObject.name);
-            this._owner.SetWalled(1);
+            var xDiff = c.other.Body.Position.x - this._trigger.Position.x;
+            var dirOfObj = Fix64.Sign(xDiff);
+            this._owner.SetWalled(1, dirOfObj);
         }
 
 

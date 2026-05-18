@@ -4,6 +4,8 @@ using FixMath.NET;
 using FlatPhysics.Unity;
 using FightingGameEngine.Data;
 using FightingGameEngine.Enum;
+using System.Threading;
+using Spax;
 
 namespace FightingGameEngine.Gameplay
 {
@@ -12,17 +14,42 @@ namespace FightingGameEngine.Gameplay
         [SerializeField] private soCharacterStatus _status;
         [SerializeField] private soCharacterData _data;
         [SerializeField, ReadOnly] private Animator _animator;
+        [SerializeField, ReadOnly] private AudioSource _audioSource;
         [SerializeField, ReadOnly] private float _animSpeed;
+        [SerializeField, ReadOnly] private int _lastProcessedFrame;
+        [SerializeField, ReadOnly] private soStateData _lastProcessedState;
+
+
+        public soCharacterStatus Status { set { this._status = value; } }
+
+        public Animator PlayerAnimator
+        {
+            get
+            {
+
+                if (this._animator == null) { this._animator = ObjectFinder.FindChildWithTag(this.gameObject, "RenderingContainer").GetComponentInChildren<Animator>(); }
+                return this._animator;
+            }
+        }
 
         protected override void OnStart()
         {
             base.OnStart();
 
+            this._audioSource = ObjectFinder.FindChildWithTag(this.gameObject, "RenderingContainer").GetComponentInChildren<AudioSource>();
+
             this._animator = ObjectFinder.FindChildWithTag(this.gameObject, "RenderingContainer").GetComponentInChildren<Animator>();
+            //Debug.Log(this._animator);
             this._animSpeed = 1f;
+
+            this._lastProcessedFrame = -1;
+            this._lastProcessedState = null;
         }
 
-        protected override void PreRenderUpdate() { }
+        protected override void PreRenderUpdate()
+        {
+        }
+
         protected override void RenderUpdate()
         {
             //if we're in hitstop, don't continue the animation
@@ -40,18 +67,18 @@ namespace FightingGameEngine.Gameplay
             else
             {
                 this._animator.speed = this._animSpeed;
+
+                AnimationFrameData frame = this._status.CurrentState.GetAnimationAt(timeInState);
+                //if (this._status.CurrentState.name == "Jab") { Debug.Log("state timer in renderupdate is - " + this._status.StateTimer.TimeElapsed + "/" + this._status.StateTimer.EndTime); }
+
+                //checking if there is data to process
+                if (frame != null)
+                {
+                    //Debug.Log("found frame - " + timeInState);
+                    this.ProcessAnimationData(frame);
+                }
             }
 
-
-            AnimationFrameData frame = this._status.CurrentState.GetAnimationAt(timeInState);
-            //if (this._status.CurrentState.name == "Jab") { Debug.Log("state timer in renderupdate is - " + this._status.StateTimer.TimeElapsed + "/" + this._status.StateTimer.EndTime); }
-
-            //checking if there is data to process
-            if (frame != null)
-            {
-                //Debug.Log("found frame - " + timeInState);
-                this.ProcessAnimationData(frame);
-            }
             var rendererTransform = this._animator.transform;
             var rendererScale = rendererTransform.localScale;
             var facingDir = this._status.CurrentFacingDirection;
@@ -66,9 +93,13 @@ namespace FightingGameEngine.Gameplay
                 //shortcut
                 RendererInfo ri = this._status.RendererInfo;
                 //print(this._status);
-                Instantiate(ri.VFXValues.VFXList[ri.VFXID], ri.VFXPos, Quaternion.identity);
+                //this is gonna run into issues really quick, we need a better way to handle vfx
+                Instantiate(this._data.VFXValues.VFXList[ri.VFXID], ri.VFXPos, Quaternion.identity);
                 this._status.RendererInfo.VFXID = -1;
             }
+
+
+            if (EnumHelper.HasEnum((uint)this._status.RendererInfo.RelevantEvents, (uint)TransitionFlags.GOT_HIT)) { this.GotHitStuff(); } else { this._stillInStun = false; }
 
         }
         protected override void PostRenderUpdate()
@@ -80,6 +111,8 @@ namespace FightingGameEngine.Gameplay
         //call to process a given animationFrameData
         private void ProcessAnimationData(AnimationFrameData afd)
         {
+            if (this._lastProcessedState == this._status.CurrentState && this._lastProcessedFrame == afd.AtFrame) { return; }
+
             //if we have a non-empty animation name
             if (afd.AnimationName.Length > 0)
             {
@@ -126,7 +159,50 @@ namespace FightingGameEngine.Gameplay
                 Instantiate(this._data.VFXValues.VFXList[afd.VFX], playerPos + spawnPos, spawnRot);
             }
 
+            if (afd.ScreenShake > 0 && afd.ShakeDuration > 0)
+            {
+                CameraBehavior.Instance.ShakeCam((float)afd.ScreenShake, (float)afd.ShakeDuration);
+            }
 
+            if (afd.SoundFX.Length > 0)
+            {
+                var soundClip = this._data.SoundList.Find(o => o.name == afd.SoundFX);
+                this._audioSource.clip = soundClip;
+                this._audioSource.Play();
+            }
+
+            this._lastProcessedFrame = afd.AtFrame;
+            this._lastProcessedState = this._status.CurrentState;
+        }
+
+        private bool _stillInStun = false;
+        //this is a placeholder before I figure out a better way to process events on getting hit
+        private void GotHitStuff()
+        {
+
+            if (this._stillInStun) { return; }
+
+            if (EnumHelper.HasEnum((uint)this._status.RendererInfo.RelevantEvents, (uint)TransitionFlags.BLOCKED_HIT, true))
+            {
+                var soundClip = this._data.SoundList.Find(o => o.name == "Parry");
+                this._audioSource.clip = soundClip;
+                this._audioSource.Play();
+            }
+            else
+            {
+                var soundClip = this._data.SoundList.Find(o => o.name == "Shove1");
+
+                if (this._status.CurrentHP < 1) { soundClip = this._data.SoundList.Find(o => o.name == "Big Hit"); }
+
+                this._audioSource.clip = soundClip;
+                this._audioSource.Play();
+                CameraBehavior.Instance.ShakeCam(0.1f, 0.1f);
+            }
+
+            if (SpaxManager.Instance.IsTraining) { this._status.CurrentHP = 1; }
+
+            this._stillInStun = true;
+            this._status.RendererInfo.RelevantEvents &= ~TransitionFlags.GOT_HIT;
         }
 
     }

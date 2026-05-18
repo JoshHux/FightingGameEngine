@@ -1,13 +1,15 @@
+using MessagePack;
 
 namespace FightingGameEngine.Data
 {
 
     [System.Serializable]
+    [MessagePackObject]
 
     public struct Arr2<T>
     {
-        public T _0;
-        public T _1;
+        [Key(0)] public T _0;
+        [Key(1)] public T _1;
 
         //https://stackoverflow.com/questions/424669/how-do-i-overload-the-operator-in-c-sharp
         public T this[int key]

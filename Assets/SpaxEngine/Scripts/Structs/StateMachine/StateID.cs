@@ -1,8 +1,12 @@
+using MessagePack;
 [System.Serializable]
+[MessagePackObject]
+
 public struct StateID
 {
     //4 smallest bytes correspont to char combination that is unique to each character, the other bits describe the states's index in that character's list
     //the sign bit indicates whether or not this is a universal state, positive for non universal state and negative for universals state
+    [Key(0)]
     [UnityEngine.SerializeField] public long ID;
 
 #if UNITY_EDITOR

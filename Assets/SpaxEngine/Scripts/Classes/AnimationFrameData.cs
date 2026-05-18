@@ -4,7 +4,7 @@ namespace FightingGameEngine.Data
     [System.Serializable]
     public class AnimationFrameData
     {
-        [UnityEngine.SerializeField] private int _atFrame;
+        [UnityEngine.SerializeField] private int _atFrame = 1;
         [UnityEngine.SerializeField] private string _animationName;
         [UnityEngine.SerializeField] private Fix64 _animationSpeed = 1;
         //whether or not we ignore applying this animation if we're already doing that animation
@@ -14,7 +14,8 @@ namespace FightingGameEngine.Data
         [UnityEngine.SerializeField] private int _vfx = -1;
         [UnityEngine.SerializeField] private FVector3 _vfxPosition;
         [UnityEngine.SerializeField] private FVector3 _vfxRotation;
-
+        [UnityEngine.SerializeField] private Fix64 _screenShake = 0;
+        [UnityEngine.SerializeField] private Fix64 _shakeDuration = 0;
         public int AtFrame { get { return this._atFrame; } }
         public string AnimationName { get { return this._animationName; } }
         public Fix64 AnimationSpeed { get { return this._animationSpeed; } }
@@ -24,13 +25,16 @@ namespace FightingGameEngine.Data
         public int VFX { get { return this._vfx; } }
         public FVector3 VFXPosition { get { return this._vfxPosition; } }
         public FVector3 VFXRotation { get { return this._vfxRotation; } }
+        public Fix64 ScreenShake { get { return this._screenShake; } }
+        public Fix64 ShakeDuration { get { return this._shakeDuration; } }
 
         /*public AnimationFrameData(int af, string an, Fix64 as, bool sisn, int sf, string sfx, int vfx, FVector3 vfxp, FVector3 vfxr)
         {
 
         }*/
 
-        public AnimationFrameData(){
+        public AnimationFrameData()
+        {
             this._atFrame = 0;
             this._animationName = "";
             this._animationSpeed = 1;
@@ -40,6 +44,8 @@ namespace FightingGameEngine.Data
             this._vfx = -1;
             this._vfxPosition = FVector3.zero;
             this._vfxRotation = FVector3.zero;
+            this._screenShake = 0;
+            this._shakeDuration = 0;
         }
     }
 }

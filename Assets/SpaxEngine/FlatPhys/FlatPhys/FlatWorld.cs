@@ -59,7 +59,9 @@ namespace FlatPhysics
             {
                 int insertInd = this._staticInd;
                 if (ind == 0) { insertInd = -1; }
-                this.bodyList.Insert(insertInd + 1, body);
+                //UnityEngine.Debug.Log(this.bodyList.Count + " " + insertInd);
+                if (ind == insertInd) { this.bodyList.Add(body); }
+                else { this.bodyList.Insert(insertInd + 1, body); }
             }
 
 
@@ -156,7 +158,7 @@ namespace FlatPhysics
                     FlatBody bodyB = this.bodyList[j];
 
                     //we want to skip if both are static OR either is NOT awake
-                    bool skipB = (!bodyB.Awake) || (bodyA.IsStatic && bodyB.IsStatic);
+                    bool skipB = (!bodyB.Awake) || (bodyA.IsStatic && bodyB.IsStatic) || (bodyA.IsSimpleCollisionBox && bodyB.IsSimpleCollisionBox);
                     //UnityEngine.Debug.Log((!bodyB.Awake) + " || " + (bodyA.IsStatic && bodyB.IsStatic));
 
                     if (skipB) { continue; }
@@ -231,7 +233,7 @@ namespace FlatPhysics
 
             if (dynamicPairs.Count > 0 && broadPhaseList.Count - staticCol > 1) { broadPhaseList.InsertRange(staticCol + 1, dynamicPairs); }
             else
-            if (dynamicPairs.Count > 0 && broadPhaseList.Count - staticCol > 0) { broadPhaseList.AddRange(dynamicPairs); }
+                if (dynamicPairs.Count > 0 && broadPhaseList.Count - staticCol > 0) { broadPhaseList.AddRange(dynamicPairs); }
             //Narrow Phase
             int nLen = broadPhaseList.Count;
             //var colList = "";
@@ -307,7 +309,7 @@ namespace FlatPhysics
                     bodyA.Move(trueOffsetA * aInCorner);
 
 
-                    this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false, aInCorner, bInCorner);
+                    this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, bodyA.ActivePushbox && bodyB.ActivePushbox, aInCorner, bInCorner);
 
 
                     //if we are able to collide, call the respective callback
@@ -369,7 +371,7 @@ namespace FlatPhysics
 
                         bodyB.Move(bodyB.LinearVelocity * time * colTime);
                         bodyA.Move(bodyA.LinearVelocity * time * colTime);
-                        this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false, aInCorner, bInCorner);
+                        this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, bodyA.ActivePushbox && bodyB.ActivePushbox, aInCorner, bInCorner);
 
 
                         //if we are able to collide, call the respective callback
@@ -524,7 +526,7 @@ namespace FlatPhysics
                     //}
 
 
-                    this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, false);
+                    this.ResolveCollision(bodyA, bodyB, normal, depth, aColb, bCola, bodyA.ActivePushbox && bodyB.ActivePushbox);
                 }
 
 
@@ -547,28 +549,49 @@ namespace FlatPhysics
 
             Fix64 j = -(1 + e) * FVector2.Dot(relativeVelocity, normal);
             j /= bodyA.InvMass * aInCorner + bodyB.InvMass * bInCorner;
+            if (aInCorner == 0 || bInCorner == 0) { normal.x = bodyB.livingObject.Status.CurrentFacingDirection; }
 
             FVector2 impulse = j * normal;
+            if (bothActivePushboxes)
+            {
+                impulse.y = 0;
+                normal.y = 0;
+                if (aInCorner > 0 || bInCorner > 0) { normal.x = bodyB.livingObject.Status.CurrentFacingDirection; }
+
+            }
+
 
             //            bodyA.LinearVelocity -= impulse * bodyA.InvMass;
             //            bodyB.LinearVelocity += impulse * bodyB.InvMass;
 
+            // additional impulse to make sure that the boxes don't stack on top of each other
+            Fix64 addedImpulseOnX = (bothActivePushboxes && normal.x == 0) ? -1 * Fix64.Sign(bodyA.Position.x - bodyB.Position.x) : 0;
+
+            //sanity check
+            if (bothActivePushboxes && normal.x == 0 && Fix64.Sign(bodyA.Position.x - bodyB.Position.x) == 0) { addedImpulseOnX = -1; }
+
+            //Debug.Log(addedImpulseOnX);
+
+            if (bothActivePushboxes && (aInCorner > 0 || bInCorner > 0))
+            {
+                addedImpulseOnX = bodyB.livingObject.Status.CurrentFacingDirection;
+
+            }
+
             //Debug.Log("a- " + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y);
             //Debug.Log("b- " + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y);
-            bodyA.LinearVelocity -= impulse * bodyA.InvMass * aColB * aInCorner;
-            bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA * bInCorner;
-            //Debug.Log(impulse.x + ", " + impulse.y);
-            //Debug.Log("a- " + bodyA.LinearVelocity.x + ", " + bodyA.LinearVelocity.y);
-            //Debug.Log("b- " + bodyB.LinearVelocity.x + ", " + bodyB.LinearVelocity.y);
-            //bodyB.Position += new FVector2((depth), impulse.y) * bodyB.InvMass * bColA;// * ((Fix64)1 / (Fix64)60);
-            //bodyA.Position -= new FVector2((depth), impulse.y) * bodyA.InvMass * aColB;// * ((Fix64)1 / (Fix64)60);
 
-            //bodyA.Impulse -= impulse * bodyA.InvMass * aColB;
-            //bodyB.Impulse += impulse * bodyB.InvMass * bColA;
+            bodyA.LinearVelocity -= (impulse * bodyA.InvMass * aColB * aInCorner);
 
+            bodyB.LinearVelocity += (impulse * bodyB.InvMass * bColA * bInCorner);
+            //             //we only want this x axis correction stuff if the body is airborne
+            if (bothActivePushboxes && (bodyA.LinearVelocity.y < 0 || bodyB.LinearVelocity.y < 0))
+            {
+                addedImpulseOnX = bodyA.livingObject.Status.CurrentFacingDirection;
+                bodyA.LinearVelocity -= new FVector2(addedImpulseOnX, 0) * bodyA.livingObject.IsAirborne();// * (bodyB.livingObject.IsAirborne() | bodyA.livingObject.IsAirborne());
+                bodyB.LinearVelocity += new FVector2(addedImpulseOnX, 0) * bodyB.livingObject.IsAirborne();// * (bodyB.livingObject.IsAirborne() | bodyA.livingObject.IsAirborne());
+            }
 
-            //bodyA.LinearVelocity -= impulse * bodyA.InvMass * aColB;
-            //bodyB.LinearVelocity += impulse * bodyB.InvMass * bColA;
         }
 
         // taken from https://github.com/pgkelley4/line-segments-intersect/blob/master/js/line-segments-intersect.js

@@ -55,4 +55,8 @@ MonoBehaviour:
   _hitboxSets: []
   _hurtboxSets: []
   _script: 
+  _frames: []
   _animation: []
+  references:
+    version: 2
+    RefIds: []

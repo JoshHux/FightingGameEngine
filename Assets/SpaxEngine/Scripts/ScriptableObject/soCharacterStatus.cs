@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FixMath.NET;
 using FightingGameEngine.Enum;
-using FightingGameEngine.ObjectPooler;
+using UnityEditor.TerrainTools;
 namespace FightingGameEngine.Data
 {
 
@@ -25,6 +24,7 @@ namespace FightingGameEngine.Data
         [SerializeField] private TransitionFlags m_transitionFlags;
         [SerializeField] private CancelConditions m_cancelFlags;
         [SerializeField] private int m_currentFacing;
+        [SerializeField] private int m_walledDir;
         [SerializeField] private FVector2 m_currentPosition;
         //rigidbody velocity, listed seperately from calcvelocity to conserve built up momentum
         [SerializeField] private FVector2 m_currentVelocity;
@@ -63,6 +63,7 @@ namespace FightingGameEngine.Data
         public int PlayerID { get { return this._playerId; } }
         public int CurrentHP { get { return this.m_currentResources.Health; } set { this.m_currentResources.Health = value; } }
         public int CurrentFacingDirection { get { return this.m_currentFacing; } set { this.m_currentFacing = value; } }
+        public int WalledDirection { get { return this.m_walledDir; } set { this.m_walledDir = value; } }
         public FrameTimer StateTimer { get { return this.m_stateTimer; } set { this.m_stateTimer = value; } }
         public FrameTimer StopTimer { get { return this.m_stopTimer; } set { this.m_stopTimer = value; } }
         public FrameTimer InstallTimer { get { return this.m_installTimer; } set { this.m_installTimer = value; } }
@@ -121,6 +122,7 @@ namespace FightingGameEngine.Data
         //for easy access from the InputRecorder object
         public InputSnapshot CurrentControllerState { get { return this._inputRecorder.CurrentControllerState; } set { this._inputRecorder.CurrentControllerState = value; } }
         public InputItem[] Inputs { get { return this._inputRecorder.GetInputs(); } }
+        public List<InputSnapshot> RecordedInputs { get { return this._inputRecorder.RecordedInputs; } }
 
         public RendererInfo RendererInfo { get { return this.m_rendererInfo; } set { this.m_rendererInfo = value; } }
 
@@ -154,7 +156,7 @@ namespace FightingGameEngine.Data
             this.m_checkState = this._inputRecorder.BufferInput(bufferLeniency);
         }
 
-        public void ApplyGameplayState(in GameplayState state)
+        public void ApplyGameplayState(in GameplayState state, in List<InputSnapshot> replacementSnapshots)
         {
 
             this.m_calcVelocity = state.PhysicsData.CalcVelocity;
@@ -176,6 +178,10 @@ namespace FightingGameEngine.Data
             this.m_stopTimer = new FrameTimer(state.StopTimer.EndTime, state.StopTimer.TimeElapsed);
             this.m_superFlashTimer = new FrameTimer(state.FlashTimer.EndTime, state.FlashTimer.TimeElapsed);
             this.m_conditionTimer = new ConditionTimer(state.PersistTimer.EndTime, state.PersistTimer.TimeElapsed, state.PersistSttCond);
+
+            this._inputRecorder.RecordedInputs = new List<InputSnapshot>(replacementSnapshots);
+
+
         }
 
         public bool InHitstop { get { return !this.m_stopTimer.IsDone(); } }
